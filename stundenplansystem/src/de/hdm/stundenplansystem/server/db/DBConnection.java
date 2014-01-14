@@ -42,7 +42,7 @@ public class DBConnection {
 	
 
 	//private static String url = "jdbc:mysql://173.194.109.58:3306/itprojekt?user=root";
-	private static String url = "jjdbc:google:mysql://stundenplansystem:sql/itprojekt?user=root?";
+	private static String url = "jdbc:google:mysql://stundenplansystem:sql/itprojekt?user=root?";
 	
 	/**
 	 * Diese statische Methode kann aufgrufen werden durch 

@@ -175,7 +175,7 @@ public class LehrveranstaltungMapper {
 
         // Jetzt erst erfolgt die tatsÃ¤chliche EinfÃ¼geoperation
         stmt.executeUpdate("INSERT INTO lehrveranstaltung (id, bezeichnung, semester, umfang) " + "VALUES ("
-            + l.getId() + "," + l.getBezeichnung() + "," + l.getSemester() + "," + l.getUmfang() );
+            + l.getId() + ",'" + l.getBezeichnung() + "'," + l.getSemester() + "," + l.getUmfang() + ")"  );
       }
     }
     catch (SQLException e2) {

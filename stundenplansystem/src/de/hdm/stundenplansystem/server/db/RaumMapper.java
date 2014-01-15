@@ -174,7 +174,7 @@ public class RaumMapper {
 
         // Jetzt erst erfolgt die tatsÃ¤chliche EinfÃ¼geoperation
         stmt.executeUpdate("INSERT INTO raum (id, bezeichnung, kapazitaet) " + "VALUES ("
-            + r.getId() + "," + r.getBezeichnung() + "," + r.getKapazitaet() );
+            + r.getId() + ",'" + r.getBezeichnung() + "'," + r.getKapazitaet() + ")" );
       }
     }
     catch (SQLException e2) {

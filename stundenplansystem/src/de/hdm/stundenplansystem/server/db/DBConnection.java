@@ -41,8 +41,10 @@ public class DBConnection {
 	 */
 	
 
-	private static String url = "jdbc:mysql://173.194.109.58:3306/itprojekt?user=root";
+//	private static String url = "jdbc:mysql://173.194.109.58:3306/itprojekt?user=root";
 //	private static String url = "jdbc:google:mysql://stundenplansystem:sql/itprojekt?user=root";
+	
+
 	
 	
 
@@ -81,7 +83,7 @@ public class DBConnection {
 				 * Diese Verbindung wird dann in der statischen Variable con 
 				 * abgespeichert und fortan verwendet.
 				 */
-				con = DriverManager.getConnection(url);
+				con = DriverManager.getConnection("jdbc:google:rdbms://stundenplansystem:sql/itprojekt", "root", "");
 			} 
 			catch (SQLException e1) {
 				con = null;

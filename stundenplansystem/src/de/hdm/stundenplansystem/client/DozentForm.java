@@ -35,6 +35,7 @@ public class DozentForm extends Content {
 	  final Button speichern = new Button ("��nderungen speichern");
 	  			  
 	  final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
+	  Dozent id;
 	  Dozent shownDozent = null; 
 	  NavTreeViewModel tvm = null;
 	  
@@ -60,7 +61,7 @@ public class DozentForm extends Content {
 		public void onLoad() {
 			
 			setTvm(tvm);
-			//getSelectedData();
+			getSelectedData();
 			
 			bearbeiten.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
@@ -80,8 +81,8 @@ public class DozentForm extends Content {
 					  
 					  if (allFilled == true) {
 						  shownDozent.setNachname(tbnachname.getText().trim());
-						  shownDozent.setVorname(tbvorname.getText().trim());
-						  						  
+						  shownDozent.setVorname(tbvorname.getText().trim());		
+						  
 						  verwaltungsSvc.changeDozent(shownDozent, new  AsyncCallback<Dozent> () {
 
 							  @Override
@@ -123,8 +124,8 @@ public class DozentForm extends Content {
 			this.tvm = tvm;
 		}
 		
-		/*public void getSelectedData(){
-			verwaltungsSvc.getDozentById(dId, new AsyncCallback<Dozent>(){
+		public void getSelectedData(){
+			verwaltungsSvc.getDozentById(shownDozent.getId(), new AsyncCallback<Dozent>(){
 				@Override
 				public void onFailure(Throwable caught) {
 				}
@@ -136,7 +137,7 @@ public class DozentForm extends Content {
 					}
 				}
 			});
-		}*/
+		}
 		
 		public void setSelected(Dozent d){
 			if (d != null) {

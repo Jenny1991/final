@@ -93,5 +93,6 @@ public class CreateDozent extends VerticalPanel {
 	  }
 		public void setTvm(NavTreeViewModel tvm) {
 			this.tvm = tvm;
+			this.clear();
 		}
-}    	
+	}

@@ -56,6 +56,8 @@ public class CreateDozent extends VerticalPanel {
 		  this.add(lbvorname);
 		  this.add(tbvorname);
 		  this.add(speichern);	  
+		  
+		  setTvm(tvm);
 			  
 				  speichern.addClickHandler(new ClickHandler() {
 					public void onClick(ClickEvent event) {
@@ -80,14 +82,15 @@ public class CreateDozent extends VerticalPanel {
 
 							  @Override
 							  public void onSuccess(Dozent result) {
-								  tbnachname.setText(result.getNachname());
-								  tbvorname.setText(result.getVorname());
-								  tvm.addDozent(result);
 								  Window.alert ("Erfolgreich gespeichert.");
+								  tvm.addDozent(result);
 							  } 	
 							});
 					  }
 				  }
-				  });				  
+				  });	  
 	  }
+		public void setTvm(NavTreeViewModel tvm) {
+			this.tvm = tvm;
+		}
 }    	

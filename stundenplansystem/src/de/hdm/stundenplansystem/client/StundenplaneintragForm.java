@@ -27,52 +27,66 @@ import de.hdm.stundenplansystem.shared.Verwaltungsklasse;
 import de.hdm.stundenplansystem.client.*;
 
 
+
 public class StundenplaneintragForm extends Content {
-
-
-
 
 		/**
 		 * Aufbau der Seite, um Stundenplaneinträge anzuzeigen, zu lÃ¶schen und zu bearbeiten
 		 */
-		
-		//final Label flexTable = new Label();
-		//private VerticalPanel detailsPanel = new VerticalPanel();
-		
-		//final TextBox nachnameTextBox = new TextBox();
-		//final TextBox vornameTextBox = new TextBox();
-		final FlexTable tabelleSpe = new FlexTable();
-		final Button createSpeButton = new Button ("Stundenplaneintrag anlegen");
-		final Button changeSpeButton = new Button("Stundenplaneintrag bearbeiten");
-		final Button deleteSpeButton = new Button("Stundenplaneintrag lÃ¶schen");
-		
-		//final CreateStundenplaneintrag createSpe = new CreateStundenplaneintrag();
-		//final ChangeStundenplaneintrag changeSpe = new ChangeStundenplaneintrag();
-		//final DeleteStundenplaneintrag deleteSpe = new DeleteStundenplaneintrag();
-		
-		// final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
-		 
-		
-		//final Label valueLabel = new Label();
-		
+	
+	private final HTML ueberschrift = new HTML ("<h2>Ãœbersicht der Stundenplaneintr�ge<h2>");
+	private final HTML ueberschriftAenderung = new HTML ("<h2>Stundenplaneintrag bearbeiten<h2>");
+	
+		final TextBox tbZeitslot = new TextBox();
+		final TextBox tbDozent = new TextBox();
+		final TextBox tbLehrveranstaltung = new TextBox();
+		final TextBox tbRaum = new TextBox();
+		final TextBox tbStudiengang = new TextBox();
+		final TextBox tbSemesterverband = new TextBox();
+		final Button speichern = new Button ("Änderungen speichern");
+		final Button bearbeiten = new Button("Stundenplaneintrag bearbeiten");
+		final Button loeschen = new Button("Stundenplaneintrag lÃ¶schen");
+				
+		final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
+		Dozent shownSpe = null; 
+		NavTreeViewModel tvm = null;
+		  
+		  public StundenplaneintragForm() {
+			  Grid speGrid = new Grid (8, 2);
+			    this.add(ueberschrift);
+				this.add(speGrid);
+			  
+				Label lbZeitslot = new Label("Zeitslot");
+				speGrid.setWidget(0, 0, lbZeitslot);
+				speGrid.setWidget(0, 1, tbZeitslot);
 
-
-		
-		public void onLoad() {
-			
-			showWidget();
-		
-			
-		//int row = tabelleDozent.getRowCount();
-			
-			
-			tabelleSpe.setText(0, 0, "Bezeichnung");
-			tabelleSpe.setCellPadding(10);
-			tabelleSpe.setText(0, 1, "KapazitÃ¤t");
-			tabelleSpe.setText(0, 3, "Funktionen");
-			tabelleSpe.setWidget(1, 4, deleteSpeButton);
-			tabelleSpe.setWidget(1, 5, changeSpeButton);
-
+				Label lbDozent = new Label("Dozent");
+				speGrid.setWidget(1, 0, lbDozent);
+				speGrid.setWidget(1, 1, tbDozent);
+				
+				Label lbLehrveranstaltung = new Label ("Lehrveranstaltung");
+				speGrid.setWidget(2, 0, lbLehrveranstaltung);
+				speGrid.setWidget(2, 1, tbLehrveranstaltung);
+				
+				Label lbRaum = new Label ("Raum");
+				speGrid.setWidget(3, 0, lbRaum);
+				speGrid.setWidget(3, 1, tbRaum);
+				
+				Label lbStudiengang = new Label ("Studiengang");
+				speGrid.setWidget(4, 0, lbStudiengang);
+				speGrid.setWidget(4, 1, tbStudiengang);
+				
+				Label lbSemesterverband = new Label ("Semesterverband");
+				speGrid.setWidget(5, 0, lbSemesterverband);
+				speGrid.setWidget(5, 1, tbSemesterverband);
+				
+				Label lbFunktionen = new Label ("Funktionen");
+				speGrid.setWidget(6, 0, lbFunktionen);
+				speGrid.setWidget(6, 1, bearbeiten);
+				speGrid.setWidget(7, 1, loeschen);
+				}
+		  
+			public void onLoad() {
 			
 			/**createSpeButton.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
@@ -89,14 +103,7 @@ public class StundenplaneintragForm extends Content {
 		}
 			
 		public void showWidget() {
-			
-			this.add(tabelleSpe);
-			this.add(createSpeButton);
-			this.add(changeSpeButton);
-			this.add(deleteSpeButton);
-			//this.add(changeSpe);
-			//this.add(createSpe);
-			//this.add(deleteSpe);
+		
 		}
 		
 		

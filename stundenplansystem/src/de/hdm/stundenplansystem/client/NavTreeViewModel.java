@@ -154,7 +154,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 				}
 				
 				if (selection instanceof String && (String)selection == "Dozent verwalten") {
-					showDozentForm();
+					setSelectedDozent(selectedDozent);
 				}
 				
 				if (selection instanceof String && (String)selection == "Lehrveranstaltung anlegen") {

@@ -79,7 +79,7 @@ public interface Verwaltungsklasse extends RemoteService {
 	public void deleteStundenplaneintrag(Stundenplaneintrag s)
 			throws IllegalArgumentException;
 	
-	public void deleteDozent(Dozent d) 
+	public boolean deleteDozent(Dozent d) 
 			throws IllegalArgumentException;
 	
 	public void deleteLehrveranstaltung(Lehrveranstaltung l) 

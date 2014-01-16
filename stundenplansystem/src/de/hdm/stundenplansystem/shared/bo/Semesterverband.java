@@ -8,9 +8,8 @@ public class Semesterverband extends BusinessObjekt {
 	 * Bezeichnung des jeweiligen Semesterverbands
 	 */
 	
-	private Studiengang bezeichnung;
-	private Stundenplan stundenplan;
-	private Studiengang studiengang;
+	private int StudiengangId;
+	private int StundenplanId;
 	
 	/**
 	 * Semesterstufe
@@ -54,27 +53,22 @@ public class Semesterverband extends BusinessObjekt {
 		this.jahrgang = jahrgang;
 	}
 
-	public Studiengang getBezeichnung() {
-		return bezeichnung;
+	public int getStudiengangId() {
+		return StudiengangId;
 	}
 
-	public void setBezeichnung(Studiengang bezeichnung) {
-		this.bezeichnung = bezeichnung;
+	public void setStudiengangId(int studiengangId) {
+		StudiengangId = studiengangId;
 	}
-	
-	public void setStundenplanId (int id){
-		this.studiengang.setId(id);
+
+	public int getStundenplanId() {
+		return StundenplanId;
 	}
-	
-	public int getStudenplanId(){
-		return this.stundenplan.getId();
+
+	public void setStundenplanId(int stundenplanId) {
+		StundenplanId = stundenplanId;
 	}
-	
-	public void setStudiengangId(int id){
-		this.studiengang.setId(id);
-	}
-	public int getStudiengangId(){
-		return this.studiengang.getId();
-	}
+
+
 }
 

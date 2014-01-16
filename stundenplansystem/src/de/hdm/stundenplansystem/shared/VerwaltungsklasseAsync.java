@@ -35,8 +35,8 @@ public interface VerwaltungsklasseAsync {
 	void createZeitslot(String wochentag, double anfangszeit, double endzeit,
 			AsyncCallback<Zeitslot> callback);
 
-	void deleteDozent(Dozent d, AsyncCallback<Boolean> callback);
-
+	void deleteDozent(Dozent d, AsyncCallback<Boolean> callback);	
+	
 	void deleteLehrveranstaltung(Lehrveranstaltung l,
 			AsyncCallback<Void> callback);
 

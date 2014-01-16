@@ -60,7 +60,7 @@ public class DozentForm extends Content {
 		public void onLoad() {
 			
 			setTvm(tvm);
-			getSelectedData();
+			//getSelectedData();
 			
 			bearbeiten.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
@@ -123,7 +123,7 @@ public class DozentForm extends Content {
 			this.tvm = tvm;
 		}
 		
-		public void getSelectedData(){
+		/*public void getSelectedData(){
 			verwaltungsSvc.getDozentById(dId, new AsyncCallback<Dozent>(){
 				@Override
 				public void onFailure(Throwable caught) {
@@ -136,7 +136,7 @@ public class DozentForm extends Content {
 					}
 				}
 			});
-		}
+		}*/
 		
 		public void setSelected(Dozent d){
 			if (d != null) {

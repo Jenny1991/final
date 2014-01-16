@@ -91,10 +91,10 @@ public class DozentForm extends Content {
 
 							  @Override
 							  public void onSuccess(Dozent result) {
+								  Window.alert ("Erfolgreich gespeichert.");
 								  tbnachname.setText("");
 								  tbvorname.setText("");
 								  tvm.updateDozent(shownDozent);
-								  Window.alert ("Erfolgreich gespeichert.");
 							  } 	
 							});
 					  }

@@ -105,12 +105,12 @@ public class LehrveranstaltungForm extends Content {
 						  }
 
 						  @Override
-						  public void onSuccess(Lehrveranstaltung result) {			  
+						  public void onSuccess(Lehrveranstaltung result) {
+							  Window.alert ("Erfolgreich gespeichert.");
 							  tbbezeichnung.setText("");
 							  tbsemester.setVisibleLength(result.getSemester());
 							  tbumfang.setVisibleLength(result.getUmfang());
-							  //tvm.updateLv(shownLv);
-							  Window.alert ("Erfolgreich gespeichert.");
+							  tvm.updateLehrveranstaltung(shownLv);
 						  } 	
 						});
 				  }
@@ -128,7 +128,7 @@ public class LehrveranstaltungForm extends Content {
 
 					  @Override
 					  public void onSuccess(Void result) {
-						 // tvm.deleteLv(shownLv);
+						  tvm.deleteLehrveranstaltung(shownLv);
 						  Window.alert ("Erfolgreich gelöscht.");
 					  } 	
 					});

@@ -82,12 +82,12 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 								  }
 
 								  @Override
-								  public void onSuccess(Lehrveranstaltung result) {
+								  public void onSuccess(Lehrveranstaltung result) {									  Window.alert ("Erfolgreich gespeichert.");
+								  	  Window.alert ("Erfolgreich gespeichert.");
 									  tbbezeichnung.setValue(result.getBezeichnung());
 									  tbsemester.setVisibleLength(result.getSemester());
 									  tbumfang.setVisibleLength(result.getUmfang());
 									  tvm.addLehrveranstaltung(result);
-									  Window.alert ("Erfolgreich gespeichert.");
 								  } 	
 						  });
 					  }

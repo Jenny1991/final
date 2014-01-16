@@ -84,9 +84,9 @@ public class StudiengangForm extends Content {
 
 							  @Override
 							  public void onSuccess(Studiengang result) {
+								  Window.alert ("Erfolgreich gespeichert.");
 								  tbbezeichnung.setText("");
 								  tvm.updateStudiengang(shownSg);
-								  Window.alert ("Erfolgreich gespeichert.");
 							  } 	
 							});
 					  }
@@ -104,7 +104,7 @@ public class StudiengangForm extends Content {
 
 						  @Override
 						  public void onSuccess(Void result) {
-							  //tvm.deleteDozent(shownSg);
+							  tvm.deleteStudiengang(shownSg);
 							  Window.alert ("Erfolgreich gelöscht.");
 						  } 	
 						});

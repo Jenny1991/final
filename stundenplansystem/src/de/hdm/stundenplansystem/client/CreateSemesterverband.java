@@ -1,5 +1,7 @@
 package de.hdm.stundenplansystem.client;
 
+import java.util.Vector;
+
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -9,8 +11,10 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.ListBox;
 
 import de.hdm.stundenplansystem.shared.*;
+import de.hdm.stundenplansystem.shared.bo.Lehrveranstaltung;
 import de.hdm.stundenplansystem.shared.bo.Semesterverband;
 import de.hdm.stundenplansystem.client.NavTreeViewModel;
 
@@ -33,10 +37,12 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 		   */
 		  final Label lbjahrgang = new Label ("Jahrgang"); 
 		  final Label lbstudiengang = new Label ("Studiengang");
+		  final Label lbstundenplan = new Label ("Stundenplan");
 		  final Label lbsemester = new Label ("Semster");
 		  final Label lbanzahl = new Label ("Anzahl");
 		  final TextBox tbjahrgang = new TextBox ();
-		  final TextBox tbstudiengang = new TextBox();
+		  final ListBox libstudiengang = new ListBox();
+		  final ListBox libstundenplan = new ListBox();
 		  final TextBox tbsemester = new TextBox ();
 		  final TextBox tbanzahl = new TextBox ();
 		  final Button speichern = new Button ("speichern");
@@ -53,12 +59,29 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 			  this.add(lbjahrgang);
 			  this.add(tbjahrgang);
 			  this.add(lbstudiengang);
-			  this.add(tbstudiengang);
+			  this.add(libstudiengang);
+			  this.add(lbstundenplan);
+			  this.add(libstundenplan);
 			  this.add(lbsemester);
 			  this.add(tbsemester);
 			  this.add(lbanzahl);
 			  this.add(tbanzahl);
 			  this.add(speichern);
+			  
+			  verwaltungsSvc.getAllLehrveranstaltungen(new AsyncCallback<Vector<Lehrveranstaltung>>() {
+				  public void onFailure(Throwable T){
+					  
+				  }
+				  
+				  public void onSuccess(Vector<Lehrveranstaltung> lehrveranstaltungen){
+				  	for (Lehrveranstaltung lv : lehrveranstaltungen){
+				  		libstudiengang.addItem(lv.getBezeichnung());
+				  	}
+			  }
+				  
+			});
+			 
+			  
 			  
 			  setTvm(tvm);
 			  
@@ -68,7 +91,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 						  boolean allFilled = true;
 						  
 						  if (tbjahrgang.getText().isEmpty() || tbanzahl.getText().isEmpty()
-								  || tbstudiengang.getText().isEmpty() || tbsemester.getText().isEmpty()) 
+								  || libstudiengang.getItemText(libstudiengang.getSelectedIndex()).isEmpty() || tbsemester.getText().isEmpty()) 
 						  { allFilled = false;
 						  Window.alert ("Bitte fÃ¼llen Sie alle Felder aus."); }
 						  

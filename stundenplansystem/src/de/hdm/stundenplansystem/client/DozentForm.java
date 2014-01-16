@@ -15,7 +15,7 @@ import de.hdm.stundenplansystem.shared.bo.Dozent;
 import de.hdm.stundenplansystem.client.NavTreeViewModel;
 
 /**
- * Formular für die Darstellung des selektierten Kunden
+ * Formular f��r die Darstellung des selektierten Kunden
  * 
  * @author Thies, Espich
  *
@@ -23,7 +23,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 
 public class DozentForm extends Content {
 	
-	private final HTML ueberschrift = new HTML ("<h2>Ãœbersicht der Dozenten<h2>");
+	private final HTML ueberschrift = new HTML ("<h2>����bersicht der Dozenten<h2>");
 	private final HTML ueberschriftAenderung = new HTML ("<h2>Dozenten bearbeiten<h2>");
 
 	  final TextBox tbvorname = new TextBox ();
@@ -31,8 +31,8 @@ public class DozentForm extends Content {
 	  final Label lbnachname = new Label ("Vorname");
 	  final Label lbvorname = new Label ("Nachname");
 	  final Button bearbeiten = new Button ("Dozent bearbeiten");
-	  final Button loeschen = new Button ("Dozent löschen");
-	  final Button speichern = new Button ("Änderungen speichern");
+	  final Button loeschen = new Button ("Dozent l��schen");
+	  final Button speichern = new Button ("��nderungen speichern");
 	  			  
 	  final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
 	  Dozent shownDozent = null; 
@@ -60,7 +60,7 @@ public class DozentForm extends Content {
 		public void onLoad() {
 			
 			setTvm(tvm);
-			getSelectedData();
+			//getSelectedData();
 			
 			bearbeiten.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
@@ -76,7 +76,7 @@ public class DozentForm extends Content {
 					  if (tbnachname.getValue().isEmpty() 
 							  ||tbvorname.getValue().isEmpty()) {	
 						  allFilled = false;
-					  Window.alert ("Bitte fÃ¼llen Sie alle Felder aus."); } 
+					  Window.alert ("Bitte f����llen Sie alle Felder aus."); } 
 					  
 					  if (allFilled == true) {
 						  shownDozent.setNachname(tbnachname.getText().trim());
@@ -105,13 +105,13 @@ public class DozentForm extends Content {
 				public void onClick(ClickEvent event){
 					verwaltungsSvc.deleteDozent(shownDozent, new AsyncCallback<Boolean>() {
 						  public void onFailure (Throwable caught) {
-							  Window.alert("Der Studiengang konnte nicht gelöscht werden." +
-							  		"Er ist in ein oder mehreren Stundenplaneinträgen eingetragen");
+							  Window.alert("Der Studiengang konnte nicht gel��scht werden." +
+							  		"Er ist in ein oder mehreren Stundenplaneintr��gen eingetragen");
 						  }
 
 						  public void onSuccess(Boolean result) {
 							  tvm.deleteDozent(shownDozent);
-							  Window.alert ("Erfolgreich gelöscht.");
+							  Window.alert ("Erfolgreich gel��scht.");
 						  } 	
 						});
 				  }
@@ -123,8 +123,8 @@ public class DozentForm extends Content {
 			this.tvm = tvm;
 		}
 		
-		public void getSelectedData(){
-			/*verwaltungsSvc.getDozentById(dId, new AsyncCallback<Dozent>(){
+		/*public void getSelectedData(){
+			verwaltungsSvc.getDozentById(dId, new AsyncCallback<Dozent>(){
 				@Override
 				public void onFailure(Throwable caught) {
 				}
@@ -135,8 +135,8 @@ public class DozentForm extends Content {
 						setSelected(result);
 					}
 				}
-			});*/
-		}
+			});
+		}*/
 		
 		public void setSelected(Dozent d){
 			if (d != null) {

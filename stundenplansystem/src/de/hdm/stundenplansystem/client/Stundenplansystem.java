@@ -107,7 +107,7 @@ public class ItProjekt implements EntryPoint {
 		 */
 		public void onModuleLoad() {
 			
-			
+			detailsPanel.add(ueberschrift);
 				
 			/*
 			 * Die Anwendung besteht aus zwei seperaten horizontalen Panels. Im rechten Panel wird ein Navigationsteil 
@@ -118,7 +118,7 @@ public class ItProjekt implements EntryPoint {
 		     */
 		
 			//NavTreeViewModel tvm = new NavTreeViewModel(df, lf, rf, zf, sgf, svf, this);
-			NavTreeViewModel tvm = new NavTreeViewModel(cd, cl, cr, csg,csv, this);
+			NavTreeViewModel tvm = new NavTreeViewModel(cd, cl, cr, csg, csv, df, lf, rf, sgf, svf, this);
 			
 			
 			CellTree cellTree = new CellTree(tvm, "Root");
@@ -349,6 +349,31 @@ public class ItProjekt implements EntryPoint {
 			detailsPanel.clear();
 			detailsPanel.add(cspe);
 		}	
+		
+		public void showDozentForm() {
+			detailsPanel.clear();
+			detailsPanel.add(df);
+		}
+		
+		public void showLehrveranstaltungForm() {
+			detailsPanel.clear();
+			detailsPanel.add(lf);
+		}
+		
+		public void showRaumForm() {
+			detailsPanel.clear();
+			detailsPanel.add(rf);
+		}
+		
+		public void showStudiengangForm() {
+			detailsPanel.clear();
+			detailsPanel.add(sgf);
+		}
+		
+		public void showSemesterverbandForm() {
+			detailsPanel.clear();
+			detailsPanel.add(svf);
+		}
 	}
 
 

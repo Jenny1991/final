@@ -67,6 +67,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 			  this.add(lbanzahl);
 			  this.add(tbanzahl);
 			  this.add(speichern);
+			  this.clear();
 			  
 			  verwaltungsSvc.getAllLehrveranstaltungen(new AsyncCallback<Vector<Lehrveranstaltung>>() {
 				  public void onFailure(Throwable T){

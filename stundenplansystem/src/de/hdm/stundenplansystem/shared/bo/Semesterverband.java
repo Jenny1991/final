@@ -58,7 +58,7 @@ public class Semesterverband extends BusinessObjekt {
 	}
 
 	public void setStudiengangId(int studiengangId) {
-		StudiengangId = studiengangId;
+		this.StudiengangId = studiengangId;
 	}
 
 	public int getStundenplanId() {

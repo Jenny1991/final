@@ -58,6 +58,7 @@ public class CreateDozent extends VerticalPanel {
 		  this.add(speichern);	  
 		  
 		  setTvm(tvm);
+		  //TEST
 			  
 				  speichern.addClickHandler(new ClickHandler() {
 					public void onClick(ClickEvent event) {

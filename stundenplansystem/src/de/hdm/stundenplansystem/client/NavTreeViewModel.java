@@ -41,7 +41,6 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	private DozentForm df;
 	private LehrveranstaltungForm lf;
 	private RaumForm rf;
-	private ZeitslotForm zf;
 	private SemesterverbandForm svf;
 	private StudiengangForm sgf;
 
@@ -206,7 +205,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 		return selectedDozent;
 	}
 	
-	void  setCreateDozent() {
+	void setCreateDozent() {
 		sps.createDozentForm();
 	}
 	
@@ -247,12 +246,6 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 		return selectedZs;
 	}
 	
-	/*void setSelectedZeitslot(Zeitslot zs) {
-		selectedZs = zs;
-		zf.setSelected(zs);
-	//	lf.setSelected(null);
-	}*/
-	
 	Studiengang getSelectedSg() {
 		return selectedSg;
 	}
@@ -279,6 +272,120 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 		selectedSv = sv;
 		svf.setSelected(sv);
 	//	lf.setSelected(null);
+	}
+	
+	void addDozent(Dozent dozent) {
+		dozentDataProvider.getList().add(dozent);
+	}
+
+	void addRaum(Raum raum) {
+		raumDataProvider.getList().add(raum);
+		//lvDataProvider.put(dozent, new ListDataProvider<Lehrveranstaltung>());
+	}
+	
+	void addStudiengang(Studiengang studiengang) {
+		sgDataProvider.getList().add(studiengang);
+		//lvDataProvider.put(dozent, new ListDataProvider<Lehrveranstaltung>());
+	}
+	
+	void addSemesterverband(Semesterverband semesterverband) {
+		svDataProvider.getList().add(semesterverband);
+		//lvDataProvider.put(dozent, new ListDataProvider<Lehrveranstaltung>());
+	}
+	
+	void addLehrveranstaltung(Lehrveranstaltung lehrveranstaltung) {
+		lvDataProvider.getList().add(lehrveranstaltung);
+		//lvDataProvider.put(dozent, new ListDataProvider<Lehrveranstaltung>());
+	}
+	
+	void updateDozent(Dozent dozent) {
+		List<Dozent> dozentList = dozentDataProvider.getList();
+		int i = 0;
+		for (Dozent d : dozentList) {
+			if(d.getId() == i) {
+				dozentList.set(i, dozent);
+				break;
+			} else {
+				i++;
+			}
+		}
+	}
+	
+	void updateRaum(Raum raum) {
+		List<Raum> raumList = raumDataProvider.getList();
+		int i = 0;
+		for (Raum r : raumList) {
+			if(r.getId() == i) {
+				raumList.set(i, raum);
+				break;
+			} else {
+				i++;
+			}
+		}
+	}
+	
+	void updateLehrveranstaltung(Lehrveranstaltung lehrveranstaltung) {
+		List<Lehrveranstaltung> lvList = lvDataProvider.getList();
+		int i = 0;
+		for (Lehrveranstaltung lv : lvList) {
+			if(lv.getId() == i) {
+				lvList.set(i, lehrveranstaltung);
+				break;
+			} else {
+				i++;
+			}
+		}
+	}
+	
+	void updateStudiengang(Studiengang studiengang) {
+		List<Studiengang> sgList = sgDataProvider.getList();
+		int i = 0;
+		for (Studiengang sg : sgList) {
+			if(sg.getId() == i) {
+				sgList.set(i, studiengang);
+				break;
+			} else {
+				i++;
+			}
+		}
+	}
+	
+	void updateSemesterverband(Semesterverband semesterverband) {
+		List<Semesterverband> svList = svDataProvider.getList();
+		int i = 0;
+		for (Semesterverband sv : svList) {
+			if(sv.getId() == i) {
+				svList.set(i, semesterverband);
+				break;
+			} else {
+				i++;
+			}
+		}
+	}
+	
+	void deleteDozent(Dozent dozent) {
+		dozentDataProvider.getList().remove(dozent);
+		//lvDataProvider.remove(dozent);
+	}
+	
+	void deleteRaum(Raum raum) {
+		raumDataProvider.getList().remove(raum);
+		//lvDataProvider.remove(dozent);
+	}
+	
+	void deleteLehrveranstaltung(Lehrveranstaltung lehrveranstaltung) {
+		lvDataProvider.getList().remove(lehrveranstaltung);
+		//lvDataProvider.remove(dozent);
+	}
+	
+	void deleteStudiengang(Studiengang studiengang) {
+		sgDataProvider.getList().remove(studiengang);
+		//lvDataProvider.remove(dozent);
+	}
+	
+	void deleteSemesterverband(Semesterverband semesterverband) {
+		svDataProvider.getList().remove(semesterverband);
+		//lvDataProvider.remove(dozent);
 	}
 	
 
@@ -476,145 +583,10 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			return new DefaultNodeInfo<Studiengang>(sgDataProvider, new StudiengangCell(), selectionModel, null);
 		}
 		
-		
-		
-
-		
-		/*if (value instanceof Zeitslot) {
-			zsDataProvider = new ListDataProvider<Zeitslot>();
-			verwaltungsSvc.getAllZeitslots(new AsyncCallback<Vector<Zeitslot>>() {
-				public void onFailure(Throwable T) {
-					
-				}
-				
-				public void onSuccess(Vector<Zeitslot> zeitslots) {
-					for (Zeitslot zs : zeitslots) {
-						zsDataProvider.getList().add(zs);
-					}
-				}
-			});
-			
-			return new DefaultNodeInfo<Zeitslot>(zsDataProvider, new ZeitslotCell(), selectionModel, null);
-		}*/
+	
 		
 		
 		return null;
-	}
-	
-	void addDozent(Dozent dozent) {
-		dozentDataProvider.getList().add(dozent);
-	}
-
-	void addRaum(Raum raum) {
-		raumDataProvider.getList().add(raum);
-		//lvDataProvider.put(dozent, new ListDataProvider<Lehrveranstaltung>());
-	}
-	
-	void addStudiengang(Studiengang studiengang) {
-		sgDataProvider.getList().add(studiengang);
-		//lvDataProvider.put(dozent, new ListDataProvider<Lehrveranstaltung>());
-	}
-	
-	void addSemesterverband(Semesterverband semesterverband) {
-		svDataProvider.getList().add(semesterverband);
-		//lvDataProvider.put(dozent, new ListDataProvider<Lehrveranstaltung>());
-	}
-	
-	void addLehrveranstaltung(Lehrveranstaltung lehrveranstaltung) {
-		lvDataProvider.getList().add(lehrveranstaltung);
-		//lvDataProvider.put(dozent, new ListDataProvider<Lehrveranstaltung>());
-	}
-	
-	void updateDozent(Dozent dozent) {
-		List<Dozent> dozentList = dozentDataProvider.getList();
-		int i = 0;
-		for (Dozent d : dozentList) {
-			if(d.getId() == i) {
-				dozentList.set(i, dozent);
-				break;
-			} else {
-				i++;
-			}
-		}
-	}
-	
-	void updateRaum(Raum raum) {
-		List<Raum> raumList = raumDataProvider.getList();
-		int i = 0;
-		for (Raum r : raumList) {
-			if(r.getId() == i) {
-				raumList.set(i, raum);
-				break;
-			} else {
-				i++;
-			}
-		}
-	}
-	
-	void updateLehrveranstaltung(Lehrveranstaltung lehrveranstaltung) {
-		List<Lehrveranstaltung> lvList = lvDataProvider.getList();
-		int i = 0;
-		for (Lehrveranstaltung lv : lvList) {
-			if(lv.getId() == i) {
-				lvList.set(i, lehrveranstaltung);
-				break;
-			} else {
-				i++;
-			}
-		}
-	}
-	
-	void updateStudiengang(Studiengang studiengang) {
-		List<Studiengang> sgList = sgDataProvider.getList();
-		int i = 0;
-		for (Studiengang sg : sgList) {
-			if(sg.getId() == i) {
-				sgList.set(i, studiengang);
-				break;
-			} else {
-				i++;
-			}
-		}
-	}
-	
-	void updateSemesterverband(Semesterverband semesterverband) {
-		List<Semesterverband> svList = svDataProvider.getList();
-		int i = 0;
-		for (Semesterverband sv : svList) {
-			if(sv.getId() == i) {
-				svList.set(i, semesterverband);
-				break;
-			} else {
-				i++;
-			}
-		}
-	}
-	
-
-	
-	void deleteDozent(Dozent dozent) {
-		dozentDataProvider.getList().remove(dozent);
-		//lvDataProvider.remove(dozent);
-	}
-	
-	void deleteRaum(Raum raum) {
-		raumDataProvider.getList().remove(raum);
-		//lvDataProvider.remove(dozent);
-	}
-	
-	void deleteLehrveranstaltung(Lehrveranstaltung lehrveranstaltung) {
-		lvDataProvider.getList().remove(lehrveranstaltung);
-		//lvDataProvider.remove(dozent);
-	}
-	
-	void deleteStudiengang(Studiengang studiengang) {
-		sgDataProvider.getList().remove(studiengang);
-		//lvDataProvider.remove(dozent);
-	}
-	
-	void deleteSemesterverband(Semesterverband semesterverband) {
-		svDataProvider.getList().remove(semesterverband);
-		//lvDataProvider.remove(dozent);
 	}
 	
 

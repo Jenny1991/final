@@ -107,7 +107,7 @@ public class ItProjekt implements EntryPoint {
 		 */
 		public void onModuleLoad() {
 			
-			
+			detailsPanel.add(ueberschrift);
 				
 			/*
 			 * Die Anwendung besteht aus zwei seperaten horizontalen Panels. Im rechten Panel wird ein Navigationsteil 

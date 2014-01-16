@@ -481,6 +481,8 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			stringDataProvider = new ListDataProvider<String>();
 			
 			stringDataProvider.getList().add("Lehrveranstaltung anlegen");
+			stringDataProvider.getList().add("Lehrveranstaltung verwalten");
+
 			
 			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);
 		}
@@ -490,6 +492,8 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			stringDataProvider = new ListDataProvider<String>();
 			
 			stringDataProvider.getList().add("Semesterverband anlegen");
+			stringDataProvider.getList().add("Semesterverband verwalten");
+
 			
 			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);
 		}
@@ -499,6 +503,8 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			stringDataProvider = new ListDataProvider<String>();
 			
 			stringDataProvider.getList().add("Studiengang anlegen");
+			stringDataProvider.getList().add("Studiengang verwalten");
+
 			
 			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);	
 		}
@@ -508,6 +514,8 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			stringDataProvider = new ListDataProvider<String>();
 			
 			stringDataProvider.getList().add("Raum anlegen");
+			stringDataProvider.getList().add("Raum verwalten");
+
 			
 			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);	
 		}
@@ -541,7 +549,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 		
 		
 		
-		if (value instanceof Lehrveranstaltung) {
+		if (value instanceof String && (String)value=="Lehrveranstaltung verwalten") {
 			lvDataProvider = new ListDataProvider<Lehrveranstaltung>();
 			verwaltungsSvc.getAllLehrveranstaltungen(new AsyncCallback<Vector<Lehrveranstaltung>>() {
 				public void onFailure(Throwable T) {
@@ -558,7 +566,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			return new DefaultNodeInfo<Lehrveranstaltung>(lvDataProvider, new LehrveranstaltungCell(), selectionModel, null);
 		}
 		
-		if (value instanceof Raum) {
+		if (value instanceof String && (String)value=="Raum verwalten") {
 			raumDataProvider = new ListDataProvider<Raum>();
 			verwaltungsSvc.getAllRaeume(new AsyncCallback<Vector<Raum>>() {
 				public void onFailure(Throwable T) {
@@ -575,7 +583,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			return new DefaultNodeInfo<Raum>(raumDataProvider, new RaumCell(), selectionModel, null);
 		}
 		
-		if (value instanceof Semesterverband) {
+		if (value instanceof String && (String)value=="Semesterverband verwalten") {
 			svDataProvider = new ListDataProvider<Semesterverband>();
 			verwaltungsSvc.getAllSemesterverbaende(new AsyncCallback<Vector<Semesterverband>>() {
 				public void onFailure(Throwable T) {
@@ -592,7 +600,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			return new DefaultNodeInfo<Semesterverband>(svDataProvider, new SemesterverbandCell(), selectionModel, null);
 		}
 		
-		if (value instanceof Studiengang) {
+		if (value instanceof String && (String)value=="Studiengang verwalten") {
 			sgDataProvider = new ListDataProvider<Studiengang>();
 			verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
 				public void onFailure(Throwable T) {

@@ -115,33 +115,30 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	
 	private SingleSelectionModel <Object> selectionModel = new SingleSelectionModel<Object>(boKeyProvider);
 	
-	/*public NavTreeViewModel(DozentForm df, LehrveranstaltungForm lf, RaumForm rf, ZeitslotForm zf, StudiengangForm sgf, SemesterverbandForm svf, Stundenplansystem sps) {
-		this.df = df;
-		df.setTvm(this);
-		this.lf = lf;
-		lf.setTvm(this);
-		this.rf = rf;
-		rf.setTvm(this);
-		//this.zf = zf;
-		//zf.setTvm(this);
-		this.sgf = sgf;
-		sgf.setTvm(this);
-		this.svf = svf;
-		svf.setTvm(this);*/
+	public NavTreeViewModel(CreateDozent cd, CreateLehrveranstaltung cl, CreateRaum cr, CreateStudiengang csg, CreateSemesterverband csv, DozentForm df, LehrveranstaltungForm lf, RaumForm rf, StudiengangForm sgf, SemesterverbandForm svf, Stundenplansystem sps) {
 		
-	public NavTreeViewModel(CreateDozent cd, CreateLehrveranstaltung cl, CreateRaum cr, CreateStudiengang csg, CreateSemesterverband csv, Stundenplansystem sps) {
+	//public NavTreeViewModel(CreateDozent cd, CreateLehrveranstaltung cl, CreateRaum cr, CreateStudiengang csg, CreateSemesterverband csv, Stundenplansystem sps) {
 		this.cd = cd;
 		cd.setTvm(this);
 		this.cl = cl;
 		cl.setTvm(this);
 		this.cr = cr;
 		cr.setTvm(this);
-		//this.zf = zf;
-		//zf.setTvm(this);
 		this.csg = csg;
 		csg.setTvm(this);
 		this.csv = csv;
 		csv.setTvm(this);
+		
+		this.df = df;
+		df.setTvm(this);
+		this.lf = lf;
+		lf.setTvm(this);
+		this.rf = rf;
+		rf.setTvm(this);
+		this.sgf = sgf;
+		sgf.setTvm(this);
+		this.svf = svf;
+		svf.setTvm(this);
 	
 	
 		this.sps = sps;
@@ -154,6 +151,10 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 				
 				if (selection instanceof String && (String)selection == "Dozent anlegen") {
 					setCreateDozent();
+				}
+				
+				if (selection instanceof String && (String)selection == "Dozent verwalten") {
+					
 				}
 				
 				if (selection instanceof String && (String)selection == "Lehrveranstaltung anlegen") {
@@ -174,9 +175,8 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 				
 				if (selection instanceof Dozent) {
 					setSelectedDozent((Dozent) selection);
-				} /*else if (selection instanceof Lehrveranstaltung){
-					setSelectedLv((Lehrveranstaltung) selection);
-				}*/
+				} 
+				
 				if (selection instanceof Lehrveranstaltung) {
 					setSelectedLv((Lehrveranstaltung) selection);
 				}
@@ -184,10 +184,6 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 				if (selection instanceof Raum) {
 					setSelectedRaum((Raum) selection);
 				}
-				
-				/*if (selection instanceof Zeitslot) {
-					setSelectedZeitslot((Zeitslot) selection);
-				}*/
 				
 				if (selection instanceof Studiengang) {
 					setSelectedSg((Studiengang) selection);
@@ -201,6 +197,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 		});
 	}
 	
+
 	Dozent getSelectedDozent() {
 		return selectedDozent;
 	}
@@ -212,7 +209,10 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	void setSelectedDozent(Dozent d) {
 		selectedDozent = d;
 		df.setSelected(d);
-	//	lf.setSelected(null);
+	}
+	
+	void showDozentForm() {
+		sps.showDozentForm();
 	}
 	
 	Lehrveranstaltung getSelectedLv() {
@@ -496,7 +496,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);	
 		}
 		
-		if (value instanceof Dozent) {
+		if (value instanceof String && (String)value=="Dozent verwalten") {
 			dozentDataProvider = new ListDataProvider<Dozent>();
 			verwaltungsSvc.getAllDozenten(new AsyncCallback<Vector<Dozent>>() {
 				public void onFailure(Throwable T) {

@@ -118,7 +118,7 @@ public class ItProjekt implements EntryPoint {
 		     */
 		
 			//NavTreeViewModel tvm = new NavTreeViewModel(df, lf, rf, zf, sgf, svf, this);
-			NavTreeViewModel tvm = new NavTreeViewModel(cd, cl, cr, csg,csv, this);
+			NavTreeViewModel tvm = new NavTreeViewModel(cd, cl, cr, csg, csv, df, lf, rf, sgf, svf, this);
 			
 			
 			CellTree cellTree = new CellTree(tvm, "Root");
@@ -323,6 +323,11 @@ public class ItProjekt implements EntryPoint {
 
 			navigation.add(uebersicht);*/
 			
+		}
+		
+		public void showDozentForm() {
+			detailsPanel.clear();
+			detailsPanel.add(df);
 		}
 		
 		public void createDozentForm() {

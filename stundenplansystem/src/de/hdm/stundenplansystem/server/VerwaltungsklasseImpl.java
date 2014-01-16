@@ -232,7 +232,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	 * Auslesen eines Dozent über seine ID
 	 */
 	
-	public Dozent getDozentbyId(int id) throws IllegalArgumentException {
+	public Dozent getDozentById(int id) throws IllegalArgumentException {
 		return this.dozentMapper.findByKey(id);
 	}
 	

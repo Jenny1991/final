@@ -94,5 +94,5 @@ public interface VerwaltungsklasseAsync {
 
 	void setStudiengang(Studiengang s, AsyncCallback<Void> callback);
 
-	void getDozentbyId(int id, AsyncCallback<Dozent> callback);
+	void getDozentById(int id, AsyncCallback<Dozent> callback);
 }

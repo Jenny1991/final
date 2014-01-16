@@ -58,14 +58,15 @@ public class DozentForm extends Content {
 			dozentGrid.setWidget(3, 1, loeschen);
 			}
 	  
+	  
 		public void onLoad() {
 			
 			setTvm(tvm);
 			getSelectedData();
+			showWidget();
 			
 			bearbeiten.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
-					showWidget();
 				}
 			});
 			

@@ -37,6 +37,7 @@ import com.google.gwt.user.client.ui.DockLayoutPanel;
 
 //import de.hdm.stundenplansystem.client.*;
 import de.hdm.stundenplansystem.shared.VerwaltungsklasseAsync;
+import de.hdm.stundenplansystem.shared.bo.Dozent;
 
 
 

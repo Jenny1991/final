@@ -154,7 +154,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 				}
 				
 				if (selection instanceof String && (String)selection == "Dozent verwalten") {
-					showDozentForm();
+					setSelectedDozent(selectedDozent);
 				}
 				
 				if (selection instanceof String && (String)selection == "Lehrveranstaltung anlegen") {
@@ -547,6 +547,9 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			return new DefaultNodeInfo<Dozent>(dozentDataProvider, new DozentCell(), selectionModel, null);
 		}
 		
+		if (value instanceof Dozent){
+			showDozentForm();			
+		}
 		
 		
 		if (value instanceof String && (String)value=="Lehrveranstaltung verwalten") {

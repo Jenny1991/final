@@ -35,11 +35,11 @@ public class DozentForm extends Content {
 	  final Button speichern = new Button ("��nderungen speichern");
 	  			  
 	  final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
-	  Dozent id;
+	  Integer id;
 	  Dozent shownDozent = null; 
 	  NavTreeViewModel tvm = null;
 	  
-	  public DozentForm() {
+/*	  public DozentForm() {
 		  Grid dozentGrid = new Grid (4, 2);
 		    this.add(ueberschrift);
 			this.add(dozentGrid);
@@ -59,11 +59,30 @@ public class DozentForm extends Content {
 			
 			setTvm(tvm);
 			getSelectedData();
-	  }
+	  } */
 	  
 	  
 		public void onLoad() {
 			
+			  Grid dozentGrid = new Grid (4, 2);
+			    this.add(ueberschrift);
+				this.add(dozentGrid);
+			  
+				Label lbvorname = new Label("Vorname");
+				dozentGrid.setWidget(0, 0, lbvorname);
+				dozentGrid.setWidget(0, 1, tbvorname);
+
+				Label lbnachname = new Label("Nachname");
+				dozentGrid.setWidget(1, 0, lbnachname);
+				dozentGrid.setWidget(1, 1, tbnachname);
+				
+				Label lbfunktionen = new Label ("Funktionen");
+				dozentGrid.setWidget(2, 0, lbfunktionen);
+				dozentGrid.setWidget(2, 1, bearbeiten);
+				dozentGrid.setWidget(3, 1, loeschen);
+				
+				setTvm(tvm);
+				getSelectedData(id);
 			
 			bearbeiten.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
@@ -126,8 +145,8 @@ public class DozentForm extends Content {
 			this.tvm = tvm;
 		}
 		
-		public void getSelectedData(){
-			verwaltungsSvc.getDozentById(shownDozent.getId(), new AsyncCallback<Dozent>(){
+		public void getSelectedData(int id){
+			verwaltungsSvc.getDozentById(id, new AsyncCallback<Dozent>(){
 				@Override
 				public void onFailure(Throwable caught) {
 				}
@@ -167,5 +186,7 @@ public class DozentForm extends Content {
 				 this.add(lbvorname);
 				 this.add(tbvorname);
 				 this.add(speichern);
+				 this.add(bearbeiten);
+				 this.add(loeschen);
 			  }
 }

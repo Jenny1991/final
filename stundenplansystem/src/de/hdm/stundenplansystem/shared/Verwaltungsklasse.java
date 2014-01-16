@@ -52,8 +52,10 @@ public interface Verwaltungsklasse extends RemoteService {
 	public Vector<Stundenplaneintrag> getAllStundenplaneintragOf(Dozent d)
 		      throws IllegalArgumentException;
 	
-	public Stundenplaneintrag createStundenplaneintrag(Dozent d, Lehrveranstaltung l, Raum r, 
-			Zeitslot z, Semesterverband sv)
+	public Dozent getDozentbyId(int id) throws IllegalArgumentException;
+	
+	public Stundenplaneintrag createStundenplaneintrag(int d, int l, int r, 
+			int z, int sv)
 					throws IllegalArgumentException;
 	
 	public Dozent createDozent(String vorname, String nachname);

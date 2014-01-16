@@ -28,8 +28,7 @@ public interface VerwaltungsklasseAsync {
 	void createStudiengang(String bezeichnung,
 	AsyncCallback<Studiengang> callback);
 
-	void createStundenplaneintrag(Dozent d, Lehrveranstaltung l, Raum r,
-			Zeitslot z, Semesterverband sv,
+	void createStundenplaneintrag(int d, int l, int r, int z, int sv,
 			AsyncCallback<Stundenplaneintrag> callback);
 
 	void createZeitslot(String wochentag, double anfangszeit, double endzeit,
@@ -94,4 +93,6 @@ public interface VerwaltungsklasseAsync {
 	void getStudiengang(AsyncCallback<Studiengang> callback);
 
 	void setStudiengang(Studiengang s, AsyncCallback<Void> callback);
+
+	void getDozentbyId(int id, AsyncCallback<Dozent> callback);
 }

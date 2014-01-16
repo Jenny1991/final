@@ -52,6 +52,8 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 				  this.add(lbkapazitaet);
 				  this.add(tbkapazitaet);
 				  this.add(speichern);
+				  
+				  setTvm(tvm);
 					  
 				  speichern.addClickHandler(new ClickHandler() {
 					  public void onClick(ClickEvent event) {
@@ -86,5 +88,8 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 					  }
 					  });
 		  }
+			public void setTvm(NavTreeViewModel tvm) {
+				this.tvm = tvm;
+			}
 
 }

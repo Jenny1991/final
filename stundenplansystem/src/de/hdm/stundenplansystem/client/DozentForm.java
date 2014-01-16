@@ -103,15 +103,13 @@ public class DozentForm extends Content {
 			
 			loeschen.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event){
-					verwaltungsSvc.deleteDozent(shownDozent, new AsyncCallback<Void>() {
-						  @Override
+					verwaltungsSvc.deleteDozent(shownDozent, new AsyncCallback<Boolean>() {
 						  public void onFailure (Throwable caught) {
 							  Window.alert("Der Studiengang konnte nicht gelöscht werden." +
 							  		"Er ist in ein oder mehreren Stundenplaneinträgen eingetragen");
 						  }
 
-						  @Override
-						  public void onSuccess(Void result) {
+						  public void onSuccess(Boolean result) {
 							  tvm.deleteDozent(shownDozent);
 							  Window.alert ("Erfolgreich gelöscht.");
 						  } 	

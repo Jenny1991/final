@@ -47,6 +47,8 @@ public class CreateStudiengang extends Content{
 		  this.add(lbbezeichnung);
 		  this.add(tbbezeichnung);
 		  this.add(speichern);
+		  
+		  setTvm(tvm);
 		  	
 		  speichern.addClickHandler(new ClickHandler() {
 			  public void onClick(ClickEvent event) {
@@ -78,4 +80,7 @@ public class CreateStudiengang extends Content{
 			  }
 		  });
 	  }
+		public void setTvm(NavTreeViewModel tvm) {
+			this.tvm = tvm;
+		}
 }

@@ -47,8 +47,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 		  */
 		  public void onLoad () {
 			  		
-			  	this.add(ueberschrift);
-
+			  	  this.add(ueberschrift);
 				  this.add(lbbezeichnung);
 				  this.add(tbbezeichnung);
 				  this.add(lbsemester);
@@ -57,6 +56,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 				  this.add(tbumfang);
 				  this.add(speichern);
 				  
+				  setTvm(tvm);				  
 				  
 				  speichern.addClickHandler(new ClickHandler() {
 					  public void onClick(ClickEvent event) {
@@ -94,4 +94,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 					  }
 				  });
 		  }
+			public void setTvm(NavTreeViewModel tvm) {
+				this.tvm = tvm;
+			}
 		  }  

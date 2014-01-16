@@ -171,7 +171,7 @@ public class StundenplanMapper {
         stmt = con.createStatement();
 
         // Jetzt erst erfolgt die tatsächliche Einfügeoperation
-        stmt.executeUpdate("INSERT INTO stundenplan (id, studienhalbjahr FROM Stundenplan) " + "VALUES ("
+        stmt.executeUpdate("INSERT INTO stundenplan (id, studienhalbjahr FROM stundenplan) " + "VALUES ("
             + s.getId() + ",'" + s.getStudienhalbjahr() + "')" );
       }
     }

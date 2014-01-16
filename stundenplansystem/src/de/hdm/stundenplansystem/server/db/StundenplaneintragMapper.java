@@ -91,7 +91,6 @@ public class StundenplaneintragMapper {
         s.setDozentId(rs.getInt("dozentid"));
         s.setRaumId(rs.getInt("raumid"));
         s.setZeitslotId(rs.getInt("zeitslotid"));
-        s.setSemesterverbandId(rs.getInt("semesterverbandid"));
         s.setLehrveranstaltungId(rs.getInt("lehrveranstaltungid"));
         
         return s;
@@ -123,7 +122,7 @@ public class StundenplaneintragMapper {
       Statement stmt = con.createStatement();
 
       ResultSet rs = stmt.executeQuery("SELECT stundenplaneintrag.id, stundenplaneintrag.dozentid, stundenplaneintrag.raumid, "
-    	+ "stundenplaneintrag.zeitslotid, stundenplaneintrag.semesterverbandid, stundenplaneintrag.lehrveranstaltungid "
+    	+ "stundenplaneintrag.zeitslotid, stundenplaneintrag.lehrveranstaltungid "
     	+ "FROM stundenplaneintrag "
     	+ "INNER JOIN zeitslot "
     	+ "zeitslot "

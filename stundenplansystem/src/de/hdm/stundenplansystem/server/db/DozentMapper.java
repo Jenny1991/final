@@ -75,7 +75,7 @@ public class DozentMapper {
       Statement stmt = con.createStatement();
 
       // Statement ausfüllen und als Query an die DB schicken
-      ResultSet rs = stmt.executeQuery("SELECT id, vorname, nachname FROM Dozent "
+      ResultSet rs = stmt.executeQuery("SELECT id, vorname, nachname FROM dozent "
           + "WHERE id=" + id);
 
       /*

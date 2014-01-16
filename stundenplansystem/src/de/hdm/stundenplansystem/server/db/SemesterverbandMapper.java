@@ -179,7 +179,7 @@ public class SemesterverbandMapper {
 
         // Jetzt erst erfolgt die tatsächliche Einfügeoperation
         stmt.executeUpdate("INSERT INTO semesterverband (id, semester, studierendenAnzahl, jahrgang, stundenplanid, studiengangid) " + "VALUES ("
-            + s.getId() + "," + s.getSemester() + "," + s.getStudierendenAnzahl() + ",'" + s.getJahrgang() + "'," + s.getStudenplanId() + "," + s.getStudiengangId() + ")" );
+            + s.getId() + "," + s.getSemester() + "," + s.getStudierendenAnzahl() + ",'" + s.getJahrgang() + "'," + s.getStundenplanId() + "," + s.getStudiengangId() + ")" );
       }
     }
     catch (SQLException e2) {
@@ -214,7 +214,7 @@ public class SemesterverbandMapper {
     		  + "semester=\"" + s.getSemester() + "\", " 
     		  + "jahrgang=\"" + s.getJahrgang() + "\", " 
     		  + "studierendenanzahl=\"" + s.getStudierendenAnzahl() + "\", "
-    		  + "stundenplanid=\"" +  s.getStudenplanId() + "\", "
+    		  + "stundenplanid=\"" +  s.getStundenplanId() + "\", "
     		  + "studiengangid=\"" + s.getStudiengangId() + "\", "
               + "WHERE id=" + s.getId());
 

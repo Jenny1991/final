@@ -75,7 +75,7 @@ public class RaumMapper {
       Statement stmt = con.createStatement();
 
       // Statement ausfÃ¼llen und als Query an die DB schicken
-      ResultSet rs = stmt.executeQuery("SELECT id, kapazitaet, bezeichnung FROM Raum "
+      ResultSet rs = stmt.executeQuery("SELECT id, kapazitaet, bezeichnung FROM raum "
           + "WHERE id=" + id);
 
       /*

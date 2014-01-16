@@ -4,7 +4,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 
 /**
- * @author V. Hofmann
+ * @author V. Hofmannnjdsk
  * Durch diese Klasse werden die Gui Klassen im VerticalPanel angeordnet
  */
 public class Content extends VerticalPanel {

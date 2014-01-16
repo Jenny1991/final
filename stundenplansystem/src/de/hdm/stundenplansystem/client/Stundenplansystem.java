@@ -325,11 +325,6 @@ public class ItProjekt implements EntryPoint {
 			
 		}
 		
-		public void showDozentForm() {
-			detailsPanel.clear();
-			detailsPanel.add(df);
-		}
-		
 		public void createDozentForm() {
 			detailsPanel.clear();
 			detailsPanel.add(cd);
@@ -354,6 +349,31 @@ public class ItProjekt implements EntryPoint {
 			detailsPanel.clear();
 			detailsPanel.add(cspe);
 		}	
+		
+		public void showDozentForm() {
+			detailsPanel.clear();
+			detailsPanel.add(df);
+		}
+		
+		public void showLehrveranstaltungForm() {
+			detailsPanel.clear();
+			detailsPanel.add(lf);
+		}
+		
+		public void showRaumForm() {
+			detailsPanel.clear();
+			detailsPanel.add(rf);
+		}
+		
+		public void showStudiengangForm() {
+			detailsPanel.clear();
+			detailsPanel.add(sgf);
+		}
+		
+		public void showSemesterverbandForm() {
+			detailsPanel.clear();
+			detailsPanel.add(svf);
+		}
 	}
 
 

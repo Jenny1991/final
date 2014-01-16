@@ -161,16 +161,32 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 					setCreateLehrveranstaltung();
 				}
 				
+				if (selection instanceof String && (String)selection == "Lehrveranstaltung verwalten") {
+					showLehrveranstaltungForm();
+				}
+				
 				if (selection instanceof String && (String)selection == "Raum anlegen") {
 					setCreateRaum();
+				}
+				
+				if (selection instanceof String && (String)selection == "Raum verwalten") {
+					showRaumForm();
 				}
 				
 				if (selection instanceof String && (String)selection == "Studiengang anlegen") {
 					setCreateStudiengang();
 				}
 				
+				if (selection instanceof String && (String)selection == "Studiengang verwalten") {
+					showStudiengangForm();
+				}
+				
 				if (selection instanceof String && (String)selection == "Semesterverband anlegen") {
 					setCreateSemesterverband();
+				}
+				
+				if (selection instanceof String && (String)selection == "Semesterverband verwalten") {
+					showSemesterverbandForm();
 				}
 				
 				if (selection instanceof Dozent) {
@@ -226,7 +242,10 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	void setSelectedLv(Lehrveranstaltung lv) {
 		selectedLv = lv;
 		lf.setSelected(lv);
-		//df.setSelected(null);
+	}
+	
+	void showLehrveranstaltungForm() {
+		sps.showLehrveranstaltungForm();
 	}
 	
 	Raum getSelectedRaum() {
@@ -239,11 +258,10 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	void setSelectedRaum(Raum r) {
 		selectedRaum = r;
 		rf.setSelected(r);
-	//	lf.setSelected(null);
 	}
 	
-	Zeitslot getSelectedZeitslot() {
-		return selectedZs;
+	void showRaumForm() {
+		sps.showRaumForm();
 	}
 	
 	Studiengang getSelectedSg() {
@@ -257,7 +275,10 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	void setSelectedSg(Studiengang sg) {
 		selectedSg = sg;
 		sgf.setSelected(sg);
-	//	lf.setSelected(null);
+	}
+	
+	void showStudiengangForm() {
+		sps.showStudiengangForm();
 	}
 	
 	Semesterverband getSelectedSv() {
@@ -271,7 +292,10 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	void setSelectedSv(Semesterverband sv) {
 		selectedSv = sv;
 		svf.setSelected(sv);
-	//	lf.setSelected(null);
+	}
+	
+	void showSemesterverbandForm() {
+		sps.showSemesterverbandForm();
 	}
 	
 	void addDozent(Dozent dozent) {

@@ -94,7 +94,7 @@ public class SemesterverbandForm extends Content {
 					  
 					  if (allFilled == true) { 
 						  shownSv.setJahrgang(tbjahrgang.getText().trim());
-					      //shownSv.setBezeichnung(tbstudiengang.getText());
+					      shownSv.setStudiengangId(tbstudiengang.getVisibleLength());
 						  shownSv.setStudierendenAnzahl(tbanzahl.getVisibleLength());
 						  shownSv.setSemester(tbsemester.getVisibleLength());
 	
@@ -106,13 +106,13 @@ public class SemesterverbandForm extends Content {
 							  }
 
 							  @Override
-							  public void onSuccess(Semesterverband result) {								  
+							  public void onSuccess(Semesterverband result) {	
+								  Window.alert ("Erfolgreich gespeichert.");
 								  tbjahrgang.setText("");
 								  tbstudiengang.setText("");
 								  tbsemester.setVisibleLength(result.getSemester());
 								  tbanzahl.setVisibleLength(result.getStudierendenAnzahl());
 								  tvm.updateSemesterverband(shownSv);
-								  Window.alert ("Erfolgreich gespeichert.");
 							  } 	
 							});
 					  }
@@ -130,7 +130,7 @@ public class SemesterverbandForm extends Content {
 
 						  @Override
 						  public void onSuccess(Void result) {
-							  //tvm.deleteDozent(shownSv);
+							  tvm.deleteSemesterverband(shownSv);
 							  Window.alert ("Erfolgreich gelöscht.");
 						  } 	
 						});

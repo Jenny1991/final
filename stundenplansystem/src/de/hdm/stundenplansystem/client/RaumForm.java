@@ -58,7 +58,7 @@ public class RaumForm extends Content {
 	  
 		public void onLoad() {
 			
-			//setTvm();
+			setTvm(tvm);
 			getSelectedData();
 			
 			bearbeiten.addClickHandler(new ClickHandler() {
@@ -91,11 +91,10 @@ public class RaumForm extends Content {
 
 								  @Override
 								  public void onSuccess(Raum result) {
-									  
+									  Window.alert ("Erfolgreich gespeichert.");
 									  tbbezeichnung.setText("");
 									  tbkapazitaet.setVisibleLength(result.getKapazitaet());
 									  tvm.updateRaum(shownRaum);
-									  Window.alert ("Erfolgreich gespeichert.");
 								  } 	
 								});
 						  }

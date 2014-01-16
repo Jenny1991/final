@@ -18,6 +18,8 @@ import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.gwt.view.client.TreeViewModel;
 //import com.google.gwt.view.client.TreeViewModel.DefaultNodeInfo;
 
+
+
 import de.hdm.stundenplansystem.shared.Verwaltungsklasse;
 import de.hdm.stundenplansystem.shared.VerwaltungsklasseAsync;
 import de.hdm.stundenplansystem.shared.bo.BusinessObjekt;
@@ -279,11 +281,230 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	//	lf.setSelected(null);
 	}
 	
-	void addDozent(Dozent dozent) {
-		dozentDataProvider.getList().add(dozent);
-		//lvDataProvider.put(dozent, new ListDataProvider<Lehrveranstaltung>());
+
+	
+	@Override
+	public <T> NodeInfo<?> getNodeInfo(T value) {
+		
+		if (value instanceof String && (String)value == "Root") {
+			
+			stringDataProvider = new ListDataProvider<String>();
+			
+			stringDataProvider.getList().add("Stammdaten");
+			stringDataProvider.getList().add("Bewegungsdaten");
+			stringDataProvider.getList().add("Report");
+			
+			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);
+			
+		}
+		
+		if (value instanceof String && (String)value == "Stammdaten") {
+			
+			stringDataProvider = new ListDataProvider<String>();
+			
+			stringDataProvider.getList().add("Dozent");
+			stringDataProvider.getList().add("Lehrveranstaltung");
+			stringDataProvider.getList().add("Semesterverband");
+			stringDataProvider.getList().add("Studiengang");
+			stringDataProvider.getList().add("Raum");
+			stringDataProvider.getList().add("Zeitslot");
+			
+			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);
+			
+		}
+		
+		if (value instanceof String && (String)value == "Bewegungsdaten") {
+			
+			stringDataProvider = new ListDataProvider<String>();
+			
+			stringDataProvider.getList().add("Stundenplaneintrag");
+			
+			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);
+			
+		}
+		
+		if (value instanceof String && (String)value == "Report") {
+			
+			stringDataProvider = new ListDataProvider<String>();
+			
+			stringDataProvider.getList().add("Stundenplan");
+			stringDataProvider.getList().add("Raumbelegungsplan");
+			
+			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);
+			
+		}
+		
+		if (value instanceof String && (String)value == "Dozent") {
+			
+			stringDataProvider = new ListDataProvider<String>();
+			
+			stringDataProvider.getList().add("Dozent anlegen");
+			
+			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);
+		}
+		
+		if (value instanceof String && (String)value == "Lehrveranstaltung") {
+			
+			stringDataProvider = new ListDataProvider<String>();
+			
+			stringDataProvider.getList().add("Lehrveranstaltung anlegen");
+			
+			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);
+		}
+		
+		if (value instanceof String && (String)value == "Semesterverband") {
+			
+			stringDataProvider = new ListDataProvider<String>();
+			
+			stringDataProvider.getList().add("Semesterverband anlegen");
+			
+			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);
+		}
+		
+		if (value instanceof String && (String)value == "Studiengang") {
+			
+			stringDataProvider = new ListDataProvider<String>();
+			
+			stringDataProvider.getList().add("Studiengang anlegen");
+			
+			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);	
+		}
+		
+		if (value instanceof String && (String)value == "Raum") {
+			
+			stringDataProvider = new ListDataProvider<String>();
+			
+			stringDataProvider.getList().add("Raum anlegen");
+			
+			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);	
+		}
+		
+		
+		if (value instanceof String && (String)value == "Stundenplaneintrag") {
+			
+			stringDataProvider = new ListDataProvider<String>();
+			
+			stringDataProvider.getList().add("Stundenplaneintrag anlegen");
+			
+			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);	
+		}
+		
+		if (value instanceof Dozent) {
+			dozentDataProvider = new ListDataProvider<Dozent>();
+			verwaltungsSvc.getAllDozenten(new AsyncCallback<Vector<Dozent>>() {
+				public void onFailure(Throwable T) {
+					
+				}
+				
+				public void onSuccess(Vector<Dozent> dozenten) {
+					for (Dozent d : dozenten) {
+						dozentDataProvider.getList().add(d);
+					}
+				}
+			});
+			
+			return new DefaultNodeInfo<Dozent>(dozentDataProvider, new DozentCell(), selectionModel, null);
+		}
+		
+		
+		
+		if (value instanceof Lehrveranstaltung) {
+			lvDataProvider = new ListDataProvider<Lehrveranstaltung>();
+			verwaltungsSvc.getAllLehrveranstaltungen(new AsyncCallback<Vector<Lehrveranstaltung>>() {
+				public void onFailure(Throwable T) {
+					
+				}
+				
+				public void onSuccess(Vector<Lehrveranstaltung> lehrveranstaltungen) {
+					for (Lehrveranstaltung lv : lehrveranstaltungen) {
+						lvDataProvider.getList().add(lv);
+					}
+				}
+			});
+			
+			return new DefaultNodeInfo<Lehrveranstaltung>(lvDataProvider, new LehrveranstaltungCell(), selectionModel, null);
+		}
+		
+		if (value instanceof Raum) {
+			raumDataProvider = new ListDataProvider<Raum>();
+			verwaltungsSvc.getAllRaeume(new AsyncCallback<Vector<Raum>>() {
+				public void onFailure(Throwable T) {
+					
+				}
+				
+				public void onSuccess(Vector<Raum> raeume) {
+					for (Raum r : raeume) {
+						raumDataProvider.getList().add(r);
+					}
+				}
+			});
+			
+			return new DefaultNodeInfo<Raum>(raumDataProvider, new RaumCell(), selectionModel, null);
+		}
+		
+		if (value instanceof Semesterverband) {
+			svDataProvider = new ListDataProvider<Semesterverband>();
+			verwaltungsSvc.getAllSemesterverbaende(new AsyncCallback<Vector<Semesterverband>>() {
+				public void onFailure(Throwable T) {
+					
+				}
+				
+				public void onSuccess(Vector<Semesterverband> semesterverbaende) {
+					for (Semesterverband sv : semesterverbaende) {
+						svDataProvider.getList().add(sv);
+					}
+				}
+			});
+			
+			return new DefaultNodeInfo<Semesterverband>(svDataProvider, new SemesterverbandCell(), selectionModel, null);
+		}
+		
+		if (value instanceof Studiengang) {
+			sgDataProvider = new ListDataProvider<Studiengang>();
+			verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
+				public void onFailure(Throwable T) {
+					
+				}
+				
+				public void onSuccess(Vector<Studiengang> studiengaenge) {
+					for (Studiengang sg : studiengaenge) {
+						sgDataProvider.getList().add(sg);
+					}
+				}
+			});
+			
+			return new DefaultNodeInfo<Studiengang>(sgDataProvider, new StudiengangCell(), selectionModel, null);
+		}
+		
+		
+		
+
+		
+		/*if (value instanceof Zeitslot) {
+			zsDataProvider = new ListDataProvider<Zeitslot>();
+			verwaltungsSvc.getAllZeitslots(new AsyncCallback<Vector<Zeitslot>>() {
+				public void onFailure(Throwable T) {
+					
+				}
+				
+				public void onSuccess(Vector<Zeitslot> zeitslots) {
+					for (Zeitslot zs : zeitslots) {
+						zsDataProvider.getList().add(zs);
+					}
+				}
+			});
+			
+			return new DefaultNodeInfo<Zeitslot>(zsDataProvider, new ZeitslotCell(), selectionModel, null);
+		}*/
+		
+		
+		return null;
 	}
 	
+	void addDozent(Dozent dozent) {
+		dozentDataProvider.getList().add(dozent);
+	}
+
 	void addRaum(Raum raum) {
 		raumDataProvider.getList().add(raum);
 		//lvDataProvider.put(dozent, new ListDataProvider<Lehrveranstaltung>());
@@ -396,228 +617,6 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 		//lvDataProvider.remove(dozent);
 	}
 	
-
-	@Override
-	public <T> NodeInfo<?> getNodeInfo(T value) {
-		
-		if (value instanceof String && (String)value == "Root") {
-			
-			stringDataProvider = new ListDataProvider<String>();
-			
-			stringDataProvider.getList().add("Stammdaten");
-			stringDataProvider.getList().add("Bewegungsdaten");
-			stringDataProvider.getList().add("Report");
-			
-			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);
-			
-		}
-		
-		if (value instanceof String && (String)value == "Stammdaten") {
-			
-			stringDataProvider = new ListDataProvider<String>();
-			
-			stringDataProvider.getList().add("Dozent");
-			stringDataProvider.getList().add("Lehrveranstaltung");
-			stringDataProvider.getList().add("Semesterverband");
-			stringDataProvider.getList().add("Studiengang");
-			stringDataProvider.getList().add("Raum");
-			stringDataProvider.getList().add("Zeitslot");
-			
-			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);
-			
-		}
-		
-		if (value instanceof String && (String)value == "Bewegungsdaten") {
-			
-			stringDataProvider = new ListDataProvider<String>();
-			
-			stringDataProvider.getList().add("Stundenplaneintrag");
-			
-			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);
-			
-		}
-		
-		if (value instanceof String && (String)value == "Report") {
-			
-			stringDataProvider = new ListDataProvider<String>();
-			
-			stringDataProvider.getList().add("Stundenplan");
-			stringDataProvider.getList().add("Raumbelegungsplan");
-			
-			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);
-			
-		}
-		
-		if (value instanceof String && (String)value == "Dozent") {
-			
-			stringDataProvider = new ListDataProvider<String>();
-			
-			stringDataProvider.getList().add("Dozent anlegen");
-			
-			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);
-		}
-		
-		if (value instanceof String && (String)value == "Lehrveranstaltung") {
-			
-			stringDataProvider = new ListDataProvider<String>();
-			
-			stringDataProvider.getList().add("Lehrveranstaltung anlegen");
-			
-			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);
-		}
-		
-		if (value instanceof String && (String)value == "Semesterverband") {
-			
-			stringDataProvider = new ListDataProvider<String>();
-			
-			stringDataProvider.getList().add("Semesterverband anlegen");
-			
-			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);
-		}
-		
-		if (value instanceof String && (String)value == "Studiengang") {
-			
-			stringDataProvider = new ListDataProvider<String>();
-			
-			stringDataProvider.getList().add("Studiengang anlegen");
-			
-			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);	
-		}
-		
-		if (value instanceof String && (String)value == "Raum") {
-			
-			stringDataProvider = new ListDataProvider<String>();
-			
-			stringDataProvider.getList().add("Raum anlegen");
-			
-			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);	
-		}
-		
-	/*	if (value instanceof String && (String)value == "Zeitslot") {
-			
-			stringDataProvider = new ListDataProvider<String>();
-			
-			stringDataProvider.getList().add("Anlegen");
-			
-			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);	
-		} */
-		
-		if (value instanceof String && (String)value == "Stundenplaneintrag") {
-			
-			stringDataProvider = new ListDataProvider<String>();
-			
-			stringDataProvider.getList().add("Stundenplaneintrag anlegen");
-			
-			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);	
-		}
-		
-		if (value instanceof Dozent) {
-			dozentDataProvider = new ListDataProvider<Dozent>();
-			verwaltungsSvc.getAllDozenten(new AsyncCallback<Vector<Dozent>>() {
-				public void onFailure(Throwable T) {
-					
-				}
-				
-				public void onSuccess(Vector<Dozent> dozenten) {
-					for (Dozent d : dozenten) {
-						dozentDataProvider.getList().add(d);
-					}
-				}
-			});
-			
-			return new DefaultNodeInfo<Dozent>(dozentDataProvider, new DozentCell(), selectionModel, null);
-		}
-		
-		
-		
-		if (value instanceof Lehrveranstaltung) {
-			lvDataProvider = new ListDataProvider<Lehrveranstaltung>();
-			verwaltungsSvc.getAllLehrveranstaltungen(new AsyncCallback<Vector<Lehrveranstaltung>>() {
-				public void onFailure(Throwable T) {
-					
-				}
-				
-				public void onSuccess(Vector<Lehrveranstaltung> lehrveranstaltungen) {
-					for (Lehrveranstaltung lv : lehrveranstaltungen) {
-						lvDataProvider.getList().add(lv);
-					}
-				}
-			});
-			
-			return new DefaultNodeInfo<Lehrveranstaltung>(lvDataProvider, new LehrveranstaltungCell(), selectionModel, null);
-		}
-		
-		if (value instanceof Raum) {
-			raumDataProvider = new ListDataProvider<Raum>();
-			verwaltungsSvc.getAllRaeume(new AsyncCallback<Vector<Raum>>() {
-				public void onFailure(Throwable T) {
-					
-				}
-				
-				public void onSuccess(Vector<Raum> raeume) {
-					for (Raum r : raeume) {
-						raumDataProvider.getList().add(r);
-					}
-				}
-			});
-			
-			return new DefaultNodeInfo<Raum>(raumDataProvider, new RaumCell(), selectionModel, null);
-		}
-		
-		if (value instanceof Semesterverband) {
-			svDataProvider = new ListDataProvider<Semesterverband>();
-			verwaltungsSvc.getAllSemesterverbaende(new AsyncCallback<Vector<Semesterverband>>() {
-				public void onFailure(Throwable T) {
-					
-				}
-				
-				public void onSuccess(Vector<Semesterverband> semesterverbaende) {
-					for (Semesterverband sv : semesterverbaende) {
-						svDataProvider.getList().add(sv);
-					}
-				}
-			});
-			
-			return new DefaultNodeInfo<Semesterverband>(svDataProvider, new SemesterverbandCell(), selectionModel, null);
-		}
-		
-		if (value instanceof Studiengang) {
-			sgDataProvider = new ListDataProvider<Studiengang>();
-			verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
-				public void onFailure(Throwable T) {
-					
-				}
-				
-				public void onSuccess(Vector<Studiengang> studiengaenge) {
-					for (Studiengang sg : studiengaenge) {
-						sgDataProvider.getList().add(sg);
-					}
-				}
-			});
-			
-			return new DefaultNodeInfo<Studiengang>(sgDataProvider, new StudiengangCell(), selectionModel, null);
-		}
-		
-		/*if (value instanceof Zeitslot) {
-			zsDataProvider = new ListDataProvider<Zeitslot>();
-			verwaltungsSvc.getAllZeitslots(new AsyncCallback<Vector<Zeitslot>>() {
-				public void onFailure(Throwable T) {
-					
-				}
-				
-				public void onSuccess(Vector<Zeitslot> zeitslots) {
-					for (Zeitslot zs : zeitslots) {
-						zsDataProvider.getList().add(zs);
-					}
-				}
-			});
-			
-			return new DefaultNodeInfo<Zeitslot>(zsDataProvider, new ZeitslotCell(), selectionModel, null);
-		}*/
-		
-		
-		return null;
-	}
 
 	@Override
 	public boolean isLeaf(Object value) {

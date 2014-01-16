@@ -23,7 +23,6 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 
 public class DozentForm extends Content {
 	
-	private final HTML ueberschrift = new HTML ("<h2>ï¿½ï¿½ï¿½ï¿½bersicht der Dozenten<h2>");
 	private final HTML ueberschriftAenderung = new HTML ("<h2>Dozenten bearbeiten<h2>");
 
 	  final TextBox tbvorname = new TextBox ();
@@ -31,8 +30,8 @@ public class DozentForm extends Content {
 	  final Label lbnachname = new Label ("Vorname");
 	  final Label lbvorname = new Label ("Nachname");
 	  final Button bearbeiten = new Button ("Dozent bearbeiten");
-	  final Button loeschen = new Button ("Dozent lï¿½ï¿½schen");
-	  final Button speichern = new Button ("ï¿½ï¿½nderungen speichern");
+	  final Button loeschen = new Button ("Dozent löschen");
+	  final Button speichern = new Button ("Änderungen speichern");
 	  			  
 	  final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
 	  Integer id;
@@ -65,7 +64,7 @@ public class DozentForm extends Content {
 		public void onLoad() {
 			
 			  Grid dozentGrid = new Grid (4, 2);
-			    this.add(ueberschrift);
+			    this.add(ueberschriftAenderung);
 				this.add(dozentGrid);
 			  
 				Label lbvorname = new Label("Vorname");
@@ -78,54 +77,21 @@ public class DozentForm extends Content {
 				
 				Label lbfunktionen = new Label ("Funktionen");
 				dozentGrid.setWidget(2, 0, lbfunktionen);
-				dozentGrid.setWidget(2, 1, bearbeiten);
+				dozentGrid.setWidget(2, 1, speichern);
 				dozentGrid.setWidget(3, 1, loeschen);
 				
 				setTvm(tvm);
 				getSelectedData(id);
-			
-			bearbeiten.addClickHandler(new ClickHandler() {
-				public void onClick(ClickEvent event) {
-					showWidget();
-				}
-			});
-			
+						
 			  speichern.addClickHandler(new ClickHandler() {
 				  public void onClick(ClickEvent event) {
-
-					  boolean allFilled = true;
-				  
-					  if (tbnachname.getValue().isEmpty() 
-							  ||tbvorname.getValue().isEmpty()) {	
-						  allFilled = false;
-					  Window.alert ("Bitte fï¿½ï¿½ï¿½ï¿½llen Sie alle Felder aus."); } 
-					  
-					  if (allFilled == true) {
-						  shownDozent.setNachname(tbnachname.getText().trim());
-						  shownDozent.setVorname(tbvorname.getText().trim());		
-						  
-						  verwaltungsSvc.changeDozent(shownDozent, new  AsyncCallback<Dozent> () {
-
-							  @Override
-							  public void onFailure (Throwable caught) {
-								  Window.alert("Der Dozent konnte nicht bearbeitet werden.");
-							  }
-
-							  @Override
-							  public void onSuccess(Dozent result) {
-								  Window.alert ("Erfolgreich gespeichert.");
-								  tbnachname.setText("");
-								  tbvorname.setText("");
-								  tvm.updateDozent(shownDozent);
-							  } 	
-							});
-					  }
-				  }
+					  updateDozent();
+				  }			  
 				  }); 
 			
 			loeschen.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event){
-					verwaltungsSvc.deleteDozent(shownDozent, new AsyncCallback<Boolean>() {
+						verwaltungsSvc.deleteDozent(shownDozent, new AsyncCallback<Boolean>() {
 						  public void onFailure (Throwable caught) {
 							  Window.alert("Der Studiengang konnte nicht gelï¿½ï¿½scht werden." +
 							  		"Er ist in ein oder mehreren Stundenplaneintrï¿½ï¿½gen eingetragen");
@@ -141,6 +107,36 @@ public class DozentForm extends Content {
 	  		this.clear();
 		  }
 
+		 public void updateDozent(){
+			  boolean allFilled = true;
+			  
+				  if (tbnachname.getValue().isEmpty() 
+						  ||tbvorname.getValue().isEmpty()) {	
+					  allFilled = false;
+				  Window.alert ("Bitte füllen Sie alle Felder aus."); } 
+				  
+				  if (allFilled == true) {
+					  shownDozent.setNachname(tbnachname.getText().trim());
+					  shownDozent.setVorname(tbvorname.getText().trim());		
+					  
+					  verwaltungsSvc.changeDozent(shownDozent, new  AsyncCallback<Dozent> () {
+
+						  @Override
+						  public void onFailure (Throwable caught) {
+							  Window.alert("Der Dozent konnte nicht bearbeitet werden.");
+						  }
+
+						  @Override
+						  public void onSuccess(Dozent result) {
+							  Window.alert ("Erfolgreich gespeichert.");
+							  tbnachname.setText("");
+							  tbvorname.setText("");
+							  tvm.updateDozent(shownDozent);
+						  } 	
+						});
+				  }
+			  }
+		
 		public void setTvm(NavTreeViewModel tvm) {
 			this.tvm = tvm;
 		}
@@ -178,15 +174,4 @@ public class DozentForm extends Content {
 			tbvorname.setText("");
 			tbnachname.setText("");
 		}
-		
-		  public void showWidget(){
-			  	 this.add(ueberschriftAenderung);
-				 this.add(lbnachname);
-				 this.add(tbnachname);
-				 this.add(lbvorname);
-				 this.add(tbvorname);
-				 this.add(speichern);
-				 this.add(bearbeiten);
-				 this.add(loeschen);
-			  }
 }

@@ -154,7 +154,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 				}
 				
 				if (selection instanceof String && (String)selection == "Dozent verwalten") {
-					
+					showDozentForm();
 				}
 				
 				if (selection instanceof String && (String)selection == "Lehrveranstaltung anlegen") {
@@ -446,9 +446,11 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			stringDataProvider = new ListDataProvider<String>();
 			
 			stringDataProvider.getList().add("Dozent anlegen");
+			stringDataProvider.getList().add("Dozent verwalten");
 			
 			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);
 		}
+		
 		
 		if (value instanceof String && (String)value == "Lehrveranstaltung") {
 			

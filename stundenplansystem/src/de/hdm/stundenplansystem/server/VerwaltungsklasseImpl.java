@@ -328,14 +328,15 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		return null;
 	}
 
-	public void deleteDozent(Dozent d) throws IllegalArgumentException {
+	public boolean deleteDozent(Dozent d) throws IllegalArgumentException {
 		
 		Vector<Stundenplaneintrag> dozenten = this.getAllStundenplaneintragOf(d);
 
 		    if (dozenten != null) {
-		    	//Bildschirmmeldung: Dozent kann nicht geloescht werden, da noch Stundenplaneintrï¿½ï¿½ge
+		    	return false;
 		    } else {
 		   	this.dozentMapper.delete(d);
+		   	return true;
 		    }
 	}
 	

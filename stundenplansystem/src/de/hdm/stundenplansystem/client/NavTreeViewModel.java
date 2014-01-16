@@ -42,6 +42,12 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	private ZeitslotForm zf;
 	private SemesterverbandForm svf;
 	private StudiengangForm sgf;
+
+	private CreateDozent cd;
+	private CreateLehrveranstaltung cl;
+	private CreateRaum cr;
+	private CreateSemesterverband csv;
+	private CreateStudiengang csg;
 	
 	
 	private Dozent selectedDozent = null;
@@ -108,7 +114,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	
 	private SingleSelectionModel <Object> selectionModel = new SingleSelectionModel<Object>(boKeyProvider);
 	
-	public NavTreeViewModel(DozentForm df, LehrveranstaltungForm lf, RaumForm rf, ZeitslotForm zf, StudiengangForm sgf, SemesterverbandForm svf, Stundenplansystem sps) {
+	/*public NavTreeViewModel(DozentForm df, LehrveranstaltungForm lf, RaumForm rf, ZeitslotForm zf, StudiengangForm sgf, SemesterverbandForm svf, Stundenplansystem sps) {
 		this.df = df;
 		df.setTvm(this);
 		this.lf = lf;
@@ -120,8 +126,23 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 		this.sgf = sgf;
 		sgf.setTvm(this);
 		this.svf = svf;
-		svf.setTvm(this);
+		svf.setTvm(this);*/
 		
+	public NavTreeViewModel(CreateDozent cd, CreateLehrveranstaltung cl, CreateRaum cr, CreateStudiengang csg, CreateSemesterverband csv, Stundenplansystem sps) {
+		this.cd = cd;
+		cd.setTvm(this);
+		this.cl = cl;
+		cl.setTvm(this);
+		this.cr = cr;
+		cr.setTvm(this);
+		//this.zf = zf;
+		//zf.setTvm(this);
+		this.csg = csg;
+		csg.setTvm(this);
+		this.csv = csv;
+		csv.setTvm(this);
+	
+	
 		this.sps = sps;
 		
 		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {

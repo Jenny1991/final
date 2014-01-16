@@ -62,7 +62,7 @@ public class ItProjekt implements EntryPoint {
 	/**
 	 * EntryPoint Klasse des Projekts <b>ItProjekt</b>
 	 * Diese Klasse implementiert das Interface <code>EntryPoint</code>
-	   * daher ben����tigen wir die Methode <code>public void onModuleLoad()</code>. 
+	   * daher ben������������tigen wir die Methode <code>public void onModuleLoad()</code>. 
 	   * Sie ist das GWT-Pendant der <code>main()</code>-Methode normaler Java-Applikationen.
 	 */
 
@@ -103,7 +103,7 @@ public class ItProjekt implements EntryPoint {
 		
 		@Override
 		/**
-		 * Initialisiert die Webseite, die beim �����ffnen als erstes angezeigt wird
+		 * Initialisiert die Webseite, die beim ���������������ffnen als erstes angezeigt wird
 		 */
 		public void onModuleLoad() {
 			
@@ -117,7 +117,9 @@ public class ItProjekt implements EntryPoint {
 		     *
 		     */
 		
-			NavTreeViewModel tvm = new NavTreeViewModel(df, lf, rf, zf, sgf, svf, this);
+			//NavTreeViewModel tvm = new NavTreeViewModel(df, lf, rf, zf, sgf, svf, this);
+			NavTreeViewModel tvm = new NavTreeViewModel(cd, cl, cr, csg,csv, this);
+			
 			
 			CellTree cellTree = new CellTree(tvm, "Root");
 			
@@ -177,13 +179,13 @@ public class ItProjekt implements EntryPoint {
 
 		    /*
 		     * Das DockLayoutPanel wird einem DIV-Element namens "Details" in der
-		     * zugeh����rigen HTML-Datei zugewiesen und erh����lt so seinen Darstellungsort.
+		     * zugeh������������rigen HTML-Datei zugewiesen und erh������������lt so seinen Darstellungsort.
 		     */
 		    
 		    
 		    	    
 		    /*
-		     * Unter welchem Namen k����nnen wir den Button durch die CSS-Datei des
+		     * Unter welchem Namen k������������nnen wir den Button durch die CSS-Datei des
 		     * Projekts formatieren?
 		     */
 		    dozentButton.setStylePrimaryName("BaumButton");
@@ -358,7 +360,7 @@ public class ItProjekt implements EntryPoint {
 		    
 		    
 		    /*
-		     * Hinzuf����gen des Baums zum linken Panel.
+		     * Hinzuf������������gen des Baums zum linken Panel.
 		     */
 
 		 
@@ -368,9 +370,9 @@ public class ItProjekt implements EntryPoint {
 		     * Um das Verhalten beim draufklicken des Buttons zu realisieren, 
 		     * haben wir einen ClickHandler verwendet, durch den durch klicken mit der Mouse auf den Button
 		     * die onClick()-Methode aufgerufen wird.
-	         * Es wurde ein separates DIV-Element namens "details" in die zugeh����rige HTML-Datei eingef����gt.
-	         * Bevor der neue Showcase dort eingef����gt wird, werden zun����chst alle bisherigen
-	         * Elemente dieses DIV gel����scht.         */
+	         * Es wurde ein separates DIV-Element namens "details" in die zugeh������������rige HTML-Datei eingef������������gt.
+	         * Bevor der neue Showcase dort eingef������������gt wird, werden zun������������chst alle bisherigen
+	         * Elemente dieses DIV gel������������scht.         */
 
 		
 		
@@ -380,8 +382,8 @@ public class ItProjekt implements EntryPoint {
 		    
 		    /*
 			 * Auch dem Report-Generator weisen wir dieses Bank-Objekt zu. Es wird
-			 * dort f����r die Darstellung der Adressdaten des Kreditinstituts
-			 * ben����tigt.
+			 * dort f������������r die Darstellung der Adressdaten des Kreditinstituts
+			 * ben������������tigt.
 			 
 			ReportGeneratorAsync reportGenerator = ClientsideSettings
 					.getReportGenerator();

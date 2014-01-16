@@ -286,7 +286,7 @@ public class StundenplaneintragMapper {
         stmt.executeUpdate("INSERT INTO stundenplaneintrag (id, dozentid, raumid, zeitslotid, "
     		  + "stundenplanid, lehrveranstaltungid) " + "VALUES ("
             + s.getId() + "," + s.getDozentId() + "," + s.getRaumId() + "," + s.getZeitslotId()  
-            + "," + s.getStundenplanId() + "," + s.getLehrveranstaltungId() );
+            + "," + s.getStundenplanId() + "," + s.getLehrveranstaltungId() + ")" );
         
       }
     }

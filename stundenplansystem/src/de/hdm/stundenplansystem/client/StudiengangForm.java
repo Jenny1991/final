@@ -24,52 +24,70 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 
 public class StudiengangForm extends Content {
 	
-	private final HTML ueberschrift = new HTML ("<h2>ÃƒÅ“bersicht der StudiengÃ¤nge<h2>");
-	private final HTML ueberschriftAenderung = new HTML ("<h2>Studiengang bearbeiten<h2>");
+	private final HTML ueberschriftAenderung = new HTML ("<h2>Studiengang bearbeiten und löschen<h2>");
 
-	  final Label lbbezeichnung = new Label ("Bezeichnung"); 
 	  final TextBox tbbezeichnung = new TextBox ();
-	  final Button bearbeiten = new Button ("Studiengang bearbeiten");
-	  final Button loeschen = new Button ("Studiengang lÃ¶schen");
-	  final Button speichern = new Button ("Ã„nderungen speichern");
-	  			  
+	  final Button loeschen = new Button ("Studiengang löschen");
+	  final Button speichern = new Button ("Änderungen speichern");	  			  
 	  final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
+	  
+	  Integer id;
 	  Studiengang shownSg = null; 
 	  NavTreeViewModel tvm = null;
 	  
 	  public StudiengangForm() {
-		  Grid studiengangGrid = new Grid (3, 2);
-		    this.add(ueberschrift);
+		  Grid studiengangGrid = new Grid (2, 3);
+		    this.add(ueberschriftAenderung);
 			this.add(studiengangGrid);
 		  
 			Label lbbezeichnung = new Label("Bezeichnung");
 			studiengangGrid.setWidget(0, 0, lbbezeichnung);
-			studiengangGrid.setWidget(0, 1, tbbezeichnung);
+			studiengangGrid.setWidget(1, 0, tbbezeichnung);
 			
 			Label lbfunktionen = new Label ("Funktionen");
-			studiengangGrid.setWidget(1, 0, bearbeiten);
-			studiengangGrid.setWidget(2, 0, loeschen);
-			}
+			studiengangGrid.setWidget(0, 1, lbfunktionen);
+			studiengangGrid.setWidget(1, 1, speichern);
+			speichern.addClickHandler(new ClickHandler() {
+				public void onClick(ClickEvent event) {
+					changeSelectedSg();
+				}
+			});
+			studiengangGrid.setWidget(1, 2, loeschen);
+			loeschen.addClickHandler(new ClickHandler() {
+				public void onClick(ClickEvent event) {
+					deleteSelectedSg();
+				}
+			});
+			setTvm(tvm);
+	  } 
 	  
 		public void onLoad() {
 			
-			//setTvm();
-			getSelectedData();
-			
-			bearbeiten.addClickHandler(new ClickHandler() {
-				public void onClick(ClickEvent event) {
-					showWidget();
+			verwaltungsSvc.getStudiengangById(id, new AsyncCallback<Studiengang>(){
+				@Override
+				public void onFailure(Throwable caught) {
+				}
+				
+				@Override
+				public void onSuccess(Studiengang sg) {
+					if (sg != null) {
+						setSelected(sg);
+					}
 				}
 			});
-			
-			  speichern.addClickHandler(new ClickHandler() {
-				  public void onClick(ClickEvent event) {
+		}
 
-					  boolean allFilled = true;
+		public void setTvm(NavTreeViewModel tvm) {
+			this.tvm = tvm;
+		}
+		
+		public void changeSelectedSg(){
+
+			boolean allFilled = true;
 					  
 					  if (tbbezeichnung.getValue().isEmpty()) {
 						  allFilled = false;
-					  Window.alert ("Bitte fÃƒÂ¼llen Sie alle Felder aus."); }
+					  Window.alert ("Bitte füllen Sie alle Felder aus."); }
 					  
 					  if (allFilled == true) {
 						  shownSg.setBezeichnung(tbbezeichnung.getValue().trim());
@@ -91,47 +109,24 @@ public class StudiengangForm extends Content {
 							});
 					  }
 				  }
-				  }); 
-			
-			loeschen.addClickHandler(new ClickHandler() {
-				public void onClick(ClickEvent event){
+				 
+				  public void deleteSelectedSg(){
 					verwaltungsSvc.deleteStudiengang(shownSg, new AsyncCallback<Void>() {
 						  @Override
 						  public void onFailure (Throwable caught) {
-							  Window.alert("Der Studiengang konnte nicht gelÃ¶scht werden." +
-							  		"Er ist in ein oder mehreren StundenplaneintrÃ¤gen eingetragen");
-						  }
+						  Window.alert("Der Studiengang konnte nicht gelöscht werden." +
+					  		"Er ist in ein oder mehreren Stundenplaneinträgen vorhanden");
+							  }
 
 						  @Override
 						  public void onSuccess(Void result) {
-							  tvm.deleteStudiengang(shownSg);
-							  Window.alert ("Erfolgreich gelÃ¶scht.");
+						  tvm.deleteStudiengang(shownSg);
+						  Window.alert ("Erfolgreich gelöscht.");
 						  } 	
 						});
+			  		this.clearFields();
 				  }
-			});
-	  		this.clear();
-		  }
 
-		public void setTvm(NavTreeViewModel tvm) {
-			this.tvm = tvm;
-		}
-		
-		public void getSelectedData(){
-			/*verwaltungsSvc.getStudiengangById(sgId, new AsyncCallback<Studiengang>(){
-				@Override
-				public void onFailure(Throwable caught) {
-				}
-				
-				@Override
-				public void onSuccess(Studiengang result) {
-					if (result != null) {
-						setSelected(result);
-					}
-				}
-			});*/
-		}
-		
 		public void setSelected(Studiengang sg){
 			if (sg != null) {
 				shownSg = sg;
@@ -148,20 +143,4 @@ public class StudiengangForm extends Content {
 		public void clearFields(){
 			tbbezeichnung.setText("");
 		}
-		
-		  public void showWidget(){
-			  	 this.add(ueberschriftAenderung);
-				  this.add(lbbezeichnung);
-				  this.add(tbbezeichnung);
-				  this.add(speichern);
-			  }
-}  
-								  
-								  
-								  
-								  
-								  
-								  
-								  
-								  
-				  
+}	  

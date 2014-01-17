@@ -27,66 +27,78 @@ public class LehrveranstaltungForm extends Content {
 	 * Aufbau der Seite, um die Lehrveranstaltung anzuzeigen, zu lÃƒÂ¶schen und zu bearbeiten
 	 */
 	
-	private final HTML ueberschrift = new HTML ("<h2>ÃƒÅ“bersicht der Lehrveranstaltungen<h2>");
-	private final HTML ueberschriftAenderung = new HTML ("<h2>Lehrveranstaltung bearbeiten<h2>");
+	private final HTML ueberschriftAenderung = new HTML ("<h2>Lehrveranstaltung bearbeiten und löschen<h2>");
 
-	final Label lbbezeichnung = new Label ("Bezeichnung"); 
-	final Label lbsemester = new Label ("Semester");
-	final Label lbumfang = new Label ("Umfang");
 	final TextBox tbbezeichnung = new TextBox ();
 	final TextBox tbsemester = new TextBox();
 	final TextBox tbumfang = new TextBox (); 	  
-	final Button bearbeiten = new Button ("Lehrveranstaltung bearbeiten");
-	final Button loeschen = new Button ("Lehrveranstaltung lÃ¶schen");
-	final Button speichern = new Button ("Ã„nderungen speichern");
-	
+	final Button loeschen = new Button ("Lehrveranstaltung löschen");
+	final Button speichern = new Button ("Änderungen speichern");
 	final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
+	
+	Integer id;
 	Lehrveranstaltung shownLv = null;
 	NavTreeViewModel tvm = null;	
 	
 	public LehrveranstaltungForm(){
-		Grid lehrGrid = new Grid (5, 3);
-	    this.add(ueberschrift);
+		Grid lehrGrid = new Grid (3, 5);
+	    this.add(ueberschriftAenderung);
 		this.add(lehrGrid);
 	  
 		Label lbbezeichnung = new Label("Bezeichnung");
 		lehrGrid.setWidget(0, 0, lbbezeichnung);
-		lehrGrid.setWidget(0, 1, tbbezeichnung);
+		lehrGrid.setWidget(1, 0, tbbezeichnung);
 
 		Label lbsemester = new Label("Semester");
-		lehrGrid.setWidget(1, 0, lbsemester);
+		lehrGrid.setWidget(0, 1, lbsemester);
 		lehrGrid.setWidget(1, 1, tbsemester);
 		
 		Label lbumfang = new Label("Umfang");
-		lehrGrid.setWidget(2, 0, lbumfang);
+		lehrGrid.setWidget(0, 2, lbumfang);
 		lehrGrid.setWidget(2, 2, tbumfang);
 		
 		Label lbfunktionen = new Label ("Funktionen");
-		lehrGrid.setWidget(3, 0, bearbeiten);
-		lehrGrid.setWidget(4, 0, loeschen);
+		lehrGrid.setWidget(0, 3, lbfunktionen);
+		lehrGrid.setWidget(1, 3, speichern);
+		speichern.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				changeSelectedLv();
+			}
+		});
+		lehrGrid.setWidget(1, 4, loeschen);
+		loeschen.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				deleteSelectedLv();
+			}
+		});
+		setTvm(tvm);
 		}
 		
 	public void onLoad() {
 		
-		//setTvm();
-		getSelectedData();
-		
-		bearbeiten.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				showWidget();
+		verwaltungsSvc.getLehrveranstaltungById(id, new AsyncCallback<Lehrveranstaltung>(){
+			@Override
+			public void onFailure(Throwable caught) {
+			}
+			
+			@Override
+			public void onSuccess(Lehrveranstaltung result) {
+				if (result != null) {
+					setSelected(result);
+				}
 			}
 		});
+	  }
+	
+			public void changeSelectedLv(){
 		
-		  speichern.addClickHandler(new ClickHandler() {
-			  public void onClick(ClickEvent event) {
-
 				  boolean allFilled = true;
 			  
 				  if (tbbezeichnung.getValue().isEmpty() 
 						  ||tbsemester.getValue().isEmpty()
 				  		  ||tbumfang.getValue().isEmpty()){	
 					  allFilled = false;
-				  Window.alert ("Bitte fÃƒÂ¼llen Sie alle Felder aus."); } 
+				  Window.alert ("Bitte füllen Sie alle Felder aus."); } 
 				  
 				  if (allFilled == true) {
 					  Lehrveranstaltung lv = new Lehrveranstaltung();
@@ -115,45 +127,26 @@ public class LehrveranstaltungForm extends Content {
 						});
 				  }
 			  }
-			  }); 
-		
-		loeschen.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event){
-				verwaltungsSvc.deleteLehrveranstaltung(shownLv, new AsyncCallback<Void>() {
-					  @Override
-					  public void onFailure (Throwable caught) {
-						  Window.alert("Die Lehrveranstaltung konnte nicht gelÃ¶scht werden." +
-						  		"Sie ist in ein oder mehreren StundenplaneintrÃ¤gen eingetragen");
-					  }
+	
+	public void deleteSelectedLv(){
+			verwaltungsSvc.deleteLehrveranstaltung(shownLv, new AsyncCallback<Void>() {
+				  @Override
+				  public void onFailure (Throwable caught) {
+					  Window.alert("Die Lehrveranstaltung konnte nicht gelöscht werden." +
+					  		"Sie ist in ein oder mehreren Stundenplaneinträgen vorhanden");
+				  }
 
-					  @Override
-					  public void onSuccess(Void result) {
-						  tvm.deleteLehrveranstaltung(shownLv);
-						  Window.alert ("Erfolgreich gelÃ¶scht.");
-					  } 	
-					});
-			  }
-		});
-  		this.clear();
-	  }
-
+				  @Override
+				  public void onSuccess(Void result) {
+					  tvm.deleteLehrveranstaltung(shownLv);
+					  Window.alert ("Erfolgreich gelöscht.");
+				  } 	
+				});
+			this.clearFields();
+		  }
+	
 	public void setTvm(NavTreeViewModel tvm) {
 		this.tvm = tvm;
-	}
-	
-	public void getSelectedData(){
-		/*verwaltungsSvc.getLehrveranstaltungById(lId, new AsyncCallback<Lehrveranstaltung>(){
-			@Override
-			public void onFailure(Throwable caught) {
-			}
-			
-			@Override
-			public void onSuccess(Lehrveranstaltung result) {
-				if (result != null) {
-					setSelected(result);
-				}
-			}
-		});*/
 	}
 	
 	public void setSelected(Lehrveranstaltung lv){
@@ -176,15 +169,4 @@ public class LehrveranstaltungForm extends Content {
 		  tbsemester.setText("");
 		  tbumfang.setText("");
 	}
-	
-	  public void showWidget(){
-		  this.add(ueberschriftAenderung);
-		  this.add(lbbezeichnung);
-		  this.add(tbbezeichnung);
-		  this.add(lbsemester);
-		  this.add(tbsemester);
-		  this.add(lbumfang);
-		  this.add(tbumfang);
-		  this.add(speichern);
-		  }
 }

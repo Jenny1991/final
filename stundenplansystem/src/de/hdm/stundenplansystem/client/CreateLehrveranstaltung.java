@@ -71,8 +71,8 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 						 
 						  if (allFilled == true) {
 							  final String bezeichnung = tbbezeichnung.getValue().trim();
-							  final int umfang = tbumfang.getVisibleLength();
-							  final int semester = tbsemester.getVisibleLength();
+							  final int umfang = Integer.valueOf(tbumfang.getText());
+							  final int semester = Integer.valueOf(tbsemester.getText());
 						
 							  verwaltungsSvc.createLehrveranstaltung(bezeichnung, semester, umfang, new AsyncCallback <Lehrveranstaltung>() {
 
@@ -84,9 +84,6 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 								  @Override
 								  public void onSuccess(Lehrveranstaltung result) {									  Window.alert ("Erfolgreich gespeichert.");
 								  	  Window.alert ("Erfolgreich gespeichert.");
-									  tbbezeichnung.setValue(result.getBezeichnung());
-									  tbsemester.setVisibleLength(result.getSemester());
-									  tbumfang.setVisibleLength(result.getUmfang());
 									  tvm.addLehrveranstaltung(result);
 								  } 	
 						  });

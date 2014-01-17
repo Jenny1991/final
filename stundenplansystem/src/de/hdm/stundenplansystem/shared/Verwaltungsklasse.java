@@ -54,6 +54,16 @@ public interface Verwaltungsklasse extends RemoteService {
 	
 	public Dozent getDozentById(int id) throws IllegalArgumentException;
 	
+	public Lehrveranstaltung getLehrveranstaltungById(int id) throws IllegalArgumentException;
+	
+	public Raum getRaumById(int id)throws IllegalArgumentException;
+	
+	public Studiengang getStudiengangById(int id)throws IllegalArgumentException;
+	
+	public Semesterverband getSemesterverbandById(int id)throws IllegalArgumentException;
+	
+	public Stundenplaneintrag getStundenplaneintragById(int id)throws IllegalArgumentException;
+	
 	public Stundenplaneintrag createStundenplaneintrag(int d, int l, int r, 
 			int z, int sv)
 					throws IllegalArgumentException;

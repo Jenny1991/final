@@ -69,18 +69,29 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 			  this.add(speichern);
 			  this.clear();
 			  
-			  verwaltungsSvc.getAllLehrveranstaltungen(new AsyncCallback<Vector<Lehrveranstaltung>>() {
+			  verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
 				  public void onFailure(Throwable T){
 					  
 				  }
 				  
-				  public void onSuccess(Vector<Lehrveranstaltung> lehrveranstaltungen){
+				  public void onSuccess(Vector<Studiengang> studiengaenge){
+				  	for (Studiengang sg : studiengaenge){
+				  		libstudiengang.addItem(sg.getBezeichnung());
+				  	}
+			  }
+			  });
+			  
+			  verwaltungsSvc.getAll(new AsyncCallback<Vector<Studiengang>>() {
+				  public void onFailure(Throwable T){
+					  
+				  }
+				  
+				  public void onSuccess(Vector<Studiengang> studiengaenge){
 				  	for (Lehrveranstaltung lv : lehrveranstaltungen){
 				  		libstudiengang.addItem(lv.getBezeichnung());
 				  	}
 			  }
-				  
-			});
+			  });
 			 
 			  
 			  

@@ -95,4 +95,16 @@ public interface VerwaltungsklasseAsync {
 	void setStudiengang(Studiengang s, AsyncCallback<Void> callback);
 
 	void getDozentById(int id, AsyncCallback<Dozent> callback);
+
+	void getLehrveranstaltungById(int id,
+			AsyncCallback<Lehrveranstaltung> callback);
+
+	void getRaumById(int id, AsyncCallback<Raum> callback);
+
+	void getStudiengangById(int id, AsyncCallback<Studiengang> callback);
+
+	void getSemesterverbandById(int id, AsyncCallback<Semesterverband> callback);
+
+	void getStundenplaneintragById(int id,
+			AsyncCallback<Stundenplaneintrag> callback);
 }

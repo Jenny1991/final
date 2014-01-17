@@ -88,13 +88,13 @@ public class DozentForm extends Content {
 					}
 					
 					@Override
-					public void onSuccess(Dozent result) {
-						if (result != null) {
-							setSelected(result);
+					public void onSuccess(Dozent d) {
+						if (d != null) {
+							setSelected(d);
 						}
-					}
+					};		
 				});
-										
+				
 			  speichern.addClickHandler(new ClickHandler() {
 				  public void onClick(ClickEvent event) {
 					  
@@ -143,9 +143,8 @@ public class DozentForm extends Content {
 						});
 				  }
 			});
-	  		this.clear();
-		  }
-
+		  		this.clear();
+}
 
 		public void setTvm(NavTreeViewModel tvm) {
 			this.tvm = tvm;

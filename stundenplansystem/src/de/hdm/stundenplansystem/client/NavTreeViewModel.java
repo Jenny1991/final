@@ -54,7 +54,6 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	private Dozent selectedDozent = null;
 	private Lehrveranstaltung selectedLv = null;
 	private Raum selectedRaum = null;
-	private Zeitslot selectedZs = null;
 	private Semesterverband selectedSv = null;
 	private Studiengang selectedSg = null;
 	
@@ -62,7 +61,6 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	private ListDataProvider<Dozent> dozentDataProvider;
 	private ListDataProvider<Lehrveranstaltung> lvDataProvider;
 	private ListDataProvider<Raum> raumDataProvider;
-	private ListDataProvider<Zeitslot> zsDataProvider;
 	private ListDataProvider<Semesterverband> svDataProvider;
 	private ListDataProvider<Studiengang> sgDataProvider;
 	private ListDataProvider<String> stringDataProvider;
@@ -292,8 +290,8 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 		svDataProvider.getList().add(semesterverband);
 	}
 	
-	void addLehrveranstaltung(Lehrveranstaltung lehrveranstaltung) {
-		lvDataProvider.getList().add(lehrveranstaltung);
+	void addLehrveranstaltung(Lehrveranstaltung bezeichnung) {
+		lvDataProvider.getList().add(bezeichnung);
 	}
 	
 	void updateDozent(Dozent dozent) {
@@ -412,7 +410,6 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			stringDataProvider.getList().add("Semesterverband");
 			stringDataProvider.getList().add("Studiengang");
 			stringDataProvider.getList().add("Raum");
-			stringDataProvider.getList().add("Zeitslot");
 			
 			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);
 			
@@ -432,7 +429,8 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			
 			stringDataProvider = new ListDataProvider<String>();
 			
-			stringDataProvider.getList().add("Stundenplan");
+			stringDataProvider.getList().add("Stundenplan für Dozenten");
+			stringDataProvider.getList().add("Stundenplan für Studenten");
 			stringDataProvider.getList().add("Raumbelegungsplan");
 			
 			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);

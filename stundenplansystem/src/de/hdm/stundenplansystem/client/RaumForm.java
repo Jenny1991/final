@@ -50,13 +50,13 @@ public class RaumForm extends Content {
 			
 			Label lbfunktionen = new Label ("Funktionen");
 			raumGrid.setWidget(0, 2, lbfunktionen);
-			raumGrid.setWidget(1, 3, speichern);
+			raumGrid.setWidget(1, 2, speichern);
 			speichern.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 					changeSelectedRaum();
 				}
 			});
-			raumGrid.setWidget(1, 4, loeschen);
+			raumGrid.setWidget(1, 3, loeschen);
 			loeschen.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 					deleteSelectedRaum();

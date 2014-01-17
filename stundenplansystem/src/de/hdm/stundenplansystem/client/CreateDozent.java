@@ -22,7 +22,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
  * 
  */
 
-public class CreateDozent extends VerticalPanel {
+public class CreateDozent extends Content {
 	
 	/**
     * Jede Klasse enthï¿½t eine ï¿½berschrift, die definiert, was der User machen kann. 
@@ -46,15 +46,14 @@ public class CreateDozent extends VerticalPanel {
 	  * 
 	  * 
 	  */
-	 
 	  
 	 public void onLoad () {
 
 		  this.add(ueberschrift);
-		  this.add(lbnachname);
-		  this.add(tbnachname);
 		  this.add(lbvorname);
 		  this.add(tbvorname);
+		  this.add(lbnachname);
+		  this.add(tbnachname);
 		  this.add(speichern);	  
 		  
 		  setTvm(tvm);
@@ -88,10 +87,10 @@ public class CreateDozent extends VerticalPanel {
 							});
 					  }
 				  }
-				  });	  
+				  });
+			this.clear();
 	  }
 		public void setTvm(NavTreeViewModel tvm) {
 			this.tvm = tvm;
-			this.clear();
 		}
 	}

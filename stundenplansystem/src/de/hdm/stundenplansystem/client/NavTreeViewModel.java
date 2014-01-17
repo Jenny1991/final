@@ -68,7 +68,6 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	private ListDataProvider<String> stringDataProvider;
 	
 	private Stundenplansystem sps;
-	//private Map<Dozent, ListDataProvider<Lehrveranstaltung>> lvDataProvider = new HashMap<Dozent, ListDataProvider<Lehrveranstaltung>>();
 
 	private ProvidesKey<Object> boKeyProvider = new ProvidesKey<Object>() {
 		public Integer getKey(Object object) {
@@ -117,7 +116,6 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	
 	public NavTreeViewModel(CreateDozent cd, CreateLehrveranstaltung cl, CreateRaum cr, CreateStudiengang csg, CreateSemesterverband csv, DozentForm df, LehrveranstaltungForm lf, RaumForm rf, StudiengangForm sgf, SemesterverbandForm svf, Stundenplansystem sps) {
 		
-	//public NavTreeViewModel(CreateDozent cd, CreateLehrveranstaltung cl, CreateRaum cr, CreateStudiengang csg, CreateSemesterverband csv, Stundenplansystem sps) {
 		this.cd = cd;
 		cd.setTvm(this);
 		this.cl = cl;
@@ -162,7 +160,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 				}
 				
 				if (selection instanceof String && (String)selection == "Lehrveranstaltung verwalten") {
-					showLehrveranstaltungForm();
+					setSelectedLv(selectedLv);
 				}
 				
 				if (selection instanceof String && (String)selection == "Raum anlegen") {
@@ -170,7 +168,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 				}
 				
 				if (selection instanceof String && (String)selection == "Raum verwalten") {
-					showRaumForm();
+					setSelectedRaum(selectedRaum);
 				}
 				
 				if (selection instanceof String && (String)selection == "Studiengang anlegen") {
@@ -178,7 +176,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 				}
 				
 				if (selection instanceof String && (String)selection == "Studiengang verwalten") {
-					showStudiengangForm();
+					setSelectedSg(selectedSg);
 				}
 				
 				if (selection instanceof String && (String)selection == "Semesterverband anlegen") {
@@ -186,7 +184,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 				}
 				
 				if (selection instanceof String && (String)selection == "Semesterverband verwalten") {
-					showSemesterverbandForm();
+					setSelectedSv(selectedSv);
 				}
 				
 				if (selection instanceof Dozent) {
@@ -239,9 +237,6 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	void setSelectedLv(Lehrveranstaltung lv) {
 		selectedLv = lv;
 		lf.setSelected(lv);
-	}
-	
-	void showLehrveranstaltungForm() {
 		sps.showLehrveranstaltungForm();
 	}
 	
@@ -255,9 +250,6 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	void setSelectedRaum(Raum r) {
 		selectedRaum = r;
 		rf.setSelected(r);
-	}
-	
-	void showRaumForm() {
 		sps.showRaumForm();
 	}
 	
@@ -272,10 +264,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	void setSelectedSg(Studiengang sg) {
 		selectedSg = sg;
 		sgf.setSelected(sg);
-	}
-	
-	void showStudiengangForm() {
-		sps.showStudiengangForm();
+		sps.showSemesterverbandForm();
 	}
 	
 	Semesterverband getSelectedSv() {
@@ -289,9 +278,6 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	void setSelectedSv(Semesterverband sv) {
 		selectedSv = sv;
 		svf.setSelected(sv);
-	}
-	
-	void showSemesterverbandForm() {
 		sps.showSemesterverbandForm();
 	}
 	
@@ -301,22 +287,18 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 
 	void addRaum(Raum raum) {
 		raumDataProvider.getList().add(raum);
-		//lvDataProvider.put(dozent, new ListDataProvider<Lehrveranstaltung>());
 	}
 	
 	void addStudiengang(Studiengang studiengang) {
 		sgDataProvider.getList().add(studiengang);
-		//lvDataProvider.put(dozent, new ListDataProvider<Lehrveranstaltung>());
 	}
 	
 	void addSemesterverband(Semesterverband semesterverband) {
 		svDataProvider.getList().add(semesterverband);
-		//lvDataProvider.put(dozent, new ListDataProvider<Lehrveranstaltung>());
 	}
 	
 	void addLehrveranstaltung(Lehrveranstaltung lehrveranstaltung) {
 		lvDataProvider.getList().add(lehrveranstaltung);
-		//lvDataProvider.put(dozent, new ListDataProvider<Lehrveranstaltung>());
 	}
 	
 	void updateDozent(Dozent dozent) {
@@ -386,27 +368,22 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	
 	void deleteDozent(Dozent dozent) {
 		dozentDataProvider.getList().remove(dozent);
-		//lvDataProvider.remove(dozent);
 	}
 	
 	void deleteRaum(Raum raum) {
 		raumDataProvider.getList().remove(raum);
-		//lvDataProvider.remove(dozent);
 	}
 	
 	void deleteLehrveranstaltung(Lehrveranstaltung lehrveranstaltung) {
 		lvDataProvider.getList().remove(lehrveranstaltung);
-		//lvDataProvider.remove(dozent);
 	}
 	
 	void deleteStudiengang(Studiengang studiengang) {
 		sgDataProvider.getList().remove(studiengang);
-		//lvDataProvider.remove(dozent);
 	}
 	
 	void deleteSemesterverband(Semesterverband semesterverband) {
 		svDataProvider.getList().remove(semesterverband);
-		//lvDataProvider.remove(dozent);
 	}
 	
 
@@ -611,19 +588,10 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			
 			return new DefaultNodeInfo<Studiengang>(sgDataProvider, new StudiengangCell(), selectionModel, null);
 		}
-		
-	
-		
-		
 		return null;
 	}
-	
-
 	@Override
 	public boolean isLeaf(Object value) {
 		return false;
 	}
-	
-	//Bla
-
 }

@@ -88,7 +88,6 @@ public class CreateDozent extends Content {
 					  }
 				  }
 				  });
-			this.clear();
 	  }
 		public void setTvm(NavTreeViewModel tvm) {
 			this.tvm = tvm;

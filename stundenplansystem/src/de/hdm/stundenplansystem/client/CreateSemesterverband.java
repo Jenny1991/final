@@ -102,14 +102,14 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 
 						  boolean allFilled = true;
 						  
-						  if (tbjahrgang.getText().isEmpty() || tbanzahl.getText().isEmpty()
-								  || libstudiengang.getItemText(libstudiengang.getSelectedIndex()).isEmpty() || tbsemester.getText().isEmpty()) 
+						  if (tbjahrgang.getText().isEmpty() || tbanzahl.getText().isEmpty() || tbsemester.getText().isEmpty()) 
 						  { allFilled = false;
 						  Window.alert ("Bitte fÃ¼llen Sie alle Felder aus."); }
 						  
 						  if (allFilled == true) { 
 							  final String jahrgang = tbjahrgang.getText().trim();
-					//		  final Studiengang bezeichnung = tbstudiengang.getText().trim();
+							  //final Integer = libstudiengang.getItemText(libstudiengang.getTabIndex());
+							  final String bezeichnung = libstudiengang.getItemText(libstudiengang.getTabIndex());
 							  final int studierendenAnzahl = tbanzahl.getVisibleLength();
 							  final int semester = tbsemester.getVisibleLength();
 			

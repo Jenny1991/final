@@ -236,6 +236,26 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		return this.dozentMapper.findByKey(id);
 	}
 	
+	public Lehrveranstaltung getLehrveranstaltungById(int id)throws IllegalArgumentException {
+		return this.lehrveranstaltungMapper.findByKey(id);
+	}
+	
+	public Raum getRaumById(int id)throws IllegalArgumentException {
+		return this.raumMapper.findByKey(id);
+	}
+	
+	public Studiengang getStudiengangById(int id)throws IllegalArgumentException {
+		return this.studiengangMapper.findByKey(id);
+	}
+	
+	public Semesterverband getSemesterverbandById(int id)throws IllegalArgumentException {
+		return this.semesterverbandMapper.findByKey(id);
+	}
+	
+	public Stundenplaneintrag getStundenplaneintragById(int id)throws IllegalArgumentException {
+		return this.stundenplaneintragMapper.findByKey(id);
+	}
+	
 	public Dozent createDozent(String vorname, String nachname)
 			throws IllegalArgumentException {
 		Dozent a = new Dozent();

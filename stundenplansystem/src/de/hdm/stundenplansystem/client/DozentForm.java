@@ -81,11 +81,50 @@ public class DozentForm extends Content {
 				dozentGrid.setWidget(3, 1, loeschen);
 				
 				setTvm(tvm);
-				getSelectedData(id);
-						
+				
+				verwaltungsSvc.getDozentById(id, new AsyncCallback<Dozent>(){
+					@Override
+					public void onFailure(Throwable caught) {
+					}
+					
+					@Override
+					public void onSuccess(Dozent result) {
+						if (result != null) {
+							setSelected(result);
+						}
+					}
+				});
+										
 			  speichern.addClickHandler(new ClickHandler() {
 				  public void onClick(ClickEvent event) {
-					  updateDozent();
+					  
+					  boolean allFilled = true;
+					  
+					  if (tbnachname.getValue().isEmpty() 
+							  ||tbvorname.getValue().isEmpty()) {	
+						  allFilled = false;
+					  Window.alert ("Bitte füllen Sie alle Felder aus."); } 
+					  
+					  if (allFilled == true) {
+						  shownDozent.setNachname(tbnachname.getText().trim());
+						  shownDozent.setVorname(tbvorname.getText().trim());		
+						  
+						  verwaltungsSvc.changeDozent(shownDozent, new  AsyncCallback<Dozent> () {
+
+							  @Override
+							  public void onFailure (Throwable caught) {
+								  Window.alert("Der Dozent konnte nicht bearbeitet werden.");
+							  }
+
+							  @Override
+							  public void onSuccess(Dozent result) {
+								  Window.alert ("Erfolgreich gespeichert.");
+								  tbnachname.setText("");
+								  tbvorname.setText("");
+								  tvm.updateDozent(shownDozent);
+							  } 	
+							});
+					  }
 				  }			  
 				  }); 
 			
@@ -107,54 +146,13 @@ public class DozentForm extends Content {
 	  		this.clear();
 		  }
 
-		 public void updateDozent(){
-			  boolean allFilled = true;
-			  
-				  if (tbnachname.getValue().isEmpty() 
-						  ||tbvorname.getValue().isEmpty()) {	
-					  allFilled = false;
-				  Window.alert ("Bitte füllen Sie alle Felder aus."); } 
-				  
-				  if (allFilled == true) {
-					  shownDozent.setNachname(tbnachname.getText().trim());
-					  shownDozent.setVorname(tbvorname.getText().trim());		
-					  
-					  verwaltungsSvc.changeDozent(shownDozent, new  AsyncCallback<Dozent> () {
 
-						  @Override
-						  public void onFailure (Throwable caught) {
-							  Window.alert("Der Dozent konnte nicht bearbeitet werden.");
-						  }
-
-						  @Override
-						  public void onSuccess(Dozent result) {
-							  Window.alert ("Erfolgreich gespeichert.");
-							  tbnachname.setText("");
-							  tbvorname.setText("");
-							  tvm.updateDozent(shownDozent);
-						  } 	
-						});
-				  }
-			  }
-		
 		public void setTvm(NavTreeViewModel tvm) {
 			this.tvm = tvm;
 		}
 		
-		public void getSelectedData(int id){
-			verwaltungsSvc.getDozentById(id, new AsyncCallback<Dozent>(){
-				@Override
-				public void onFailure(Throwable caught) {
-				}
-				
-				@Override
-				public void onSuccess(Dozent result) {
-					if (result != null) {
-						setSelected(result);
-					}
-				}
-			});
-		}
+	/*	public void getSelectedData(int id){
+		} */
 		
 		public void setSelected(Dozent d){
 			if (d != null) {
@@ -163,7 +161,7 @@ public class DozentForm extends Content {
 			} else {
 				clearFields();
 			}
-		}
+		} 
 		
 		public void setFields(){
 			tbvorname.setText(shownDozent.getVorname());

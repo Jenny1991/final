@@ -116,13 +116,13 @@ public class DozentForm extends Content {
 		  }			
 		
 		public void deleteSelectedDozent(){
-			verwaltungsSvc.deleteDozent(shownDozent, new AsyncCallback<Boolean>() {
+			verwaltungsSvc.deleteDozent(shownDozent, new AsyncCallback<Void>() {
 			  public void onFailure (Throwable caught) {
-				  Window.alert("Der Studiengang konnte nicht gelöscht werden." +
+				  Window.alert("Der Dozent konnte nicht gelöscht werden." +
 				  		"Er ist in ein oder mehreren Stundenplaneinträgen eingetragen");
 			  }
 
-			  public void onSuccess(Boolean result) {
+			  public void onSuccess(Void result) {
 				  tvm.deleteDozent(shownDozent);
 				  Window.alert ("Erfolgreich gelöscht.");
 			  } 	

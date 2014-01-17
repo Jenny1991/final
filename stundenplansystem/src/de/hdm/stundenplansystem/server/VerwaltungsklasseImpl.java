@@ -358,14 +358,14 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 
 	public boolean deleteDozent(Dozent d) throws IllegalArgumentException {
 		
-		Vector<Stundenplaneintrag> dozenten = this.getAllStundenplaneintragOf(d);
-
-		    if (dozenten != null) {
-		    	return false;
-		    } else {
+//		Vector<Stundenplaneintrag> dozenten = this.getAllStundenplaneintragOf(d);
+//
+//		    if (dozenten != null) {
+//		    	return false;
+//		    } else {
 		   	this.dozentMapper.delete(d);
 		   	return true;
-		    }
+//		    }
 	}
 	
 	public void deleteLehrveranstaltung(Lehrveranstaltung a)

@@ -203,7 +203,10 @@ public class DozentMapper {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE dozent " + "\" " + "WHERE id=" + d.getId());
+      stmt.executeUpdate("UPDATE dozent SET " 
+    		  + "vorname= '" + d.getVorname() + "', " 
+    		  + "nachname= " + "'" + d.getNachname() + "' " 
+              + "WHERE id=" + d.getId());
 
     }
     catch (SQLException e2) {

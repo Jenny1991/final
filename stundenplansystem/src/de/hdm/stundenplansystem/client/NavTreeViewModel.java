@@ -78,38 +78,33 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			}
 			
 			else if (object instanceof String) {
-				return new Integer(((String)object).hashCode());
-			}			
+					return new Integer(((String)object).hashCode());
+			}
+			
 			else if (object instanceof Dozent) {
-				return new Integer(((Dozent)object).getId());
-			} else {
-				return new Integer(-((Dozent)object).getId());
+			  		return new Integer(((Dozent)object).getId());
 			}
-/**			else if (object instanceof Lehrveranstaltung) {
-				return new Integer(((Lehrveranstaltung)object).getId());
+			  	
+			  	 
+			else if (object instanceof Lehrveranstaltung) {
+					return new Integer(((Lehrveranstaltung)object).getId());
 			}
-			else {
-				return new Integer(-((Lehrveranstaltung)object).getId());
-			}
+			
 			else if (object instanceof Raum) {
-				return new Integer(((Raum)object).getId());
+					return new Integer(((Raum)object).getId());
 			}
-			else {
-				return new Integer(-((Raum)object).getId());
-			}
+			
 			else if (object instanceof Semesterverband) {
-				return new Integer(((Semesterverband)object).getId());
-			}
-			else {
-				return new Integer(-((Semesterverband)object).getId());
-			}
+					return new Integer(((Semesterverband)object).getId());
+				}
+			
 			else if (object instanceof Studiengang) {
-				return new Integer(((Studiengang)object).getId());
-			}
-			else {
-				return new Integer(-((Studiengang)object).getId());
-			} */
+					return new Integer(((Studiengang)object).getId());
+				}
+
+			else return null;
 		} 
+
 	};
 	
 	private SingleSelectionModel <Object> selectionModel = new SingleSelectionModel<Object>(boKeyProvider);
@@ -312,6 +307,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 				i++;
 			}
 		}
+		dozentDataProvider.refresh();
 	}
 	
 	void updateRaum(Raum raum) {
@@ -325,6 +321,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 				i++;
 			}
 		}
+		raumDataProvider.refresh();
 	}
 	
 	void updateLehrveranstaltung(Lehrveranstaltung lehrveranstaltung) {
@@ -338,6 +335,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 				i++;
 			}
 		}
+		lvDataProvider.refresh();
 	}
 	
 	void updateStudiengang(Studiengang studiengang) {
@@ -351,6 +349,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 				i++;
 			}
 		}
+		sgDataProvider.refresh();
 	}
 	
 	void updateSemesterverband(Semesterverband semesterverband) {
@@ -364,6 +363,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 				i++;
 			}
 		}
+		svDataProvider.refresh();
 	}
 	
 	void deleteDozent(Dozent dozent) {
@@ -551,7 +551,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 					}
 				}
 			});
-			
+		
 			return new DefaultNodeInfo<Raum>(raumDataProvider, new RaumCell(), selectionModel, null);
 		}
 		

@@ -115,7 +115,7 @@ public class StudiengangMapper {
     try {
       Statement stmt = con.createStatement();
 
-      ResultSet rs = stmt.executeQuery("SELECT id, bezeichnung"
+      ResultSet rs = stmt.executeQuery("SELECT id, bezeichnung "
     	+ "FROM studiengang "
         + " ORDER BY id");
 

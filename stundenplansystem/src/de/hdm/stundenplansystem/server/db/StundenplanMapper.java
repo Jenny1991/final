@@ -115,7 +115,7 @@ public class StundenplanMapper {
     try {
       Statement stmt = con.createStatement();
 
-      ResultSet rs = stmt.executeQuery("SELECT id, studienhalbjahr"
+      ResultSet rs = stmt.executeQuery("SELECT id, studienhalbjahr "
     	+ "FROM stundenplan "
         + " ORDER BY id");
 

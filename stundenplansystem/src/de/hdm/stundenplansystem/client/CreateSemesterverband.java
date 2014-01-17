@@ -14,8 +14,8 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ListBox;
 
 import de.hdm.stundenplansystem.shared.*;
-import de.hdm.stundenplansystem.shared.bo.Lehrveranstaltung;
 import de.hdm.stundenplansystem.shared.bo.Studiengang;
+import de.hdm.stundenplansystem.shared.bo.Stundenplan;
 import de.hdm.stundenplansystem.client.NavTreeViewModel;
 
 	/**
@@ -55,6 +55,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 		  */
 		  public void onLoad () {
 			  
+			  this.clear();
 			  this.add(ueberschrift);			  
 			  this.add(lbjahrgang);
 			  this.add(tbjahrgang);
@@ -67,20 +68,9 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 			  this.add(lbanzahl);
 			  this.add(tbanzahl);
 			  this.add(speichern);
-			  this.clear();
 			  
-			  verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
-				  public void onFailure(Throwable T){
-					  
-				  }
-				  
-				  public void onSuccess(Vector<Studiengang> studiengaenge){
-				  	for (Studiengang sg : studiengaenge){
-				  		libstudiengang.addItem(sg.getBezeichnung());
-				  	}
-			  }
-			  });
 			  
+			  			  
 			  verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
 				  public void onFailure(Throwable T){
 					  
@@ -93,7 +83,17 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 			  }
 			  });
 			 
-			  
+			  verwaltungsSvc.getAllStundenplaene(new AsyncCallback<Vector<Stundenplan>>() {
+				  public void onFailure(Throwable T){
+					  
+				  }
+				  
+				  public void onSuccess(Vector<Stundenplan> stundenplaene){
+				  	for (Stundenplan sp : stundenplaene){
+				  		libstundenplan.addItem(sp.getStudienhalbjahr());
+				  	}
+			  }
+			  });
 			  
 			  setTvm(tvm);
 			  

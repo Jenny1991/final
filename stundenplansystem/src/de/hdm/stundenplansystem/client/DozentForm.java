@@ -108,21 +108,22 @@ public class DozentForm extends Content {
 
 					  @Override
 					  public void onSuccess(Dozent result) {
-						  Window.alert ("Erfolgreich gespeichert.");
 						  tvm.updateDozent(shownDozent);
+						  Window.alert ("Erfolgreich gespeichert.");
+						  
 					  } 	
 					});
 			  }
 		  }			
 		
 		public void deleteSelectedDozent(){
-			verwaltungsSvc.deleteDozent(shownDozent, new AsyncCallback<Void>() {
+			verwaltungsSvc.deleteDozent(shownDozent, new AsyncCallback<Boolean>() {
 			  public void onFailure (Throwable caught) {
 				  Window.alert("Der Dozent konnte nicht gelöscht werden." +
 				  		"Er ist in ein oder mehreren Stundenplaneinträgen eingetragen");
 			  }
 
-			  public void onSuccess(Void result) {
+			  public void onSuccess(Boolean result) {
 				  tvm.deleteDozent(shownDozent);
 				  Window.alert ("Erfolgreich gelöscht.");
 			  } 	

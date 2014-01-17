@@ -15,7 +15,7 @@ import com.google.gwt.user.client.ui.ListBox;
 
 import de.hdm.stundenplansystem.shared.*;
 import de.hdm.stundenplansystem.shared.bo.Lehrveranstaltung;
-import de.hdm.stundenplansystem.shared.bo.Semesterverband;
+import de.hdm.stundenplansystem.shared.bo.Studiengang;
 import de.hdm.stundenplansystem.client.NavTreeViewModel;
 
 	/**
@@ -81,14 +81,14 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 			  }
 			  });
 			  
-			  verwaltungsSvc.getAll(new AsyncCallback<Vector<Studiengang>>() {
+			  verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
 				  public void onFailure(Throwable T){
 					  
 				  }
 				  
 				  public void onSuccess(Vector<Studiengang> studiengaenge){
-				  	for (Lehrveranstaltung lv : lehrveranstaltungen){
-				  		libstudiengang.addItem(lv.getBezeichnung());
+				  	for (Studiengang sg : studiengaenge){
+				  		libstudiengang.addItem(sg.getBezeichnung());
 				  	}
 			  }
 			  });

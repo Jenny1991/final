@@ -21,6 +21,7 @@ import com.google.gwt.view.client.TreeViewModel;
 
 
 
+
 import de.hdm.stundenplansystem.shared.Verwaltungsklasse;
 import de.hdm.stundenplansystem.shared.VerwaltungsklasseAsync;
 import de.hdm.stundenplansystem.shared.bo.BusinessObjekt;
@@ -29,6 +30,7 @@ import de.hdm.stundenplansystem.shared.bo.Lehrveranstaltung;
 import de.hdm.stundenplansystem.shared.bo.Raum;
 import de.hdm.stundenplansystem.shared.bo.Semesterverband;
 import de.hdm.stundenplansystem.shared.bo.Studiengang;
+import de.hdm.stundenplansystem.shared.bo.Stundenplan;
 import de.hdm.stundenplansystem.shared.bo.Stundenplaneintrag;
 import de.hdm.stundenplansystem.shared.bo.Zeitslot;
 
@@ -46,6 +48,8 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	private SemesterverbandForm svf;
 	private StudiengangForm sgf;
 	private StundenplaneintragForm spef;
+	private StundenplanForm spf;
+	//private StudienhalbjahrForm shf;
 
 	private CreateDozent cd;
 	private CreateLehrveranstaltung cl;
@@ -53,7 +57,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	private CreateSemesterverband csv;
 	private CreateStudiengang csg;
 	private CreateStundenplaneintrag cspe;
-	
+	//private CreateStudienhalbjahr csh;
 	
 	private Dozent selectedDozent = null;
 	private Lehrveranstaltung selectedLv = null;
@@ -61,6 +65,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	private Semesterverband selectedSv = null;
 	private Studiengang selectedSg = null;
 	private Stundenplaneintrag selectedSpe = null;
+	private Stundenplan selectedSp = null;
 	
 	private VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
 	private ListDataProvider<Dozent> dozentDataProvider;
@@ -68,8 +73,10 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	private ListDataProvider<Raum> raumDataProvider;
 	private ListDataProvider<Semesterverband> svDataProvider;
 	private ListDataProvider<Studiengang> sgDataProvider;
+	
 	private ListDataProvider<String> stringDataProvider;
 	private ListDataProvider<Stundenplaneintrag> speDataProvider;
+	private ListDataProvider<Stundenplan> spDataProvider;
 	
 	private Stundenplansystem sps;
 
@@ -108,6 +115,10 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			else if (object instanceof Stundenplaneintrag) {
 				return new Integer(((Stundenplaneintrag)object).getId());
 			}
+			
+			else if (object instanceof Stundenplan) {
+				return new Integer(((Stundenplan)object).getId());
+			}
 
 			else return null;
 		} 
@@ -116,7 +127,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	
 	private SingleSelectionModel <Object> selectionModel = new SingleSelectionModel<Object>(boKeyProvider);
 	
-	public NavTreeViewModel(CreateDozent cd, CreateLehrveranstaltung cl, CreateRaum cr, CreateStudiengang csg, CreateSemesterverband csv, CreateStundenplaneintrag cspe, DozentForm df, LehrveranstaltungForm lf, RaumForm rf, StudiengangForm sgf, SemesterverbandForm svf, StundenplaneintragForm spef,  Stundenplansystem sps) {
+	public NavTreeViewModel(CreateDozent cd, CreateLehrveranstaltung cl, CreateRaum cr, CreateStudiengang csg, CreateSemesterverband csv, CreateStundenplaneintrag cspe, DozentForm df, LehrveranstaltungForm lf, RaumForm rf, StudiengangForm sgf, SemesterverbandForm svf, StundenplaneintragForm spef, StundenplanForm spf,  Stundenplansystem sps) {
 		
 		this.cd = cd;
 		cd.setTvm(this);
@@ -143,6 +154,8 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 		svf.setTvm(this);
 		this.spef = spef;
 		spef.setTvm(this);
+		this.spf = spf;
+		spf.setTvm(this);
 	
 	
 		this.sps = sps;
@@ -201,8 +214,16 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 					setSelectedStundenplaneintrag(selectedSpe);
 				}
 				
-				if (selection instanceof Stundenplaneintrag) {
-					setSelectedStundenplaneintrag((Stundenplaneintrag) selection);
+				if (selection instanceof String && (String)selection == "Studienhalbjahr anlegen") {
+					setCreateStudienhalbjahr();
+				}
+				
+				if (selection instanceof String && (String)selection == "Studienhalbjahr verwalten") {
+					setSelectedStudienhalbjahr(selectedSp);
+				}
+				
+				if (selection instanceof Dozent) {
+					setSelectedDozent((Dozent) selection);
 				} 
 				
 				if (selection instanceof Lehrveranstaltung) {
@@ -220,6 +241,14 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 				if (selection instanceof Semesterverband) {
 					setSelectedSv((Semesterverband) selection);
 				}
+				
+				if (selection instanceof Stundenplaneintrag) {
+					setSelectedStundenplaneintrag((Stundenplaneintrag) selection);
+				} 
+				
+				if (selection instanceof Stundenplan) {
+					setSelectedStudienhalbjahr((Stundenplan) selection);
+				} 
 			}
 
 		});
@@ -309,6 +338,20 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 		sps.showSpeForm();
 	}
 	
+	Stundenplan getSelectedStudienhalbjahr() {
+		return selectedSp;
+	}
+	
+	void setCreateStudienhalbjahr() {
+		sps.createStundenplanForm();
+	}
+	
+	void setSelectedStudienhalbjahr(Stundenplan sp) {
+		selectedSp = sp;
+		spf.setSelected(sp);
+		sps.showStundenplanForm();
+	}
+	
 	void addDozent(Dozent dozent) {
 		dozentDataProvider.getList().add(dozent);
 	}
@@ -329,9 +372,13 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 		lvDataProvider.getList().add(lehrveranstaltung);
 	}
 	
-	/**void addStundenplaneintrag(Stundenplaneintrag stundenplaneintrag) {
+	void addStundenplaneintrag(Stundenplaneintrag stundenplaneintrag) {
 		speDataProvider.getList().add(stundenplaneintrag);
-	}*/
+	}
+	
+	void addStundenplan(Stundenplan stundenplan) {
+		spDataProvider.getList().add(stundenplan);
+	}
 	
 	void updateDozent(Dozent dozent) {
 		List<Dozent> dozentList = dozentDataProvider.getList();
@@ -417,6 +464,20 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 		speDataProvider.refresh();
 	}
 	
+	void updateStudienhalbjahr(Stundenplan studienhalbjahr) {
+		List<Stundenplan> studienhalbjahrList = spDataProvider.getList();
+		int i = 0;
+		for (Stundenplan sp : studienhalbjahrList) {
+			if(sp.getId() == i) {
+				studienhalbjahrList.set(i, studienhalbjahr);
+				break;
+			} else {
+				i++;
+			}
+		}
+		spDataProvider.refresh();
+	}
+	
 	void deleteDozent(Dozent dozent) {
 		dozentDataProvider.getList().remove(dozent);
 	}
@@ -439,6 +500,10 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	
 	void deleteSpe(Stundenplaneintrag stundenplaneintrag) {
 		speDataProvider.getList().remove(stundenplaneintrag);
+	}
+	
+	void deleteStudienhalbjahr(Stundenplan studienhalbjahr) {
+		spDataProvider.getList().remove(studienhalbjahr);
 	}
 	
 
@@ -467,6 +532,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			stringDataProvider.getList().add("Semesterverband");
 			stringDataProvider.getList().add("Studiengang");
 			stringDataProvider.getList().add("Raum");
+			stringDataProvider.getList().add("Studienhalbjahr");
 			
 			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);
 			
@@ -538,6 +604,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);	
 		}
 		
+		
 		if (value instanceof String && (String)value == "Raum") {
 			
 			stringDataProvider = new ListDataProvider<String>();
@@ -547,6 +614,16 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 
 			
 			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);	
+		}
+		
+		if (value instanceof String && (String)value == "Studienhalbjahr") {
+			
+			stringDataProvider = new ListDataProvider<String>();
+			
+			stringDataProvider.getList().add("Studienhalbjahr anlegen");
+			stringDataProvider.getList().add("Studienhalbjahr verwalten");
+			
+			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);
 		}
 		
 		
@@ -645,7 +722,24 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			return new DefaultNodeInfo<Studiengang>(sgDataProvider, new StudiengangCell(), selectionModel, null);
 		}
 		
-		if (value instanceof String && (String)value=="Stundenplaneintrag anlegen") {
+		if (value instanceof String && (String)value=="Studienhalbjahr verwalten") {
+			spDataProvider = new ListDataProvider<Stundenplan>();
+			verwaltungsSvc.getAllStundenplaene(new AsyncCallback<Vector<Stundenplan>>() {
+				public void onFailure(Throwable T) {
+					
+				}
+				
+				public void onSuccess(Vector<Stundenplan> studienhalbjahr) {
+					for (Stundenplan sp : studienhalbjahr) {
+						spDataProvider.getList().add(sp);
+					}
+				}
+			});
+			
+			return new DefaultNodeInfo<Stundenplan>(spDataProvider, new StundenplanCell(), selectionModel, null);
+		}
+		
+		if (value instanceof String && (String)value=="Stundenplaneintrag verwalten") {
 			speDataProvider = new ListDataProvider<Stundenplaneintrag>();
 			verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
 				public void onFailure(Throwable T) {

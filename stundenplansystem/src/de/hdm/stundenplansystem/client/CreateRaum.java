@@ -32,7 +32,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 		   * Unter der ï¿½berschrift tragt der User die Daten des neuen Raums ein. 
 		   */
 		  final Label lbbezeichnung = new Label ("Bezeichnung"); 
-		  final Label lbkapazitaet = new Label ("KapazitÃ¤t");
+		  final Label lbkapazitaet = new Label ("Kapazit�t");
 		  final TextBox tbbezeichnung = new TextBox ();
 		  final TextBox tbkapazitaet = new TextBox ();
 		  final Button speichern = new Button ("speichern");
@@ -63,11 +63,11 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 						  if (tbbezeichnung.getValue().isEmpty() 
 								  || tbkapazitaet.getValue().isEmpty())
 						  {	allFilled = false;
-						  Window.alert ("Bitte fÃ¼llen Sie alle Felder aus."); }
+						  Window.alert ("Bitte f�llen Sie alle Felder aus."); }
 						  
 						  if (allFilled == true) { 
 							  final String bezeichnung = tbbezeichnung.getValue().trim();
-							  final int kapazitaet = tbkapazitaet.getVisibleLength();
+							  final int kapazitaet = Integer.valueOf(tbkapazitaet.getValue());
 
 							  verwaltungsSvc.createRaum(bezeichnung, kapazitaet, new AsyncCallback<Raum>() {
 
@@ -78,10 +78,10 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 
 								  @Override
 								  public void onSuccess(Raum result) {
-									  tbbezeichnung.setText(result.getBezeichnung());
-									  tbkapazitaet.setVisibleLength(result.getKapazitaet());
-									  tvm.addRaum(result);
+									  tbbezeichnung.setText("");
+									  tbkapazitaet.setText("");
 									  Window.alert ("Erfolgreich gespeichert.");
+									  tvm.addRaum(result);
 								  } 	
 								});
 						  }

@@ -67,7 +67,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 								  || tbsemester.getValue().isEmpty()
 								  || tbumfang.getValue().isEmpty())
 						  {	allFilled = false;
-						  Window.alert("Bitte fÃ¼llen Sie alle Felder aus."); }
+						  Window.alert("Bitte f�llen Sie alle Felder aus."); }
 						 
 						  if (allFilled == true) {
 							  final String bezeichnung = tbbezeichnung.getValue().trim();
@@ -82,7 +82,10 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 								  }
 
 								  @Override
-								  public void onSuccess(Lehrveranstaltung result) {									  Window.alert ("Erfolgreich gespeichert.");
+								  public void onSuccess(Lehrveranstaltung result) {
+									  tbbezeichnung.setText("");
+									  tbumfang.setText("");
+									  tbsemester.setText("");
 								  	  Window.alert ("Erfolgreich gespeichert.");
 									  tvm.addLehrveranstaltung(result);
 								  } 	

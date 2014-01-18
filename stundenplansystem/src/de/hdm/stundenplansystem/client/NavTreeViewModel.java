@@ -290,8 +290,8 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 		svDataProvider.getList().add(semesterverband);
 	}
 	
-	void addLehrveranstaltung(Lehrveranstaltung bezeichnung) {
-		lvDataProvider.getList().add(bezeichnung);
+	void addLehrveranstaltung(Lehrveranstaltung lehrveranstaltung) {
+		lvDataProvider.getList().add(lehrveranstaltung);
 	}
 	
 	void updateDozent(Dozent dozent) {

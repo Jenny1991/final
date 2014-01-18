@@ -57,7 +57,7 @@ public class CreateStudiengang extends Content{
 				  
 				  	if (tbbezeichnung.getValue().isEmpty())  
 				  	{ allFilled = false;
-					  Window.alert ("Bitte fÃ¼llen Sie alle Felder aus."); }
+					  Window.alert ("Bitte f�llen Sie alle Felder aus."); }
 				  	
 				  	if (allFilled == true){
 				  		final String bezeichnung = tbbezeichnung.getValue().trim();
@@ -71,9 +71,9 @@ public class CreateStudiengang extends Content{
 
 						  @Override
 						  public void onSuccess(Studiengang result) {
-							  tbbezeichnung.setText(result.getBezeichnung());
-							  tvm.addStudiengang(result);
+							  tbbezeichnung.setText("");
 							  Window.alert ("Erfolgreich gespeichert.");
+							  tvm.addStudiengang(result);
 						  } 	
 						});
 				  }

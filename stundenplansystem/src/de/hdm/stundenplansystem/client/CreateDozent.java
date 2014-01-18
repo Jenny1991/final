@@ -66,7 +66,7 @@ public class CreateDozent extends Content {
 					  if (tbnachname.getValue().isEmpty() 
 							  ||tbvorname.getValue().isEmpty()) {	
 						  allFilled = false;
-					  Window.alert ("Bitte fÃ¼llen Sie alle Felder aus."); } 
+					  Window.alert ("Bitte f�llen Sie alle Felder aus."); } 
 					  
 					  if (allFilled == true) {	
 						  String vorname = tbvorname.getValue().trim();
@@ -81,6 +81,8 @@ public class CreateDozent extends Content {
 
 							  @Override
 							  public void onSuccess(Dozent result) {
+								  tbvorname.setText("");
+								  tbnachname.setText("");
 								  Window.alert ("Erfolgreich gespeichert.");
 								  tvm.addDozent(result);
 							  } 	

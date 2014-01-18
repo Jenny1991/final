@@ -103,8 +103,8 @@ public class LehrveranstaltungForm extends Content {
 				  if (allFilled == true) {
 					  Lehrveranstaltung lv = new Lehrveranstaltung();
 					  lv.setBezeichnung(tbbezeichnung.getText().trim());
-					  lv.setSemester(tbsemester.getVisibleLength());
-					  lv.setUmfang(tbumfang.getVisibleLength());
+					  lv.setSemester(Integer.valueOf(tbsemester.getText()));
+					  lv.setUmfang(Integer.valueOf(tbumfang.getText()));
 					  tbbezeichnung.setFocus(true);
 					  tbsemester.setFocus(true);
 					  tbumfang.setFocus(true);
@@ -118,10 +118,10 @@ public class LehrveranstaltungForm extends Content {
 
 						  @Override
 						  public void onSuccess(Lehrveranstaltung result) {
-							  Window.alert ("Erfolgreich gespeichert.");
 							  tbbezeichnung.setText("");
-							  tbsemester.setVisibleLength(result.getSemester());
-							  tbumfang.setVisibleLength(result.getUmfang());
+							  tbsemester.setText("");
+							  tbumfang.setText("");
+							  Window.alert ("Erfolgreich gespeichert.");
 							  tvm.updateLehrveranstaltung(shownLv);
 						  } 	
 						});

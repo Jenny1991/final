@@ -23,14 +23,15 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 
 public class DozentForm extends Content {
 	
-	private final HTML ueberschriftAenderung = new HTML ("<h2>Dozenten bearbeiten<h2>");
+	private final HTML ueberschriftAenderung = new HTML ("<h2>Dozenten bearbeiten und löschen<h2>");
 
 	  final TextBox tbvorname = new TextBox ();
 	  final TextBox tbnachname = new TextBox ();
 	  final Button loeschen = new Button ("Dozent löschen");
 	  final Button speichern = new Button ("Änderungen speichern");
-	  			  
 	  final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
+      public CreateDozent cd = new CreateDozent();
+
 	  Integer id;
 	  Dozent shownDozent = null; 
 	  NavTreeViewModel tvm = null;
@@ -129,6 +130,7 @@ public class DozentForm extends Content {
 			  } 	
 			});
 			  this.clear();
+			  this.add(cd);
 	  }
 	
 		public void setSelected(Dozent d){

@@ -23,7 +23,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 
 public class DozentForm extends Content {
 	
-	private final HTML ueberschriftAenderung = new HTML ("<h2>Dozenten bearbeiten und löschen<h2>");
+	private final HTML ueberschriftAenderung = new HTML ("<h2>Dozenten verwalten<h2>");
 
 	  final TextBox tbvorname = new TextBox ();
 	  final TextBox tbnachname = new TextBox ();
@@ -129,8 +129,7 @@ public class DozentForm extends Content {
 				  Window.alert ("Erfolgreich gelöscht.");
 			  } 	
 			});
-			  this.clear();
-			  this.add(cd);
+			this.clearFields();
 	  }
 	
 		public void setSelected(Dozent d){

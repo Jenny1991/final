@@ -81,8 +81,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			
 			else if (object instanceof Dozent) {
 			  		return new Integer(((Dozent)object).getId());
-			}
-			  	
+			}	  	
 			  	 
 			else if (object instanceof Lehrveranstaltung) {
 					return new Integer(((Lehrveranstaltung)object).getId());
@@ -257,7 +256,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	void setSelectedSg(Studiengang sg) {
 		selectedSg = sg;
 		sgf.setSelected(sg);
-		sps.showSemesterverbandForm();
+		sps.showStudiengangForm();
 	}
 	
 	Semesterverband getSelectedSv() {

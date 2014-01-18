@@ -24,7 +24,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 
 public class StudiengangForm extends Content {
 	
-	private final HTML ueberschriftAenderung = new HTML ("<h2>Studiengang bearbeiten und löschen<h2>");
+	private final HTML ueberschriftAenderung = new HTML ("<h2>Studiengang verwalten<h2>");
 
 	  final TextBox tbbezeichnung = new TextBox ();
 	  final Button loeschen = new Button ("Studiengang löschen");
@@ -90,8 +90,7 @@ public class StudiengangForm extends Content {
 					  Window.alert ("Bitte füllen Sie alle Felder aus."); }
 					  
 					  if (allFilled == true) {
-						  shownSg.setBezeichnung(tbbezeichnung.getValue().trim());
-						  tbbezeichnung.setFocus(true);
+						  shownSg.setBezeichnung(tbbezeichnung.getText().trim());
 					  
 						  verwaltungsSvc.changeStudiengang(shownSg, new AsyncCallback<Studiengang> () {
 
@@ -102,9 +101,8 @@ public class StudiengangForm extends Content {
 
 							  @Override
 							  public void onSuccess(Studiengang result) {
-								  Window.alert ("Erfolgreich gespeichert.");
-								  tbbezeichnung.setText("");
 								  tvm.updateStudiengang(shownSg);
+								  Window.alert ("Erfolgreich gespeichert.");
 							  } 	
 							});
 					  }

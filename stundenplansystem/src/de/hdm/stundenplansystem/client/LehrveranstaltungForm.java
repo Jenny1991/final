@@ -27,7 +27,7 @@ public class LehrveranstaltungForm extends Content {
 	 * Aufbau der Seite, um die Lehrveranstaltung anzuzeigen, zu lÃƒÂ¶schen und zu bearbeiten
 	 */
 	
-	private final HTML ueberschriftAenderung = new HTML ("<h2>Lehrveranstaltung bearbeiten und löschen<h2>");
+	private final HTML ueberschriftAenderung = new HTML ("<h2>Lehrveranstaltung verwalten<h2>");
 
 	final TextBox tbbezeichnung = new TextBox ();
 	final TextBox tbsemester = new TextBox();
@@ -101,15 +101,11 @@ public class LehrveranstaltungForm extends Content {
 				  Window.alert ("Bitte füllen Sie alle Felder aus."); } 
 				  
 				  if (allFilled == true) {
-					  Lehrveranstaltung lv = new Lehrveranstaltung();
-					  lv.setBezeichnung(tbbezeichnung.getText().trim());
-					  lv.setSemester(Integer.valueOf(tbsemester.getText()));
-					  lv.setUmfang(Integer.valueOf(tbumfang.getText()));
-					  tbbezeichnung.setFocus(true);
-					  tbsemester.setFocus(true);
-					  tbumfang.setFocus(true);
+					  shownLv.setBezeichnung(tbbezeichnung.getText().trim());
+					  shownLv.setSemester(Integer.valueOf(tbsemester.getText()));
+					  shownLv.setUmfang(Integer.valueOf(tbumfang.getText()));
 
-					  verwaltungsSvc.changeLehrveranstaltung(lv, new AsyncCallback<Lehrveranstaltung>(){
+					  verwaltungsSvc.changeLehrveranstaltung(shownLv, new AsyncCallback<Lehrveranstaltung>(){
 
 						  @Override
 						  public void onFailure (Throwable caught) {
@@ -118,11 +114,8 @@ public class LehrveranstaltungForm extends Content {
 
 						  @Override
 						  public void onSuccess(Lehrveranstaltung result) {
-							  tbbezeichnung.setText("");
-							  tbsemester.setText("");
-							  tbumfang.setText("");
-							  Window.alert ("Erfolgreich gespeichert.");
 							  tvm.updateLehrveranstaltung(shownLv);
+							  Window.alert ("Erfolgreich gespeichert.");
 						  } 	
 						});
 				  }
@@ -160,8 +153,8 @@ public class LehrveranstaltungForm extends Content {
 	
 	public void setFields(){
 		  tbbezeichnung.setText(shownLv.getBezeichnung());
-		  tbsemester.setVisibleLength(shownLv.getSemester());
-		  tbumfang.setVisibleLength(shownLv.getUmfang());
+		  tbsemester.setText(Integer.toString(shownLv.getSemester()));
+		  tbumfang.setText(Integer.toString(shownLv.getUmfang()));
 	}
 	
 	public void clearFields(){

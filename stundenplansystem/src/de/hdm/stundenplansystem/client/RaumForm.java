@@ -23,7 +23,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 
 public class RaumForm extends Content {
 	
-	private final HTML ueberschriftAenderung = new HTML ("<h2>Raum bearbeiten und löschen<h2>");
+	private final HTML ueberschriftAenderung = new HTML ("<h2>Raum verwalten<h2>");
 
 	  final TextBox tbbezeichnung = new TextBox ();
 	  final TextBox tbkapazitaet = new TextBox ();
@@ -95,11 +95,10 @@ public class RaumForm extends Content {
 				  Window.alert ("Bitte füllen Sie alle Felder aus."); }
 				  
 				  if (allFilled == true) { 
-					  Raum r = new Raum();
-					  r.setBezeichnung(tbbezeichnung.getText().trim());
-					  r.setKapazitaet(tbkapazitaet.getVisibleLength());
+					  shownRaum.setBezeichnung(tbbezeichnung.getText().trim());
+					  shownRaum.setKapazitaet(Integer.valueOf(tbkapazitaet.getText()));
 
-					  verwaltungsSvc.changeRaum(r, new  AsyncCallback<Raum>() {
+					  verwaltungsSvc.changeRaum(shownRaum, new  AsyncCallback<Raum>() {
 
 						  @Override
 						  public void onFailure (Throwable caught) {
@@ -108,10 +107,8 @@ public class RaumForm extends Content {
 
 						  @Override
 						  public void onSuccess(Raum result) {
-							  Window.alert ("Erfolgreich gespeichert.");
-							  tbbezeichnung.setText("");
-							  tbkapazitaet.setVisibleLength(result.getKapazitaet());
 							  tvm.updateRaum(shownRaum);
+							  Window.alert ("Erfolgreich gespeichert.");
 						  } 	
 						});
 				  }
@@ -145,7 +142,7 @@ public class RaumForm extends Content {
 		
 		public void setFields(){
 			tbbezeichnung.setText(shownRaum.getBezeichnung());
-			tbkapazitaet.setVisibleLength(shownRaum.getKapazitaet());
+			tbkapazitaet.setText(Integer.toString(shownRaum.getKapazitaet()));
 		}
 		
 		public void clearFields(){

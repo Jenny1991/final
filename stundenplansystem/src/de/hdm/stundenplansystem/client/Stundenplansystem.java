@@ -78,7 +78,6 @@ public class ItProjekt implements EntryPoint {
 	     * Ab hier bauen wir sukzessive den Navigator mit seinen Buttons aus.
 	     */
 	    final Button dozentButton = new Button ("Dozent");
-	    final Button zeitslotButton = new Button ("Zeitslot");
 	    final Button raumButton = new Button ("Raum");
 	    final Button semesterverbandButton = new Button ("Semesterverband");
 	    final Button lehrveranstaltungButton = new Button ("Lehrveranstaltung");
@@ -90,7 +89,6 @@ public class ItProjekt implements EntryPoint {
 	    public DozentForm df = new DozentForm();
 	    public LehrveranstaltungForm lf = new LehrveranstaltungForm();
 	    public RaumForm rf = new RaumForm();
-	    public ZeitslotForm zf = new ZeitslotForm();
 	    public StudiengangForm sgf = new StudiengangForm();
 	    public SemesterverbandForm svf = new SemesterverbandForm();
 	    public CreateDozent cd = new CreateDozent();
@@ -190,7 +188,6 @@ public class ItProjekt implements EntryPoint {
 		     * Projekts formatieren?
 		     */
 		    dozentButton.setStylePrimaryName("BaumButton");
-		    zeitslotButton.setStylePrimaryName("BaumButton");
 		    raumButton.setStylePrimaryName("BaumButton");
 		    semesterverbandButton.setStylePrimaryName("BaumButton");
 		    lehrveranstaltungButton.setStylePrimaryName("BaumButton");

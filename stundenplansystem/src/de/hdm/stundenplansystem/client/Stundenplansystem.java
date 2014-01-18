@@ -92,6 +92,7 @@ public class ItProjekt implements EntryPoint {
 	    public StudiengangForm sgf = new StudiengangForm();
 	    public SemesterverbandForm svf = new SemesterverbandForm();
 	    public StundenplaneintragForm spef = new StundenplaneintragForm();
+	    public StundenplanForm spf = new StundenplanForm();
 	    
 	    public CreateDozent cd = new CreateDozent();
 	    public CreateLehrveranstaltung cl = new CreateLehrveranstaltung();
@@ -99,6 +100,7 @@ public class ItProjekt implements EntryPoint {
 	    public CreateSemesterverband csv = new CreateSemesterverband();
 	    public CreateStudiengang csg = new CreateStudiengang();
 	    public CreateStundenplaneintrag cspe = new CreateStundenplaneintrag();
+	    public CreateStundenplan csp = new CreateStundenplan();
 	    
 	    public VerticalPanel detailsPanel = new VerticalPanel(); 
 		
@@ -119,7 +121,7 @@ public class ItProjekt implements EntryPoint {
 		     */
 		
 			//NavTreeViewModel tvm = new NavTreeViewModel(df, lf, rf, zf, sgf, svf, this);
-			NavTreeViewModel tvm = new NavTreeViewModel(cd, cl, cr, csg, csv, cspe, df, lf, rf, sgf, svf, spef, this);
+			NavTreeViewModel tvm = new NavTreeViewModel(cd, cl, cr, csg, csv, cspe, csp, df, lf, rf, sgf, svf, spef, spf, this);
 			
 			
 			CellTree cellTree = new CellTree(tvm, "Root");
@@ -349,6 +351,10 @@ public class ItProjekt implements EntryPoint {
 			detailsPanel.clear();
 			detailsPanel.add(cspe);
 		}	
+		public void createStundenplanForm(){
+			detailsPanel.clear();
+			detailsPanel.add(csp);
+		}
 		
 		public void showDozentForm() {
 			detailsPanel.clear();
@@ -378,5 +384,10 @@ public class ItProjekt implements EntryPoint {
 		public void showSpeForm() {
 			detailsPanel.clear();
 			detailsPanel.add(spef);
+		}
+		
+		public void showStundenplanForm(){
+			detailsPanel.clear();
+			detailsPanel.add(spf);
 		}
 	}

@@ -127,7 +127,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	
 	private SingleSelectionModel <Object> selectionModel = new SingleSelectionModel<Object>(boKeyProvider);
 	
-	public NavTreeViewModel(CreateDozent cd, CreateLehrveranstaltung cl, CreateRaum cr, CreateStudiengang csg, CreateSemesterverband csv, CreateStundenplaneintrag cspe, DozentForm df, LehrveranstaltungForm lf, RaumForm rf, StudiengangForm sgf, SemesterverbandForm svf, StundenplaneintragForm spef, StundenplanForm spf,  Stundenplansystem sps) {
+	public NavTreeViewModel(CreateDozent cd, CreateLehrveranstaltung cl, CreateRaum cr, CreateStudiengang csg, CreateSemesterverband csv, CreateStundenplaneintrag cspe, CreateStundenplan csp, DozentForm df, LehrveranstaltungForm lf, RaumForm rf, StudiengangForm sgf, SemesterverbandForm svf, StundenplaneintragForm spef, StundenplanForm spf,  Stundenplansystem sps) {
 		
 		this.cd = cd;
 		cd.setTvm(this);

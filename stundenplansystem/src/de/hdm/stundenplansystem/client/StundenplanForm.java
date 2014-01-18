@@ -13,7 +13,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import de.hdm.stundenplansystem.shared.*;
-import de.hdm.stundenplansystem.shared.bo.Zeitslot;
+import de.hdm.stundenplansystem.shared.bo.Stundenplan;
 
 /**
  * Formular fÃ¼r die Darstellung des selektierten Kunden
@@ -24,67 +24,122 @@ import de.hdm.stundenplansystem.shared.bo.Zeitslot;
 
 public class StundenplanForm extends Content {
 	
-	private final HTML ueberschrift = new HTML ("<h2>ÃƒÅ“bersicht der Zeitslots<h2>");
+	private final HTML ueberschrift = new HTML ("<h2>Übersicht der Studienhalbjahre<h2>");
 
-	  final Label lbwochentag = new Label ("Wochentag"); 
-	  final Label lbuhrzeit = new Label ("Uhrzeit");
-	  final TextBox tbwochentag = new TextBox ();
-	  final TextBox tbuhrzeit = new TextBox ();
-	  			  
+	  final TextBox tbhalbjahr = new TextBox ();	  			  
+	  final Button loeschen = new Button ("Studienhalbjahr löschen");
+	  final Button speichern = new Button ("Änderungen speichern");
 	  final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
-	  Zeitslot shownZeitslot = null; 
-	 // NavTreeViewModel tvm = null;
+	  
+	  Integer id;
+	  Stundenplan shownSp = null; 
+	  NavTreeViewModel tvm = null;
 	  
 	  public StundenplanForm() {
-		  Grid zeitGrid = new Grid (6, 8);
+		  Grid stGrid = new Grid (6, 8);
 		  	this.add(ueberschrift);
-			this.add(zeitGrid);
+			this.add(stGrid);
 		  
-			Label lbmontag = new Label("Montag");
-			zeitGrid.setWidget(0, 0, lbmontag);
-			zeitGrid.setWidget(0, 1, tbuhrzeit);
-			zeitGrid.setWidget(0, 2, tbuhrzeit);
-			zeitGrid.setWidget(0, 3, tbuhrzeit);
-			zeitGrid.setWidget(0, 4, tbuhrzeit);
-			zeitGrid.setWidget(0, 5, tbuhrzeit);
-			zeitGrid.setWidget(0, 6, tbuhrzeit);
-			zeitGrid.setWidget(0, 7, tbuhrzeit);
+			Label lbhalbjahr = new Label("Studienhalbjahr");
+			stGrid.setWidget(0, 0, lbhalbjahr);
+			stGrid.setWidget(0, 1, tbhalbjahr);
 			
-			Label lbdienstag = new Label("Dienstag");
-			zeitGrid.setWidget(1, 0, lbdienstag);
-			zeitGrid.setWidget(0, 1, tbuhrzeit);
-			
-			Label lbmittwoch = new Label("Mittwoch");
-			zeitGrid.setWidget(2, 0, lbmittwoch);
-			zeitGrid.setWidget(0, 1, tbuhrzeit);
-			
-			Label lbdonnerstag = new Label("Donnerstag");
-			zeitGrid.setWidget(3, 0, lbdonnerstag);
-			zeitGrid.setWidget(0, 1, tbuhrzeit);
-			
-			Label lbfreitag = new Label("Freitag");
-			zeitGrid.setWidget(4, 0, lbfreitag);
-			zeitGrid.setWidget(0, 1, tbuhrzeit);
-			
-			Label lbsamstag = new Label("Samstag");
-			zeitGrid.setWidget(5, 0, lbsamstag);
-			zeitGrid.setWidget(0, 1, tbuhrzeit);			
-			}
-
-	  	public void getSelectedData(){
-				verwaltungsSvc.getAllZeitslots(new AsyncCallback<Vector<Zeitslot>>(){
+			Label lbfunktionen = new Label ("Funktionen");
+			stGrid.setWidget(0, 2, lbfunktionen);
+			stGrid.setWidget(1, 2, speichern);
+			stGrid.addClickHandler(new ClickHandler() {
+				public void onClick(ClickEvent event) {
+					changeSelectedHj();
+				}
+			});
+			stGrid.setWidget(1, 3, loeschen);
+			loeschen.addClickHandler(new ClickHandler() {
+				public void onClick(ClickEvent event) {
+					deleteSelectedHj();
+				}
+			});
+			setTvm(tvm);
+	  } 
+	  
+	  
+		public void getData() {
+				verwaltungsSvc.getStundenplanById(id, new AsyncCallback<Stundenplan>(){
 					@Override
 					public void onFailure(Throwable caught) {
 					}
 					
 					@Override
-					public void onSuccess(Vector<Zeitslot> result) {
-						if (result != null) {
-							// setSelected(result);
+					public void onSuccess(Stundenplan sp) {
+						if (sp != null) {
+							setSelected(sp);
 						}
-					}
+					};		
 				});
 			}
+
+		public void setTvm(NavTreeViewModel tvm) {
+			this.tvm = tvm;
+		}
+		
+		public void changeSelectedHj(){
+			  
+			  boolean allFilled = true;
+			  
+			  if (tbhalbjahr.getValue().isEmpty())
+			  { allFilled = false;
+			  Window.alert ("Bitte füllen Sie alle Felder aus."); } 
+			  
+			  if (allFilled == true) {
+				  shownSp.setStudienhalbjahr(tbhalbjahr.getText().trim());
+				  
+				  verwaltungsSvc.changeStundenplan(shownSp, new  AsyncCallback<Stundenplan> () {
+
+					  @Override
+					  public void onFailure (Throwable caught) {
+						  Window.alert("Der Dozent konnte nicht bearbeitet werden.");
+					  }
+
+					  @Override
+					  public void onSuccess(Stundenplan result) {
+						  tvm.updateStudienhalbjahr(shownSp);
+						  Window.alert ("Erfolgreich gespeichert.");
+						  
+					  } 	
+					});
+			  }
+		  }			
+		
+		public void deleteSelectedHj(){
+			verwaltungsSvc.deleteStundenplan(shownSp, new AsyncCallback<Boolean>() {
+			  public void onFailure (Throwable caught) {
+				  Window.alert("Der Dozent konnte nicht gelöscht werden." +
+				  		"Er ist in ein oder mehreren Stundenplaneinträgen eingetragen");
+			  }
+
+			  public void onSuccess(Boolean result) {
+				  tvm.deleteStudienhalbjahr(shownSp);
+				  Window.alert ("Erfolgreich gelöscht.");
+			  } 	
+			});
+			this.clearFields();
+	  }
+	
+		public void setSelected(Stundenplan sp){
+			if (sp != null) {
+				shownSp = sp;
+				setFields();
+			} else {
+				clearFields();
+			}
+		} 
+		
+		public void setFields(){
+			tbhalbjahr.setText(shownSp.getStudienhalbjahr());
+		}
+		
+		public void clearFields(){
+			tbhalbjahr.setText("");
+		}
 }
 			
 			

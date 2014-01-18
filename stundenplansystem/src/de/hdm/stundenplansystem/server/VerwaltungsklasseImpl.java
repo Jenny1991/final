@@ -142,7 +142,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		Vector<Stundenplaneintrag> dVektor = null;
 		
 		/**
-		 * Hier m������ssen wir alle Stundenplaneintraege des Dozenten in den Vector reinspeichern.
+		 * Hier m������������������ssen wir alle Stundenplaneintraege des Dozenten in den Vector reinspeichern.
 		 */
 			
 		 	dVektor = this.stundenplaneintragMapper.findByDozentOrderByAnfangszeit(d.getId());
@@ -171,7 +171,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	
 	
 	/**
-	 * Auslesen aller R������ume
+	 * Auslesen aller R������������������ume
 	 */
 	
 	public Vector<Raum> getAllRaeume() throws IllegalArgumentException {
@@ -189,7 +189,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	
 	
 	/**
-	 * Auslesen aller Semesterverb������nde
+	 * Auslesen aller Semesterverb������������������nde
 	 */
 	
 	public Vector<Semesterverband> getAllSemesterverbaende() throws IllegalArgumentException {
@@ -205,7 +205,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	  }
 	
 	/**
-	 * Auslesen aller Stundenpl������ne
+	 * Auslesen aller Stundenpläne
 	 */
 	
 	public Vector<Stundenplan> getAllStundenplaene() throws IllegalArgumentException {
@@ -213,7 +213,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	  }
 	
 	/**
-	 * Auslesen aller Stundenplaneintr������ge
+	 * Auslesen aller Stundenplaneinträe
 	 */
 	
 	public Vector<Stundenplaneintrag> getAllStundenplaneintraege() throws IllegalArgumentException {
@@ -229,7 +229,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	  }
 	
 	/**
-	 * Auslesen eines Dozent �ber seine ID
+	 * Auslesen eines Dozent über seine ID
 	 */
 	
 	public Dozent getDozentById(int id) throws IllegalArgumentException {
@@ -262,14 +262,20 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	
 	public Dozent createDozent(String vorname, String nachname)
 			throws IllegalArgumentException {
-		Dozent a = new Dozent();
-		a.setVorname(vorname);
-		a.setNachname(nachname);
+		        
+			    if(vorname.matches("[0-9]+") && nachname.matches("[0-9]+"))
+			      
+			    	// was braucht gui von hier als rückgabe?
+			    	return null;
+			    else{
+			 	Dozent a = new Dozent();
+				a.setVorname(vorname);
+				a.setNachname(nachname);
+			
+				a.setId(1);
 		
-		a.setId(1);
-		
-		dozentMapper.insert(a);
-		return null;
+		return this.dozentMapper.insert(a);
+			    }
 	}
 	
 	public Lehrveranstaltung createLehrveranstaltung(
@@ -282,8 +288,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		
 		a.setId(1);
 		
-		lehrveranstaltungMapper.insert(a);
-		return null;
+		return this.lehrveranstaltungMapper.insert(a);
 	}		
 	
 	public Raum createRaum(String bezeichnung, int kapazitaet)
@@ -293,9 +298,8 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		a.setKapazitaet(kapazitaet);
 		
 		a.setId(1);
-		
-		raumMapper.insert(a);
-		return null;
+
+		return this.raumMapper.insert(a);
 	}
 
 	public Studiengang createStudiengang(String bezeichnung)
@@ -307,8 +311,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		
 		s.setId(1);
 		
-		studiengangMapper.insert(s);
-		return null;
+		return this.studiengangMapper.insert(s);
 	}
 
 	public Stundenplaneintrag createStundenplaneintrag(int d,
@@ -325,8 +328,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		
 		s.setId(1);
 		
-		stundenplaneintragMapper.insert(s);
-		return null;
+		return this.stundenplaneintragMapper.insert(s);
 	}
 
 	@Override
@@ -342,8 +344,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		
 		a.setId(1);
 		
-		semesterverbandMapper.insert(a);
-		return null;
+		return this.semesterverbandMapper.insert(a);
 	}
 
 	public Stundenplan createStundenplan(String studienhalbjahr) throws IllegalArgumentException {
@@ -354,8 +355,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		
 		sp.setId(1);
 		
-		stundenplanMapper.insert(sp);
-		return null;
+		return this.stundenplanMapper.insert(sp);
 	}
 
 	public boolean deleteDozent(Dozent d) throws IllegalArgumentException {
@@ -441,43 +441,36 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 //		    }
 	}
 
-	public Dozent changeDozent(Dozent d) throws IllegalArgumentException {
+	public void changeDozent(Dozent d) throws IllegalArgumentException {
 		 this.dozentMapper.update(d);
-		return null;
 	}
 
-	public Stundenplaneintrag changeStundenplaneintrag(Stundenplaneintrag s)
+	public void changeStundenplaneintrag(Stundenplaneintrag s)
 			throws IllegalArgumentException {
 		this.stundenplaneintragMapper.update(s);
-		return null;
 	}
 
-	public Lehrveranstaltung changeLehrveranstaltung(Lehrveranstaltung l)
+	public void changeLehrveranstaltung(Lehrveranstaltung l)
 			throws IllegalArgumentException {
 		this.lehrveranstaltungMapper.update(l);
-		return null;
 	}
 
-	public Raum changeRaum(Raum r) throws IllegalArgumentException {
+	public void changeRaum(Raum r) throws IllegalArgumentException {
 		this.raumMapper.update(r);
-		return null;
 	}
 
-	public Semesterverband changeSemsterverband(Semesterverband sv)
+	public void changeSemsterverband(Semesterverband sv)
 			throws IllegalArgumentException {
 		this.semesterverbandMapper.update(sv);
-		return null;
 	}
 
-	public Studiengang changeStudiengang(Studiengang s)
+	public void changeStudiengang(Studiengang s)
 			throws IllegalArgumentException {
 		this.studiengangMapper.update(s);
-		return null;
 	}
 
-	public Stundenplan changeStundenplan(Stundenplan sp) throws IllegalArgumentException {
+	public void changeStundenplan(Stundenplan sp) throws IllegalArgumentException {
 		this.stundenplanMapper.update(sp);
-		return null;
 	}
 
 }

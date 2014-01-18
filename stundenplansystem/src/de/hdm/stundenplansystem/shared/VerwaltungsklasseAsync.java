@@ -49,22 +49,21 @@ public interface VerwaltungsklasseAsync {
 
 	void deleteStudiengang(Studiengang sg, AsyncCallback<Boolean> callback);
 
-	void changeDozent(Dozent d, AsyncCallback<Dozent> callback);
+	void changeDozent(Dozent d, AsyncCallback<Void> callback);
 
 	void changeLehrveranstaltung(Lehrveranstaltung l,
-			AsyncCallback<Lehrveranstaltung> callback);
+			AsyncCallback<Void> callback);
 
-	void changeRaum(Raum r, AsyncCallback<Raum> callback);
+	void changeRaum(Raum r, AsyncCallback<Void> callback);
 
 	void changeStundenplaneintrag(Stundenplaneintrag s,
-			AsyncCallback<Stundenplaneintrag> callback);
+			AsyncCallback<Void> callback);
 
-	void changeStudiengang(Studiengang s, AsyncCallback<Studiengang> callback);
+	void changeStudiengang(Studiengang s, AsyncCallback<Void> callback);
 
-	void changeSemsterverband(Semesterverband sv,
-			AsyncCallback<Semesterverband> callback);
+	void changeSemsterverband(Semesterverband sv, AsyncCallback<Void> callback);
 
-	void changeStundenplan(Stundenplan sp, AsyncCallback<Stundenplan> callback);
+	void changeStundenplan(Stundenplan sp, AsyncCallback<Void> callback);
 
 	void setDozent(Dozent d, AsyncCallback<Void> callback);
 

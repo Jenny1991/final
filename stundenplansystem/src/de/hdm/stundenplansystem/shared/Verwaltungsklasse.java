@@ -106,25 +106,25 @@ public interface Verwaltungsklasse extends RemoteService {
 	public boolean deleteSemesterverband(Semesterverband sv) 
 			throws IllegalArgumentException;
 	
-	public Studiengang changeStudiengang(Studiengang s)
+	public void changeStudiengang(Studiengang s)
 			throws IllegalArgumentException;
 	
-	public Stundenplan changeStundenplan(Stundenplan sp)
+	public void changeStundenplan(Stundenplan sp)
 			throws IllegalArgumentException;
 	
-	public Stundenplaneintrag changeStundenplaneintrag(Stundenplaneintrag s)
+	public void changeStundenplaneintrag(Stundenplaneintrag s)
 			throws IllegalArgumentException;
 	
-	public Dozent changeDozent(Dozent d)
+	public void changeDozent(Dozent d)
 			throws IllegalArgumentException;
 	
-	public Lehrveranstaltung changeLehrveranstaltung(Lehrveranstaltung l)
+	public void changeLehrveranstaltung(Lehrveranstaltung l)
 			throws IllegalArgumentException;
 	
-	public Raum changeRaum(Raum r)
+	public void changeRaum(Raum r)
 			throws IllegalArgumentException;
 	
-	public Semesterverband changeSemsterverband(Semesterverband sv)
+	public void changeSemsterverband(Semesterverband sv)
 			throws IllegalArgumentException;
 }
 

@@ -1,5 +1,7 @@
 package de.hdm.stundenplansystem.shared.bo;
 
+import java.util.Date;
+
 public class Zeitslot extends BusinessObjekt {
 	
 	private static final long serialVersionUID = 1L;
@@ -12,21 +14,15 @@ public class Zeitslot extends BusinessObjekt {
 	/**
 	 * Anfangsuhrzeit 
 	 */
-	private double anfangszeit;
+	private Date anfangszeit;
 	
 	/**
 	 * Enduhrzeit
 	 */
-	private double endzeit;
+	private Date endzeit;
 	
 	public Zeitslot(){
 		
-	}
-	
-	public Zeitslot(String wochentag, double anfangszeit, double endzeit){
-		this.wochentag = wochentag;
-		this.anfangszeit = anfangszeit;
-		this.endzeit = endzeit;
 	}
 
 	public String getWochentag() {
@@ -37,19 +33,19 @@ public class Zeitslot extends BusinessObjekt {
 		this.wochentag = wochentag;
 	}
 
-	public double getAnfangszeit() {
+	public Date getAnfangszeit() {
 		return anfangszeit;
 	}
 
-	public void setAnfangszeit(double anfangszeit) {
+	public void setAnfangszeit(Date anfangszeit) {
 		this.anfangszeit = anfangszeit;
 	}
 
-	public double getEndzeit() {
+	public Date getEndzeit() {
 		return endzeit;
 	}
 
-	public void setEndzeit(double endzeit) {
+	public void setEndzeit(Date endzeit) {
 		this.endzeit = endzeit;
 	}
 	

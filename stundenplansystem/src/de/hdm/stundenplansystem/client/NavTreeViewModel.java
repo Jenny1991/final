@@ -57,7 +57,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	private CreateSemesterverband csv;
 	private CreateStudiengang csg;
 	private CreateStundenplaneintrag cspe;
-	//private CreateStudienhalbjahr csh;
+	private CreateStundenplan csp;
 	
 	private Dozent selectedDozent = null;
 	private Lehrveranstaltung selectedLv = null;
@@ -141,6 +141,8 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 		csv.setTvm(this);
 		this.cspe = cspe;
 		cspe.setTvm(this);
+		this.csp = csp;
+		csp.setTvm(this);
 		
 		this.df = df;
 		df.setTvm(this);

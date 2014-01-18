@@ -14,6 +14,8 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import de.hdm.stundenplansystem.shared.*;
 import de.hdm.stundenplansystem.shared.bo.Stundenplan;
+import de.hdm.stundenplansystem.client.NavTreeViewModel;
+
 
 /**
  * Formular fÃ¼r die Darstellung des selektierten Kunden
@@ -36,23 +38,23 @@ public class StundenplanForm extends Content {
 	  NavTreeViewModel tvm = null;
 	  
 	  public StundenplanForm() {
-		  Grid stGrid = new Grid (6, 8);
+		  Grid stGrid = new Grid (2, 3);
 		  	this.add(ueberschrift);
 			this.add(stGrid);
 		  
 			Label lbhalbjahr = new Label("Studienhalbjahr");
 			stGrid.setWidget(0, 0, lbhalbjahr);
-			stGrid.setWidget(0, 1, tbhalbjahr);
+			stGrid.setWidget(1, 0, tbhalbjahr);
 			
 			Label lbfunktionen = new Label ("Funktionen");
-			stGrid.setWidget(0, 2, lbfunktionen);
-			stGrid.setWidget(1, 2, speichern);
-			stGrid.addClickHandler(new ClickHandler() {
+			stGrid.setWidget(0, 1, lbfunktionen);
+			stGrid.setWidget(1, 1, speichern);
+			speichern.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 					changeSelectedHj();
 				}
 			});
-			stGrid.setWidget(1, 3, loeschen);
+			stGrid.setWidget(1, 2, loeschen);
 			loeschen.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 					deleteSelectedHj();
@@ -96,7 +98,7 @@ public class StundenplanForm extends Content {
 
 					  @Override
 					  public void onFailure (Throwable caught) {
-						  Window.alert("Der Dozent konnte nicht bearbeitet werden.");
+						  Window.alert("Das Studienhalbjahr konnte nicht bearbeitet werden.");
 					  }
 
 					  @Override
@@ -112,8 +114,8 @@ public class StundenplanForm extends Content {
 		public void deleteSelectedHj(){
 			verwaltungsSvc.deleteStundenplan(shownSp, new AsyncCallback<Boolean>() {
 			  public void onFailure (Throwable caught) {
-				  Window.alert("Der Dozent konnte nicht gelöscht werden." +
-				  		"Er ist in ein oder mehreren Stundenplaneinträgen eingetragen");
+				  Window.alert("Das Studienhalbjahr konnte nicht gelöscht werden." +
+				  		"Es ist in ein oder mehreren Stundenplaneinträgen eingetragen");
 			  }
 
 			  public void onSuccess(Boolean result) {

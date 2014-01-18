@@ -16,7 +16,18 @@ public class StundenplaneintragCell extends AbstractCell<Stundenplaneintrag> {
         return;
       }
 
-      sb.appendHtmlConstant("<div>");      
+      sb.appendHtmlConstant("<div>");
+      sb.append(value.getDozentId());
+      sb.appendHtmlConstant(", ");
+      sb.append(value.getZeitslotId());
+      sb.appendHtmlConstant(", ");
+      sb.append(value.getRaumId());
+      sb.appendHtmlConstant(", ");
+      sb.append(value.getStudiengangId());
+      sb.appendHtmlConstant(", ");
+      sb.append(value.getSemesterverbandId());
+      sb.appendHtmlConstant(", ");
+      sb.append(value.getLehrveranstaltungId());
       sb.appendHtmlConstant("</div>");
     }
 

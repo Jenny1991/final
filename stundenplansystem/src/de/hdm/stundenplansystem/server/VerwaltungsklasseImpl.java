@@ -312,7 +312,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	}
 
 	public Stundenplaneintrag createStundenplaneintrag(int d,
-		int l, int r, int z, int sv) 
+		int l, int r, int z, int sv, int sg) 
 					throws IllegalArgumentException {
 		
 		Stundenplaneintrag s = new Stundenplaneintrag();

@@ -174,7 +174,7 @@ public class RaumMapper {
 
         // Jetzt erst erfolgt die tatsÃ¤chliche EinfÃ¼geoperation
         stmt.executeUpdate("INSERT INTO raum (id, bezeichnung, kapazitaet) " + "VALUES ("
-            + r.getId() + ",'" + r.getBezeichnung() + "'," + r.getKapazitaet() + ")" );
+            + r.getId() + ",'" + r.getBezeichnung() + "','" + r.getKapazitaet() +"')");
       }
     }
     catch (SQLException e2) {
@@ -206,8 +206,8 @@ public class RaumMapper {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE raum SET " 
-    		  + "bezeichnung=\"" + r.getBezeichnung() + "\", " 
-    		  + "kapazitaet=\"" + r.getKapazitaet() + "\", " 
+    		  + "bezeichnung='" + r.getBezeichnung()  + "', "
+    		  + "kapazitaet= " + "'" + r.getKapazitaet() + "' "  
     		  + "WHERE id=" + r.getId());
 
     }

@@ -171,8 +171,8 @@ public class StundenplanMapper {
         stmt = con.createStatement();
 
         // Jetzt erst erfolgt die tatsächliche Einfügeoperation
-        stmt.executeUpdate("INSERT INTO stundenplan (id, studienhalbjahr FROM stundenplan) " + "VALUES ("
-            + s.getId() + ",'" + s.getStudienhalbjahr() + "')" );
+        stmt.executeUpdate("INSERT INTO stundenplan (id, studienhalbjahr) " + "VALUES ("
+            + s.getId() + ",'" + s.getStudienhalbjahr() +"')");
       }
     }
     catch (SQLException e2) {
@@ -203,8 +203,8 @@ public class StundenplanMapper {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE stundenplaneintrag SET " 
-    		  + "studienhalbjahr=\"" + s.getStudienhalbjahr() + "\", " 
+      stmt.executeUpdate("UPDATE stundenplan SET " 
+    		  + "studienhalbjahr='" + s.getStudienhalbjahr()+ "' "  
     		  + "WHERE id=" + s.getId());
 
     }

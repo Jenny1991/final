@@ -172,7 +172,7 @@ public class StudiengangMapper {
 
         // Jetzt erst erfolgt die tatsächliche Einfügeoperation
         stmt.executeUpdate("INSERT INTO studiengang (id, bezeichnung)" + "VALUES ("
-            + s.getId() + ",'" + s.getBezeichnung() + "')");
+            + s.getId() + ",'" + s.getBezeichnung() +"')");
       }
     }
     catch (SQLException e2) {
@@ -204,7 +204,7 @@ public class StudiengangMapper {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE studiengang SET " 
-    		  + "bezeichnung=\"" + s.getBezeichnung() + "\", " 
+    		  + "bezeichnung= '" + s.getBezeichnung() + "' "  
     		  + "WHERE id=" + s.getId());
 
     }

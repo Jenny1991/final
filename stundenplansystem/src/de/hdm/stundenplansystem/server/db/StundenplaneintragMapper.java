@@ -284,8 +284,8 @@ public class StundenplaneintragMapper {
         // Einfügeoperation für die Tabelle stundenplaneintrag
         stmt.executeUpdate("INSERT INTO stundenplaneintrag (id, dozentid, raumid, zeitslotid, "
     		  + "stundenplanid, lehrveranstaltungid) " + "VALUES ("
-            + s.getId() + "," + s.getDozentId() + "," + s.getRaumId() + "," + s.getZeitslotId()  
-            + "," + s.getStundenplanId() + "," + s.getLehrveranstaltungId() + ")" );
+            + s.getId() + ",'" + s.getDozentId() + "','" + s.getRaumId() + "','" + s.getZeitslotId()  
+             + "','" + s.getStundenplanId() + "','" + s.getLehrveranstaltungId() +"')");
         
       }
     }
@@ -318,11 +318,11 @@ public class StundenplaneintragMapper {
       Statement stmt = con.createStatement(); 
 
       stmt.executeUpdate("UPDATE stundenplaneintrag SET " 
-    		  + "lehrveranstaltungid=\"" + s.getLehrveranstaltungId() + "\", " 
-    		  + "raumid=\"" + s.getRaumId() + "\", " 
-    		  + "dozentid=\"" + s.getDozentId() + "\", "
-    		  + "zeitslotid=\"" +  s.getZeitslotId() + "\", "
-    		  + "stundenplanid=\"" + s.getStundenplanId() + "\", "
+    		  + "lehrveranstaltungid='" + s.getLehrveranstaltungId() + "', "  
+    		  + "raumid= " + "'" + s.getRaumId() + "', " 
+    		  + "dozentid= " + "'" + s.getDozentId() + "', " 
+    		  + "zeitslotid= " + "'" + s.getZeitslotId() + "', " 
+    		  + "stundenplanid= " + "'" + s.getStundenplanId() + "' " 
               + "WHERE id=" + s.getId());
 
     }

@@ -171,7 +171,8 @@ public class DozentMapper {
         stmt = con.createStatement();
 
         // Jetzt erst erfolgt die tatsachliche Einfügeoperation
-        stmt.executeUpdate("INSERT INTO dozent (id, nachname, vorname) VALUES (" + d.getId() + ",'" + d.getNachname() + "','" + d.getVorname() +"')");
+        stmt.executeUpdate("INSERT INTO dozent (id, nachname, vorname) " + "VALUES ("
+        		+ d.getId() + ",'" + d.getNachname() + "','" + d.getVorname() +"')");
         
       }
     }

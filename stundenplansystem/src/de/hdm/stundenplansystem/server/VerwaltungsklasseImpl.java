@@ -142,7 +142,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		Vector<Stundenplaneintrag> dVektor = null;
 		
 		/**
-		 * Hier mï¿½ssen wir alle Stundenplaneintraege des Dozenten in den Vector reinspeichern.
+		 * Hier m������ssen wir alle Stundenplaneintraege des Dozenten in den Vector reinspeichern.
 		 */
 			
 		 	dVektor = this.stundenplaneintragMapper.findByDozentOrderByAnfangszeit(d.getId());
@@ -171,7 +171,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	
 	
 	/**
-	 * Auslesen aller Rï¿½ume
+	 * Auslesen aller R������ume
 	 */
 	
 	public Vector<Raum> getAllRaeume() throws IllegalArgumentException {
@@ -189,7 +189,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	
 	
 	/**
-	 * Auslesen aller Semesterverbï¿½nde
+	 * Auslesen aller Semesterverb������nde
 	 */
 	
 	public Vector<Semesterverband> getAllSemesterverbaende() throws IllegalArgumentException {
@@ -205,7 +205,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	  }
 	
 	/**
-	 * Auslesen aller Stundenplï¿½ne
+	 * Auslesen aller Stundenpl������ne
 	 */
 	
 	public Vector<Stundenplan> getAllStundenplaene() throws IllegalArgumentException {
@@ -213,7 +213,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	  }
 	
 	/**
-	 * Auslesen aller Stundenplaneintrï¿½ge
+	 * Auslesen aller Stundenplaneintr������ge
 	 */
 	
 	public Vector<Stundenplaneintrag> getAllStundenplaneintraege() throws IllegalArgumentException {
@@ -229,7 +229,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	  }
 	
 	/**
-	 * Auslesen eines Dozent �ber seine ID
+	 * Auslesen eines Dozent �ber seine ID
 	 */
 	
 	public Dozent getDozentById(int id) throws IllegalArgumentException {
@@ -368,32 +368,75 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 //		    }
 	}
 	
-	public void deleteLehrveranstaltung(Lehrveranstaltung a)
+	public boolean deleteLehrveranstaltung(Lehrveranstaltung a)
 			throws IllegalArgumentException {
-		//Objekt abspeichern in die Datenbank, hier muss man den jeweiligen Mapper returnen
+		
+//		Vector<Stundenplaneintrag> lvs = this.getAllStundenplaneintragOf(a);
+//
+//		    if (lvs != null) {
+//		    	return false;
+//		    } else {
+		   	this.lehrveranstaltungMapper.delete(a);
+		   	return true;
+//		    }
 	}
 
-	public void deleteZeitslot(Zeitslot z) throws IllegalArgumentException {
-		//Objekt abspeichern in die Datenbank, hier muss man den jeweiligen Mapper returnen
-	}
+	public boolean deleteZeitslot(Zeitslot z) throws IllegalArgumentException {
+//		Vector<Stundenplaneintrag> zls = this.getAllStundenplaneintragOf(z);
+//
+//		    if (zls != null) {
+//		    	return false;
+//		    } else {
+		   	this.zeitslotMapper.delete(z);
+		   	return true;
+//		    }	
+		   	}
 
-	public void deleteStudiengang(Studiengang studiengang)
+	public boolean deleteStudiengang(Studiengang studiengang)
 			throws IllegalArgumentException {
-		//Objekt abspeichern in die Datenbank, hier muss man den jeweiligen Mapper returnen
+//		Vector<Stundenplaneintrag> sgs = this.getAllStundenplaneintragOf(studiengang);
+//
+//		    if (sgs != null) {
+//		    	return false;
+//		    } else {
+		   	this.studiengangMapper.delete(studiengang);
+		   	return true;
+//		    }
 	}
 
-	public void deleteStundenplaneintrag(Stundenplaneintrag s)
+	public boolean deleteStundenplaneintrag(Stundenplaneintrag s)
 			throws IllegalArgumentException {
-		//Objekt abspeichern in die Datenbank, hier muss man den jeweiligen Mapper returnen
+//		Vector<Stundenplaneintrag> lvs = this.getAllStundenplaneintragOf(a);
+//
+//		    if (lvs != null) {
+//		    	return false;
+//		    } else {
+		   	this.stundenplaneintragMapper.delete(s);
+		   	return true;
+//		    }	
+		   	}
+
+	public boolean deleteRaum(Raum a) throws IllegalArgumentException {
+//		Vector<Stundenplaneintrag> r = this.getAllStundenplaneintragOf(a);
+//
+//		    if (r != null) {
+//		    	return false;
+//		    } else {
+		   	this.raumMapper.delete(a);
+		   	return true;
+//		    }
 	}
 
-	public void deleteRaum(Raum a) throws IllegalArgumentException {
-		//Objekt abspeichern in die Datenbank, hier muss man den jeweiligen Mapper returnen
-	}
-
-	public void deleteSemesterverband(Semesterverband a)
+	public boolean deleteSemesterverband(Semesterverband a)
 			throws IllegalArgumentException {
-		//Objekt abspeichern in die Datenbank, hier muss man den jeweiligen Mapper returnen
+//		Vector<Stundenplaneintrag> svs = this.getAllStundenplaneintragOf(a);
+//
+//		    if (svs != null) {
+//		    	return false;
+//		    } else {
+		   	this.semesterverbandMapper.delete(a);
+		   	return true;
+//		    }
 	}
 
 	public Dozent changeDozent(Dozent d) throws IllegalArgumentException {

@@ -37,18 +37,18 @@ public interface VerwaltungsklasseAsync {
 	void deleteDozent(Dozent d, AsyncCallback<Boolean> callback);	
 	
 	void deleteLehrveranstaltung(Lehrveranstaltung l,
-			AsyncCallback<Void> callback);
+			AsyncCallback<Boolean> callback);
 
-	void deleteRaum(Raum r, AsyncCallback<Void> callback);
+	void deleteRaum(Raum r, AsyncCallback<Boolean> callback);
 
-	void deleteZeitslot(Zeitslot z, AsyncCallback<Void> callback);
+	void deleteZeitslot(Zeitslot z, AsyncCallback<Boolean> callback);
 
-	void deleteSemesterverband(Semesterverband sv, AsyncCallback<Void> callback);
+	void deleteSemesterverband(Semesterverband sv, AsyncCallback<Boolean> callback);
 
 	void deleteStundenplaneintrag(Stundenplaneintrag s,
-			AsyncCallback<Void> callback);
+			AsyncCallback<Boolean> callback);
 
-	void deleteStudiengang(Studiengang sg, AsyncCallback<Void> callback);
+	void deleteStudiengang(Studiengang sg, AsyncCallback<Boolean> callback);
 
 	void changeDozent(Dozent d, AsyncCallback<Dozent> callback);
 

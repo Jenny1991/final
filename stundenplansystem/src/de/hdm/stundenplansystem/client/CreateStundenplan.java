@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import de.hdm.stundenplansystem.shared.Verwaltungsklasse;
 import de.hdm.stundenplansystem.shared.VerwaltungsklasseAsync;
 import de.hdm.stundenplansystem.shared.bo.Stundenplan;
+import de.hdm.stundenplansystem.client.NavTreeViewModel;
 
 public class CreateStundenplan extends Content{
 	

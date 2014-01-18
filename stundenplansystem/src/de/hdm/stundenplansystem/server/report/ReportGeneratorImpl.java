@@ -159,19 +159,22 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
     // Hinzufügen der Kopfzeile
     result.addRow(headline);
     
-    Row accountRow;
+    Row accountRow = new Row();
     
-    for(int i = 0; i < 30; i++){
+    for(int i = 0; i < 35; i++){
     	
     	Stundenplaneintrag aktuell = this.verwaltung.getStundenplaneintragByDozentAndZeitslot(d.getId(), i);
     	
     	if(aktuell != null){
-    		accountRow.addColumn(new Column(verwaltung.getZeitslotById(aktuell.getZeitslotId()).toString())+ "/n"+
+    		accountRow.addColumn(new Column(verwaltung.getZeitslotById(aktuell.getZeitslotId()).toString()+ "/n"+
     		verwaltung.getLehrveranstaltungById(aktuell.getLehrveranstaltungId()).toString()+ "/n"+ 
-    		verwaltung.getRaumById(aktuell.getRaumId()).toString());
-    	}
+    		verwaltung.getRaumById(aktuell.getRaumId()).toString()));
+    	} else {
+			accountRow.addColumn(new Column("----"));
+		}
     	
-    	Row accountRow = new Row();
+    	if (i == 5 | i == 11 | i == 17 | i == 23 | i == 29)
+    		accountRow = new Row();
     }
     
     

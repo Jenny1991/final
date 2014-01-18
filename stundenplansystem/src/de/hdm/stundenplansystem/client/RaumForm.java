@@ -97,7 +97,7 @@ public class RaumForm extends Content {
 					  shownRaum.setBezeichnung(tbbezeichnung.getText().trim());
 					  shownRaum.setKapazitaet(Integer.valueOf(tbkapazitaet.getText()));
 
-					  verwaltungsSvc.changeRaum(shownRaum, new  AsyncCallback<Raum>() {
+					  verwaltungsSvc.changeRaum(shownRaum, new  AsyncCallback<Void>() {
 
 						  @Override
 						  public void onFailure (Throwable caught) {
@@ -105,7 +105,7 @@ public class RaumForm extends Content {
 						  }
 
 						  @Override
-						  public void onSuccess(Raum result) {
+						  public void onSuccess(Void result) {
 							  tvm.updateRaum(shownRaum);
 							  Window.alert ("Erfolgreich gespeichert.");
 						  } 	

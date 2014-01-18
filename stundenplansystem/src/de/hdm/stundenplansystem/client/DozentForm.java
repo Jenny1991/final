@@ -98,7 +98,7 @@ public class DozentForm extends Content {
 				  shownDozent.setNachname(tbnachname.getText().trim());
 				  shownDozent.setVorname(tbvorname.getText().trim());		
 				  
-				  verwaltungsSvc.changeDozent(shownDozent, new  AsyncCallback<Dozent> () {
+				  verwaltungsSvc.changeDozent(shownDozent, new  AsyncCallback<Void> () {
 
 					  @Override
 					  public void onFailure (Throwable caught) {
@@ -106,7 +106,7 @@ public class DozentForm extends Content {
 					  }
 
 					  @Override
-					  public void onSuccess(Dozent result) {
+					  public void onSuccess(Void result) {
 						  tvm.updateDozent(shownDozent);
 						  Window.alert ("Erfolgreich gespeichert.");
 						  

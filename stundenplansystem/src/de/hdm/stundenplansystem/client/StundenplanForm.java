@@ -94,7 +94,7 @@ public class StundenplanForm extends Content {
 			  if (allFilled == true) {
 				  shownSp.setStudienhalbjahr(tbhalbjahr.getText().trim());
 				  
-				  verwaltungsSvc.changeStundenplan(shownSp, new  AsyncCallback<Stundenplan> () {
+				  verwaltungsSvc.changeStundenplan(shownSp, new  AsyncCallback<Void> () {
 
 					  @Override
 					  public void onFailure (Throwable caught) {
@@ -102,7 +102,7 @@ public class StundenplanForm extends Content {
 					  }
 
 					  @Override
-					  public void onSuccess(Stundenplan result) {
+					  public void onSuccess(Void result) {
 						  tvm.updateStudienhalbjahr(shownSp);
 						  Window.alert ("Erfolgreich gespeichert.");
 						  

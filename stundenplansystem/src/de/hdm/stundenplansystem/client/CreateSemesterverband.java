@@ -56,7 +56,6 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 		  */
 		  public void onLoad () {
 			  
-			  this.clear();
 			  this.add(ueberschrift);			  
 			  this.add(lbjahrgang);
 			  this.add(tbjahrgang);
@@ -70,6 +69,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 			  this.add(tbanzahl);
 			  this.add(speichern);
 			  
+			  setTvm(tvm);
 			  
 			  libstudiengang.clear();			  
 			  verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
@@ -97,14 +97,14 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 			  }
 			  });
 			  
-			  setTvm(tvm);
-			  
 				  speichern.addClickHandler(new ClickHandler() {
 					  public void onClick(ClickEvent event) {
 
 						  boolean allFilled = true;
 						  
-						  if (tbjahrgang.getText().isEmpty() || tbanzahl.getText().isEmpty() || tbsemester.getText().isEmpty()) 
+						  if (tbjahrgang.getText().isEmpty() 
+								  || tbanzahl.getText().isEmpty() 
+								  || tbsemester.getText().isEmpty()) 
 						  { allFilled = false;
 						  Window.alert ("Bitte füllen Sie alle Felder aus."); }
 						  
@@ -112,7 +112,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 							  final String jahrgang = tbjahrgang.getText().trim();
 							  final int studiengangId  = Integer.valueOf(libstudiengang.getValue(libstudiengang.getTabIndex()));
 							  final int stundenplanId = Integer.valueOf(libstundenplan.getValue(libstundenplan.getTabIndex()));
-							  final int studierendenAnzahl = tbanzahl.getVisibleLength();
+							  final int studierendenAnzahl = Integer.valueOf(tbanzahl.getValue());
 							  final int semester = Integer.valueOf(tbsemester.getText().trim());
 			
 							  verwaltungsSvc.createSemesterverband(stundenplanId, studiengangId, semester, studierendenAnzahl, jahrgang, new AsyncCallback<Semesterverband>() {
@@ -124,13 +124,11 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 
 								  @Override
 								  public void onSuccess(Semesterverband result) {
-									  
-//									  tbjahrgang.setText(result.getJahrgang);
-//									  tbstudiengang.setText(result.getBezeichnung);
-//									  tbsemester.setVisibleLength(result.getSemester);
-//									  tbanzahl.setVisibleLength(result.getStudierendenAnzahl);
-									  tvm.addSemesterverband(result);
+									  tbjahrgang.setText("");
+									  tbsemester.setText("");
+									  tbanzahl.setText("");
 									  Window.alert ("Erfolgreich gespeichert.");
+									  tvm.addSemesterverband(result);
 								  } 	
 								}); 
 						  }

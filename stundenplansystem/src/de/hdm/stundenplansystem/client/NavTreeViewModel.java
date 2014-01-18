@@ -531,10 +531,10 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			
 			stringDataProvider.getList().add("Dozent");
 			stringDataProvider.getList().add("Lehrveranstaltung");
-			stringDataProvider.getList().add("Semesterverband");
-			stringDataProvider.getList().add("Studiengang");
 			stringDataProvider.getList().add("Raum");
+			stringDataProvider.getList().add("Studiengang");
 			stringDataProvider.getList().add("Studienhalbjahr");
+			stringDataProvider.getList().add("Semesterverband");
 			
 			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);
 			
@@ -743,19 +743,19 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 		
 		if (value instanceof String && (String)value=="Stundenplaneintrag verwalten") {
 			speDataProvider = new ListDataProvider<Stundenplaneintrag>();
-			verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
+			verwaltungsSvc.getAllStundenplaneintraege(new AsyncCallback<Vector<Stundenplaneintrag>>() {
 				public void onFailure(Throwable T) {
 					
 				}
 				
-				public void onSuccess(Vector<Studiengang> studiengaenge) {
-					for (Studiengang sg : studiengaenge) {
-						sgDataProvider.getList().add(sg);
+				public void onSuccess(Vector<Stundenplaneintrag> stundenplaneintrag) {
+					for (Stundenplaneintrag spe : stundenplaneintrag) {
+						speDataProvider.getList().add(spe);
 					}
 				}
 			});
 			
-			return new DefaultNodeInfo<Studiengang>(sgDataProvider, new StudiengangCell(), selectionModel, null);
+			return new DefaultNodeInfo<Stundenplaneintrag>(speDataProvider, new StundenplaneintragCell(), selectionModel, null);
 		}
 		return null;
 	}

@@ -101,10 +101,10 @@ public class LehrveranstaltungForm extends Content {
 				  
 				  if (allFilled == true) {
 					  shownLv.setBezeichnung(tbbezeichnung.getText().trim());
-					  shownLv.setSemester(Integer.valueOf(tbsemester.getText()));
-					  shownLv.setUmfang(Integer.valueOf(tbumfang.getText()));
+					  shownLv.setSemester(Integer.valueOf(tbsemester.getValue()));
+					  shownLv.setUmfang(Integer.valueOf(tbumfang.getValue()));
 
-					  verwaltungsSvc.changeLehrveranstaltung(shownLv, new AsyncCallback<Lehrveranstaltung>(){
+					  verwaltungsSvc.changeLehrveranstaltung(shownLv, new AsyncCallback<Void>(){
 
 						  @Override
 						  public void onFailure (Throwable caught) {
@@ -112,7 +112,7 @@ public class LehrveranstaltungForm extends Content {
 						  }
 
 						  @Override
-						  public void onSuccess(Lehrveranstaltung result) {
+						  public void onSuccess(Void result) {
 							  tvm.updateLehrveranstaltung(shownLv);
 							  Window.alert ("Erfolgreich gespeichert.");
 						  } 	
@@ -152,8 +152,8 @@ public class LehrveranstaltungForm extends Content {
 	
 	public void setFields(){
 		  tbbezeichnung.setText(shownLv.getBezeichnung());
-		  tbsemester.setText(Integer.toString(shownLv.getSemester()));
-		  tbumfang.setText(Integer.toString(shownLv.getUmfang()));
+		  tbsemester.setValue(Integer.toString(shownLv.getSemester()));
+		  tbumfang.setValue(Integer.toString(shownLv.getUmfang()));
 	}
 	
 	public void clearFields(){

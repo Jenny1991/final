@@ -91,7 +91,7 @@ public class StudiengangForm extends Content {
 					  if (allFilled == true) {
 						  shownSg.setBezeichnung(tbbezeichnung.getText().trim());
 					  
-						  verwaltungsSvc.changeStudiengang(shownSg, new AsyncCallback<Studiengang> () {
+						  verwaltungsSvc.changeStudiengang(shownSg, new AsyncCallback<Void> () {
 
 							  @Override
 							  public void onFailure (Throwable caught) {
@@ -99,7 +99,7 @@ public class StudiengangForm extends Content {
 							  }
 
 							  @Override
-							  public void onSuccess(Studiengang result) {
+							  public void onSuccess(Void result) {
 								  tvm.updateStudiengang(shownSg);
 								  Window.alert ("Erfolgreich gespeichert.");
 							  } 	

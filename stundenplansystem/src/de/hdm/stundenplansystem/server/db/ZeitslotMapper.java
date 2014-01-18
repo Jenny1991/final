@@ -87,8 +87,8 @@ public class ZeitslotMapper {
         Zeitslot z = new Zeitslot();
         z.setId(rs.getInt("id"));
         z.setWochentag(rs.getString("wochentag"));
-        z.setAnfangszeit(rs.getDouble("anfangszeit"));
-        z.setEndzeit(rs.getDouble("endzeit"));
+        z.setAnfangszeit(rs.getDate("anfangszeit"));
+        z.setEndzeit(rs.getDate("endzeit"));
                 
         return z;
       }
@@ -126,8 +126,8 @@ public class ZeitslotMapper {
         Zeitslot z = new Zeitslot();
         z.setId(rs.getInt("id"));
         z.setWochentag(rs.getString("wochentag"));
-        z.setAnfangszeit(rs.getDouble("anfangszeit"));
-        z.setEndzeit(rs.getDouble("endzeit"));
+        z.setAnfangszeit(rs.getDate("anfangszeit"));
+        z.setEndzeit(rs.getDate("endzeit"));
 
         // Hinzufügen des neuen Objekts zum Ergebnisvektor
         result.addElement(z);

@@ -26,7 +26,7 @@ import de.hdm.stundenplansystem.shared.bo.Zeitslot;
 	/**
 	 * Hier wird ein neuer Stundenplaneintrag angelegt.
 	 * 
-	 * @author Thies, Espich
+	 * @author Thies, Espich, V. Hofmann
 	 * 
 	 */
 

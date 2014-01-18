@@ -53,7 +53,7 @@ public class LehrveranstaltungForm extends Content {
 		lehrGrid.setWidget(0, 1, lbsemester);
 		lehrGrid.setWidget(1, 1, tbsemester);
 		
-		Label lbumfang = new Label("Umfang");
+		Label lbumfang = new Label("Umfang (SWS)");
 		lehrGrid.setWidget(0, 2, lbumfang);
 		lehrGrid.setWidget(1, 2, tbumfang);
 		

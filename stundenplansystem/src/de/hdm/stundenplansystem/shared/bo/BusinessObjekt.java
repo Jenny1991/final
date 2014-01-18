@@ -2,7 +2,7 @@ package de.hdm.stundenplansystem.shared.bo;
 
 import java.io.Serializable;
 
-//author:thies & holz
+//author:thies & holz & hofmann
 
 public class BusinessObjekt implements Serializable {
 	

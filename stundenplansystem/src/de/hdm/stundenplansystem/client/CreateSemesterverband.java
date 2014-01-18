@@ -16,6 +16,7 @@ import com.google.gwt.user.client.ui.ListBox;
 import de.hdm.stundenplansystem.shared.*;
 import de.hdm.stundenplansystem.shared.bo.Studiengang;
 import de.hdm.stundenplansystem.shared.bo.Stundenplan;
+import de.hdm.stundenplansystem.shared.bo.Semesterverband;
 import de.hdm.stundenplansystem.client.NavTreeViewModel;
 
 	/**
@@ -70,7 +71,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 			  this.add(speichern);
 			  
 			  
-			  			  
+			  libstudiengang.clear();			  
 			  verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
 				  public void onFailure(Throwable T){
 					  
@@ -78,11 +79,12 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 				  
 				  public void onSuccess(Vector<Studiengang> studiengaenge){
 				  	for (Studiengang sg : studiengaenge){
-				  		libstudiengang.addItem(sg.getBezeichnung());
+				  		libstudiengang.addItem(sg.getBezeichnung(), String.valueOf(sg.getId()));
 				  	}
 			  }
 			  });
-			 
+			  
+			  libstundenplan.clear();
 			  verwaltungsSvc.getAllStundenplaene(new AsyncCallback<Vector<Stundenplan>>() {
 				  public void onFailure(Throwable T){
 					  
@@ -90,7 +92,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 				  
 				  public void onSuccess(Vector<Stundenplan> stundenplaene){
 				  	for (Stundenplan sp : stundenplaene){
-				  		libstundenplan.addItem(sp.getStudienhalbjahr());
+				  		libstundenplan.addItem(sp.getStudienhalbjahr(), String.valueOf(sp.getId()));
 				  	}
 			  }
 			  });
@@ -104,16 +106,16 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 						  
 						  if (tbjahrgang.getText().isEmpty() || tbanzahl.getText().isEmpty() || tbsemester.getText().isEmpty()) 
 						  { allFilled = false;
-						  Window.alert ("Bitte fÃ¼llen Sie alle Felder aus."); }
+						  Window.alert ("Bitte f�llen Sie alle Felder aus."); }
 						  
 						  if (allFilled == true) { 
 							  final String jahrgang = tbjahrgang.getText().trim();
-							  //final Integer = libstudiengang.getItemText(libstudiengang.getTabIndex());
-							  final String bezeichnung = libstudiengang.getItemText(libstudiengang.getTabIndex());
+							  final int studiengangId  = Integer.valueOf(libstudiengang.getValue(libstudiengang.getTabIndex()));
+							  final int stundenplanId = Integer.valueOf(libstundenplan.getValue(libstundenplan.getTabIndex()));
 							  final int studierendenAnzahl = tbanzahl.getVisibleLength();
-							  final int semester = tbsemester.getVisibleLength();
+							  final int semester = Integer.valueOf(tbsemester.getText().trim());
 			
-					/**		  verwaltungsSvc.createSemesterverband(bezeichnung, semester, studierendenAnzahl, jahrgang, new AsyncCallback<Semesterverband>() {
+							  verwaltungsSvc.createSemesterverband(stundenplanId, studiengangId, semester, studierendenAnzahl, jahrgang, new AsyncCallback<Semesterverband>() {
 
 								  @Override
 								  public void onFailure (Throwable caught) {
@@ -123,14 +125,14 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 								  @Override
 								  public void onSuccess(Semesterverband result) {
 									  
-									  tbjahrgang.setText(result.getJahrgang);
-									  tbstudiengang.setText(result.getBezeichnung);
-									  tbsemester.setVisibleLength(result.getSemester);
-									  tbanzahl.setVisibleLength(result.getStudierendenAnzahl);
+//									  tbjahrgang.setText(result.getJahrgang);
+//									  tbstudiengang.setText(result.getBezeichnung);
+//									  tbsemester.setVisibleLength(result.getSemester);
+//									  tbanzahl.setVisibleLength(result.getStudierendenAnzahl);
 									  tvm.addSemesterverband(result);
 									  Window.alert ("Erfolgreich gespeichert.");
 								  } 	
-								}); */
+								}); 
 						  }
 					  }
 					  });

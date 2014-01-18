@@ -13,7 +13,13 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Button;
 
 import de.hdm.stundenplansystem.shared.*;
+import de.hdm.stundenplansystem.shared.bo.Dozent;
+import de.hdm.stundenplansystem.shared.bo.Lehrveranstaltung;
+import de.hdm.stundenplansystem.shared.bo.Raum;
+import de.hdm.stundenplansystem.shared.bo.Semesterverband;
+import de.hdm.stundenplansystem.shared.bo.Studiengang;
 import de.hdm.stundenplansystem.shared.bo.Stundenplaneintrag;
+import de.hdm.stundenplansystem.shared.bo.Zeitslot;
 
 
 	/**
@@ -26,12 +32,12 @@ import de.hdm.stundenplansystem.shared.bo.Stundenplaneintrag;
 public class CreateStundenplaneintrag extends Content {
 
 		/**
-		 * Jede Klasse enthï¿½t eine ï¿½berschrift, die definiert, was der User machen kann.
+		 * Jede Klasse enth������t eine ������berschrift, die definiert, was der User machen kann.
 		 */
 		private final HTML ueberschrift = new HTML ("<h2>Neuen Stundenplaneintrag anlegen<h2>");
 
 		  /**
-		   * Unter der Überschrift trägt der User die Daten des neuen Stundenplaneintrags ein. 
+		   * Unter der ��berschrift tr��gt der User die Daten des neuen Stundenplaneintrags ein. 
 		   */
 		  final Label lbdozent = new Label ("Dozent"); 
 		  final Label lbzeitslot = new Label ("Zeitslot");
@@ -39,16 +45,17 @@ public class CreateStundenplaneintrag extends Content {
 		  final Label lbstudiengang = new Label ("Studiengang");
 		  final Label lbsemesterverband = new Label ("Semesterverband");
 		  final Label lblehrveranstaltung = new Label ("Lehrveranstaltung");
-		  final ListBox tbdozent = new ListBox ();
-		  final ListBox tbzeitslot = new ListBox ();
-		  final ListBox tbraum = new ListBox ();
-		  final ListBox tbstudiengang = new ListBox(); 
-		  final ListBox tbsemesterverband = new ListBox (); 
-		  final ListBox tblehrveranstaltung = new ListBox ();
+		  final ListBox listDozent = new ListBox ();
+		  final ListBox listZeitslot = new ListBox ();
+		  final ListBox listRaum = new ListBox ();
+		  final ListBox listStudiengang = new ListBox(); 
+		  final ListBox listSemesterverband = new ListBox (); 
+		  final ListBox listLehrveranstaltung = new ListBox ();
 		  final Button speichern = new Button ("speichern");
-		  final HorizontalPanel hPanel = new HorizontalPanel();
+		  //final HorizontalPanel hPanel = new HorizontalPanel();
 		  
 		  final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
+		  NavTreeViewModel tvm = null;
 		  
 		  /**
 		  * Anordnen der Buttons und Labels auf den Panels
@@ -57,47 +64,117 @@ public class CreateStundenplaneintrag extends Content {
 
 				  this.add(ueberschrift);
 			  	  this.add(lbdozent);
-				  hPanel.add(tbdozent);
+				  this.add(listDozent);
 				  this.add(lbzeitslot);
-				  hPanel.add(tbzeitslot);
+				  this.add(listZeitslot);
 				  this.add(lbraum);
-				  hPanel.add(tbraum);
+				  this.add(listRaum);
 				  this.add(lbstudiengang);
-				  hPanel.add(tbstudiengang);
+				  this.add(listStudiengang);
 				  this.add(lbsemesterverband);
-				  hPanel.add(tbsemesterverband);
+				  this.add(listSemesterverband);
 				  this.add(lblehrveranstaltung);
-				  hPanel.add(tblehrveranstaltung);
+				  this.add(listLehrveranstaltung);
 				  this.add(speichern);
+				  
+				  setTvm(tvm);
 				  				  
-			/**	  verwaltungsSvc.getAllDozenten(new AsyncCallback<Vector<Dozent>>(){
-					  @Override
-					  public void onFailure (Throwable caught) {
-					  }
-					  @Override
-					  public void onSuccess(Vector<Dozent> result){
-						  int i = 0; 
-						  while (!result.isEmpty()) {
-							  tbdozent.addItem(result.get(i).getNachname() + "/" + result.get(i).getVorname());
-							  i++;
-						  }
-					  }
+				  verwaltungsSvc.getAllDozenten(new AsyncCallback<Vector<Dozent>>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+							
+					}
+
+					@Override
+					public void onSuccess(Vector<Dozent> result) {
+						for (Dozent d : result) {
+							listDozent.addItem(d.getNachname() + d.getVorname());
+						}
+					} 
 				  });
 				  
-				  verwaltungsSvc.getAllSemesterverbaende(new AsyncCallback<Vector<Semesterverband>>(){
-					  @Override
-					  public void onFailure (Throwable caught) {
-					  }
-					  @Override
-					  public void onSuccess(Vector<Semesterverband> result){
-						  int i = 0; 
-						  while (!result.isEmpty()) {
-							  tbsemesterverband.addItem(result.get(i).getBezeichnung() + "/" + result.get(i).getJahrgang()
-							  + "/" + result.get(i).getSemester() + "/" + result.get(i).getStudierendenAnzahl());
-							  i++;
-						  }
-					  }
-				  }); */
+				  verwaltungsSvc.getAllZeitslots(new AsyncCallback<Vector<Zeitslot>>() {
+
+						@Override
+						public void onFailure(Throwable caught) {
+								
+						}
+
+						@Override
+						public void onSuccess(Vector<Zeitslot> result) {
+							for (Zeitslot zs : result) {
+								listZeitslot.addItem(zs.getWochentag() + zs.getAnfangszeit() + zs.getEndzeit());
+							}
+						} 
+					  });
+				  
+				  verwaltungsSvc.getAllRaeume(new AsyncCallback<Vector<Raum>>() {
+
+						@Override
+						public void onFailure(Throwable caught) {
+								
+						}
+
+						@Override
+						public void onSuccess(Vector<Raum> result) {
+							for (Raum r : result) {
+								listRaum.addItem(r.getBezeichnung() + r.getKapazitaet());
+							}
+						} 
+					  });
+				  
+				  verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
+
+						@Override
+						public void onFailure(Throwable caught) {
+								
+						}
+
+						@Override
+						public void onSuccess(Vector<Studiengang> result) {
+							for (Studiengang sg : result) {
+								listStudiengang.addItem(sg.getBezeichnung());
+							}
+						} 
+					  });
+				  
+				  verwaltungsSvc.getAllSemesterverbaende(new AsyncCallback<Vector<Semesterverband>>() {
+
+						@Override
+						public void onFailure(Throwable caught) {
+								
+						}
+
+						@Override
+						public void onSuccess(Vector<Semesterverband> result) {
+							for (Semesterverband sv : result) {
+								listSemesterverband.addItem(sv.getJahrgang() + sv.getSemester() + sv.getStudierendenAnzahl());
+							}
+						} 
+					  });
+				  
+				  verwaltungsSvc.getAllLehrveranstaltungen(new AsyncCallback<Vector<Lehrveranstaltung>>() {
+
+						@Override
+						public void onFailure(Throwable caught) {
+								
+						}
+
+						@Override
+						public void onSuccess(Vector<Lehrveranstaltung> result) {
+							for (Lehrveranstaltung lv : result) {
+								listLehrveranstaltung.addItem(lv.getBezeichnung() + lv.getSemester() + lv.getUmfang());
+							}
+						} 
+					  });
+				  
+				  
+
+				  
+				  
+				  
+				  
 				  
 				  				  
 				  speichern.addClickHandler(new ClickHandler() {
@@ -107,17 +184,17 @@ public class CreateStundenplaneintrag extends Content {
 					  
 					  public void addStundenplaneintrag(){					  
 						  final String [] d;
-						  tbdozent.getItemText(tbdozent.getSelectedIndex());
+						  listDozent.getItemText(listDozent.getSelectedIndex());
 						  final String [] r;
-						  r= tbraum.getItemText(tbraum.getSelectedIndex()).split("");
+						  r= listRaum.getItemText(listRaum.getSelectedIndex()).split("");
 						  final String [] l;
-						  l = tblehrveranstaltung.getItemText(tblehrveranstaltung.getSelectedIndex()).split("");
+						  l = listLehrveranstaltung.getItemText(listLehrveranstaltung.getSelectedIndex()).split("");
 						  final String [] sv;
-						  sv = tbsemesterverband.getItemText(tbsemesterverband.getSelectedIndex()).split("");
+						  sv = listSemesterverband.getItemText(listSemesterverband.getSelectedIndex()).split("");
 						  final String [] s;
-						  s = tbstudiengang.getItemText(tbstudiengang.getSelectedIndex()).split("");
+						  s = listStudiengang.getItemText(listStudiengang.getSelectedIndex()).split("");
 						  final String [] z;
-						  z = tbzeitslot.getItemText(tbzeitslot.getSelectedIndex()).split("");
+						  z = listZeitslot.getItemText(listZeitslot.getSelectedIndex()).split("");
 						  
 						  Stundenplaneintrag stdpe = new Stundenplaneintrag();
 						  
@@ -135,4 +212,8 @@ public class CreateStundenplaneintrag extends Content {
 						 });
 				  
 		  }
+		  
+		  public void setTvm(NavTreeViewModel tvm) {
+				this.tvm = tvm;
+			}
 }

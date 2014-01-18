@@ -20,6 +20,7 @@ import com.google.gwt.view.client.TreeViewModel;
 
 
 
+
 import de.hdm.stundenplansystem.shared.Verwaltungsklasse;
 import de.hdm.stundenplansystem.shared.VerwaltungsklasseAsync;
 import de.hdm.stundenplansystem.shared.bo.BusinessObjekt;
@@ -28,6 +29,7 @@ import de.hdm.stundenplansystem.shared.bo.Lehrveranstaltung;
 import de.hdm.stundenplansystem.shared.bo.Raum;
 import de.hdm.stundenplansystem.shared.bo.Semesterverband;
 import de.hdm.stundenplansystem.shared.bo.Studiengang;
+import de.hdm.stundenplansystem.shared.bo.Stundenplaneintrag;
 import de.hdm.stundenplansystem.shared.bo.Zeitslot;
 
 
@@ -43,12 +45,14 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	private RaumForm rf;
 	private SemesterverbandForm svf;
 	private StudiengangForm sgf;
+	private StundenplaneintragForm spef;
 
 	private CreateDozent cd;
 	private CreateLehrveranstaltung cl;
 	private CreateRaum cr;
 	private CreateSemesterverband csv;
 	private CreateStudiengang csg;
+	private CreateStundenplaneintrag cspe;
 	
 	
 	private Dozent selectedDozent = null;
@@ -56,6 +60,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	private Raum selectedRaum = null;
 	private Semesterverband selectedSv = null;
 	private Studiengang selectedSg = null;
+	private Stundenplaneintrag selectedSpe = null;
 	
 	private VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
 	private ListDataProvider<Dozent> dozentDataProvider;
@@ -64,6 +69,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	private ListDataProvider<Semesterverband> svDataProvider;
 	private ListDataProvider<Studiengang> sgDataProvider;
 	private ListDataProvider<String> stringDataProvider;
+	private ListDataProvider<Stundenplaneintrag> speDataProvider;
 	
 	private Stundenplansystem sps;
 
@@ -98,6 +104,10 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			else if (object instanceof Studiengang) {
 					return new Integer(((Studiengang)object).getId());
 				}
+			
+			else if (object instanceof Stundenplaneintrag) {
+				return new Integer(((Stundenplaneintrag)object).getId());
+			}
 
 			else return null;
 		} 
@@ -106,7 +116,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	
 	private SingleSelectionModel <Object> selectionModel = new SingleSelectionModel<Object>(boKeyProvider);
 	
-	public NavTreeViewModel(CreateDozent cd, CreateLehrveranstaltung cl, CreateRaum cr, CreateStudiengang csg, CreateSemesterverband csv, DozentForm df, LehrveranstaltungForm lf, RaumForm rf, StudiengangForm sgf, SemesterverbandForm svf, Stundenplansystem sps) {
+	public NavTreeViewModel(CreateDozent cd, CreateLehrveranstaltung cl, CreateRaum cr, CreateStudiengang csg, CreateSemesterverband csv, CreateStundenplaneintrag cspe, DozentForm df, LehrveranstaltungForm lf, RaumForm rf, StudiengangForm sgf, SemesterverbandForm svf, StundenplaneintragForm spef,  Stundenplansystem sps) {
 		
 		this.cd = cd;
 		cd.setTvm(this);
@@ -118,6 +128,8 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 		csg.setTvm(this);
 		this.csv = csv;
 		csv.setTvm(this);
+		this.cspe = cspe;
+		cspe.setTvm(this);
 		
 		this.df = df;
 		df.setTvm(this);
@@ -129,6 +141,8 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 		sgf.setTvm(this);
 		this.svf = svf;
 		svf.setTvm(this);
+		this.spef = spef;
+		spef.setTvm(this);
 	
 	
 		this.sps = sps;
@@ -179,8 +193,16 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 					setSelectedSv(selectedSv);
 				}
 				
-				if (selection instanceof Dozent) {
-					setSelectedDozent((Dozent) selection);
+				if (selection instanceof String && (String)selection == "Stundenplaneintrag anlegen") {
+					setCreateStundenplaneintrag();
+				}
+				
+				if (selection instanceof String && (String)selection == "Stundenplaneintrag verwalten") {
+					setSelectedStundenplaneintrag(selectedSpe);
+				}
+				
+				if (selection instanceof Stundenplaneintrag) {
+					setSelectedStundenplaneintrag((Stundenplaneintrag) selection);
 				} 
 				
 				if (selection instanceof Lehrveranstaltung) {
@@ -273,6 +295,20 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 		sps.showSemesterverbandForm();
 	}
 	
+	Stundenplaneintrag getSelectedStundenplaneintrag() {
+		return selectedSpe;
+	}
+	
+	void setCreateStundenplaneintrag() {
+		sps.createSpeForm();
+	}
+	
+	void setSelectedStundenplaneintrag(Stundenplaneintrag spe) {
+		selectedSpe = spe;
+		spef.setSelected(spe);
+		sps.showSpeForm();
+	}
+	
 	void addDozent(Dozent dozent) {
 		dozentDataProvider.getList().add(dozent);
 	}
@@ -292,6 +328,10 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	void addLehrveranstaltung(Lehrveranstaltung lehrveranstaltung) {
 		lvDataProvider.getList().add(lehrveranstaltung);
 	}
+	
+	/**void addStundenplaneintrag(Stundenplaneintrag stundenplaneintrag) {
+		speDataProvider.getList().add(stundenplaneintrag);
+	}*/
 	
 	void updateDozent(Dozent dozent) {
 		List<Dozent> dozentList = dozentDataProvider.getList();
@@ -363,6 +403,20 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 		svDataProvider.refresh();
 	}
 	
+	void updateSpe(Stundenplaneintrag stundenplaneintrag) {
+		List<Stundenplaneintrag> speList = speDataProvider.getList();
+		int i = 0;
+		for (Stundenplaneintrag spe : speList) {
+			if(spe.getId() == i) {
+				speList.set(i, stundenplaneintrag);
+				break;
+			} else {
+				i++;
+			}
+		}
+		speDataProvider.refresh();
+	}
+	
 	void deleteDozent(Dozent dozent) {
 		dozentDataProvider.getList().remove(dozent);
 	}
@@ -381,6 +435,10 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	
 	void deleteSemesterverband(Semesterverband semesterverband) {
 		svDataProvider.getList().remove(semesterverband);
+	}
+	
+	void deleteSpe(Stundenplaneintrag stundenplaneintrag) {
+		speDataProvider.getList().remove(stundenplaneintrag);
 	}
 	
 
@@ -428,8 +486,8 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			
 			stringDataProvider = new ListDataProvider<String>();
 			
-			stringDataProvider.getList().add("Stundenplan für Dozenten");
-			stringDataProvider.getList().add("Stundenplan für Studenten");
+			stringDataProvider.getList().add("Stundenplan fÃ¼r Dozenten");
+			stringDataProvider.getList().add("Stundenplan fÃ¼r Studenten");
 			stringDataProvider.getList().add("Raumbelegungsplan");
 			
 			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);
@@ -497,6 +555,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			stringDataProvider = new ListDataProvider<String>();
 			
 			stringDataProvider.getList().add("Stundenplaneintrag anlegen");
+			stringDataProvider.getList().add("Stundenplaneintrag verwalten");
 			
 			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);	
 		}
@@ -571,6 +630,23 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 		
 		if (value instanceof String && (String)value=="Studiengang verwalten") {
 			sgDataProvider = new ListDataProvider<Studiengang>();
+			verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
+				public void onFailure(Throwable T) {
+					
+				}
+				
+				public void onSuccess(Vector<Studiengang> studiengaenge) {
+					for (Studiengang sg : studiengaenge) {
+						sgDataProvider.getList().add(sg);
+					}
+				}
+			});
+			
+			return new DefaultNodeInfo<Studiengang>(sgDataProvider, new StudiengangCell(), selectionModel, null);
+		}
+		
+		if (value instanceof String && (String)value=="Stundenplaneintrag anlegen") {
+			speDataProvider = new ListDataProvider<Stundenplaneintrag>();
 			verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
 				public void onFailure(Throwable T) {
 					

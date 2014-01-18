@@ -23,6 +23,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.stundenplansystem.shared.VerwaltungsklasseAsync;
 import de.hdm.stundenplansystem.shared.bo.Dozent;
+import de.hdm.stundenplansystem.shared.bo.Stundenplaneintrag;
 import de.hdm.stundenplansystem.shared.Verwaltungsklasse;
 import de.hdm.stundenplansystem.client.*;
 
@@ -31,10 +32,9 @@ import de.hdm.stundenplansystem.client.*;
 public class StundenplaneintragForm extends Content {
 
 		/**
-		 * Aufbau der Seite, um Stundenplaneinträge anzuzeigen, zu lÃ¶schen und zu bearbeiten
+		 * Aufbau der Seite, um Stundenplaneintr��ge anzuzeigen, zu l����schen und zu bearbeiten
 		 */
 	
-	private final HTML ueberschrift = new HTML ("<h2>Ãœbersicht der Stundenplaneintr�ge<h2>");
 	private final HTML ueberschriftAenderung = new HTML ("<h2>Stundenplaneintrag bearbeiten<h2>");
 	
 		final TextBox tbZeitslot = new TextBox();
@@ -45,15 +45,15 @@ public class StundenplaneintragForm extends Content {
 		final TextBox tbSemesterverband = new TextBox();
 		final Button speichern = new Button ("Änderungen speichern");
 		final Button bearbeiten = new Button("Stundenplaneintrag bearbeiten");
-		final Button loeschen = new Button("Stundenplaneintrag lÃ¶schen");
+		final Button loeschen = new Button("Stundenplaneintrag löschen");
 				
 		final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
-		Dozent shownSpe = null; 
+		Stundenplaneintrag shownSpe = null; 
 		NavTreeViewModel tvm = null;
 		  
 		  public StundenplaneintragForm() {
 			  Grid speGrid = new Grid (8, 2);
-			    this.add(ueberschrift);
+			    this.add(ueberschriftAenderung);
 				this.add(speGrid);
 			  
 				Label lbZeitslot = new Label("Zeitslot");
@@ -87,6 +87,8 @@ public class StundenplaneintragForm extends Content {
 				}
 		  
 			public void onLoad() {
+				
+				setTvm(tvm);
 			
 			/**createSpeButton.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
@@ -106,9 +108,32 @@ public class StundenplaneintragForm extends Content {
 		
 		}
 		
+		public void setTvm(NavTreeViewModel tvm) {
+			this.tvm = tvm;
+		}
+		
+		public void setSelected(Stundenplaneintrag spe){
+			if (spe != null) {
+				shownSpe = spe;
+				setFields();
+			} else {
+				clearFields();
+			}
+		} 
+		
+		public void setFields(){
+			//tbZeitslot.setText(shownZeitslot.getVorname());
+			//tbDozent.setText(shownDozent.getNachname() + shownDozent.);
+		}
+		
+		public void clearFields(){
+			//tbvorname.setText("");
+			//tbnachname.setText("");
+		}
+		
 		
 		/**public Stundenplaneintrag updateFlexTable (Stundenplaneintrag result) {
-			for (int i = 0; i < getAllStundenplaneintrag.size(); i++) { //getAllDozent wird noch als Methode oder Klasse benÃ¶tigt
+			for (int i = 0; i < getAllStundenplaneintrag.size(); i++) { //getAllDozent wird noch als Methode oder Klasse ben����tigt
 				tabelleSpe.addItem(getAllStundenplaneintrag.get(i).getVorname());
 				
 			}

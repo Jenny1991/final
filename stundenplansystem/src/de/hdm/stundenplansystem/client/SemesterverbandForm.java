@@ -95,6 +95,7 @@ public class SemesterverbandForm extends Content {
 			}
 			
 		public void getData() {		
+			  
 			verwaltungsSvc.getSemesterverbandById(id, new AsyncCallback<Semesterverband>(){
 				@Override
 				public void onFailure(Throwable caught) {
@@ -173,8 +174,9 @@ public class SemesterverbandForm extends Content {
 		
 		public void setFields(){
 			tbjahrgang.setText(shownSv.getJahrgang());
-			tbsemester.setVisibleLength(shownSv.getSemester());
-		    tbanzahl.setVisibleLength(shownSv.getStudierendenAnzahl());
+//		    libstudiengang.setValue(Integer.toString(shownSv.getStudiengangId(id))));
+			tbsemester.setValue(Integer.toString(shownSv.getSemester()));
+		    tbanzahl.setValue(Integer.toString(shownSv.getStudierendenAnzahl()));
 		}
 		
 		public void clearFields(){

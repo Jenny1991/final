@@ -165,10 +165,10 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
     	
     	Stundenplaneintrag aktuell = this.verwaltung.getStundenplaneintragByDozentAndZeitslot(d.getId(), i);
     	
-    	if(aktuell != 0){
-    		accountRow.addColumn(new Column(aktuell.getZeitslotId().toString()+ "/n"+
-        	verwaltung.getLehrveranstaltungById+aktuell.getLehrveranstaltungId().toString() + "/n" + 
-        	verwaltung.getRaumById+ aktuell.getRaumId().toString();)
+    	if(aktuell != null){
+    		accountRow.addColumn(new Column(verwaltung.getZeitslotById(aktuell.getZeitslotId()).toString())+ "/n"+
+    		verwaltung.getLehrveranstaltungById(aktuell.getLehrveranstaltungId()).toString()+ "/n"+ 
+    		verwaltung.getRaumById(aktuell.getRaumId()).toString());
     	}
     	
     	Row accountRow = new Row();

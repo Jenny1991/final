@@ -330,7 +330,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	}
 
 	@Override
-	public Semesterverband createSemesterverband(int studiengangId,
+	public Semesterverband createSemesterverband(int stundenplanId, int studiengangId,
 			int semester, int studierendenAnzahl, String jahrgang)
 			throws IllegalArgumentException {
 		Semesterverband a = new Semesterverband();

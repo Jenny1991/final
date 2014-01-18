@@ -107,4 +107,12 @@ public interface VerwaltungsklasseAsync {
 			AsyncCallback<Stundenplaneintrag> callback);
 
 	void getStundenplanById(int id, AsyncCallback<Stundenplan> callback);
+
+	void getZeitslotById(int id, AsyncCallback<Zeitslot> callback);
+
+	void getStundenplaneintragByDozentAndZeitslot(int dozentId, int zeitslotId,
+			AsyncCallback<Stundenplaneintrag> callback);
+
+	void getAllStundenplaneintrag(
+			AsyncCallback<Vector<Stundenplaneintrag>> callback);
 }

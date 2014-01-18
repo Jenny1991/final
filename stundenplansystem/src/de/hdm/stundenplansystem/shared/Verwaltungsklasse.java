@@ -27,6 +27,9 @@ public interface Verwaltungsklasse extends RemoteService {
 	public Vector<Stundenplaneintrag> getAllStundenplaneintrag(Raum r)
 			throws IllegalArgumentException;
 	
+	public Vector<Stundenplaneintrag> getAllStundenplaneintrag()
+			throws IllegalArgumentException;
+	
 	public Vector<Dozent> getAllDozenten() 
 			throws IllegalArgumentException;
 	
@@ -54,6 +57,8 @@ public interface Verwaltungsklasse extends RemoteService {
 	
 	public Dozent getDozentById(int id) throws IllegalArgumentException;
 	
+	public Zeitslot getZeitslotById(int id) throws IllegalArgumentException;
+	
 	public Lehrveranstaltung getLehrveranstaltungById(int id) throws IllegalArgumentException;
 	
 	public Raum getRaumById(int id)throws IllegalArgumentException;
@@ -64,7 +69,9 @@ public interface Verwaltungsklasse extends RemoteService {
 	
 	public Stundenplaneintrag getStundenplaneintragById(int id)throws IllegalArgumentException;
 	
-	public Stundenplan getStundenplanById(int id)throws IllegalArgumentException;
+	public Stundenplan getStundenplanById(int id) throws IllegalArgumentException;
+	
+	public Stundenplaneintrag getStundenplaneintragByDozentAndZeitslot(int dozentId, int zeitslotId) throws IllegalArgumentException;
 	
 	public Stundenplaneintrag createStundenplaneintrag(int d, int l, int r, 
 			int z, int sv, int sg)

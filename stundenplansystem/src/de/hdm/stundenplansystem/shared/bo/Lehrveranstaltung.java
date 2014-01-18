@@ -10,7 +10,7 @@ public class Lehrveranstaltung extends BusinessObjekt{
 		private String bezeichnung;
 	
 	/**
-	 * SemesterstufenzugehÃ¶rigkeit	
+	 * Semesterstufenzugeh����rigkeit	
 	 */
 		private int semester;
 		
@@ -48,6 +48,6 @@ public class Lehrveranstaltung extends BusinessObjekt{
 	
 	@Override
 	public String toString(){
-		return this.getId()+" "+this.bezeichnung;
+		return this.bezeichnung;
 	}
 }

@@ -228,6 +228,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	    return this.studiengangMapper.findAll();
 	  }
 	
+	
 	/**
 	 * Auslesen eines Dozent über seine ID
 	 */
@@ -259,6 +260,17 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	public Stundenplan getStundenplanById(int id)throws IllegalArgumentException {
 		return this.stundenplanMapper.findByKey(id);
 	}
+	
+	public Zeitslot getZeitslotById(int id)throws IllegalArgumentException {
+		return this.zeitslotMapper.findByKey(id);
+	}
+	
+	public Stundenplaneintrag getStundenplaneintragByDozentAndZeitslot(int dozentId, int zeitslotId){
+		//return this.stundenplaneintragMapper.findByKeyandDozent(dozentId, zeitslotId);
+		return null;
+	}
+	
+	
 	
 	public Dozent createDozent(String vorname, String nachname)
 			throws IllegalArgumentException {

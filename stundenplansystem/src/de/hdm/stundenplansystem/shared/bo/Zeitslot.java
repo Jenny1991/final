@@ -49,4 +49,8 @@ public class Zeitslot extends BusinessObjekt {
 		this.endzeit = endzeit;
 	}
 	
+	@Override
+	public String toString() {
+		return this.anfangszeit+" - "+this.endzeit;
+	}
 }

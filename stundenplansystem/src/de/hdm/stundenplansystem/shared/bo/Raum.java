@@ -35,5 +35,12 @@ public class Raum extends BusinessObjekt {
 	
 	
 	
+	@Override
+	public String toString() {
+		return this.bezeichung;
+	}
+	
+	
+	
 }
 

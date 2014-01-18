@@ -4,7 +4,7 @@ import de.hdm.stundenplansystem.shared.bo.*;
 import de.hdm.stundenplansystem.shared.report.*;
 import de.hdm.stundenplansystem.shared.*;
 import de.hdm.stundenplansystem.server.*;
-
+import de.hdm.stundenplansystem.server.db.StundenplaneintragMapper;
 
 import java.util.Date;
 import java.util.Vector;
@@ -18,8 +18,8 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
     implements ReportGenerator {
 
   /**
-   * Ein ReportGenerator ben������tigt Zugriff auf die BankAdministration, da diese die
-   * essentiellen Methoden f������r die Koexistenz von Datenobjekten (vgl.
+   * Ein ReportGenerator benötigt Zugriff auf die BankAdministration, da diese die
+   * essentiellen Methoden für die Koexistenz von Datenobjekten (vgl.
    * bo-Package) bietet.
    */
   private Verwaltungsklasse verwaltung = null;
@@ -31,7 +31,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
    * ist ein solcher No-Argument-Konstruktor anzulegen. Ein Aufruf eines anderen
    * Konstruktors ist durch die Client-seitige Instantiierung durch
    * <code>GWT.create(Klassenname.class)</code> nach derzeitigem Stand nicht
-   * m������glich.
+   * möglich.
    * </p>
    * <p>
    * Es bietet sich also an, eine separate Instanzenmethode zu erstellen, die
@@ -58,7 +58,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
   }
 
   /**
-   * Auslesen der zugeh������rigen Verwaltungsklasse (interner Gebrauch).
+   * Auslesen der zugehörigen Verwaltungsklasse (interner Gebrauch).
    * 
    * @return das Verwaltungsklassenobjekt
    */
@@ -67,16 +67,16 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
   }
 
   /**
-   * Setzen des zugeh������rigen Dozenten-Objekts.
+   * Setzen des zugehörigen Dozenten-Objekts.
    */
   public void setDozent(Dozent d) {
     this.verwaltung.setDozent(d);
   }
 
   /**
-   * Hinzuf������gen des Report-Impressums. Diese Methode ist aus den
+   * Hinzufügen des Report-Impressums. Diese Methode ist aus den
    * <code>create...</code>-Methoden ausgegliedert, da jede dieser Methoden
-   * diese T������tigkeiten redundant auszuf������hren h������tte. Stattdessen rufen die
+   * diese Tätigkeiten redundant auszuführen hätte. Stattdessen rufen die
    * <code>create...</code>-Methoden diese Methode auf.
    * 
    * @param r der um das Impressum zu erweiternde Report.
@@ -90,7 +90,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
     imprint.addSubParagraph(new SimpleParagraph("Hochschule der Medien"));
     imprint.addSubParagraph(new SimpleParagraph("Stuttgart"));
 
-    // Das eigentliche Hinzuf������gen des Impressums zum Report.
+    // Das eigentliche Hinzufügen des Impressums zum Report.
     r.setImprint(imprint);
 
   }
@@ -108,18 +108,18 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
       return null;
 
     /*
-     * Zun������chst legen wir uns einen leeren Report an.
+     * Zunächst legen wir uns einen leeren Report an.
      */
     StundenplanDozentReport result = new StundenplanDozentReport();
 
-    // Jeder Report hat einen Titel (Bezeichnung / ������berschrift).
+    // Jeder Report hat einen Titel (Bezeichnung / Überschrift).
     result.setTitle("Stundenplan des Dozenten");
 
-    // Imressum hinzuf������gen
+    // Imressum hinzufügen
     this.addImprint(result);
 
     /*
-     * Datum der Erstellung hinzuf������gen. new Date() erzeugt autom. einen
+     * Datum der Erstellung hinzufügen. new Date() erzeugt autom. einen
      * "Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts.
      */
     result.setCreated(new Date());
@@ -135,20 +135,20 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
     header.addSubParagraph(new SimpleParagraph(d.getVorname() + ", "
         + d.getNachname()));
 
-    // Hinzuf������gen der zusammengestellten Kopfdaten zu dem Report
+    // Hinzufügen der zusammengestellten Kopfdaten zu dem Report
     result.setHeaderData(header);
 
     /*
-     * Ab hier erfolgt ein zeilenweises Hinzuf������gen von Stundenplaneintrag-Informationen.
+     * Ab hier erfolgt ein zeilenweises Hinzufügen von Stundenplaneintrag-Informationen.
      */
     
     /*
-     * Zun������chst legen wir eine Kopfzeile f������r die Stundenplaneintrag-Tabelle an.
+     * Zunächst legen wir eine Kopfzeile für die Stundenplaneintrag-Tabelle an.
      */
     Row headline = new Row();
 
     /*
-     * Erzeugen einer StundenplanTabelle mit 6 Spalten f����r jeden Wochentag.
+     * Erzeugen einer StundenplanTabelle mit 6 Spalten für jeden Wochentag.
      */
     headline.addColumn(new Column("Montag"));
     headline.addColumn(new Column("Dienstag"));
@@ -156,21 +156,32 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
     headline.addColumn(new Column("Donnerstag"));
     headline.addColumn(new Column("Freitag"));
 
-    // Hinzuf������gen der Kopfzeile
+    // Hinzufügen der Kopfzeile
     result.addRow(headline);
-
-    Vector<Stundenplaneintrag> stundenplaneintraege = this.verwaltung.getAllStundenplaneintragOf(d);
     
-    for(Stundenplaneintrag stei : stundenplaneintraege){
-    	i
+    Row accountRow;
+    
+    for(int i = 0; i < 30; i++){
+    	
+    	Stundenplaneintrag aktuell = this.verwaltung.getStundenplaneintragByDozentAndZeitslot(d.getId(), i);
+    	
+    	if(aktuell != 0){
+    		accountRow.addColumn(new Column(aktuell.getZeitslotId().toString()+ "/n"+
+        	verwaltung.getLehrveranstaltungById+aktuell.getLehrveranstaltungId().toString() + "/n" + 
+        	verwaltung.getRaumById+ aktuell.getRaumId().toString();)
+    	}
+    	
+    	Row accountRow = new Row();
     }
     
     
     /*
-     * Nun werden s������mtliche Stundenplaneintraege des Dozenten ausgelesen und in die Tabelle eingetragen.
+     * Nun werden sämtliche Stundenplaneintraege des Dozenten ausgelesen und in die Tabelle eingetragen.
      */
     
-    Vector<Stundenplaneintrag> vecMo = new Vector<Stundenplaneintrag> ();
+ /**
+  *    Vector<Stundenplaneintrag> vecMo = new Vector<Stundenplaneintrag> ();
+  *
     Vector<Stundenplaneintrag> vecDi = new Vector<Stundenplaneintrag> ();
     Vector<Stundenplaneintrag> vecMi = new Vector<Stundenplaneintrag> ();
     Vector<Stundenplaneintrag> vecDo = new Vector<Stundenplaneintrag> ();
@@ -228,12 +239,13 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
     			accountRow.addColumn(new Column("----"));
     		}
     		
-    		// und schlie������lich die Zeile dem Report hinzuf������gen.
+    		// und schließlich die Zeile dem Report hinzufügen.
             result.addRow(accountRow);
     		
     		}
+    		*/
     /*
-     * Zum Schluss m������ssen wir noch den fertigen Report zur������ckgeben.
+     * Zum Schluss müssen wir noch den fertigen Report zurückgeben.
      */
     return result;
   }

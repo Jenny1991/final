@@ -65,8 +65,7 @@ public class RaumForm extends Content {
 			setTvm(tvm);
 	  } 
 	  
-		public void onLoad() {
-			
+		public void getData() {
 			verwaltungsSvc.getRaumById(id, new AsyncCallback<Raum>(){
 				@Override
 				public void onFailure(Throwable caught) {
@@ -115,7 +114,7 @@ public class RaumForm extends Content {
 		  }
 		
 		public void deleteSelectedRaum() {
-			verwaltungsSvc.deleteRaum(shownRaum, new AsyncCallback<Void>() {
+			verwaltungsSvc.deleteRaum(shownRaum, new AsyncCallback<Boolean>() {
 				  @Override
 				  public void onFailure (Throwable caught) {
 					  Window.alert("Der Raum konnte nicht gelöscht werden." +
@@ -123,7 +122,7 @@ public class RaumForm extends Content {
 				  }
 
 				  @Override
-				  public void onSuccess(Void result) {
+				  public void onSuccess(Boolean result) {
 					  tvm.deleteRaum(shownRaum);
 					  Window.alert ("Erfolgreich gelöscht.");
 				  } 	

@@ -61,8 +61,7 @@ public class StudiengangForm extends Content {
 			setTvm(tvm);
 	  } 
 	  
-		public void onLoad() {
-			
+		public void getData() {
 			verwaltungsSvc.getStudiengangById(id, new AsyncCallback<Studiengang>(){
 				@Override
 				public void onFailure(Throwable caught) {
@@ -109,7 +108,7 @@ public class StudiengangForm extends Content {
 				  }
 				 
 				  public void deleteSelectedSg(){
-					verwaltungsSvc.deleteStudiengang(shownSg, new AsyncCallback<Void>() {
+					verwaltungsSvc.deleteStudiengang(shownSg, new AsyncCallback<Boolean>() {
 						  @Override
 						  public void onFailure (Throwable caught) {
 						  Window.alert("Der Studiengang konnte nicht gelöscht werden." +
@@ -117,7 +116,7 @@ public class StudiengangForm extends Content {
 							  }
 
 						  @Override
-						  public void onSuccess(Void result) {
+						  public void onSuccess(Boolean result) {
 						  tvm.deleteStudiengang(shownSg);
 						  Window.alert ("Erfolgreich gelöscht.");
 						  } 	

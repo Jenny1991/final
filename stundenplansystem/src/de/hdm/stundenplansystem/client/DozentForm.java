@@ -67,8 +67,7 @@ public class DozentForm extends Content {
 	  } 
 	  
 	  
-		public void onLoad() {
-
+		public void getData() {
 				verwaltungsSvc.getDozentById(id, new AsyncCallback<Dozent>(){
 					@Override
 					public void onFailure(Throwable caught) {

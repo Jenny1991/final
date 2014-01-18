@@ -74,8 +74,7 @@ public class LehrveranstaltungForm extends Content {
 		setTvm(tvm);
 		}
 		
-	public void onLoad() {
-		
+	public void getData() {		
 		verwaltungsSvc.getLehrveranstaltungById(id, new AsyncCallback<Lehrveranstaltung>(){
 			@Override
 			public void onFailure(Throwable caught) {
@@ -122,7 +121,7 @@ public class LehrveranstaltungForm extends Content {
 			  }
 	
 	public void deleteSelectedLv(){
-			verwaltungsSvc.deleteLehrveranstaltung(shownLv, new AsyncCallback<Void>() {
+			verwaltungsSvc.deleteLehrveranstaltung(shownLv, new AsyncCallback<Boolean>() {
 				  @Override
 				  public void onFailure (Throwable caught) {
 					  Window.alert("Die Lehrveranstaltung konnte nicht gelöscht werden." +
@@ -130,7 +129,7 @@ public class LehrveranstaltungForm extends Content {
 				  }
 
 				  @Override
-				  public void onSuccess(Void result) {
+				  public void onSuccess(Boolean result) {
 					  tvm.deleteLehrveranstaltung(shownLv);
 					  Window.alert ("Erfolgreich gelöscht.");
 				  } 	

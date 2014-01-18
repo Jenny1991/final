@@ -30,7 +30,6 @@ public class DozentForm extends Content {
 	  final Button loeschen = new Button ("Dozent löschen");
 	  final Button speichern = new Button ("Änderungen speichern");
 	  final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
-      public CreateDozent cd = new CreateDozent();
 
 	  Integer id;
 	  Dozent shownDozent = null; 

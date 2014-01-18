@@ -31,8 +31,7 @@ public interface VerwaltungsklasseAsync {
 	void createStundenplaneintrag(int d, int l, int r, int z, int sv,
 			AsyncCallback<Stundenplaneintrag> callback);
 
-	void createZeitslot(String wochentag, double anfangszeit, double endzeit,
-			AsyncCallback<Zeitslot> callback);
+	void createStundenplan(String studienhalbjahr, AsyncCallback<Stundenplan> callback);
 
 	void deleteDozent(Dozent d, AsyncCallback<Boolean> callback);	
 	
@@ -41,7 +40,7 @@ public interface VerwaltungsklasseAsync {
 
 	void deleteRaum(Raum r, AsyncCallback<Boolean> callback);
 
-	void deleteZeitslot(Zeitslot z, AsyncCallback<Boolean> callback);
+	void deleteStundenplan(Stundenplan sp, AsyncCallback<Boolean> callback);
 
 	void deleteSemesterverband(Semesterverband sv, AsyncCallback<Boolean> callback);
 
@@ -65,7 +64,7 @@ public interface VerwaltungsklasseAsync {
 	void changeSemsterverband(Semesterverband sv,
 			AsyncCallback<Semesterverband> callback);
 
-	void changeZeitslot(Zeitslot z, AsyncCallback<Zeitslot> callback);
+	void changeStundenplan(Stundenplan sp, AsyncCallback<Stundenplan> callback);
 
 	void setDozent(Dozent d, AsyncCallback<Void> callback);
 
@@ -107,4 +106,6 @@ public interface VerwaltungsklasseAsync {
 
 	void getStundenplaneintragById(int id,
 			AsyncCallback<Stundenplaneintrag> callback);
+
+	void getStundenplanById(int id, AsyncCallback<Stundenplan> callback);
 }

@@ -64,13 +64,16 @@ public interface Verwaltungsklasse extends RemoteService {
 	
 	public Stundenplaneintrag getStundenplaneintragById(int id)throws IllegalArgumentException;
 	
+	public Stundenplan getStundenplanById(int id)throws IllegalArgumentException;
+	
 	public Stundenplaneintrag createStundenplaneintrag(int d, int l, int r, 
 			int z, int sv)
 					throws IllegalArgumentException;
 	
-	public Dozent createDozent(String vorname, String nachname);
+	public Dozent createDozent(String vorname, String nachname)
+			throws IllegalArgumentException;
 	
-	public Zeitslot createZeitslot(String wochentag, double anfangszeit, double endzeit)
+	public Stundenplan createStundenplan(String studienhalbjahr)
 			throws IllegalArgumentException;
 	
 	public Lehrveranstaltung createLehrveranstaltung(String bezeichnung, int semester, int umfang)
@@ -82,7 +85,7 @@ public interface Verwaltungsklasse extends RemoteService {
 	public Semesterverband createSemesterverband(int studiengangId, int semester, int studierendenAnzahl, String jahrgang)
 			throws IllegalArgumentException;
 	
-	public boolean deleteZeitslot(Zeitslot z)
+	public boolean deleteStundenplan(Stundenplan sp)
 			throws IllegalArgumentException;
 	
 	public boolean deleteStudiengang(Studiengang sg)
@@ -106,7 +109,7 @@ public interface Verwaltungsklasse extends RemoteService {
 	public Studiengang changeStudiengang(Studiengang s)
 			throws IllegalArgumentException;
 	
-	public Zeitslot changeZeitslot(Zeitslot z)
+	public Stundenplan changeStundenplan(Stundenplan sp)
 			throws IllegalArgumentException;
 	
 	public Stundenplaneintrag changeStundenplaneintrag(Stundenplaneintrag s)

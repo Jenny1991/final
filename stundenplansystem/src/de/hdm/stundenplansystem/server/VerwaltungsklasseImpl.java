@@ -256,6 +256,10 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		return this.stundenplaneintragMapper.findByKey(id);
 	}
 	
+	public Stundenplan getStundenplanById(int id)throws IllegalArgumentException {
+		return this.stundenplanMapper.findByKey(id);
+	}
+	
 	public Dozent createDozent(String vorname, String nachname)
 			throws IllegalArgumentException {
 		Dozent a = new Dozent();
@@ -341,18 +345,15 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		return null;
 	}
 
-	public Zeitslot createZeitslot(String wochentag, double anfangszeit,
-			double endzeit) throws IllegalArgumentException {
+	public Stundenplan createStundenplan(String studienhalbjahr) throws IllegalArgumentException {
 		
-		Zeitslot z = new Zeitslot();
+		Stundenplan sp = new Stundenplan();
 		
-		z.setWochentag(wochentag);
-		z.setAnfangszeit(anfangszeit);
-		z.setEndzeit(endzeit);
+		sp.setStudienhalbjahr(studienhalbjahr);
 		
-		z.setId(1);
+		sp.setId(1);
 		
-		zeitslotMapper.insert(z);
+		stundenplanMapper.insert(sp);
 		return null;
 	}
 
@@ -381,13 +382,13 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 //		    }
 	}
 
-	public boolean deleteZeitslot(Zeitslot z) throws IllegalArgumentException {
-//		Vector<Stundenplaneintrag> zls = this.getAllStundenplaneintragOf(z);
+	public boolean deleteStundenplan(Stundenplan sp) throws IllegalArgumentException {
+//		Vector<Stundenplaneintrag> sps = this.getAllStundenplaneintragOf(sp);
 //
-//		    if (zls != null) {
+//		    if (sps != null) {
 //		    	return false;
 //		    } else {
-		   	this.zeitslotMapper.delete(z);
+		   	this.stundenplanMapper.delete(sp);
 		   	return true;
 //		    }	
 		   	}
@@ -473,8 +474,8 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		return null;
 	}
 
-	public Zeitslot changeZeitslot(Zeitslot z) throws IllegalArgumentException {
-		this.zeitslotMapper.update(z);
+	public Stundenplan changeStundenplan(Stundenplan sp) throws IllegalArgumentException {
+		this.stundenplanMapper.update(sp);
 		return null;
 	}
 

@@ -86,14 +86,14 @@ public class RaumForm extends Content {
 		
 		public void changeSelectedRaum() {
 			
-			  boolean allFilled = true;
-				  
-				  if (tbbezeichnung.getText().isEmpty());
-				  if (tbkapazitaet.getText().isEmpty());
-				  {	allFilled = false;
-				  Window.alert ("Bitte füllen Sie alle Felder aus."); }
-				  
-				  if (allFilled == true) { 
+			boolean allFilled = true;
+			  
+			  if (tbbezeichnung.getValue().isEmpty() 
+					  || tbkapazitaet.getValue().isEmpty())
+			  {	allFilled = false;
+			  Window.alert ("Bitte füllen Sie alle Felder aus."); }
+			  
+			  if (allFilled == true) { 
 					  shownRaum.setBezeichnung(tbbezeichnung.getText().trim());
 					  shownRaum.setKapazitaet(Integer.valueOf(tbkapazitaet.getText()));
 

@@ -121,7 +121,7 @@ public class SemesterverbandForm extends Content {
 			
 			loeschen.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event){
-					verwaltungsSvc.deleteSemesterverband(shownSv, new AsyncCallback<Void>() {
+					verwaltungsSvc.deleteSemesterverband(shownSv, new AsyncCallback<Boolean>() {
 						  @Override
 						  public void onFailure (Throwable caught) {
 							  Window.alert("Der Studiengang konnte nicht gelöscht werden." +
@@ -129,7 +129,7 @@ public class SemesterverbandForm extends Content {
 						  }
 
 						  @Override
-						  public void onSuccess(Void result) {
+						  public void onSuccess(Boolean result) {
 							  tvm.deleteSemesterverband(shownSv);
 							  Window.alert ("Erfolgreich gelöscht.");
 						  } 	

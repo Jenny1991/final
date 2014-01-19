@@ -174,7 +174,7 @@ public class SemesterverbandForm extends Content {
 		
 		public void setFields(){
 			tbjahrgang.setText(shownSv.getJahrgang());
-//		    libstudiengang.setValue(Integer.toString(shownSv.getStudiengangId(id))));
+//		    libstudiengang.setValue(Integer.toString(shownSv.getStudiengangId()));
 			tbsemester.setValue(Integer.toString(shownSv.getSemester()));
 		    tbanzahl.setValue(Integer.toString(shownSv.getStudierendenAnzahl()));
 		}

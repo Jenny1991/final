@@ -210,10 +210,10 @@ public class SemesterverbandMapper {
 
       stmt.executeUpdate("UPDATE semesterverband SET " 
     		  + "semester='" + s.getSemester()  + "', "
-    		  + "jahrgang= " + "'" + s.getJahrgang()  + "', "
-    		  + "studierendenanzahl= " + "'" + s.getStudierendenAnzahl()  + "', "
+    		  + "jahrgang='" + s.getJahrgang()  + "', "
+    		  + "studierendenanzahl= "+ s.getStudierendenAnzahl()  + ", "
     		  + "studiengangid= " + s.getStudiengangId()
-              + "WHERE id=" + s.getId());
+              + " WHERE id=" + s.getId());
 
     }
     catch (SQLException e2) {

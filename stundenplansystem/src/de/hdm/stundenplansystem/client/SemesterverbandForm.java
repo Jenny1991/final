@@ -122,7 +122,7 @@ public class SemesterverbandForm extends Content {
 				  
 				  if (allFilled == true) { 
 					  shownSv.setJahrgang(tbjahrgang.getText().trim());
-					  shownSv.setStudiengangId(Integer.valueOf(libstudiengang.getValue(libstudiengang.getTabIndex())));
+					  shownSv.setStudiengangId(Integer.valueOf(libstudiengang.getValue(libstudiengang.getSelectedIndex())));
 					  shownSv.setStudierendenAnzahl(Integer.valueOf(tbanzahl.getValue()));
 					  shownSv.setSemester(Integer.valueOf(tbsemester.getValue().trim()));
 	

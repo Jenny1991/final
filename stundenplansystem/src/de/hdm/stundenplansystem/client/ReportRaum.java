@@ -1,118 +1,94 @@
 package de.hdm.stundenplansystem.client;
 
 /**
- * @author V. Hofmann
- *
+ * @author Espich
+ * 
  */
 
-
-import java.util.ArrayList;
+import java.util.Vector;
 
 import com.google.gwt.core.shared.GWT;
-import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DockLayoutPanel;
-import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RootLayoutPanel;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 
-import de.hdm.stundenplansystem.shared.VerwaltungsklasseAsync;
-import de.hdm.stundenplansystem.shared.bo.Dozent;
-import de.hdm.stundenplansystem.shared.Verwaltungsklasse;
+import de.hdm.stundenplansystem.shared.*;
+import de.hdm.stundenplansystem.shared.bo.Raum;
+import de.hdm.stundenplansystem.shared.bo.Stundenplaneintrag;
+import de.hdm.stundenplansystem.shared.report.RaumbelegungsReport;
 import de.hdm.stundenplansystem.client.*;
 
 public class ReportRaum extends Content {
 
+	final FlexTable flexRaum = new FlexTable();
+	final ListBox libraum = new ListBox();
+	final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
+	final ReportGeneratorAsync reportSvc = GWT.create(ReportGenerator.class);
+	final HTML ueberschrift = new HTML ("<h2>Raumbelegungsplan</h2>");
+	Raum r;
+	private NavTreeViewModel tvm;
+	
+	public void onLoad(){
+		
+		this.add(ueberschrift);
+		this.add(libraum);		
+		setTvm(tvm);
+		
+		libraum.clear();			  
+		  verwaltungsSvc.getAllRaeume(new AsyncCallback<Vector<Raum>>() {
+			  public void onFailure(Throwable T){ 
+					Window.alert("Es sind keine R�ume in der Datenbank vorhanden.");
+			  }
+			  
+			  public void onSuccess(Vector<Raum> raum){
+			  	for (Raum r : raum){
+			  		libraum.addItem(r.getBezeichnung(), String.valueOf(r.getId()));
+			  	}
+		  }
+		  });
+//		getData();
+	}
 
-		/**
-		 * Aufbau der Seite, um den Raumplan anzuzeigen
-		 */
-		
-		//final Label flexTable = new Label();
-		//private VerticalPanel detailsPanel = new VerticalPanel();
-		
-		//final TextBox nachnameTextBox = new TextBox();
-		//final TextBox vornameTextBox = new TextBox();
-		final FlexTable tabelleRp = new FlexTable();
-	//	final Button createRpButton = new Button ("Raumplan anlegen");
-	//	final Button changeRpButton = new Button("Raumplan bearbeiten");
-		//final Button deleteRpButton = new Button("Raumplan lÃ¶schen");
-		
-		//final CreateRaum createRaum = new CreateRaum();
-		//final ChangeRaum changeRaum = new ChangeRaum();
-		//final DeleteRaum deleteRaum = new DeleteRaum();
-		
-		// final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
-		 
-		
-		//final Label valueLabel = new Label();
-		
-
-
-		
-		public void onLoad() {
-			
-			showWidget();
-		
-			
-		//int row = tabelleDozent.getRowCount();
-			
-			
-			tabelleRp.setText(0, 0, "Bezeichnung");
-			tabelleRp.setCellPadding(10);
-			tabelleRp.setText(0, 1, "KapazitÃ¤t");
-			//tabelleRp.setText(0, 3, "Funktionen");
-		//	tabelleRp.setWidget(1, 4, deleteRpButton);
-			//tabelleRp.setWidget(1, 5, changeRpButton);
-			
-			/**tabelleRaum.setText(1, 0, "Thies");
-			tabelleRaum.setText(1, 1, "Peter");
-			tabelleRaum.setText(2, 0, "Rathke");
-			tabelleRaum.setText(2, 1, "Christian");
-			
-			createRpButton.addClickHandler(new ClickHandler() {
-				public void onClick(ClickEvent event) {
-				this.add(createRp);
-				}
-			});
-			
-			changeRpButton.addClickHandler(new ClickHandler() {
-				public void onClick(ClickEvent event) {
-					this.add(changeRp);
-				}
-			});*/
-			
-		}
-			
-		public void showWidget() {
-			
-			this.add(tabelleRp);
-		//	this.add(createRpButton);
-		//	this.add(changeRpButton);
-		//	this.add(deleteRpButton);
-			//this.add(changeRp);
-			//this.add(createRp);
-			//this.add(deleteRp);
-		}
-		
-		
-		/**public Raumplan updateFlexTable (Raumplan result) {
-			for (int i = 0; i < getRaumplan.size(); i++) { //getAllDozent wird noch als Methode oder Klasse benÃ¶tigt
-				tabelleRaum.addItem(getRaumplan.get(i).getVorname());
-				
-			}
-		}
-	*/
+	public void setTvm(NavTreeViewModel tvm) {
+		this.tvm = tvm;
+	}
+	
+//		public void getData(){	
+//			this.add(flexRaum);
+//			
+//			reportSvc.createRaumbelungsReport(r, new AsyncCallback<RaumbelegungsReport>() {
+//
+//				public void onSuccess(RaumbelegungsReport result){
+//					if (result != null){
+//				
+//						flexRaum.setText(0, 0, "Zeit");
+//						flexRaum.setText(1, 0, "08:15 - 09:45 Uhr");
+//						flexRaum.setText(2, 0, "10:00 - 11:30 Uhr");
+//						flexRaum.setText(3, 0, "11:45 - 13:15 Uhr");
+//						flexRaum.setText(4, 0, "13:25 - 14:15 Uhr");
+//						flexRaum.setText(5, 0, "14:15 - 15:45 Uhr");
+//						flexRaum.setText(6, 0, "16:00 - 17:30 Uhr");
+//						flexRaum.setText(7, 0, "17:45 - 19:15 Uhr");
+//						flexRaum.setText(0, 1, "Montag");
+//						flexRaum.setText(0, 2, "Dienstag");
+//						flexRaum.setText(0, 3, "Mittowch");
+//						flexRaum.setText(0, 4, "Donnerstag");
+//						flexRaum.setText(0, 5, "Freitag");
+//						flexRaum.setText(0, 6, "Samstag");
+//				
+//					int row = 1; 
+//						for (int i=0; i<result..size(); i++) {
+//							flexRaum.setText(row, 1, String.valueOf(result.get(i).getLehrveranstaltungId())); 
+//						}
+//					}
+//				}
+//
+//				@Override
+//				public void onFailure(Throwable caught) {					
+//				}
+//			});
+//		} 
 
 }

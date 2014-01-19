@@ -178,8 +178,8 @@ public class SemesterverbandMapper {
         stmt = con.createStatement();
 
         // Jetzt erst erfolgt die tatsächliche Einfügeoperation
-        stmt.executeUpdate("INSERT INTO semesterverband (id, semester, studierendenAnzahl, jahrgang, stundenplanid, studiengangid) " + "VALUES ("
-            + s.getId() + ",'" + s.getSemester() + "','" + s.getStudierendenAnzahl() + "','" + s.getJahrgang() + "','" + s.getStundenplanId() + "','" + s.getStudiengangId() +"')");
+        stmt.executeUpdate("INSERT INTO semesterverband (id, semester, studierendenAnzahl, jahrgang, studiengangid) " + "VALUES ("
+            + s.getId() + ",'" + s.getSemester() + "','" + s.getStudierendenAnzahl() + "','" + s.getJahrgang() + "','" + "','" + s.getStudiengangId() +"')");
       }
     }
     catch (SQLException e2) {

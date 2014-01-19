@@ -21,7 +21,7 @@ public interface VerwaltungsklasseAsync {
 
 	void createRaum(String bezeichnung, int kapazitaet, AsyncCallback<Raum> callback);
 	
-	void createSemesterverband(int stundenplanId, int studiengangId, int semester,
+	void createSemesterverband(int studiengangId, int semester,
 			int studierendenAnzahl, String jahrgang,
 			AsyncCallback<Semesterverband> callback);
 

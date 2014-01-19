@@ -110,12 +110,11 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 						  
 						  if (allFilled == true) { 
 							  final String jahrgang = tbjahrgang.getText().trim();
-							  final int studiengangId  = Integer.valueOf(libstudiengang.getValue(libstudiengang.getTabIndex()));
-							  final int stundenplanId = Integer.valueOf(libstundenplan.getValue(libstundenplan.getTabIndex()));
+							  final int studiengangId  = Integer.valueOf(libstudiengang.getValue(libstudiengang.getSelectedIndex()));
 							  final int studierendenAnzahl = Integer.valueOf(tbanzahl.getValue());
 							  final int semester = Integer.valueOf(tbsemester.getText().trim());
 			
-							  verwaltungsSvc.createSemesterverband(stundenplanId, studiengangId, semester, studierendenAnzahl, jahrgang, new AsyncCallback<Semesterverband>() {
+							  verwaltungsSvc.createSemesterverband(studiengangId, semester, studierendenAnzahl, jahrgang, new AsyncCallback<Semesterverband>() {
 
 								  @Override
 								  public void onFailure (Throwable caught) {

@@ -89,7 +89,7 @@ public interface Verwaltungsklasse extends RemoteService {
 	public Raum createRaum(String bezeichnung, int kapazitaet)
 			throws IllegalArgumentException;
 	
-	public Semesterverband createSemesterverband(int stundenplanId, int studiengangId, int semester, int studierendenAnzahl, String jahrgang)
+	public Semesterverband createSemesterverband(int studiengangId, int semester, int studierendenAnzahl, String jahrgang)
 			throws IllegalArgumentException;
 	
 	public boolean deleteStundenplan(Stundenplan sp)

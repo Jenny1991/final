@@ -38,12 +38,10 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 		   */
 		  final Label lbjahrgang = new Label ("Jahrgang"); 
 		  final Label lbstudiengang = new Label ("Studiengang");
-		  final Label lbstundenplan = new Label ("Stundenplan");
-		  final Label lbsemester = new Label ("Semster");
+		  final Label lbsemester = new Label ("Semester");
 		  final Label lbanzahl = new Label ("Anzahl");
 		  final TextBox tbjahrgang = new TextBox ();
 		  final ListBox libstudiengang = new ListBox();
-		  final ListBox libstundenplan = new ListBox();
 		  final TextBox tbsemester = new TextBox ();
 		  final TextBox tbanzahl = new TextBox ();
 		  final Button speichern = new Button ("speichern");
@@ -61,8 +59,6 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 			  this.add(tbjahrgang);
 			  this.add(lbstudiengang);
 			  this.add(libstudiengang);
-			  this.add(lbstundenplan);
-			  this.add(libstundenplan);
 			  this.add(lbsemester);
 			  this.add(tbsemester);
 			  this.add(lbanzahl);
@@ -84,18 +80,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 			  }
 			  });
 			  
-			  libstundenplan.clear();
-			  verwaltungsSvc.getAllStundenplaene(new AsyncCallback<Vector<Stundenplan>>() {
-				  public void onFailure(Throwable T){
-					  
-				  }
-				  
-				  public void onSuccess(Vector<Stundenplan> stundenplaene){
-				  	for (Stundenplan sp : stundenplaene){
-				  		libstundenplan.addItem(sp.getStudienhalbjahr(), String.valueOf(sp.getId()));
-				  	}
-			  }
-			  });
+			 
 			  
 				  speichern.addClickHandler(new ClickHandler() {
 					  public void onClick(ClickEvent event) {

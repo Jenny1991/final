@@ -75,7 +75,7 @@ public class SemesterverbandMapper {
       Statement stmt = con.createStatement();
 
       // Statement ausfüllen und als Query an die DB schicken
-      ResultSet rs = stmt.executeQuery("SELECT id, semester, studierendenAnzahl, jahrgang, stundenplanid, studiengangid FROM Semesterverband "
+      ResultSet rs = stmt.executeQuery("SELECT id, semester, studierendenAnzahl, jahrgang, studiengangid FROM Semesterverband "
           + "WHERE id=" + id);
 
       /*
@@ -89,7 +89,6 @@ public class SemesterverbandMapper {
         s.setSemester(rs.getInt("semester"));
         s.setStudierendenAnzahl(rs.getInt("studierendenAnzahl"));
         s.setJahrgang(rs.getString("jahrgang"));
-        s.setStundenplanId(rs.getInt("stundenplanid"));
         s.setStudiengangId(rs.getInt("studiengangid"));
         
         return s;
@@ -119,7 +118,7 @@ public class SemesterverbandMapper {
     try {
       Statement stmt = con.createStatement();
 
-      ResultSet rs = stmt.executeQuery("SELECT id, semester, studierendenAnzahl, jahrgang, stundenplanid, studiengangid FROM semesterverband "
+      ResultSet rs = stmt.executeQuery("SELECT id, semester, studierendenAnzahl, jahrgang, studiengangid FROM semesterverband "
           + " ORDER BY id");
 
       // Für jeden Eintrag im Suchergebnis wird nun ein Semesterverband-Objekt erstellt.
@@ -129,7 +128,6 @@ public class SemesterverbandMapper {
         s.setSemester(rs.getInt("semester"));
         s.setStudierendenAnzahl(rs.getInt("studierendenAnzahl"));
         s.setJahrgang(rs.getString("jahrgang"));
-        s.setStundenplanId(rs.getInt("stundenplanid"));
         s.setStudiengangId(rs.getInt("studiengangid"));
 
         // Hinzufügen des neuen Objekts zum Ergebnisvektor
@@ -179,7 +177,7 @@ public class SemesterverbandMapper {
 
         // Jetzt erst erfolgt die tatsächliche Einfügeoperation
         stmt.executeUpdate("INSERT INTO semesterverband (id, semester, studierendenAnzahl, jahrgang, studiengangid) " + "VALUES ("
-            + s.getId() + ",'" + s.getSemester() + "','" + s.getStudierendenAnzahl() + "','" + s.getJahrgang() + "','" + "','" + s.getStudiengangId() +"')");
+            + s.getId() + "," + s.getSemester() + "," + s.getStudierendenAnzahl() + ",'" + s.getJahrgang() + "'," + s.getStudiengangId() +")");
       }
     }
     catch (SQLException e2) {
@@ -214,8 +212,7 @@ public class SemesterverbandMapper {
     		  + "semester='" + s.getSemester()  + "', "
     		  + "jahrgang= " + "'" + s.getJahrgang()  + "', "
     		  + "studierendenanzahl= " + "'" + s.getStudierendenAnzahl()  + "', "
-    		  + "stundenplanid= " + "'" + s.getStundenplanId()  + "', "
-    		  + "studiengangid= " + "'" + s.getStudiengangId() + "' "
+    		  + "studiengangid= " + s.getStudiengangId()
               + "WHERE id=" + s.getId());
 
     }

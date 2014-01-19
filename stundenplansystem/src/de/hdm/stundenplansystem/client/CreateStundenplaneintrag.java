@@ -33,12 +33,12 @@ import de.hdm.stundenplansystem.shared.bo.Zeitslot;
 public class CreateStundenplaneintrag extends Content {
 
 		/**
-		 * Jede Klasse enth������t eine ������berschrift, die definiert, was der User machen kann.
+		 * Jede Klasse enthältt eine Überschrift, die definiert, was der User machen kann.
 		 */
 		private final HTML ueberschrift = new HTML ("<h2>Neuen Stundenplaneintrag anlegen<h2>");
 
 		  /**
-		   * Unter der ��berschrift tr��gt der User die Daten des neuen Stundenplaneintrags ein. 
+		   * Unter der Überschrift trägt der User die Daten des neuen Stundenplaneintrags ein. 
 		   */
 		  final Label lbdozent = new Label ("Dozent"); 
 		  final Label lbzeitslot = new Label ("Zeitslot");
@@ -55,7 +55,6 @@ public class CreateStundenplaneintrag extends Content {
 		  final ListBox listLehrveranstaltung = new ListBox ();
 		  
 		  final Button speichern = new Button ("speichern");
-		  //final HorizontalPanel hPanel = new HorizontalPanel();
 		  
 		  final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
 		  NavTreeViewModel tvm = null;
@@ -93,8 +92,7 @@ public class CreateStundenplaneintrag extends Content {
 						}
 					} 
 				  });
-				  
-				  
+				    
 				  verwaltungsSvc.getAllZeitslots(new AsyncCallback<Vector<Zeitslot>>() {
 						@Override
 						public void onFailure(Throwable caught) {	
@@ -107,7 +105,6 @@ public class CreateStundenplaneintrag extends Content {
 						} 
 				  });
 				  
-				  
 				  verwaltungsSvc.getAllRaeume(new AsyncCallback<Vector<Raum>>() {
 						@Override
 						public void onFailure(Throwable caught) {	
@@ -119,7 +116,6 @@ public class CreateStundenplaneintrag extends Content {
 							}
 						} 
 					  });
-				  
 				  
 				  verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
 						@Override
@@ -145,7 +141,6 @@ public class CreateStundenplaneintrag extends Content {
 						} 
 					  });
 				  
-				  
 				  verwaltungsSvc.getAllLehrveranstaltungen(new AsyncCallback<Vector<Lehrveranstaltung>>() {
 						@Override
 						public void onFailure(Throwable caught) {	
@@ -157,7 +152,6 @@ public class CreateStundenplaneintrag extends Content {
 							}
 						} 
 					  });
-				  
 				  
 				  speichern.addClickHandler(new ClickHandler() {
 						public void onClick(ClickEvent event) {
@@ -202,6 +196,7 @@ public class CreateStundenplaneintrag extends Content {
 						  }
 					  }
 				});
+				  
 				  
 				  
 				  

@@ -270,6 +270,16 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		return null;
 	}
 	
+	public Stundenplaneintrag getStundenplaneintragByRaumAndZeitslot(int raumId, int zeitslotId){
+		//return this.stundenplaneintragMapper.findByKeyandRaum(raumId, zeitslotId);
+		return null;
+	}
+	
+	public Stundenplaneintrag getStundenplaneintragBySemesterverbandAndZeitslot(int semesterverbandId, int zeitslotId){
+		//return this.stundenplaneintragMapper.findByKeyandSemsterverband(semesterverbandId, zeitslotId);
+		return null;
+	}
+	
 	
 	
 	public Dozent createDozent(String vorname, String nachname)

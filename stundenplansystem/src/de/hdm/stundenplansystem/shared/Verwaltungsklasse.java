@@ -21,6 +21,10 @@ public interface Verwaltungsklasse extends RemoteService {
 	
 	public void setStudiengang(Studiengang s) throws IllegalArgumentException;
 	
+	public void setRaum (Raum r) throws IllegalArgumentException;
+	
+	public void setSemesterverband (Semesterverband s) throws IllegalArgumentException;
+	
 	public Studiengang createStudiengang(String bezeichnung)
 			throws IllegalArgumentException;
 	
@@ -72,6 +76,10 @@ public interface Verwaltungsklasse extends RemoteService {
 	public Stundenplan getStundenplanById(int id) throws IllegalArgumentException;
 	
 	public Stundenplaneintrag getStundenplaneintragByDozentAndZeitslot(int dozentId, int zeitslotId) throws IllegalArgumentException;
+	
+	public Stundenplaneintrag getStundenplaneintragByRaumAndZeitslot(int raumId, int zeitslotId) throws IllegalArgumentException;
+	
+	public Stundenplaneintrag getStundenplaneintragBySemesterverbandAndZeitslot(int semesterverbandId, int zeitslotId) throws IllegalArgumentException;
 	
 	public Stundenplaneintrag createStundenplaneintrag(int d, int l, int r, 
 			int z, int sv, int sg)

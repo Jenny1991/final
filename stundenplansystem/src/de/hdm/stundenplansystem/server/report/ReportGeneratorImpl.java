@@ -4,10 +4,10 @@ import de.hdm.stundenplansystem.shared.bo.*;
 import de.hdm.stundenplansystem.shared.report.*;
 import de.hdm.stundenplansystem.shared.*;
 import de.hdm.stundenplansystem.server.*;
-import de.hdm.stundenplansystem.server.db.StundenplaneintragMapper;
+
 
 import java.util.Date;
-import java.util.Vector;
+
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 /**
@@ -18,8 +18,8 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
     implements ReportGenerator {
 
   /**
-   * Ein ReportGenerator benÃ¶tigt Zugriff auf die BankAdministration, da diese die
-   * essentiellen Methoden fÃ¼r die Koexistenz von Datenobjekten (vgl.
+   * Ein ReportGenerator benötigt Zugriff auf die BankAdministration, da diese die
+   * essentiellen Methoden für die Koexistenz von Datenobjekten (vgl.
    * bo-Package) bietet.
    */
   private Verwaltungsklasse verwaltung = null;
@@ -31,7 +31,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
    * ist ein solcher No-Argument-Konstruktor anzulegen. Ein Aufruf eines anderen
    * Konstruktors ist durch die Client-seitige Instantiierung durch
    * <code>GWT.create(Klassenname.class)</code> nach derzeitigem Stand nicht
-   * mÃ¶glich.
+   * möglich.
    * </p>
    * <p>
    * Es bietet sich also an, eine separate Instanzenmethode zu erstellen, die
@@ -49,7 +49,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
    */
   public void init() throws IllegalArgumentException {
     /*
-     * Ein ReportGeneratorImpl-Objekt instantiiert fï¿½ï¿½ï¿½ï¿½ï¿½ï¿½r seinen Eigenbedarf eine
+     * Ein ReportGeneratorImpl-Objekt instantiiert für seinen Eigenbedarf eine
      * VerwaltungklasseImpl-Instanz.
      */
     VerwaltungsklasseImpl a = new VerwaltungsklasseImpl();
@@ -58,7 +58,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
   }
 
   /**
-   * Auslesen der zugehÃ¶rigen Verwaltungsklasse (interner Gebrauch).
+   * Auslesen der zugehörigen Verwaltungsklasse (interner Gebrauch).
    * 
    * @return das Verwaltungsklassenobjekt
    */
@@ -90,7 +90,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
     imprint.addSubParagraph(new SimpleParagraph("Hochschule der Medien"));
     imprint.addSubParagraph(new SimpleParagraph("Stuttgart"));
 
-    // Das eigentliche HinzufÃ¼gen des Impressums zum Report.
+    // Das eigentliche Hinzufügen des Impressums zum Report.
     r.setImprint(imprint);
 
   }
@@ -108,18 +108,18 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
       return null;
 
     /*
-     * ZunÃ¤chst legen wir uns einen leeren Report an.
+     * Zunächst legen wir uns einen leeren Report an.
      */
     StundenplanDozentReport result = new StundenplanDozentReport();
 
-    // Jeder Report hat einen Titel (Bezeichnung / Ãœberschrift).
+    // Jeder Report hat einen Titel (Bezeichnung / Überschrift).
     result.setTitle("Stundenplan des Dozenten");
 
-    // Imressum hinzufÃ¼gen
+    // Imressum hinzufügen
     this.addImprint(result);
 
     /*
-     * Datum der Erstellung hinzufÃ¼gen. new Date() erzeugt autom. einen
+     * Datum der Erstellung hinzufügen. new Date() erzeugt autom. einen
      * "Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts.
      */
     result.setCreated(new Date());
@@ -156,11 +156,14 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
     headline.addColumn(new Column("Donnerstag"));
     headline.addColumn(new Column("Freitag"));
 
-    // HinzufÃ¼gen der Kopfzeile
+    // Hinzufügen der Kopfzeile
     result.addRow(headline);
     
     Row accountRow = new Row();
     
+    /*
+     * Nun werden sämtliche Stundenplaneintraege des Dozenten ausgelesen und in die Tabelle eingetragen.
+     */ 
     for(int i = 0; i < 35; i++){
     	
     	Stundenplaneintrag aktuell = this.verwaltung.getStundenplaneintragByDozentAndZeitslot(d.getId(), i);
@@ -176,108 +179,205 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
     	if (i == 5 | i == 11 | i == 17 | i == 23 | i == 29)
     		accountRow = new Row();
     }
-    
-    
     /*
-     * Nun werden sÃ¤mtliche Stundenplaneintraege des Dozenten ausgelesen und in die Tabelle eingetragen.
-     */
-    
- /**
-  *    Vector<Stundenplaneintrag> vecMo = new Vector<Stundenplaneintrag> ();
-  *
-    Vector<Stundenplaneintrag> vecDi = new Vector<Stundenplaneintrag> ();
-    Vector<Stundenplaneintrag> vecMi = new Vector<Stundenplaneintrag> ();
-    Vector<Stundenplaneintrag> vecDo = new Vector<Stundenplaneintrag> ();
-    Vector<Stundenplaneintrag> vecFr = new Vector<Stundenplaneintrag> ();
-    Vector<Stundenplaneintrag> vecDef = new Vector<Stundenplaneintrag> ();
-    
-    for (Stundenplaneintrag a : stundenplaneintraege) {
-    	
-    	switch (a.getZeitslot().getWochentag()) {
-        case "Montag" : vecMo.add(a);
-                 break;
-        case "Dienstag": vecDi.add(a) ;
-                 break;
-        case "Mittwoch": vecMi.add(a) ;
-                 break;
-        case "Donnerstag": vecDo.add(a) ;
-                 break;
-        case "Freitag": vecFr.add(a) ;
-                 break;
-        default: vecDef.add(a) ;
-                 break;
-    }
-}
-    	
-    	for ( int i = 0; i<6; i++){
-    		Row accountRow = new Row();
-    	
-    		if (vecMo.elementAt(i) != null){
-    			accountRow.addColumn(new Column(vecMo.elementAt(i).toString()));}
-    		else {
-    			accountRow.addColumn(new Column("----"));
-    		}
-    		
-    		if (vecDi.elementAt(i) != null){
-    			accountRow.addColumn(new Column(vecMo.elementAt(i).toString()));}
-    		else {
-    			accountRow.addColumn(new Column("----"));
-    		}
-    		
-    		if (vecMi.elementAt(i) != null){
-    			accountRow.addColumn(new Column(vecMo.elementAt(i).toString()));}
-    		else {
-    			accountRow.addColumn(new Column("----"));
-    		}
-    		
-    		if (vecDo.elementAt(i) != null){
-    			accountRow.addColumn(new Column(vecMo.elementAt(i).toString()));}
-    		else {
-    			accountRow.addColumn(new Column("----"));
-    		}
-    		
-    		if (vecFr.elementAt(i) != null){
-    			accountRow.addColumn(new Column(vecMo.elementAt(i).toString()));}
-    		else {
-    			accountRow.addColumn(new Column("----"));
-    		}
-    		
-    		// und schlieÃŸlich die Zeile dem Report hinzufÃ¼gen.
-            result.addRow(accountRow);
-    		
-    		}
-    		*/
-    /*
-     * Zum Schluss mÃ¼ssen wir noch den fertigen Report zurÃ¼ckgeben.
+     * Zum Schluss müssen wir noch den fertigen Report zurückgeben.
      */
     return result;
   }
 
-@Override
 public void setRaum(Raum r) throws IllegalArgumentException {
-	// TODO Auto-generated method stub
-	
+	this.verwaltung.setRaum(r);
 }
 
-@Override
+/**
+ * Erstellen von <code>RaumbelegungsReport</code>-Objekten.
+ * 
+ * @param r das Raumobjekt bzgl. dessen der Report erstellt werden soll.
+ * @return der fertige Report
+ */
+public RaumbelegungsReport createRaumbelungsReport(Raum r) 
+		throws IllegalArgumentException {
+
+
+
+  if (this.getVerwaltungsklasse() == null)
+    return null;
+
+  /*
+   * Zunächst legen wir uns einen leeren Report an.
+   */
+  RaumbelegungsReport result = new RaumbelegungsReport();
+
+  // Jeder Report hat einen Titel (Bezeichnung / Überschrift).
+  result.setTitle("Raumbelegungsplan");
+
+  // Imressum hinzufügen
+  this.addImprint(result);
+
+  /*
+   * Datum der Erstellung hinzufügen. new Date() erzeugt autom. einen
+   * "Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts.
+   */
+  result.setCreated(new Date());
+
+  /*
+   * Ab hier erfolgt die Zusammenstellung der Kopfdaten (die Dinge, die oben
+   * auf dem Report stehen) des Reports. Die Kopfdaten sind mehrzeilig, daher
+   * die Verwendung von CompositeParagraph.
+   */
+  CompositeParagraph header = new CompositeParagraph();
+
+  // Bezeichnung und Kapazität des Raumes aufnehmen
+  header.addSubParagraph(new SimpleParagraph(r.getBezeichnung() + ", Kapatität: "
+      + r.getKapazitaet()));
+
+  // Hinzufügen der zusammengestellten Kopfdaten zu dem Report
+  result.setHeaderData(header);
+
+  /*
+   * Ab hier erfolgt ein zeilenweises Hinzufügen von Stundenplaneintrag-Informationen.
+   */
+  
+  /*
+   * ZunÃ¤chst legen wir eine Kopfzeile für die Stundenplaneintrag-Tabelle an.
+   */
+  Row headline = new Row();
+
+  /*
+   * Erzeugen einer StundenplanTabelle mit 6 Spalten für jeden Wochentag.
+   */
+  headline.addColumn(new Column("Montag"));
+  headline.addColumn(new Column("Dienstag"));
+  headline.addColumn(new Column("Mittwoch"));
+  headline.addColumn(new Column("Donnerstag"));
+  headline.addColumn(new Column("Freitag"));
+
+  // Hinzufügen der Kopfzeile
+  result.addRow(headline);
+  
+  Row accountRow = new Row();
+  
+  /*
+   * Nun werden sämtliche Stundenplaneintraege des Dozenten ausgelesen und in die Tabelle eingetragen.
+   */ 
+  for(int i = 0; i < 35; i++){
+  	
+  	Stundenplaneintrag aktuell = this.verwaltung.getStundenplaneintragByRaumAndZeitslot(r.getId(), i);
+  	
+  	if(aktuell != null){
+  		accountRow.addColumn(new Column(verwaltung.getZeitslotById(aktuell.getZeitslotId()).toString()+ "/n"+
+  		verwaltung.getLehrveranstaltungById(aktuell.getLehrveranstaltungId()).toString()+ "/n"+ 
+  		verwaltung.getRaumById(aktuell.getRaumId()).toString()));
+  	} else {
+			accountRow.addColumn(new Column("----"));
+		}
+  	
+  	if (i == 5 | i == 11 | i == 17 | i == 23 | i == 29)
+  		accountRow = new Row();
+  }
+  /*
+   * Zum Schluss müssen wir noch den fertigen Report zurückgeben.
+   */
+  return result;
+}
+
+
+
 public void setSemesterverband(Semesterverband sv)
 		throws IllegalArgumentException {
-	// TODO Auto-generated method stub
-	
+	this.verwaltung.setSemesterverband(sv);
 }
 
-@Override
-public RaumbelegungsReport createRaumbelungsReport(Raum r)
-		throws IllegalArgumentException {
-	// TODO Auto-generated method stub
-	return null;
-}
+/**
+ * Erstellen von <code>StundenplanSemesterverbandReport</code>-Objekten.
+ * 
+ * @param sv das Semesterverbandobjekt bzgl. dessen der Report erstellt werden soll.
+ * @return der fertige Report
+ */
 
-@Override
 public StundenplanSemesterverbandReport createStundenplanSemesterverbandReport(
 		Semesterverband sv) throws IllegalArgumentException {
-	// TODO Auto-generated method stub
-	return null;
+
+
+	  if (this.getVerwaltungsklasse() == null)
+	    return null;
+
+	  /*
+	   * Zunächst legen wir uns einen leeren Report an.
+	   */
+	  StundenplanSemesterverbandReport result = new StundenplanSemesterverbandReport();
+
+	  // Jeder Report hat einen Titel (Bezeichnung / Überschrift).
+	  result.setTitle("Stundenplan des Semsterverbandes");
+
+	  // Imressum hinzufügen
+	  this.addImprint(result);
+
+	  /*
+	   * Datum der Erstellung hinzufügen. new Date() erzeugt autom. einen
+	   * "Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts.
+	   */
+	  result.setCreated(new Date());
+
+	  /*
+	   * Ab hier erfolgt die Zusammenstellung der Kopfdaten (die Dinge, die oben
+	   * auf dem Report stehen) des Reports. Die Kopfdaten sind mehrzeilig, daher
+	   * die Verwendung von CompositeParagraph.
+	   */
+	  CompositeParagraph header = new CompositeParagraph();
+
+	  // Bezeichnung des Semesterverbandes aufnehmen
+	  header.addSubParagraph(new SimpleParagraph(sv.getStudiengangId() + ", "
+	      + sv.getSemester()));
+
+	  // Hinzufügen der zusammengestellten Kopfdaten zu dem Report
+	  result.setHeaderData(header);
+
+	  /*
+	   * Ab hier erfolgt ein zeilenweises Hinzufügen von Stundenplaneintrag-Informationen.
+	   */
+	  
+	  /*
+	   * ZunÃ¤chst legen wir eine Kopfzeile für die Stundenplaneintrag-Tabelle an.
+	   */
+	  Row headline = new Row();
+
+	  /*
+	   * Erzeugen einer StundenplanTabelle mit 6 Spalten für jeden Wochentag.
+	   */
+	  headline.addColumn(new Column("Montag"));
+	  headline.addColumn(new Column("Dienstag"));
+	  headline.addColumn(new Column("Mittwoch"));
+	  headline.addColumn(new Column("Donnerstag"));
+	  headline.addColumn(new Column("Freitag"));
+
+	  // Hinzufügen der Kopfzeile
+	  result.addRow(headline);
+	  
+	  Row accountRow = new Row();
+	  
+	  /*
+	   * Nun werden sämtliche Stundenplaneintraege des Semsterverbandes ausgelesen und in die Tabelle eingetragen.
+	   */ 
+	  for(int i = 0; i < 35; i++){
+	  	
+	  	Stundenplaneintrag aktuell = this.verwaltung.getStundenplaneintragBySemesterverbandAndZeitslot(sv.getId(), i);
+	  	
+	  	if(aktuell != null){
+	  		accountRow.addColumn(new Column(verwaltung.getZeitslotById(aktuell.getZeitslotId()).toString()+ "/n"+
+	  		verwaltung.getLehrveranstaltungById(aktuell.getLehrveranstaltungId()).toString()+ "/n"+ 
+	  		verwaltung.getRaumById(aktuell.getRaumId()).toString()));
+	  	} else {
+				accountRow.addColumn(new Column("----"));
+			}
+	  	
+	  	if (i == 5 | i == 11 | i == 17 | i == 23 | i == 29)
+	  		accountRow = new Row();
+	  }
+	  /*
+	   * Zum Schluss müssen wir noch den fertigen Report zurückgeben.
+	   */
+	  return result;
 }
 
 }

@@ -2,7 +2,7 @@ package de.hdm.stundenplansystem.shared.report;
 
 import java.io.Serializable;
 
-public class RaumbelegungsReport 	extends CompositeReport 
+public class RaumbelegungsReport 	extends SimpleReport 
 implements Serializable {
 
 	  /**

@@ -89,7 +89,7 @@ public class CreateStundenplaneintrag extends Content {
 					@Override
 					public void onSuccess(Vector<Dozent> result) {
 						for (Dozent d : result) {
-							listDozent.addItem(d.getNachname() + " " + d.getVorname());
+							listDozent.addItem(d.getNachname() + ", " + d.getVorname());
 						}
 					} 
 				  });
@@ -102,7 +102,7 @@ public class CreateStundenplaneintrag extends Content {
 						@Override
 						public void onSuccess(Vector<Zeitslot> result) {
 							for (Zeitslot zs : result) {
-								listZeitslot.addItem(zs.getWochentag() + " " + zs.getAnfangszeit() + " " + zs.getEndzeit());
+								listZeitslot.addItem(zs.getWochentag());
 							}
 						} 
 				  });
@@ -172,14 +172,7 @@ public class CreateStundenplaneintrag extends Content {
 							  allFilled = false;
 							  Window.alert ("Bitte füllen Sie alle Felder aus."); } 
 						  
-						  if (allFilled == true) {	
-							  /*String d = listDozent.getName().trim();
-							  String z = listZeitslot.getName().trim();
-							  String sv = listSemesterverband.getName().trim();
-							  String sg = listStudiengang.getName().trim();
-							  String r = listRaum.getName().trim();
-							  String l = listLehrveranstaltung.getName().trim();*/
-							  
+						  if (allFilled == true) {
 							  int d = listDozent.getSelectedIndex();
 							  int l = listLehrveranstaltung.getSelectedIndex();
 							  int r = listRaum.getSelectedIndex();
@@ -202,16 +195,13 @@ public class CreateStundenplaneintrag extends Content {
 									listStudiengang.setTitle("");
 									listRaum.setTitle("");
 									listLehrveranstaltung.setTitle("");
-									Window.alert ("Erfolgreich gespeichert.");
+									Window.alert ("Der Stundenplaneintrag wurde erfolgreich gespeichert.");
 									tvm.addStundenplaneintrag(result);									
 								} 
 							 }); 
-
-								  	
-							
 						  }
 					  }
-					  });
+				});
 				  
 				  
 				  
@@ -254,7 +244,9 @@ public class CreateStundenplaneintrag extends Content {
 				  
 		  }
 		  
-		  public void setTvm(NavTreeViewModel tvm) {
+
+
+		public void setTvm(NavTreeViewModel tvm) {
 				this.tvm = tvm;
 			}
 }

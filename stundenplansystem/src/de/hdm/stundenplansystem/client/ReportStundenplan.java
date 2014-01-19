@@ -21,7 +21,7 @@ public class ReportStundenplan extends Content {
 	final RadioButton rbs = new RadioButton("Studenten", "Studenten");
 	final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
 	final ReportGeneratorAsync reportSvc = GWT.create(ReportGenerator.class);
-
+//Test
 	private NavTreeViewModel tvm;
 	
 	public void onLoad() {

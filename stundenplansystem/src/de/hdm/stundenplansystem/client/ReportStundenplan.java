@@ -39,7 +39,7 @@ public class ReportStundenplan extends Content {
 
 	private NavTreeViewModel tvm;
 	Studiengang sg;
-	Semesterverband sv;
+	Integer sv;
 	
 	public void onLoad() {
 		

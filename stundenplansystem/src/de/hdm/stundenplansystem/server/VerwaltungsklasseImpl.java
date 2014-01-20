@@ -149,7 +149,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		Vector<Stundenplaneintrag> dVektor = null;
 		
 		/**
-		 * Hier mï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ssen wir alle Stundenplaneintraege des Dozenten in den Vector reinspeichern.
+		 * Hier müssen wir alle Stundenplaneintraege des Dozenten in den Vector reinspeichern.
 		 */
 			
 		 	dVektor = this.stundenplaneintragMapper.findByDozentOrderByAnfangszeit(d.getId());

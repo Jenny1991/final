@@ -296,9 +296,10 @@ public void setSemesterverband(Semesterverband sv)
  */
 
 public StundenplanSemesterverbandReport createStundenplanSemesterverbandReport(
-		Semesterverband sv) throws IllegalArgumentException {
+	int id) throws IllegalArgumentException {
 
-
+		Semesterverband sv = verwaltung.getSemesterverbandById(id);
+		
 	  if (this.getVerwaltungsklasse() == null)
 	    return null;
 

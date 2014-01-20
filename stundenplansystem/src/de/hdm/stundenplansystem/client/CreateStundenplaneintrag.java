@@ -155,7 +155,7 @@ public class CreateStundenplaneintrag extends Content {
 				  
 				  speichern.addClickHandler(new ClickHandler() {
 						public void onClick(ClickEvent event) {
-						  boolean allFilled = true;
+						  /**boolean allFilled = true;
 
 						  if (listDozent.getName().isEmpty() 
 								  ||listZeitslot.getName().isEmpty()
@@ -166,7 +166,7 @@ public class CreateStundenplaneintrag extends Content {
 							  allFilled = false;
 							  Window.alert ("Bitte füllen Sie alle Felder aus."); } 
 						  
-						  if (allFilled == true) {
+						  if (allFilled == true) {*/
 							  int d = listDozent.getSelectedIndex();
 							  int l = listLehrveranstaltung.getSelectedIndex();
 							  int r = listRaum.getSelectedIndex();
@@ -194,7 +194,7 @@ public class CreateStundenplaneintrag extends Content {
 								} 
 							 }); 
 						  }
-					  }
+					  //}
 				});
 				  
 				  

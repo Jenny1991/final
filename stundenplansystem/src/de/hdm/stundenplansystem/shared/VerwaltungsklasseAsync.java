@@ -119,7 +119,11 @@ public interface VerwaltungsklasseAsync {
 	void setRaum(Raum r, AsyncCallback<Void> callback);
 
 	void setSemesterverband(Semesterverband s, AsyncCallback<Void> callback);
+	
+	void setZeitslot(Zeitslot z, AsyncCallback<Void> callback);
 
+	void getZeitslot(AsyncCallback<Zeitslot> callback);
+	
 	void getStundenplaneintragBySemesterverbandAndZeitslot(
 			int semesterverbandId, int zeitslotId,
 			AsyncCallback<Stundenplaneintrag> callback);

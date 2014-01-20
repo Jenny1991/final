@@ -52,6 +52,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	//private StudienhalbjahrForm shf;
 	private ReportRaum rr;
 	private ReportStundenplan rs;	
+	private ReportStundenplanDozent rsd;
 	
 	private CreateDozent cd;
 	private CreateLehrveranstaltung cl;
@@ -129,7 +130,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	
 	private SingleSelectionModel <Object> selectionModel = new SingleSelectionModel<Object>(boKeyProvider);
 	
-	public NavTreeViewModel(CreateDozent cd, CreateLehrveranstaltung cl, CreateRaum cr, CreateStudiengang csg, CreateSemesterverband csv, CreateStundenplaneintrag cspe, CreateStundenplan csp, DozentForm df, LehrveranstaltungForm lf, RaumForm rf, StudiengangForm sgf, SemesterverbandForm svf, StundenplaneintragForm spef, StundenplanForm spf,  ReportRaum rr, ReportStundenplan rs, Stundenplansystem sps) {
+	public NavTreeViewModel(CreateDozent cd, CreateLehrveranstaltung cl, CreateRaum cr, CreateStudiengang csg, CreateSemesterverband csv, CreateStundenplaneintrag cspe, CreateStundenplan csp, DozentForm df, LehrveranstaltungForm lf, RaumForm rf, StudiengangForm sgf, SemesterverbandForm svf, StundenplaneintragForm spef, StundenplanForm spf,  ReportRaum rr, ReportStundenplan rs, ReportStundenplanDozent rsd, Stundenplansystem sps) {
 		
 		this.cd = cd;
 		cd.setTvm(this);
@@ -164,7 +165,9 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 		this.rr = rr;
 		rr.setTvm(this);
 		this.rs = rs;
-		rs.setTvm(this);	
+		rs.setTvm(this);
+		this.rsd = rsd; 
+		rsd.setTvm(this);
 	
 		this.sps = sps;
 		
@@ -234,8 +237,12 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 					setReportRaum();
 				}
 			
-				if (selection instanceof String && (String)selection == "Stundenplan für Dozenten") {
+				if (selection instanceof String && (String)selection == "Stundenplan für Studenten") {
 					setReportStundenplan();
+				}
+				
+				if (selection instanceof String && (String)selection == "Stundenplan für Dozenten") {
+					setReportStundenplanDozent();
 				}
 		
 				if (selection instanceof Dozent) {
@@ -368,6 +375,10 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	
 	void setReportStundenplan(){
 		sps.showReportStundenplan();
+	}
+	
+	void setReportStundenplanDozent(){
+		sps.showReportStundenplanDozent();
 	}
 	
 	void setSelectedStudienhalbjahr(Stundenplan sp) {
@@ -577,6 +588,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			stringDataProvider = new ListDataProvider<String>();
 			
 			stringDataProvider.getList().add("Stundenplan für Dozenten");
+			stringDataProvider.getList().add("Stundenplan für Studenten");
 			stringDataProvider.getList().add("Raumbelegungsplan");
 			
 			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);

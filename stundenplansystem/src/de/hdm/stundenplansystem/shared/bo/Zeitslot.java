@@ -1,6 +1,6 @@
 package de.hdm.stundenplansystem.shared.bo;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Zeitslot extends BusinessObjekt {
 	

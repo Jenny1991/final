@@ -118,7 +118,7 @@ public class ZeitslotMapper {
       Statement stmt = con.createStatement();
 
       ResultSet rs = stmt.executeQuery("SELECT id, wochentag, anfangszeit, endzeit"
-    	+ "FROM zeitslot "
+    	+ " FROM zeitslot "
         + " ORDER BY id");
 
       // Für jeden Eintrag im Suchergebnis wird nun ein Zeitslot-Objekt erstellt.

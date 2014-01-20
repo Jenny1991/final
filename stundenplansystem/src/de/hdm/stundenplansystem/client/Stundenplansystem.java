@@ -95,6 +95,7 @@ public class ItProjekt implements EntryPoint {
 	    public StundenplanForm spf = new StundenplanForm();
 	    public ReportRaum rr = new ReportRaum();
 	    public ReportStundenplan rs = new ReportStundenplan();
+	    public ReportStundenplanDozent rsd = new ReportStundenplanDozent();
 	    
 	    public CreateDozent cd = new CreateDozent();
 	    public CreateLehrveranstaltung cl = new CreateLehrveranstaltung();
@@ -123,7 +124,7 @@ public class ItProjekt implements EntryPoint {
 		     */
 		
 			//NavTreeViewModel tvm = new NavTreeViewModel(df, lf, rf, zf, sgf, svf, this);
-			NavTreeViewModel tvm = new NavTreeViewModel(cd, cl, cr, csg, csv, cspe, csp, df, lf, rf, sgf, svf, spef, spf, rr, rs, this);
+			NavTreeViewModel tvm = new NavTreeViewModel(cd, cl, cr, csg, csv, cspe, csp, df, lf, rf, sgf, svf, spef, spf, rr, rs, rsd, this);
 			
 			
 			CellTree cellTree = new CellTree(tvm, "Root");
@@ -403,4 +404,8 @@ public class ItProjekt implements EntryPoint {
 			detailsPanel.add(rs);
 		}
 		
+		public void showReportStundenplanDozent(){
+			detailsPanel.clear();
+			detailsPanel.add(rsd);
+		}
 	}

@@ -68,6 +68,11 @@ public class CreateDozent extends Content {
 						  allFilled = false;
 					  Window.alert ("Bitte füllen Sie alle Felder aus."); } 
 					  
+//					  if (tbnachname.getValue().matches("[0-9] + ")){
+//						  allFilled = false;
+//						  Window.alert("Ungültiger Eingabewert!");
+//					  }
+					  
 					  if (allFilled == true) {	
 						  String vorname = tbvorname.getValue().trim();
 						  String nachname = tbnachname.getValue().trim();

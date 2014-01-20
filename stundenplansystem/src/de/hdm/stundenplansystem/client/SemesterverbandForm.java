@@ -21,7 +21,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 
 
 /**
- * Formular fÃ¼r die Darstellung des selektierten Semesterverbands
+ * Formular fï¿½ï¿½r die Darstellung des selektierten Semesterverbands
  * 
  * @author Thies, Espich
  *
@@ -35,8 +35,8 @@ public class SemesterverbandForm extends Content {
 	  final ListBox libstudiengang = new ListBox();
 	  final TextBox tbsemester = new TextBox ();
 	  final TextBox tbanzahl = new TextBox ();
-	  final Button loeschen = new Button ("Semesterverband löschen");
-	  final Button speichern = new Button ("Änderungen speichern");
+	  final Button loeschen = new Button ("Semesterverband lÃ¶schen");
+	  final Button speichern = new Button ("Ã„nderungen speichern");
 	  final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
 	  
 	  Integer id;
@@ -118,7 +118,7 @@ public class SemesterverbandForm extends Content {
 						  || tbanzahl.getText().isEmpty() 
 						  || tbsemester.getText().isEmpty()) 
 				  { allFilled = false;
-				  Window.alert ("Bitte füllen Sie alle Felder aus."); }
+				  Window.alert ("Bitte fÃ¼llen Sie alle Felder aus."); }
 				  
 				  if (allFilled == true) { 
 					  shownSv.setJahrgang(tbjahrgang.getText().trim());
@@ -153,7 +153,7 @@ public class SemesterverbandForm extends Content {
 						  @Override
 						  public void onSuccess(Boolean result) {
 							  tvm.deleteSemesterverband(shownSv);
-							  Window.alert ("Erfolgreich gelöscht.");
+							  Window.alert ("Erfolgreich gelÃ¶scht.");
 						  } 	
 					});
 				this.clearFields();
@@ -174,7 +174,8 @@ public class SemesterverbandForm extends Content {
 		
 		public void setFields(){
 			tbjahrgang.setText(shownSv.getJahrgang());
-//		    libstudiengang.setValue(Integer.toString(shownSv.getStudiengangId()));
+			
+///		    libstudiengang.setValue(Integer.toString(shownSv.getStudiengangId()));
 			tbsemester.setValue(Integer.toString(shownSv.getSemester()));
 		    tbanzahl.setValue(Integer.toString(shownSv.getStudierendenAnzahl()));
 		}

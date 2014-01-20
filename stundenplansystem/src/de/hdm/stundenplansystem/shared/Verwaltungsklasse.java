@@ -141,6 +141,10 @@ public interface Verwaltungsklasse extends RemoteService {
 	
 	public void changeSemsterverband(Semesterverband sv)
 			throws IllegalArgumentException;
+
+	public Zeitslot getZeitslot() throws IllegalArgumentException;
+
+	public void setZeitslot(Zeitslot z) throws IllegalArgumentException;
 }
 
 

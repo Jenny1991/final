@@ -46,6 +46,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	private Lehrveranstaltung lehrveranstaltung = null;
 	private Stundenplaneintrag stundenplaneintrag = null;
 	private Stundenplan stundenplan = null;
+	private Zeitslot zeitslot = null;
 	
 	
 	public Stundenplaneintrag getStundenplaneintrag() {
@@ -82,7 +83,13 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		return lehrveranstaltung;
 	}
 	
+	public Zeitslot getZeitslot(){
+		return zeitslot;
+	}
 
+	public void setZeitslot(Zeitslot zeitslot) throws IllegalArgumentException {
+		this.zeitslot = zeitslot;
+	}
 	
 	public Dozent getDozent() {
 		return dozent;

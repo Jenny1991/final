@@ -8,7 +8,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Button;
@@ -19,6 +18,7 @@ import de.hdm.stundenplansystem.shared.bo.Lehrveranstaltung;
 import de.hdm.stundenplansystem.shared.bo.Raum;
 import de.hdm.stundenplansystem.shared.bo.Semesterverband;
 import de.hdm.stundenplansystem.shared.bo.Studiengang;
+import de.hdm.stundenplansystem.shared.bo.Stundenplan;
 import de.hdm.stundenplansystem.shared.bo.Stundenplaneintrag;
 import de.hdm.stundenplansystem.shared.bo.Zeitslot;
 
@@ -43,16 +43,18 @@ public class CreateStundenplaneintrag extends Content {
 		  final Label lbdozent = new Label ("Dozent"); 
 		  final Label lbzeitslot = new Label ("Zeitslot");
 		  final Label lbraum = new Label ("Raum");
-		  final Label lbstudiengang = new Label ("Studiengang");
-		  final Label lbsemesterverband = new Label ("Semesterverband");
+		  final Label lbstudienhj = new Label ("Studienhalbjahr");
+		  final Label lbsemesterverband = new Label ("Semester");
 		  final Label lblehrveranstaltung = new Label ("Lehrveranstaltung");
+		  final Label lbstudiengang = new Label ("Studiengang");
 		  
 		  final ListBox listDozent = new ListBox ();
 		  final ListBox listZeitslot = new ListBox ();
 		  final ListBox listRaum = new ListBox ();
-		  final ListBox listStudiengang = new ListBox(); 
+		  final ListBox listStudienhj = new ListBox(); 
 		  final ListBox listSemesterverband = new ListBox (); 
 		  final ListBox listLehrveranstaltung = new ListBox ();
+		  final ListBox listStudiengang = new ListBox ();
 		  
 		  final Button speichern = new Button ("speichern");
 		  
@@ -65,22 +67,30 @@ public class CreateStundenplaneintrag extends Content {
 		  public void onLoad () {
 
 				  this.add(ueberschrift);
-			  	  this.add(lbdozent);
-				  this.add(listDozent);
-				  this.add(lbzeitslot);
-				  this.add(listZeitslot);
-				  this.add(lbraum);
-				  this.add(listRaum);
+				  this.add(lbstudienhj);
+				  this.add(listStudienhj);
 				  this.add(lbstudiengang);
 				  this.add(listStudiengang);
 				  this.add(lbsemesterverband);
 				  this.add(listSemesterverband);
 				  this.add(lblehrveranstaltung);
 				  this.add(listLehrveranstaltung);
+			  	  this.add(lbdozent);
+				  this.add(listDozent);
+				  this.add(lbraum);
+				  this.add(listRaum);
+				  this.add(lbzeitslot);
+				  this.add(listZeitslot);
 				  this.add(speichern);
 				  
 				  setTvm(tvm);
-				  				  
+				  listDozent.clear();
+				  listZeitslot.clear();
+				  listSemesterverband.clear();
+				  listStudiengang.clear();
+				  listRaum.clear();
+				  listLehrveranstaltung.clear();
+					
 				  verwaltungsSvc.getAllDozenten(new AsyncCallback<Vector<Dozent>>() {
 					@Override
 					public void onFailure(Throwable caught) {	
@@ -88,7 +98,7 @@ public class CreateStundenplaneintrag extends Content {
 					@Override
 					public void onSuccess(Vector<Dozent> result) {
 						for (Dozent d : result) {
-							listDozent.addItem(d.getNachname() + ", " + d.getVorname());
+							listDozent.addItem(d.getNachname() + ", " + d.getVorname(), String.valueOf(d.getId()));
 						}
 					} 
 				  });
@@ -100,7 +110,7 @@ public class CreateStundenplaneintrag extends Content {
 						@Override
 						public void onSuccess(Vector<Zeitslot> result) {
 							for (Zeitslot zs : result) {
-								listZeitslot.addItem(zs.getWochentag());
+								listZeitslot.addItem(zs.getWochentag() + ", " + zs.getAnfangszeit() + ", " + zs.getEndzeit(), String.valueOf(zs.getId()));
 							}
 						} 
 				  });
@@ -112,19 +122,19 @@ public class CreateStundenplaneintrag extends Content {
 						@Override
 						public void onSuccess(Vector<Raum> result) {
 							for (Raum r : result) {
-								listRaum.addItem(r.getBezeichnung());
+								listRaum.addItem(r.getBezeichnung(), String.valueOf(r.getId()));
 							}
 						} 
 					  });
 				  
-				  verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
+				  verwaltungsSvc.getAllStundenplaene(new AsyncCallback<Vector<Stundenplan>>() {
 						@Override
 						public void onFailure(Throwable caught) {	
 						}
 						@Override
-						public void onSuccess(Vector<Studiengang> result) {
-							for (Studiengang sg : result) {
-								listStudiengang.addItem(sg.getBezeichnung());
+						public void onSuccess(Vector<Stundenplan> result) {
+							for (Stundenplan sp : result) {
+								listStudienhj.addItem(sp.getStudienhalbjahr(), String.valueOf(sp.getId()));
 							}
 						} 
 					  });
@@ -136,7 +146,19 @@ public class CreateStundenplaneintrag extends Content {
 						@Override
 						public void onSuccess(Vector<Semesterverband> result) {
 							for (Semesterverband sv : result) {
-								listSemesterverband.addItem(sv.getJahrgang() + " " +  sv.getSemester());
+								listSemesterverband.addItem(String.valueOf(sv.getSemester()), String.valueOf(sv.getId()));
+							}
+						}
+					});
+							
+				  verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
+						@Override
+						public void onFailure(Throwable caught) {	
+						}
+						@Override
+						public void onSuccess(Vector<Studiengang> result) {
+							for (Studiengang sg : result) {
+								listStudiengang.addItem(sg.getBezeichnung(), String.valueOf(sg.getId()));
 							}
 						} 
 					  });
@@ -148,25 +170,14 @@ public class CreateStundenplaneintrag extends Content {
 						@Override
 						public void onSuccess(Vector<Lehrveranstaltung> result) {
 							for (Lehrveranstaltung lv : result) {
-								listLehrveranstaltung.addItem(lv.getBezeichnung());
+								listLehrveranstaltung.addItem(lv.getBezeichnung(), String.valueOf(lv.getId()));
 							}
 						} 
 					  });
 				  
 				  speichern.addClickHandler(new ClickHandler() {
 						public void onClick(ClickEvent event) {
-						  boolean allFilled = true;
 
-						  if (listDozent.getName().isEmpty() 
-								  ||listZeitslot.getName().isEmpty()
-								  ||listSemesterverband.getName().isEmpty()
-								  ||listStudiengang.getName().isEmpty()
-								  ||listRaum.getName().isEmpty()
-								  ||listLehrveranstaltung.getName().isEmpty()) {	
-							  allFilled = false;
-							  Window.alert ("Bitte füllen Sie alle Felder aus."); } 
-						  
-						  if (allFilled == true) {
 							  int d = listDozent.getSelectedIndex();
 							  int l = listLehrveranstaltung.getSelectedIndex();
 							  int r = listRaum.getSelectedIndex();
@@ -183,60 +194,12 @@ public class CreateStundenplaneintrag extends Content {
 
 								@Override
 								public void onSuccess(Stundenplaneintrag result) {
-									listDozent.setTitle("");
-									listZeitslot.setTitle("");
-									listSemesterverband.setTitle("");
-									listStudiengang.setTitle("");
-									listRaum.setTitle("");
-									listLehrveranstaltung.setTitle("");
 									Window.alert ("Der Stundenplaneintrag wurde erfolgreich gespeichert.");
 									tvm.addStundenplaneintrag(result);									
 								} 
 							 }); 
 						  }
-					  }
-				});
-				  
-				  
-				  
-				  
-				  
-				  
-				  				  
-				  /*speichern.addClickHandler(new ClickHandler() {
-					  public void onClick(ClickEvent event) {
-						  addStundenplaneintrag();
-					  }
-					  
-					  public void addStundenplaneintrag(){					  
-						  final String [] d;
-						  listDozent.getItemText(listDozent.getSelectedIndex());
-						  final String [] r;
-						  r= listRaum.getItemText(listRaum.getSelectedIndex()).split("");
-						  final String [] l;
-						  l = listLehrveranstaltung.getItemText(listLehrveranstaltung.getSelectedIndex()).split("");
-						  final String [] sv;
-						  sv = listSemesterverband.getItemText(listSemesterverband.getSelectedIndex()).split("");
-						  final String [] s;
-						  s = listStudiengang.getItemText(listStudiengang.getSelectedIndex()).split("");
-						  final String [] z;
-						  z = listZeitslot.getItemText(listZeitslot.getSelectedIndex()).split("");
-						  
-						  Stundenplaneintrag spe = new Stundenplaneintrag();
-						  
-					verwaltungsSvc.createStundenplaneintrag(d, l, r, z, sv, new AsyncCallback<Stundenplaneintrag>() {
-								 @Override
-								  public void onFailure (Throwable caught) {
-								  }
-
-								  @Override
-								  public void onSuccess(Stundenplaneintrag result) {
-									  Window.alert("Erfolgreich gespeichert");
-								  }
-							  }); 
-					  		}
-						 });*/
-				  
+				});				  
 		  }
 		  
 

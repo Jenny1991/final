@@ -100,7 +100,7 @@ public class CreateStundenplaneintrag extends Content {
 						@Override
 						public void onSuccess(Vector<Zeitslot> result) {
 							for (Zeitslot zs : result) {
-								listZeitslot.addItem(zs.getWochentag());
+								listZeitslot.addItem(zs.getWochentag() + ", " + zs.getAnfangszeit() + ", " + zs.getEndzeit());
 							}
 						} 
 				  });

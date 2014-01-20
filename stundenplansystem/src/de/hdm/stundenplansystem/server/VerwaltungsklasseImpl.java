@@ -298,12 +298,19 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 			
 				a.setId(1);
 				
-//				try { vorname = String.valueOf(true);
-//				nachname = String.valueOf(true);
-//				}
-//				catch (Exception e){
-//					System.out.println("Üngultige Eingabe!");
-//				}
+				if (vorname.equals("1,2,3,4,5,6,7,8,9") && nachname.equals("1,2,3,4,5,6,7,8,9")){
+					System.out.println("Üngultige Eingabe!");
+				} else {
+					return this.dozentMapper.insert(a);
+				}
+				
+				try { vorname = String.valueOf(true);
+				nachname = String.valueOf(true);
+				}
+				
+				catch (Exception e){
+					System.out.println("Üngultige Eingabe!");
+				}
 		
 		return this.dozentMapper.insert(a);
 			    }

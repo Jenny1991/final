@@ -88,17 +88,17 @@ public class HTMLReportWriter extends ReportWriter {
   }
 
   /**
-   * Prozessieren des ï¿½ï¿½ï¿½ï¿½bergebenen Reports und Ablage im Zielformat. Ein Auslesen
-   * des Ergebnisses kann spï¿½ï¿½ï¿½ï¿½ter mittels <code>getReportText()</code> erfolgen.
+   * Prozessieren des übergebenen Reports und Ablage im Zielformat. Ein Auslesen
+   * des Ergebnisses kann später mittels <code>getReportText()</code> erfolgen.
    * 
    * @param r der zu prozessierende Report
    */
   public void process(StundenplanDozentReport r) {
-    // Zunï¿½ï¿½ï¿½ï¿½chst lï¿½ï¿½ï¿½ï¿½schen wir das Ergebnis vorhergehender Prozessierungen.
+    // Zunächst löschen wir das Ergebnis vorhergehender Prozessierungen.
     this.resetReportText();
 
     /*
-     * In diesen Buffer schreiben wir wï¿½ï¿½ï¿½ï¿½hrend der Prozessierung sukzessive
+     * In diesen Buffer schreiben wir während der Prozessierung sukzessive
      * unsere Ergebnisse.
      */
     StringBuffer result = new StringBuffer();

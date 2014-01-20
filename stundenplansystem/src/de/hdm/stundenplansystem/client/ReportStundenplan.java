@@ -76,6 +76,7 @@ public class ReportStundenplan extends Content {
 			  	}
 		  }
 		  });
+	}
 		  
 //		  anzeigen.addClickHandler(new ClickHandler() {
 //			  public void onClick(ClickEvent event) {				 

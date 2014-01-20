@@ -184,8 +184,9 @@ public class CreateStundenplaneintrag extends Content {
 							  int z = listZeitslot.getSelectedIndex();
 							  int sv = listSemesterverband.getSelectedIndex();
 							  int sg = listStudiengang.getSelectedIndex();
+							  int sp = listStudienhj.getSelectedIndex();
 					
-							 verwaltungsSvc.createStundenplaneintrag(d, l, r, z, sv, sg, new AsyncCallback<Stundenplaneintrag>(){
+							 verwaltungsSvc.createStundenplaneintrag(d, l, r, z, sv, sg, sp, new AsyncCallback<Stundenplaneintrag>(){
 								 @Override
 								  public void onFailure (Throwable caught) {
 									  Window.alert("Der Stundenplaneintrag konnte nicht angelegt werden.");

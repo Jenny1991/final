@@ -79,42 +79,31 @@ public class ReportStundenplan extends Content {
 		  
 		  anzeigen.addClickHandler(new ClickHandler() {
 			  public void onClick(ClickEvent event) {				 
-				  	reportSvc.setSemesterverband(sv, new AsyncCallback<Void>(){
-				  
+
+				  reportSvc.createStundenplanSemesterverbandReport(sv, new AsyncCallback<StundenplanSemesterverbandReport>() {
+		
+					  public void onSuccess(StundenplanSemesterverbandReport result){
+						 return getReportText();
+					  }
+			
 					  @Override
 					  public void onFailure (Throwable caught) {
 					  }
-
-					  @Override
-					  public void onSuccess(Void result) {
-				  		loadData();
-					  } 	
-					}); 
+				  });
 			  }
-		  });  
+		  });
+		
+		  public ReportStundenplan(){
+			  HTML feld = new HTML(); 
+			  feld.
+			  this.add(feld);
 		  }
 		  
-	public void loadData(){
-		this.add(flexSv);
-		
-		reportSvc.createStundenplanSemesterverbandReport(sv, new AsyncCallback<StundenplanSemesterverbandReport>() {
-		
-		public void onSuccess(StundenplanSemesterverbandReport result){				
-			  }
-			
-			  @Override
-			  public void onFailure (Throwable caught) {
-			  }
-		
-		});
-		
-}
+			  konstruktor mit html und ergebnisstring;
 
 	public void setTvm(NavTreeViewModel tvm) {
 		this.tvm = tvm;
 	}
-	
 }
-
 
 

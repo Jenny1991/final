@@ -82,7 +82,7 @@ public interface Verwaltungsklasse extends RemoteService {
 	public Stundenplaneintrag getStundenplaneintragBySemesterverbandAndZeitslot(int semesterverbandId, int zeitslotId) throws IllegalArgumentException;
 	
 	public Stundenplaneintrag createStundenplaneintrag(int d, int l, int r, 
-			int z, int sv, int sg)
+			int z, int sv, int sg, int sp)
 					throws IllegalArgumentException;
 	
 	public Dozent createDozent(String vorname, String nachname)

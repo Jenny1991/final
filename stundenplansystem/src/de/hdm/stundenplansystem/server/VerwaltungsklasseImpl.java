@@ -149,7 +149,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		Vector<Stundenplaneintrag> dVektor = null;
 		
 		/**
-		 * Hier mï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ssen wir alle Stundenplaneintraege des Dozenten in den Vector reinspeichern.
+		 * Hier müssen wir alle Stundenplaneintraege des Dozenten in den Vector reinspeichern.
 		 */
 			
 		 	dVektor = this.stundenplaneintragMapper.findByDozentOrderByAnfangszeit(d.getId());
@@ -291,12 +291,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	
 	public Dozent createDozent(String vorname, String nachname)
 			throws IllegalArgumentException {
-		        
-			    if(vorname.matches("[0-9]+") || nachname.matches("[0-9]+"))
-			      
-			    	// was braucht gui von hier als rÃ¼ckgabe?
-			    	return null;
-			    else{
+		       
 			 	Dozent a = new Dozent();
 				a.setVorname(vorname);
 				a.setNachname(nachname);
@@ -305,7 +300,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		
 		return this.dozentMapper.insert(a);
 			    }
-	}
+	
 	
 	public Lehrveranstaltung createLehrveranstaltung(
 			String bezeichnung, int semester, int umfang)
@@ -344,7 +339,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	}
 
 	public Stundenplaneintrag createStundenplaneintrag(int d,
-		int l, int r, int z, int sv, int sg) 
+		int l, int r, int z, int sv, int sg, int sp) 
 					throws IllegalArgumentException {
 		
 		Stundenplaneintrag s = new Stundenplaneintrag();
@@ -354,6 +349,8 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		s.setRaumId(r);
 		s.setZeitslotId(z);
 		s.setSemesterverbandId(sv);
+		s.setStudiengangId(sp);
+		s.setStundenplanId(sg);
 		
 		s.setId(1);
 		

@@ -285,7 +285,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	public Dozent createDozent(String vorname, String nachname)
 			throws IllegalArgumentException {
 		        
-			    if(vorname.matches("[0-9]+") && nachname.matches("[0-9]+"))
+			    if(vorname.matches("[0-9]+") || nachname.matches("[0-9]+"))
 			      
 			    	// was braucht gui von hier als rückgabe?
 			    	return null;

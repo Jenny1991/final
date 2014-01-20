@@ -11,7 +11,7 @@ import java.util.Date;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 /**
- * @author hofmann & thies & holz
+ * @author l.hofmann & thies & holz
  */
 @SuppressWarnings("serial")
 public class ReportGeneratorImpl extends RemoteServiceServlet
@@ -164,7 +164,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
     /*
      * Nun werden sämtliche Stundenplaneintraege des Dozenten ausgelesen und in die Tabelle eingetragen.
      */ 
-    for(int i = 0; i < 35; i++){
+    for(int i = 1; i < 37; i++){
     	
     	Stundenplaneintrag aktuell = this.verwaltung.getStundenplaneintragByDozentAndZeitslot(d.getId(), i);
     	
@@ -176,7 +176,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
 			accountRow.addColumn(new Column("----"));
 		}
     	
-    	if (i == 5 | i == 11 | i == 17 | i == 23 | i == 29)
+    	if (i == 6 | i == 12 | i == 18 | i == 24 | i == 30)
     		accountRow = new Row();
     }
     /*
@@ -260,7 +260,7 @@ public RaumbelegungsReport createRaumbelungsReport(Raum r)
   /*
    * Nun werden sämtliche Stundenplaneintraege des Dozenten ausgelesen und in die Tabelle eingetragen.
    */ 
-  for(int i = 0; i < 35; i++){
+  for(int i = 1; i < 37; i++){
   	
   	Stundenplaneintrag aktuell = this.verwaltung.getStundenplaneintragByRaumAndZeitslot(r.getId(), i);
   	
@@ -272,7 +272,7 @@ public RaumbelegungsReport createRaumbelungsReport(Raum r)
 			accountRow.addColumn(new Column("----"));
 		}
   	
-  	if (i == 5 | i == 11 | i == 17 | i == 23 | i == 29)
+  	if (i == 6 | i == 12 | i == 18 | i == 24 | i == 30)
   		accountRow = new Row();
   }
   /*
@@ -359,7 +359,7 @@ public StundenplanSemesterverbandReport createStundenplanSemesterverbandReport(
 	  /*
 	   * Nun werden sämtliche Stundenplaneintraege des Semsterverbandes ausgelesen und in die Tabelle eingetragen.
 	   */ 
-	  for(int i = 0; i < 35; i++){
+	  for(int i = 1; i < 37; i++){
 	  	
 	  	Stundenplaneintrag aktuell = this.verwaltung.getStundenplaneintragBySemesterverbandAndZeitslot(sv.getId(), i);
 	  	
@@ -371,7 +371,7 @@ public StundenplanSemesterverbandReport createStundenplanSemesterverbandReport(
 				accountRow.addColumn(new Column("----"));
 			}
 	  	
-	  	if (i == 5 | i == 11 | i == 17 | i == 23 | i == 29)
+	  	if (i == 6 | i == 12 | i == 18 | i == 24 | i == 30)
 	  		accountRow = new Row();
 	  }
 	  /*

@@ -31,7 +31,7 @@ public interface ReportGenerator extends RemoteService {
    */
   public void setRaum(Raum r) throws IllegalArgumentException;
   public void setDozent(Dozent d) throws IllegalArgumentException;
-  public void setSemesterverband(Semesterverband sv) throws IllegalArgumentException;
+  public void setSemesterverband(int sv) throws IllegalArgumentException;
 
   /**
    * Erstellen eines <code>RaumbelegungsReport</code>-Reports. Dieser

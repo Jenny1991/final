@@ -283,9 +283,9 @@ public RaumbelegungsReport createRaumbelungsReport(Raum r)
 
 
 
-public void setSemesterverband(Semesterverband sv)
+public void setSemesterverband(int sv)
 		throws IllegalArgumentException {
-	this.verwaltung.setSemesterverband(sv);
+	this.setSemesterverband(sv);
 }
 
 /**

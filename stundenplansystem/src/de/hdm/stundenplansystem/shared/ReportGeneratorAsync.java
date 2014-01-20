@@ -33,6 +33,6 @@ void setRaum(Raum r, AsyncCallback<Void> callback);
 void setDozent(Dozent d, AsyncCallback<Void> callback);
 
 
-void setSemesterverband(Semesterverband sv, AsyncCallback<Void> callback);
+void setSemesterverband(int sv, AsyncCallback<Void> callback);
 
 }

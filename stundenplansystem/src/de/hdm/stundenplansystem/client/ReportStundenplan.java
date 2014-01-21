@@ -53,10 +53,10 @@ public class ReportStundenplan extends Content {
 	
 	public void onLoad() {
 		
-		this.add(ueberschrift);	
-		this.add(libstundenplan);
+		this.add(ueberschrift);
 		this.add(libstudiengang);
 		this.add(libsemverband);
+		this.add(libstundenplan);
 		this.add(anzeigen);
 		setTvm(tvm);
 		

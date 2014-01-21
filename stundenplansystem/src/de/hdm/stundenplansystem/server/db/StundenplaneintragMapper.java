@@ -196,7 +196,7 @@ public class StundenplaneintragMapper {
    *         im Zeitslot sortiert sind. Bei evtl. Exceptions wird ein partiell gefüllter
    *         oder ggf. auch leerer Vetor zurückgeliefert.
    */
-  public Vector<Stundenplaneintrag> findbySemesterverbandZeitslotAndStundenplan(int semesterverband, int zeitslotid, int stundenplanid) {
+  public Vector<Stundenplaneintrag> findbySemesterverbandZeitslotAndStundenplan(int semesterverbandid, int zeitslotid, int stundenplanid) {
     Connection con = DBConnection.connection();
 
     // Ergebnisvektor vorbereiten
@@ -213,7 +213,12 @@ public class StundenplaneintragMapper {
   	    	+ " INNER JOIN semesterverband"
   	    	+ " ON stundenplan.semesterverbandid = semesterverband.id"
   	    	+ " INNER JOIN studiengang"
-  	    	+ " ON semesterverband"
+  	    	+ " ON semesterverband.studiengangid = studiengang.id"
+  	    	+ " INNER JOIN zeitslot"
+  	    	+ " ON stundenplaneintrag.zeitslotid = zeitslot.id"
+  	    	+ " WHERE semesterverband.id = " + semesterverbandid
+  	    	+ " AND zeitslot.id = " + zeitslotid
+  	    	+ " AND stundenplan.id = " + stundenplanid);
 
       // Für jeden Eintrag im Suchergebnis wird nun ein Stundenplaneintrag-Objekt erstellt.
       while (rs.next()) {

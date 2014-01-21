@@ -102,6 +102,10 @@ public class SemesterverbandMapper {
     return null;
   }
 
+  
+  
+  
+  
   /**
    * Auslesen aller Semesterverbände.
    * 
@@ -142,6 +146,48 @@ public class SemesterverbandMapper {
     return result;
   }
 
+  
+  /**
+   * Auslesen aller Semesterverbände.
+   * 
+   * @return Ein Vektor mit Semesterverband-Objekten, die sämtliche Semesterverbände
+   *         repräsentieren. Bei evtl. Exceptions wird ein partiell gefüllter
+   *         oder ggf. auch leerer Vetor zurückgeliefert.
+   */
+  public Vector<Semesterverband> findByStudiengangId(int studiengangid) {
+    Connection con = DBConnection.connection();
+
+    // Ergebnisvektor vorbereiten
+    Vector<Semesterverband> result = new Vector<Semesterverband>();
+
+    try {
+      Statement stmt = con.createStatement();
+
+      ResultSet rs = stmt.executeQuery("SELECT id, semester, studierendenAnzahl, jahrgang, studiengangid"
+      		+ " FROM semesterverband"
+            + " WHERE studiengangid = " + studiengangid);
+
+      // Für jeden Eintrag im Suchergebnis wird nun ein Semesterverband-Objekt erstellt.
+      while (rs.next()) {
+        Semesterverband s = new Semesterverband();
+        s.setId(rs.getInt("id"));
+        s.setSemester(rs.getInt("semester"));
+        s.setStudierendenAnzahl(rs.getInt("studierendenAnzahl"));
+        s.setJahrgang(rs.getString("jahrgang"));
+        s.setStudiengangId(rs.getInt("studiengangid"));
+
+        // Hinzufügen des neuen Objekts zum Ergebnisvektor
+        result.addElement(s);
+      }
+    }
+    catch (SQLException e2) {
+      e2.printStackTrace();
+    }
+
+    // Ergebnisvektor zurückgeben
+    return result;
+  }
+  
   
   /**
    * Einfügen eines <code>Semesterverband</code>-Objekts in die Datenbank. Dabei wird

@@ -178,7 +178,17 @@ public class SemesterverbandForm extends Content {
 		
 		public void setFields(){
 			tbjahrgang.setText(shownSv.getJahrgang());
-			libstudiengang.setSelectedIndex(shownSv.getStudiengangId());
+			verwaltungsSvc.getStudiengangById(shownSv.getStudiengangId(), new AsyncCallback<Studiengang>() {
+				@Override
+				  public void onFailure (Throwable caught) {
+					caught.getMessage();
+				  }
+
+				  @Override
+				  public void onSuccess(Studiengang result) {
+					libstudiengang.addItem(result.getBezeichnung());
+				  } 	
+			});
 			tbsemester.setValue(Integer.toString(shownSv.getSemester()));
 		    tbanzahl.setValue(Integer.toString(shownSv.getStudierendenAnzahl()));
 		}

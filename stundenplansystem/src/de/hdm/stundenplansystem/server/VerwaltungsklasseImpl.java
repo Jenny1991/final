@@ -367,11 +367,12 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		return this.semesterverbandMapper.insert(a);
 	}
 
-	public Stundenplan createStundenplan(String studienhalbjahr) throws IllegalArgumentException {
+	public Stundenplan createStundenplan(String studienhalbjahr, int semesterverbandId) throws IllegalArgumentException {
 		
 		Stundenplan sp = new Stundenplan();
 		
 		sp.setStudienhalbjahr(studienhalbjahr);
+		sp.setSemesterverbandId(semesterverbandId);
 		
 		sp.setId(1);
 		

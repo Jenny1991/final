@@ -31,7 +31,8 @@ public interface VerwaltungsklasseAsync {
 	void createStundenplaneintrag(int d, int l, int r, int z, int sv, int sg,
 			int sp, AsyncCallback<Stundenplaneintrag> callback);
 
-	void createStundenplan(String studienhalbjahr, AsyncCallback<Stundenplan> callback);
+	void createStundenplan(String studienhalbjahr, int semesterverbandId,
+			AsyncCallback<Stundenplan> callback);
 
 	void deleteDozent(Dozent d, AsyncCallback<Boolean> callback);	
 	

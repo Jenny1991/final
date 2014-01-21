@@ -295,7 +295,7 @@ public void setSemesterverband(int sv)
  * @return der fertige Report
  */
 
-public StundenplanSemesterverbandReport createStundenplanSemesterverbandReport(
+public String createStundenplanSemesterverbandReport(
 	int id) throws IllegalArgumentException {
 
 		Semesterverband sv = verwaltung.getSemesterverbandById(id);
@@ -377,8 +377,13 @@ public StundenplanSemesterverbandReport createStundenplanSemesterverbandReport(
 	  }
 	  /*
 	   * Zum Schluss m�ssen wir noch den fertigen Report zur�ckgeben.
-	   */
-	  return result;
+	   */  
+	  
+	HTMLReportWriter feld = new HTMLReportWriter();
+	feld.process(result);
+	 return feld.getReportText();
+	
+	  }
 }
 
-}
+

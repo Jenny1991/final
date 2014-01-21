@@ -83,7 +83,11 @@ public class ReportStundenplan extends Content {
 //
 //				  reportSvc.createStundenplanSemesterverbandReport(sv, new AsyncCallback<StundenplanSemesterverbandReport>() {
 //		
-//					  public void onSuccess(StundenplanSemesterverbandReport result){
+					  public void onSuccess(StundenplanSemesterverbandReport result){
+						  
+						  HTML plan = new HTML(result);
+						  
+					  }
 //						 return getReportText();
 //					  }
 //			

@@ -60,20 +60,6 @@ public class ReportStundenplan extends Content {
 		this.add(anzeigen);
 		setTvm(tvm);
 		
-		libstundenplan.clear();
-		  verwaltungsSvc.getStundenplaeneBySemesterverband(svContainer.elementAt(libsemverband.getSelectedIndex()).getId(), new AsyncCallback<Vector<Stundenplan>>() {
-			  public void onFailure(Throwable T){
-				  
-			  }
-			  
-			  public void onSuccess(Vector<Stundenplan> stundenplaene){
-				spContainer = stundenplaene;
-			  	for (Stundenplan sp : stundenplaene){
-			  		libstundenplan.addItem(sp.getStudienhalbjahr(), String.valueOf(sp.getId()));
-			  	}
-		  }
-		  });
-		  
 		  libstudiengang.clear();
 		  verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
 			  public void onFailure(Throwable T){
@@ -86,8 +72,8 @@ public class ReportStundenplan extends Content {
 			  		libstudiengang.addItem(sg.getBezeichnung(), String.valueOf(sg.getId()));
 			  	}
 		  }
-	}); 
-		
+	});
+		  
 		  libsemverband.clear();
 		  verwaltungsSvc.getSemsterverbaendeByStudiengang(sgContainer.elementAt(libstudiengang.getSelectedIndex()).getId(), new AsyncCallback<Vector<Semesterverband>>() {
 			  public void onFailure(Throwable T){
@@ -102,7 +88,21 @@ public class ReportStundenplan extends Content {
 			  	}
 		  }
 	}); 
-		  
+		
+		libstundenplan.clear();
+		  verwaltungsSvc.getStundenplaeneBySemesterverband(svContainer.elementAt(libsemverband.getSelectedIndex()).getId(), new AsyncCallback<Vector<Stundenplan>>() {
+			  public void onFailure(Throwable T){
+				  
+			  }
+			  
+			  public void onSuccess(Vector<Stundenplan> stundenplaene){
+				spContainer = stundenplaene;
+			  	for (Stundenplan sp : stundenplaene){
+			  		libstundenplan.addItem(sp.getStudienhalbjahr(), String.valueOf(sp.getId()));
+			  	}
+		  }
+		  });
+
 		  anzeigen.addClickHandler(new ClickHandler() {
 			  public void onClick(ClickEvent event) {				 
 

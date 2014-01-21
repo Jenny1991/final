@@ -196,44 +196,46 @@ public class StundenplaneintragMapper {
    *         im Zeitslot sortiert sind. Bei evtl. Exceptions wird ein partiell gefüllter
    *         oder ggf. auch leerer Vetor zurückgeliefert.
    */
-//  public Vector<Stundenplaneintrag> findbySemesterverbandZeitslotAndStundenplan(int semesterverband, int zeitslotid, int stundenplanid) {
-//    Connection con = DBConnection.connection();
-//
-//    // Ergebnisvektor vorbereiten
-//    Vector<Stundenplaneintrag> result = new Vector<Stundenplaneintrag>();
-//
-//    try {
-//      Statement stmt = con.createStatement();
-//
-//      ResultSet rs = stmt.executeQuery("SELECT stundenplaneintrag.id, stundenplaneintrag.dozentid, stundenplaneintrag.raumid, "
-//  	    	+ "stundenplaneintrag.zeitslotid, stundenplaneintrag.lehrveranstaltungid"
-//  	    	+ " FROM stundenplaneintrag"
-//  	    	+ " INNER JOIN"
-//  	    	+ " stundenplan"
-//  	    	+ " ON "
-//  	    	+ " AND stundenplaneintrag.dozentid = " + dozentid);
-//
-//      // Für jeden Eintrag im Suchergebnis wird nun ein Stundenplaneintrag-Objekt erstellt.
-//      while (rs.next()) {
-//        Stundenplaneintrag s = new Stundenplaneintrag();
-//        s.setId(rs.getInt("id"));
-//        s.setStundenplanId(rs.getInt("stundenplanid"));
-//        s.setDozentId(rs.getInt("dozentid"));
-//        s.setRaumId(rs.getInt("raumid"));
-//        s.setZeitslotId(rs.getInt("zeitslotid"));
-//        s.setLehrveranstaltungId(rs.getInt("lehrveranstaltungid"));
-//
-//        // Hinzufügen des neuen Objekts zum Ergebnisvektor
-//        result.addElement(s);
-//      }
-//    }
-//    catch (SQLException e2) {
-//      e2.printStackTrace();
-//    }
-//
-//    // Ergebnisvektor zurückgeben
-//    return result;
-//  }
+  public Vector<Stundenplaneintrag> findbySemesterverbandZeitslotAndStundenplan(int semesterverband, int zeitslotid, int stundenplanid) {
+    Connection con = DBConnection.connection();
+
+    // Ergebnisvektor vorbereiten
+    Vector<Stundenplaneintrag> result = new Vector<Stundenplaneintrag>();
+
+    try {
+      Statement stmt = con.createStatement();
+
+      ResultSet rs = stmt.executeQuery("SELECT stundenplaneintrag.id, stundenplaneintrag.dozentid, stundenplaneintrag.raumid, "
+  	    	+ "stundenplaneintrag.zeitslotid, stundenplaneintrag.lehrveranstaltungid"
+  	    	+ " FROM stundenplaneintrag"
+  	    	+ " INNER JOIN stundenplan"
+  	    	+ " ON stundenplaneintrag.stundenplanid = stundenplan.id"
+  	    	+ " INNER JOIN semesterverband"
+  	    	+ " ON stundenplan.semesterverbandid = semesterverband.id"
+  	    	+ " INNER JOIN studiengang"
+  	    	+ " ON semesterverband"
+
+      // Für jeden Eintrag im Suchergebnis wird nun ein Stundenplaneintrag-Objekt erstellt.
+      while (rs.next()) {
+        Stundenplaneintrag s = new Stundenplaneintrag();
+        s.setId(rs.getInt("id"));
+        s.setStundenplanId(rs.getInt("stundenplanid"));
+        s.setDozentId(rs.getInt("dozentid"));
+        s.setRaumId(rs.getInt("raumid"));
+        s.setZeitslotId(rs.getInt("zeitslotid"));
+        s.setLehrveranstaltungId(rs.getInt("lehrveranstaltungid"));
+
+        // Hinzufügen des neuen Objekts zum Ergebnisvektor
+        result.addElement(s);
+      }
+    }
+    catch (SQLException e2) {
+      e2.printStackTrace();
+    }
+
+    // Ergebnisvektor zurückgeben
+    return result;
+  }
   
   
   /**

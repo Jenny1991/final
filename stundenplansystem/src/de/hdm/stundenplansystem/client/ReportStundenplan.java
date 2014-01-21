@@ -39,7 +39,7 @@ public class ReportStundenplan extends Content {
 
 	private NavTreeViewModel tvm;
 	Studiengang sg;
-	Semesterverband sv;
+	Integer sv;
 	
 	public void onLoad() {
 		
@@ -76,45 +76,35 @@ public class ReportStundenplan extends Content {
 			  	}
 		  }
 		  });
+	}
 		  
-		  anzeigen.addClickHandler(new ClickHandler() {
-			  public void onClick(ClickEvent event) {				 
-				  	reportSvc.setSemesterverband(sv, new AsyncCallback<Void>(){
-				  
-					  @Override
-					  public void onFailure (Throwable caught) {
-					  }
-
-					  @Override
-					  public void onSuccess(Void result) {
-				  		loadData();
-					  } 	
-					}); 
-			  }
-		  });  
-		  }
-		  
-	public void loadData(){
-		this.add(flexSv);
-		
-		reportSvc.createStundenplanSemesterverbandReport(sv, new AsyncCallback<StundenplanSemesterverbandReport>() {
-		
-		public void onSuccess(StundenplanSemesterverbandReport result){				
-			  }
-			
-			  @Override
-			  public void onFailure (Throwable caught) {
-			  }
-		
-		});
-		
-}
+//		  anzeigen.addClickHandler(new ClickHandler() {
+//			  public void onClick(ClickEvent event) {				 
+//
+//				  reportSvc.createStundenplanSemesterverbandReport(sv, new AsyncCallback<StundenplanSemesterverbandReport>() {
+//		
+//					  public void onSuccess(StundenplanSemesterverbandReport result){
+//						 return getReportText();
+//					  }
+//			
+//					  @Override
+//					  public void onFailure (Throwable caught) {
+//					  }
+//				  });
+//			  }
+//		  });
+//		
+//		  public ReportStundenplan(){
+//			  HTML feld = new HTML(); 
+//			  feld.
+//			  this.add(feld);
+//		  }
+//		  
+//			  konstruktor mit html und ergebnisstring;
 
 	public void setTvm(NavTreeViewModel tvm) {
 		this.tvm = tvm;
 	}
-	
 }
-
 
 

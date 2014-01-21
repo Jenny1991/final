@@ -2,15 +2,15 @@ package de.hdm.stundenplansystem.shared.report;
 
 /**
  * <p>
- * Diese Klasse wird benÃ¶tigt, um auf dem Client die ihm vom Server zur
- * VerfÃ¼gung gestellten <code>Report</code>-Objekte in ein menschenlesbares
- * Format zu Ã¼berfÃ¼hren.
+ * Diese Klasse wird ben����tigt, um auf dem Client die ihm vom Server zur
+ * Verf����gung gestellten <code>Report</code>-Objekte in ein menschenlesbares
+ * Format zu ����berf����hren.
  * </p>
  * <p>
  * Das Zielformat kann prinzipiell beliebig sein. Methoden zum Auslesen der in
- * das Zielformat Ã¼berfÃ¼hrten Information wird den Subklassen Ã¼berlassen. In
- * dieser Klasse werden die Signaturen der Methoden deklariert, die fÃ¼r die
- * Prozessierung der Quellinformation zustÃ¤ndig sind.
+ * das Zielformat ����berf����hrten Information wird den Subklassen ����berlassen. In
+ * dieser Klasse werden die Signaturen der Methoden deklariert, die f����r die
+ * Prozessierung der Quellinformation zust����ndig sind.
  * </p>
  * 
  * @author Thies
@@ -19,19 +19,27 @@ public abstract class ReportWriter {
 
 	
   /**
-   * Ãœbersetzen eines <code>AllAccountsOfCustomerReport</code> in das
+   * Übersetzen eines <code>StundenplanDozentReport</code> in das
    * Zielformat.
    * 
-   * @param r der zu Ã¼bersetzende Report
-   *
-  public abstract void process(AllAccountsOfCustomerReport r);
+   * @param r der zu übersetzende Report
+   */
+  public abstract void process(StundenplanDozentReport r);
 
   /**
-   * Ãœbersetzen eines <code>AllAccountsOfAllCustomersReport</code> in das
+   * Übersetzen eines <code>StundenplanSemesterverbandReport</code> in das
    * Zielformat.
    * 
-   * @param r der zu Ã¼bersetzende Report
-   *
-  public abstract void process(AllAccountsOfAllCustomersReport r);
-*/
+   * @param r der zu übersetzende Report
+   */
+  public abstract void process(StundenplanSemesterverbandReport r);
+
+  /**
+   *Übersetzen eines <code>RaumbelegungsReport</code> in das
+   * Zielformat.
+   * 
+   * @param r der zu übersetzende Report
+   */
+  
+  public abstract void process(RaumbelegungsReport r);
 }

@@ -196,11 +196,8 @@ public class StundenplaneintragMapper {
    *         im Zeitslot sortiert sind. Bei evtl. Exceptions wird ein partiell gefüllter
    *         oder ggf. auch leerer Vetor zurückgeliefert.
    */
-  public Vector<Stundenplaneintrag> findbySemesterverbandZeitslotAndStundenplan(int semesterverbandid, int zeitslotid, int stundenplanid) {
+  public Stundenplaneintrag findbySemesterverbandZeitslotAndStundenplan(int semesterverbandid, int zeitslotid, int stundenplanid) {
     Connection con = DBConnection.connection();
-
-    // Ergebnisvektor vorbereiten
-    Vector<Stundenplaneintrag> result = new Vector<Stundenplaneintrag>();
 
     try {
       Statement stmt = con.createStatement(); 
@@ -230,16 +227,14 @@ public class StundenplaneintragMapper {
         s.setZeitslotId(rs.getInt("zeitslotid"));
         s.setLehrveranstaltungId(rs.getInt("lehrveranstaltungid"));
 
-        // Hinzufügen des neuen Objekts zum Ergebnisvektor
-        result.addElement(s);
+        return s;
       }
     }
     catch (SQLException e2) {
       e2.printStackTrace();
     }
 
-    // Ergebnisvektor zurückgeben
-    return result;
+    return null;
   }
   
   

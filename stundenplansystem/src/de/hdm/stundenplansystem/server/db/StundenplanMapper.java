@@ -75,7 +75,7 @@ public class StundenplanMapper {
       Statement stmt = con.createStatement();
 
       // Statement ausfüllen und als Query an die DB schicken
-      ResultSet rs = stmt.executeQuery("SELECT id, studienhalbjahr FROM Stundenplan "
+      ResultSet rs = stmt.executeQuery("SELECT id, studienhalbjahr, semesterverbandid FROM Stundenplan "
     		  + "WHERE id=" + id);
 
       /*
@@ -115,7 +115,7 @@ public class StundenplanMapper {
     try {
       Statement stmt = con.createStatement();
 
-      ResultSet rs = stmt.executeQuery("SELECT id, studienhalbjahr "
+      ResultSet rs = stmt.executeQuery("SELECT id, studienhalbjahr, semesterverbandid "
     	+ "FROM stundenplan "
         + " ORDER BY id");
 
@@ -137,6 +137,45 @@ public class StundenplanMapper {
     return result;
   }
 
+  
+  /**
+   * Auslesen aller Stundenpläne.
+   * 
+   * @return Ein Vektor mit Stundenplan-Objekten, die sämtliche Stundenpläne
+   *         repräsentieren. Bei evtl. Exceptions wird ein partiell gefüllter
+   *         oder ggf. auch leerer Vetor zurückgeliefert.
+   */
+  public Vector<Stundenplan> findBySemesterverband(int semesterverbandid) {
+    Connection con = DBConnection.connection();
+
+    // Ergebnisvektor vorbereiten
+    Vector<Stundenplan> result = new Vector<Stundenplan>();
+
+    try {
+      Statement stmt = con.createStatement();
+
+      ResultSet rs = stmt.executeQuery("SELECT id, studienhalbjahr, semesterverbandid "
+    	+ "FROM stundenplan "
+        + " WHERE semesterverbandid =" + semesterverbandid);
+
+      // Für jeden Eintrag im Suchergebnis wird nun ein Stundenplan-Objekt erstellt.
+      while (rs.next()) {
+        Stundenplan s = new Stundenplan();
+        s.setId(rs.getInt("id"));
+        s.setStudienhalbjahr(rs.getString("studienhalbjahr"));
+
+        // Hinzufügen des neuen Objekts zum Ergebnisvektor
+        result.addElement(s);
+      }
+    }
+    catch (SQLException e2) {
+      e2.printStackTrace();
+    }
+
+    // Ergebnisvektor zurückgeben
+    return result;
+  }
+  
   
   /**
    * Einfügen eines <code>Stundenplan</code>-Objekts in die Datenbank. Dabei wird
@@ -171,7 +210,7 @@ public class StundenplanMapper {
         stmt = con.createStatement();
 
         // Jetzt erst erfolgt die tatsächliche Einfügeoperation
-        stmt.executeUpdate("INSERT INTO stundenplan (id, studienhalbjahr) " + "VALUES ("
+        stmt.executeUpdate("INSERT INTO stundenplan (id, studienhalbjahr, semesterverbandid) " + "VALUES ("
             + s.getId() + ",'" + s.getStudienhalbjahr() +"')");
       }
     }
@@ -204,7 +243,8 @@ public class StundenplanMapper {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE stundenplan SET " 
-    		  + "studienhalbjahr='" + s.getStudienhalbjahr()+ "' "  
+    		  + "studienhalbjahr='" + s.getStudienhalbjahr()+ "' "
+    		  + "semesterverbandid=" + s.getSemesterverbandId()  
     		  + "WHERE id=" + s.getId());
 
     }

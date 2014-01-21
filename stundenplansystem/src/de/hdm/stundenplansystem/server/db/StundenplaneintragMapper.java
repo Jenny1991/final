@@ -213,9 +213,11 @@ public class StundenplaneintragMapper {
 //      Statement stmt = con.createStatement();
 //
 //      ResultSet rs = stmt.executeQuery("SELECT stundenplaneintrag.id, stundenplaneintrag.dozentid, stundenplaneintrag.raumid, "
-//  	    	+ "stundenplaneintrag.zeitslotid, stundenplaneintrag.lehrveranstaltungid "
-//  	    	+ "FROM stundenplaneintrag "
-//  	    	+ "WHERE stundenplaneintrag.zeitslotid = " + zeitslotid
+//  	    	+ "stundenplaneintrag.zeitslotid, stundenplaneintrag.lehrveranstaltungid"
+//  	    	+ " FROM stundenplaneintrag"
+//  	    	+ " INNER JOIN"
+//  	    	+ " stundenplan"
+//  	    	+ " ON "
 //  	    	+ " AND stundenplaneintrag.dozentid = " + dozentid);
 //
 //      // Für jeden Eintrag im Suchergebnis wird nun ein Stundenplaneintrag-Objekt erstellt.

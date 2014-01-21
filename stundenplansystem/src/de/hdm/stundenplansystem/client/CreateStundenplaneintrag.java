@@ -32,6 +32,8 @@ import de.hdm.stundenplansystem.shared.bo.Zeitslot;
 
 public class CreateStundenplaneintrag extends Content {
 
+	Vector<Dozent> dozentenContainer = null;
+	
 		/**
 		 * Jede Klasse enthältt eine Überschrift, die definiert, was der User machen kann.
 		 */
@@ -97,6 +99,7 @@ public class CreateStundenplaneintrag extends Content {
 					}
 					@Override
 					public void onSuccess(Vector<Dozent> result) {
+						dozentenContainer = result;
 						for (Dozent d : result) {
 							listDozent.addItem(d.getNachname() + ", " + d.getVorname(), String.valueOf(d.getId()));
 						}
@@ -186,7 +189,7 @@ public class CreateStundenplaneintrag extends Content {
 							  int sg = listStudiengang.getSelectedIndex();
 							  int sp = listStudienhj.getSelectedIndex();
 					
-							 verwaltungsSvc.createStundenplaneintrag(d, l, r, z, sv, sg, sp, new AsyncCallback<Stundenplaneintrag>(){
+							 verwaltungsSvc.createStundenplaneintrag(dozentenContainer.elementAt(listDozent.getSelectedIndex()).getId(), l, r, z, sv, sg, sp, new AsyncCallback<Stundenplaneintrag>(){
 								 @Override
 								  public void onFailure (Throwable caught) {
 									  Window.alert("Der Stundenplaneintrag konnte nicht angelegt werden.");

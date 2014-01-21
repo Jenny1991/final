@@ -21,6 +21,8 @@ import de.hdm.stundenplansystem.shared.report.RaumbelegungsReport;
 import de.hdm.stundenplansystem.client.*;
 
 public class ReportRaum extends Content {
+	
+	
 
 	final FlexTable flexRaum = new FlexTable();
 	final ListBox libraum = new ListBox();

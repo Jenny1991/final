@@ -37,7 +37,6 @@ public class ReportStundenplan extends Content {
 	 */
 	
 	final HTML ueberschrift = new HTML ("<h2>Stundenplan für Studenten</h2>");
-	final HTML feld = new HTML();
 	final FlexTable flexSv = new FlexTable();
 	final ListBox libstundenplan = new ListBox();
 	final ListBox libsemverband = new ListBox();
@@ -62,7 +61,7 @@ public class ReportStundenplan extends Content {
 		setTvm(tvm);
 		
 		libstundenplan.clear();
-/**		  verwaltungsSvc.getStundenplaeneBySemesterverband(new AsyncCallback<Vector<Stundenplan>>() {
+		  verwaltungsSvc.getStundenplaeneBySemesterverband(svContainer.elementAt(libsemverband.getSelectedIndex()).getId(), new AsyncCallback<Vector<Stundenplan>>() {
 			  public void onFailure(Throwable T){
 				  
 			  }
@@ -90,7 +89,7 @@ public class ReportStundenplan extends Content {
 	}); 
 		
 		  libsemverband.clear();
-		  verwaltungsSvc.getSemesterverbaendeByStudiengang(new AsyncCallback<Vector<Semesterverband>>() {
+		  verwaltungsSvc.getSemsterverbaendeByStudiengang(sgContainer.elementAt(libstudiengang.getSelectedIndex()).getId(), new AsyncCallback<Vector<Semesterverband>>() {
 			  public void onFailure(Throwable T){
 				  
 			  }
@@ -102,21 +101,23 @@ public class ReportStundenplan extends Content {
 //			  		libsemverband.addItem(String.valueOf(sv.getSemester())); 
 			  	}
 		  }
-	}); */
+	}); 
 		  
 		  anzeigen.addClickHandler(new ClickHandler() {
 			  public void onClick(ClickEvent event) {				 
 
-				  reportSvc.createStundenplanSemesterverbandReport(svContainer.elementAt(libsemverband.getSelectedIndex()).getId(), new AsyncCallback<StundenplanSemesterverbandReport>() {
+				  reportSvc.createStundenplanSemesterverbandReport(svContainer.elementAt(libsemverband.getSelectedIndex()).getId(), new AsyncCallback<String>() {
 		
-					  public void onSuccess(StundenplanSemesterverbandReport result){
+					  public void onSuccess(String result){
+
+						  HTML plan = new HTML(result);
+						  neuesPanel.add(plan);					  
 						  
-//						  HTML plan = new HTML(result);
-//						  neuesPanel.add(plan);
 					  }
 			
 					  @Override
 					  public void onFailure (Throwable caught) {
+						  caught.getMessage();
 					  }
 				  });
 			  }

@@ -11,8 +11,10 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import de.hdm.stundenplansystem.shared.*;
+import de.hdm.stundenplansystem.shared.bo.Semesterverband;
 import de.hdm.stundenplansystem.shared.bo.Stundenplan;
 import de.hdm.stundenplansystem.client.NavTreeViewModel;
 
@@ -30,6 +32,8 @@ public class StundenplanForm extends Content {
 
 	  final TextBox tbhalbjahr = new TextBox ();	  			  
 	  final Button loeschen = new Button ("Studienhalbjahr löschen");
+	  final Label lbsemverband = new Label ("Semesterverband");
+	  final ListBox libsemverband = new ListBox();
 	  final Button speichern = new Button ("Änderungen speichern");
 	  final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
 	  
@@ -62,7 +66,8 @@ public class StundenplanForm extends Content {
 			});
 			setTvm(tvm);
 	  } 
-	  
+
+	  Vector<Semesterverband> svContainer = null;	  
 	  
 		public void getData() {
 				verwaltungsSvc.getStundenplanById(id, new AsyncCallback<Stundenplan>(){

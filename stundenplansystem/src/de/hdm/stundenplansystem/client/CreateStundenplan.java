@@ -1,5 +1,7 @@
 package de.hdm.stundenplansystem.client;
 
+import java.util.Vector;
+
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -8,10 +10,12 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 
 import de.hdm.stundenplansystem.shared.Verwaltungsklasse;
 import de.hdm.stundenplansystem.shared.VerwaltungsklasseAsync;
+import de.hdm.stundenplansystem.shared.bo.Semesterverband;
 import de.hdm.stundenplansystem.shared.bo.Stundenplan;
 import de.hdm.stundenplansystem.client.NavTreeViewModel;
 
@@ -27,7 +31,11 @@ public class CreateStundenplan extends Content{
 	   */
 	  final Label lbhalbjahr = new Label ("Studienhalbjahr"); 
 	  final TextBox tbhalbjahr = new TextBox ();
+	  final Label lbsemverband = new Label ("Semesterverband");
+	  final ListBox libsemverband = new ListBox();
 	  final Button speichern = new Button ("speichern");
+	  
+      Vector<Semesterverband> svContainer = null;
 	  
 	  final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
 	  NavTreeViewModel tvm = null;
@@ -40,9 +48,26 @@ public class CreateStundenplan extends Content{
 		  this.add(ueberschrift);
 		  this.add(lbhalbjahr);
 		  this.add(tbhalbjahr);
+		  this.add(lbsemverband);
+		  this.add(libsemverband);
 		  this.add(speichern);
-		  
+		  	  
 		  setTvm(tvm);
+		  
+		  libsemverband.clear();
+		  verwaltungsSvc.getAllSemesterverbaende(new AsyncCallback<Vector<Semesterverband>>() {
+			  public void onFailure(Throwable T){
+				  
+			  }
+			  
+			  public void onSuccess(Vector<Semesterverband> semesterverband){
+				svContainer = semesterverband;
+			  	for (Semesterverband sv : semesterverband){
+			  		libsemverband.addItem(sv.getJahrgang(), String.valueOf(sv.getId()));
+//			  		libsemverband.addItem(String.valueOf(sv.getSemester())); 
+			  	}
+		  }
+	}); 
 		  	
 		  speichern.addClickHandler(new ClickHandler() {
 			  public void onClick(ClickEvent event) {
@@ -56,7 +81,7 @@ public class CreateStundenplan extends Content{
 				  	if (allFilled == true){
 				  		final String studienhalbjahr = tbhalbjahr.getValue().trim();
 				  
-					  verwaltungsSvc.createStundenplan(studienhalbjahr, new AsyncCallback<Stundenplan>() {
+					  verwaltungsSvc.createStundenplan(studienhalbjahr, svContainer.elementAt(libsemverband.getSelectedIndex()).getId(), new AsyncCallback<Stundenplan>() {
 
 						  @Override
 						  public void onFailure (Throwable caught) {

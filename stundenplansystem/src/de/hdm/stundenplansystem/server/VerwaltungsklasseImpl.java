@@ -241,7 +241,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	}
 	
 	public Vector<Stundenplan> getStundenplaeneBySemesterverband (int semesterverbandId){
-		return this.stundenplanMapper.f
+		return this.stundenplanMapper.findBySemesterverband(semesterverbandId);
 	}
 	
 	/**

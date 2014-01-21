@@ -233,6 +233,18 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	}
 	
 	/**
+	 * Auslesen der Semesterverbände eines Studiengangs
+	 */
+	
+	public Vector<Semesterverband> getSemsterverbaendeByStudiengang(int studiengangId){
+		return this.semesterverbandMapper.findByStudiengangId(studiengangId);
+	}
+	
+	public Vector<Stundenplan> getStundenplaeneBySemesterverband (int semesterverbandId){
+		return this.stundenplanMapper.f
+	}
+	
+	/**
 	 * Auslesen eines Stundenplaneintrages eines Dozenten zu einem bestimmten Zeitslot
 	 */
 	

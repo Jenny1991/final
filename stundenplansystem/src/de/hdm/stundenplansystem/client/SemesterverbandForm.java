@@ -83,19 +83,7 @@ public class SemesterverbandForm extends Content {
 				}
 			});
 			setTvm(tvm);
-			
-			 libstudiengang.clear();
-			 verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
-				  public void onFailure(Throwable T){
-				  }
-				  public void onSuccess(Vector<Studiengang> studiengaenge){
-				  	sgContainer = studiengaenge;
-				  	for (Studiengang sg : studiengaenge){
-				  		libstudiengang.addItem(sg.getBezeichnung(), String.valueOf(sg.getId()));
-				  	}
-				  }
-			 });
-		}
+	  }
 			
 		public void getData() {		
 			  
@@ -112,7 +100,23 @@ public class SemesterverbandForm extends Content {
 				}
 			});
 		  }
+		
+		public void getStudiengaenge(){
+		verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>> () {
+			@Override
+			  public void onFailure (Throwable caught) {
+				caught.getMessage();
+			  }
 
+			  @Override
+			  public void onSuccess(Vector<Studiengang> studiengang) {
+				  sgContainer = studiengang;
+				  	for (Studiengang sg : studiengang){
+				  		libstudiengang.addItem(sg.getBezeichnung(), String.valueOf(sg.getId()));
+				  	}
+			  } 	
+		}); 
+		}
 			public void changeSelectedSv(){
 			
 				  boolean allFilled = true;
@@ -125,8 +129,7 @@ public class SemesterverbandForm extends Content {
 				  
 				  if (allFilled == true) { 
 					  shownSv.setJahrgang(tbjahrgang.getText().trim());
-					  shownSv.setStudiengangId(sgContainer.elementAt(libstudiengang.getSelectedIndex()).getId());
-					  shownSv.setStudiengangId(Integer.valueOf(libstudiengang.getValue(libstudiengang.getSelectedIndex())));
+					  shownSv.setStudiengangId(sgContainer.elementAt(libstudiengang.getSelectedIndex()-1).getId());
 					  shownSv.setStudierendenAnzahl(Integer.valueOf(tbanzahl.getValue()));
 					  shownSv.setSemester(Integer.valueOf(tbsemester.getValue().trim()));
 	
@@ -177,6 +180,7 @@ public class SemesterverbandForm extends Content {
 		}
 		
 		public void setFields(){
+			this.clearFields();
 			tbjahrgang.setText(shownSv.getJahrgang());
 			verwaltungsSvc.getStudiengangById(shownSv.getStudiengangId(), new AsyncCallback<Studiengang>() {
 				@Override
@@ -187,14 +191,16 @@ public class SemesterverbandForm extends Content {
 				  @Override
 				  public void onSuccess(Studiengang result) {
 					libstudiengang.addItem(result.getBezeichnung());
+					getStudiengaenge();
 				  } 	
-			});
+			}); 
 			tbsemester.setValue(Integer.toString(shownSv.getSemester()));
 		    tbanzahl.setValue(Integer.toString(shownSv.getStudierendenAnzahl()));
 		}
 		
 		public void clearFields(){
 			  tbjahrgang.setText("");
+			  libstudiengang.clear();
 			  tbsemester.setText("");
 			  tbanzahl.setText("");
 		}

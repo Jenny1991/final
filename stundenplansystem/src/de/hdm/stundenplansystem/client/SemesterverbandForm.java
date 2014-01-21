@@ -37,7 +37,10 @@ public class SemesterverbandForm extends Content {
 	  final TextBox tbanzahl = new TextBox ();
 	  final Button loeschen = new Button ("Semesterverband löschen");
 	  final Button speichern = new Button ("Änderungen speichern");
+	  
 	  final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
+	  
+	  Vector<Studiengang> sgContainer = null;
 	  
 	  Integer id;
 	  Semesterverband shownSv = null;
@@ -67,6 +70,7 @@ public class SemesterverbandForm extends Content {
 			Label lbfunktionen = new Label ("Funktionen");
 			svGrid.setWidget(0, 4, lbfunktionen);
 			svGrid.setWidget(1, 4, speichern);
+			
 			speichern.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 					changeSelectedSv();
@@ -80,19 +84,18 @@ public class SemesterverbandForm extends Content {
 			});
 			setTvm(tvm);
 			
-			  libstudiengang.clear();			  
-			  verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
+			 libstudiengang.clear();
+			 verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
 				  public void onFailure(Throwable T){
-					  
 				  }
-				  
 				  public void onSuccess(Vector<Studiengang> studiengaenge){
+				  	sgContainer = studiengaenge;
 				  	for (Studiengang sg : studiengaenge){
 				  		libstudiengang.addItem(sg.getBezeichnung(), String.valueOf(sg.getId()));
 				  	}
-			  }
-			  });
-			}
+				  }
+			 });
+		}
 			
 		public void getData() {		
 			  
@@ -122,6 +125,7 @@ public class SemesterverbandForm extends Content {
 				  
 				  if (allFilled == true) { 
 					  shownSv.setJahrgang(tbjahrgang.getText().trim());
+					  //shownSv.setStudiengangId(sgContainer.elementAt(libstudiengang.getSelectedIndex()).getId());
 					  shownSv.setStudiengangId(Integer.valueOf(libstudiengang.getValue(libstudiengang.getSelectedIndex())));
 					  shownSv.setStudierendenAnzahl(Integer.valueOf(tbanzahl.getValue()));
 					  shownSv.setSemester(Integer.valueOf(tbsemester.getValue().trim()));

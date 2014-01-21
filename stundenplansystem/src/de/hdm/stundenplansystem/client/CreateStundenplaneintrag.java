@@ -31,8 +31,6 @@ import de.hdm.stundenplansystem.shared.bo.Zeitslot;
 	 */
 
 public class CreateStundenplaneintrag extends Content {
-
-	Vector<Dozent> dozentenContainer = null;
 	
 		/**
 		 * Jede Klasse enthältt eine Überschrift, die definiert, was der User machen kann.
@@ -57,6 +55,14 @@ public class CreateStundenplaneintrag extends Content {
 		  final ListBox listSemesterverband = new ListBox (); 
 		  final ListBox listLehrveranstaltung = new ListBox ();
 		  final ListBox listStudiengang = new ListBox ();
+		  
+		  Vector<Dozent> dozentenContainer = null;
+		  Vector<Zeitslot> zeitslotContainer = null;
+		  Vector<Raum> raumContainer = null;
+		  Vector<Stundenplan> spContainer = null;
+		  Vector<Semesterverband> svContainer = null;
+		  Vector<Lehrveranstaltung> lvContainer = null;
+		  Vector<Studiengang> sgContainer = null;
 		  
 		  final Button speichern = new Button ("speichern");
 		  
@@ -112,6 +118,7 @@ public class CreateStundenplaneintrag extends Content {
 						}
 						@Override
 						public void onSuccess(Vector<Zeitslot> result) {
+							zeitslotContainer = result;
 							for (Zeitslot zs : result) {
 								listZeitslot.addItem(zs.getWochentag() + ", " + zs.getAnfangszeit() + ", " + zs.getEndzeit(), String.valueOf(zs.getId()));
 							}
@@ -124,6 +131,7 @@ public class CreateStundenplaneintrag extends Content {
 						}
 						@Override
 						public void onSuccess(Vector<Raum> result) {
+							raumContainer = result;
 							for (Raum r : result) {
 								listRaum.addItem(r.getBezeichnung(), String.valueOf(r.getId()));
 							}
@@ -136,6 +144,7 @@ public class CreateStundenplaneintrag extends Content {
 						}
 						@Override
 						public void onSuccess(Vector<Stundenplan> result) {
+							spContainer = result;
 							for (Stundenplan sp : result) {
 								listStudienhj.addItem(sp.getStudienhalbjahr(), String.valueOf(sp.getId()));
 							}
@@ -148,6 +157,7 @@ public class CreateStundenplaneintrag extends Content {
 						}
 						@Override
 						public void onSuccess(Vector<Semesterverband> result) {
+							svContainer = result;
 							for (Semesterverband sv : result) {
 								listSemesterverband.addItem(String.valueOf(sv.getSemester()), String.valueOf(sv.getId()));
 							}
@@ -160,6 +170,7 @@ public class CreateStundenplaneintrag extends Content {
 						}
 						@Override
 						public void onSuccess(Vector<Studiengang> result) {
+							sgContainer = result;
 							for (Studiengang sg : result) {
 								listStudiengang.addItem(sg.getBezeichnung(), String.valueOf(sg.getId()));
 							}
@@ -172,6 +183,7 @@ public class CreateStundenplaneintrag extends Content {
 						}
 						@Override
 						public void onSuccess(Vector<Lehrveranstaltung> result) {
+							lvContainer = result;
 							for (Lehrveranstaltung lv : result) {
 								listLehrveranstaltung.addItem(lv.getBezeichnung(), String.valueOf(lv.getId()));
 							}
@@ -189,7 +201,7 @@ public class CreateStundenplaneintrag extends Content {
 							  int sg = listStudiengang.getSelectedIndex();
 							  int sp = listStudienhj.getSelectedIndex();
 					
-							 verwaltungsSvc.createStundenplaneintrag(dozentenContainer.elementAt(listDozent.getSelectedIndex()).getId(), l, r, z, sv, sg, sp, new AsyncCallback<Stundenplaneintrag>(){
+							 verwaltungsSvc.createStundenplaneintrag(dozentenContainer.elementAt(listDozent.getSelectedIndex()).getId(), lvContainer.elementAt(listLehrveranstaltung.getSelectedIndex()).getId(), raumContainer.elementAt(listRaum.getSelectedIndex()).getId(), zeitslotContainer.elementAt(listZeitslot.getSelectedIndex()).getId(), svContainer.elementAt(listSemesterverband.getSelectedIndex()).getId(), sgContainer.elementAt(listStudiengang.getSelectedIndex()).getId(), spContainer.elementAt(listStudienhj.getSelectedIndex()).getId(), new AsyncCallback<Stundenplaneintrag>(){
 								 @Override
 								  public void onFailure (Throwable caught) {
 									  Window.alert("Der Stundenplaneintrag konnte nicht angelegt werden.");

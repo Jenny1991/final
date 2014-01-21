@@ -29,12 +29,12 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 	public class CreateSemesterverband extends Content {
 		
 		  /**
-		   * Jede Klasse enthï¿½t eine ï¿½berschrift, die definiert, was der User machen kann.
+		   * Jede Klasse enth������t eine ������berschrift, die definiert, was der User machen kann.
 		   */
 		private final HTML ueberschrift = new HTML ("<h2>Neuen Semesterverband anlegen<h2>");
 
 		  /**
-		   * Unter der ï¿½berschrift trï¿½gt der User die Daten des neuen Semesterverbands ein. 
+		   * Unter der ������berschrift tr������gt der User die Daten des neuen Semesterverbands ein. 
 		   */
 		  final Label lbjahrgang = new Label ("Jahrgang"); 
 		  final Label lbstudiengang = new Label ("Studiengang");
@@ -45,6 +45,9 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 		  final TextBox tbsemester = new TextBox ();
 		  final TextBox tbanzahl = new TextBox ();
 		  final Button speichern = new Button ("speichern");
+		  
+		  Vector<Studiengang> sgContainer = null;
+		  
 		  
 		  final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
 		  NavTreeViewModel tvm = null;
@@ -74,6 +77,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 				  }
 				  
 				  public void onSuccess(Vector<Studiengang> studiengaenge){
+				  	sgContainer = studiengaenge;
 				  	for (Studiengang sg : studiengaenge){
 				  		libstudiengang.addItem(sg.getBezeichnung(), String.valueOf(sg.getId()));
 				  	}
@@ -91,11 +95,12 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 								  || tbanzahl.getText().isEmpty() 
 								  || tbsemester.getText().isEmpty()) 
 						  { allFilled = false;
-						  Window.alert ("Bitte f�llen Sie alle Felder aus."); }
+						  Window.alert ("Bitte f�llen Sie alle Felder aus."); }
 						  
 						  if (allFilled == true) { 
 							  final String jahrgang = tbjahrgang.getText().trim();
-							  final int studiengangId  = Integer.valueOf(libstudiengang.getValue(libstudiengang.getSelectedIndex()));
+							  final int studiengangId = sgContainer.elementAt(libstudiengang.getSelectedIndex()).getId();
+							  //final int studiengangId  = Integer.valueOf(libstudiengang.getValue(libstudiengang.getSelectedIndex()));
 							  final int studierendenAnzahl = Integer.valueOf(tbanzahl.getValue());
 							  final int semester = Integer.valueOf(tbsemester.getText().trim());
 			
@@ -111,6 +116,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 									  tbjahrgang.setText("");
 									  tbsemester.setText("");
 									  tbanzahl.setText("");
+									  libstudiengang.clear();
 									  Window.alert ("Erfolgreich gespeichert.");
 									  tvm.addSemesterverband(result);
 								  } 	

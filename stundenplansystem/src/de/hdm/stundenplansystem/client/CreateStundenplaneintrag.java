@@ -98,45 +98,7 @@ public class CreateStundenplaneintrag extends Content {
 				  listStudiengang.clear();
 				  listRaum.clear();
 				  listLehrveranstaltung.clear();
-					
-				  verwaltungsSvc.getAllDozenten(new AsyncCallback<Vector<Dozent>>() {
-					@Override
-					public void onFailure(Throwable caught) {	
-					}
-					@Override
-					public void onSuccess(Vector<Dozent> result) {
-						dozentenContainer = result;
-						for (Dozent d : result) {
-							listDozent.addItem(d.getNachname() + ", " + d.getVorname(), String.valueOf(d.getId()));
-						}
-					} 
-				  });
-				    
-				  verwaltungsSvc.getAllZeitslots(new AsyncCallback<Vector<Zeitslot>>() {
-						@Override
-						public void onFailure(Throwable caught) {	
-						}
-						@Override
-						public void onSuccess(Vector<Zeitslot> result) {
-							zeitslotContainer = result;
-							for (Zeitslot zs : result) {
-								listZeitslot.addItem(zs.getWochentag() + ", " + zs.getAnfangszeit() + ", " + zs.getEndzeit(), String.valueOf(zs.getId()));
-							}
-						} 
-				  });
 				  
-				  verwaltungsSvc.getAllRaeume(new AsyncCallback<Vector<Raum>>() {
-						@Override
-						public void onFailure(Throwable caught) {	
-						}
-						@Override
-						public void onSuccess(Vector<Raum> result) {
-							raumContainer = result;
-							for (Raum r : result) {
-								listRaum.addItem(r.getBezeichnung(), String.valueOf(r.getId()));
-							}
-						} 
-					  });
 				  
 				  verwaltungsSvc.getAllStundenplaene(new AsyncCallback<Vector<Stundenplan>>() {
 						@Override
@@ -148,47 +110,10 @@ public class CreateStundenplaneintrag extends Content {
 							for (Stundenplan sp : result) {
 								listStudienhj.addItem(sp.getStudienhalbjahr(), String.valueOf(sp.getId()));
 							}
+							ladeAlleStudiengaenge();
 						} 
 					  });
-				  
-				  verwaltungsSvc.getAllSemesterverbaende(new AsyncCallback<Vector<Semesterverband>>() {
-						@Override
-						public void onFailure(Throwable caught) {	
-						}
-						@Override
-						public void onSuccess(Vector<Semesterverband> result) {
-							svContainer = result;
-							for (Semesterverband sv : result) {
-								listSemesterverband.addItem(String.valueOf(sv.getSemester()), String.valueOf(sv.getId()));
-							}
-						}
-					});
 							
-				  verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
-						@Override
-						public void onFailure(Throwable caught) {	
-						}
-						@Override
-						public void onSuccess(Vector<Studiengang> result) {
-							sgContainer = result;
-							for (Studiengang sg : result) {
-								listStudiengang.addItem(sg.getBezeichnung(), String.valueOf(sg.getId()));
-							}
-						} 
-					  });
-				  
-				  verwaltungsSvc.getAllLehrveranstaltungen(new AsyncCallback<Vector<Lehrveranstaltung>>() {
-						@Override
-						public void onFailure(Throwable caught) {	
-						}
-						@Override
-						public void onSuccess(Vector<Lehrveranstaltung> result) {
-							lvContainer = result;
-							for (Lehrveranstaltung lv : result) {
-								listLehrveranstaltung.addItem(lv.getBezeichnung(), String.valueOf(lv.getId()));
-							}
-						} 
-					  });
 				  
 				  speichern.addClickHandler(new ClickHandler() {
 						public void onClick(ClickEvent event) {
@@ -217,6 +142,101 @@ public class CreateStundenplaneintrag extends Content {
 						  }
 				});				  
 		  }
+		  
+		public void ladeAlleStudiengaenge() {
+			verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
+				@Override
+				public void onFailure(Throwable caught) {	
+				}
+				@Override
+				public void onSuccess(Vector<Studiengang> result) {
+					sgContainer = result;
+					for (Studiengang sg : result) {
+						listStudiengang.addItem(sg.getBezeichnung(), String.valueOf(sg.getId()));
+					}
+					ladeAlleSemester();
+				} 
+			  });
+		}
+		
+		public void ladeAlleSemester() {
+			 verwaltungsSvc.getAllSemesterverbaende(new AsyncCallback<Vector<Semesterverband>>() {
+					@Override
+					public void onFailure(Throwable caught) {	
+					}
+					@Override
+					public void onSuccess(Vector<Semesterverband> result) {
+						svContainer = result;
+						for (Semesterverband sv : result) {
+							listSemesterverband.addItem(String.valueOf(sv.getSemester()), String.valueOf(sv.getId()));
+						}
+						ladeAlleLehrveranstaltungen();
+					}
+				});
+		}
+		
+		public void ladeAlleLehrveranstaltungen() {
+			verwaltungsSvc.getAllLehrveranstaltungen(new AsyncCallback<Vector<Lehrveranstaltung>>() {
+				@Override
+				public void onFailure(Throwable caught) {	
+				}
+				@Override
+				public void onSuccess(Vector<Lehrveranstaltung> result) {
+					lvContainer = result;
+					for (Lehrveranstaltung lv : result) {
+						listLehrveranstaltung.addItem(lv.getBezeichnung(), String.valueOf(lv.getId()));
+					}
+					ladeAlleDozenten();
+				} 
+			  });
+		}
+		
+		public void ladeAlleDozenten() {
+			verwaltungsSvc.getAllDozenten(new AsyncCallback<Vector<Dozent>>() {
+				@Override
+				public void onFailure(Throwable caught) {	
+				}
+				@Override
+				public void onSuccess(Vector<Dozent> result) {
+					dozentenContainer = result;
+					for (Dozent d : result) {
+						listDozent.addItem(d.getNachname() + ", " + d.getVorname(), String.valueOf(d.getId()));
+					}
+					ladeAlleRaeume();
+				} 
+			  });
+		}
+		
+		public void ladeAlleRaeume() {
+			verwaltungsSvc.getAllRaeume(new AsyncCallback<Vector<Raum>>() {
+				@Override
+				public void onFailure(Throwable caught) {	
+				}
+				@Override
+				public void onSuccess(Vector<Raum> result) {
+					raumContainer = result;
+					for (Raum r : result) {
+						listRaum.addItem(r.getBezeichnung(), String.valueOf(r.getId()));
+					}
+					ladeAlleZeitslots();
+				} 
+			  });
+		}
+		
+		public void ladeAlleZeitslots() {
+			verwaltungsSvc.getAllZeitslots(new AsyncCallback<Vector<Zeitslot>>() {
+				@Override
+				public void onFailure(Throwable caught) {	
+				}
+				@Override
+				public void onSuccess(Vector<Zeitslot> result) {
+					zeitslotContainer = result;
+					for (Zeitslot zs : result) {
+						listZeitslot.addItem(zs.getWochentag() + ", " + zs.getAnfangszeit() + ", " + zs.getEndzeit(), String.valueOf(zs.getId()));
+					}
+				} 
+		  });
+		}
 		  
 
 

@@ -6,6 +6,7 @@ import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -90,19 +91,41 @@ public class StundenplaneintragForm extends Content {
 				
 				setTvm(tvm);
 			
-			/**createSpeButton.addClickHandler(new ClickHandler() {
+			/*speichern.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 				this.add(createSpe);
 				}
 			});
 			
-			changeSpeButton.addClickHandler(new ClickHandler() {
+			bearbeiten.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 					this.add(changeSpe);
 				}
 			});*/
 			
+			loeschen.addClickHandler(new ClickHandler() {
+				public void onClick(ClickEvent event) {
+					deleteSelectedSpe();
+				}
+			});
+			
 		}
+			
+			
+			public void deleteSelectedSpe(){
+				verwaltungsSvc.deleteStundenplaneintrag(shownSpe, new AsyncCallback<Boolean>() {
+				  public void onFailure (Throwable caught) {
+					  Window.alert("Der Dozent konnte nicht gelöscht werden." +
+					  		"Er ist in ein oder mehreren Stundenplaneinträgen eingetragen");
+				  }
+
+				  public void onSuccess(Boolean result) {
+					  tvm.deleteSpe(shownSpe);
+					  Window.alert ("Erfolgreich gelöscht.");
+				  } 	
+				});
+				this.clearFields();
+		  }
 			
 		public void showWidget() {
 		

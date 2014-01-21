@@ -237,7 +237,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	 */
 	
 	public Stundenplaneintrag getStundenplaneintragByDozentAndZeitslot(int dozentId, int zeitslotId){
-		//return this.stundenplaneintragMapper.findByDozentAndZeitslot(dozentId, zeitslotId);
+		return this.stundenplaneintragMapper.findByDozentAndZeitslot(dozentId, zeitslotId);
 	}
 	
 	/**
@@ -245,7 +245,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	 */
 	
 	public Stundenplaneintrag getStundenplaneintragByRaumAndZeitslot(int raumId, int zeitslotId){
-		//return this.stundenplaneintragMapper.findByRaumAndZeitslot(raumId, zeitslotId);	
+		return this.stundenplaneintragMapper.findByRaumAndZeitslot(raumId, zeitslotId);	
 	}
 	
 	/**
@@ -253,8 +253,8 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	 */
 	
 	public Stundenplaneintrag getStundenplaneintragBySemesterverbandAndZeitslot(int semesterverbandId, int zeitslotId){
-	//	return this.stundenplaneintragMapper.
-		
+	//return this.stundenplaneintragMapper.f
+		return null;
 	}
 	
 	/**
@@ -305,13 +305,20 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	public Studiengang createStudiengang(String bezeichnung)
 			throws IllegalArgumentException {
 		
+		if (bezeichnung.matches("[0-9]+")){
+			
+			throw new IllegalArgumentException("ungültige Eingabe!");	
+			}
+		else {
+		
+		
 		Studiengang s = new Studiengang();
 		
 		s.setBezeichnung(bezeichnung);
 		
 		s.setId(1);
 		
-		return this.studiengangMapper.insert(s);
+		return this.studiengangMapper.insert(s);}
 	}
 
 	public Stundenplaneintrag createStundenplaneintrag(int d,
@@ -336,6 +343,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	public Semesterverband createSemesterverband(int studiengangId,
 			int semester, int studierendenAnzahl, String jahrgang)
 			throws IllegalArgumentException {
+		
 		Semesterverband a = new Semesterverband();
 		a.setStudiengangId(studiengangId);
 		a.setSemester(semester);

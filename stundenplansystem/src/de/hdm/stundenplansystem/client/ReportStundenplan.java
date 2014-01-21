@@ -106,7 +106,7 @@ public class ReportStundenplan extends Content {
 		  anzeigen.addClickHandler(new ClickHandler() {
 			  public void onClick(ClickEvent event) {				 
 
-				  reportSvc.createStundenplanSemesterverbandReport(svContainer.elementAt(libsemverband.getSelectedIndex()).getId(), new AsyncCallback<String>() {
+				  reportSvc.createStundenplanSemesterverbandReport(svContainer.elementAt(libsemverband.getSelectedIndex()).getId(), spContainer.elementAt(libstundenplan.getSelectedIndex()).getId(), new AsyncCallback<String>() {
 		
 					  public void onSuccess(String result){
 

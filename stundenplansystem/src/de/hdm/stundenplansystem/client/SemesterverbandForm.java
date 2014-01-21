@@ -23,7 +23,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 /**
  * Formular f��r die Darstellung des selektierten Semesterverbands
  * 
- * @author Thies, Espich
+ * @author Thies, Espich, V. Hofmann
  *
  */
 

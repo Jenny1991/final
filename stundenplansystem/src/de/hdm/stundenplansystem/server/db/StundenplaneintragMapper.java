@@ -203,7 +203,7 @@ public class StundenplaneintragMapper {
     Vector<Stundenplaneintrag> result = new Vector<Stundenplaneintrag>();
 
     try {
-      Statement stmt = con.createStatement();
+      Statement stmt = con.createStatement(); 
 
       ResultSet rs = stmt.executeQuery("SELECT stundenplaneintrag.id, stundenplaneintrag.dozentid, stundenplaneintrag.raumid, "
   	    	+ "stundenplaneintrag.zeitslotid, stundenplaneintrag.lehrveranstaltungid"

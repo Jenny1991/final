@@ -85,7 +85,7 @@ public interface Verwaltungsklasse extends RemoteService {
 	public Dozent createDozent(String vorname, String nachname)
 			throws IllegalArgumentException;
 	
-	public Stundenplan createStundenplan(String studienhalbjahr)
+	public Stundenplan createStundenplan(String studienhalbjahr, int semesterverbandId)
 			throws IllegalArgumentException;
 	
 	public Lehrveranstaltung createLehrveranstaltung(String bezeichnung, int semester, int umfang)

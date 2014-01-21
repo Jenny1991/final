@@ -78,10 +78,10 @@ public class CreateDozent extends Content {
 						  String nachname = tbnachname.getValue().trim();
 				
 						 verwaltungsSvc.createDozent(vorname, nachname, new AsyncCallback<Dozent>() {
-
+							 
 							  @Override
 							  public void onFailure (Throwable caught) {
-								  Window.alert("Der Dozent konnte nicht angelegt werden.");
+								  Window.alert(caught.getMessage());
 							  }
 
 							  @Override

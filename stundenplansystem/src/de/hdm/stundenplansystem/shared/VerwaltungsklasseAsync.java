@@ -69,11 +69,6 @@ public interface VerwaltungsklasseAsync {
 
 	void getDozent(AsyncCallback<Dozent> callback);
 
-	void getAllStundenplaneintrag(Raum r, AsyncCallback<Vector<Stundenplaneintrag>> callback);
-
-	void getAllStundenplaneintragOf(Dozent d,
-			AsyncCallback<Vector<Stundenplaneintrag>> callback);
-
 	void getAllDozenten(AsyncCallback<Vector<Dozent>> callback);
 
 	void getAllLehrveranstaltungen(AsyncCallback<Vector<Lehrveranstaltung>> callback);

@@ -140,36 +140,6 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	}
 	
 	/**
-	 * Hier werden alle Stundenplaneintraege des Dozenten d in einen Vector gepackt 
-	 */
-	
-	public Vector<Stundenplaneintrag> getAllStundenplaneintragOf(Dozent d)
-		      throws IllegalArgumentException {
-		
-		Vector<Stundenplaneintrag> dVektor = null;
-		
-		/**
-		 * Hier müssen wir alle Stundenplaneintraege des Dozenten in den Vector reinspeichern.
-		 */
-			
-		 	dVektor = this.stundenplaneintragMapper.findByDozentOrderByAnfangszeit(d.getId());
-		
-		return dVektor;
-	}
-	
-	public Vector<Stundenplaneintrag> getAllStundenplaneintrag(Raum r)
-			throws IllegalArgumentException {
-		
-		Vector<Stundenplaneintrag> rVektor = null;
-		
-	 	rVektor = this.stundenplaneintragMapper.findByRaumOrderByAnfangszeit(r.getId());
-	
-		return rVektor;
-	}
-	
-	
-	
-	/**
 	 * Auslesen aller Dozenten
 	 */
 	public Vector<Dozent> getAllDozenten() throws IllegalArgumentException {
@@ -291,31 +261,29 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	
 	public Dozent createDozent(String vorname, String nachname)
 			throws IllegalArgumentException {
-		       
-			 	Dozent a = new Dozent();
-				a.setVorname(vorname);
-				a.setNachname(nachname);
-			
-				a.setId(1);
-				
-				if (vorname.equals("1,2,3,4,5,6,7,8,9") && nachname.equals("1,2,3,4,5,6,7,8,9")){
-					System.out.println("Üngultige Eingabe!");
-				} else {
-					return this.dozentMapper.insert(a);
-				}
-				
-				try { vorname = String.valueOf(true);
-				nachname = String.valueOf(true);
-				}
-				
-				catch (Exception e){
-					System.out.println("Üngultige Eingabe!");
-				}
 		
+	if (vorname.matches("[0-9]+") || nachname.matches("[0-9]+")){
+		
+		throw new IllegalArgumentException("ungültige Eingabe!");
+		
+		
+		}
+	else {
+		Dozent a = new Dozent();
+		a.setVorname(vorname);
+		a.setNachname(nachname);
+	
+		a.setId(1);
 		return this.dozentMapper.insert(a);
-			    }
+			
+	}
+		
 	
 	
+			 	
+			    
+	
+	}
 	public Lehrveranstaltung createLehrveranstaltung(
 			String bezeichnung, int semester, int umfang)
 			throws IllegalArgumentException {

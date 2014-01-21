@@ -112,11 +112,9 @@ public class StundenplaneintragMapper {
    *         im Zeitslot sortiert sind. Bei evtl. Exceptions wird ein partiell gefüllter
    *         oder ggf. auch leerer Vetor zurückgeliefert.
    */
-  public Vector<Stundenplaneintrag> findByDozentAndZeitslot(int dozentid, int zeitslotid) {
-    Connection con = DBConnection.connection();
-
-    // Ergebnisvektor vorbereiten
-    Vector<Stundenplaneintrag> result = new Vector<Stundenplaneintrag>();
+  public Stundenplaneintrag findByDozentAndZeitslot(int dozentid, int zeitslotid) {
+	// DB-Verbindung holen
+	Connection con = DBConnection.connection();
 
     try {
       Statement stmt = con.createStatement();
@@ -137,16 +135,14 @@ public class StundenplaneintragMapper {
         s.setZeitslotId(rs.getInt("zeitslotid"));
         s.setLehrveranstaltungId(rs.getInt("lehrveranstaltungid"));
 
-        // Hinzufügen des neuen Objekts zum Ergebnisvektor
-        result.addElement(s);
+        return s;
       }
     }
     catch (SQLException e2) {
       e2.printStackTrace();
     }
 
-    // Ergebnisvektor zurückgeben
-    return result;
+    return null;
   }
   
   /**
@@ -157,13 +153,12 @@ public class StundenplaneintragMapper {
    *         im Zeitslot sortiert sind. Bei evtl. Exceptions wird ein partiell gef�llter
    *         oder ggf. auch leerer Vetor zur�ckgeliefert.
    */
-  public Vector<Stundenplaneintrag> findByRaumAndZeitslot(int raumid, int zeitslotid) {
-    Connection con = DBConnection.connection();
-
-    // Ergebnisvektor vorbereiten
-    Vector<Stundenplaneintrag> result = new Vector<Stundenplaneintrag>();
+  public Stundenplaneintrag findByRaumAndZeitslot(int raumid, int zeitslotid) {
+	// DB-Verbindung holen
+	Connection con = DBConnection.connection();
 
     try {
+      // Leeres SQL-Statement (JDBC) anlegen
       Statement stmt = con.createStatement();
 
       ResultSet rs = stmt.executeQuery("SELECT stundenplaneintrag.id, stundenplaneintrag.dozentid, stundenplaneintrag.raumid, "
@@ -182,16 +177,14 @@ public class StundenplaneintragMapper {
         s.setLehrveranstaltungId(rs.getInt("lehrveranstaltungid"));
         s.setStundenplanId(rs.getInt("stundenplanid"));
 
-        // Hinzufügen des neuen Objekts zum Ergebnisvektor
-        result.addElement(s);
+        return s;
       }
     }
     catch (SQLException e2) {
       e2.printStackTrace();
     }
 
-    // Ergebnisvektor zurückgeben
-    return result;
+    return null;
   }
 
   

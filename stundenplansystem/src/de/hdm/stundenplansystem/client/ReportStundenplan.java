@@ -70,8 +70,8 @@ public class ReportStundenplan extends Content {
 				sgContainer = studiengang;
 			  	for (Studiengang sg : studiengang){
 			  		libstudiengang.addItem(sg.getBezeichnung(), String.valueOf(sg.getId()));
-			  		getSemverband();
 			  	}
+			  	getSemverband();
 		  }
 	});
 
@@ -110,9 +110,9 @@ public class ReportStundenplan extends Content {
 			svContainer = semesterverband;
 		  	for (Semesterverband sv : semesterverband){
 		  		libsemverband.addItem(sv.getJahrgang(), String.valueOf(sv.getId()));
-		  		getStundenplan();
 //		  		libsemverband.addItem(String.valueOf(sv.getSemester())); 
 		  	}
+		  	getStundenplan();
 	  }
 	  }); 
 	  }

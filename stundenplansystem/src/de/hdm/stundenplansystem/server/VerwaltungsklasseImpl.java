@@ -53,31 +53,21 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		return stundenplaneintrag;
 	}
 
-
-
 	public void setStundenplaneintrag(Stundenplaneintrag stundenplaneintrag) {
 		this.stundenplaneintrag = stundenplaneintrag;
 	}
-
-
 
 	public Stundenplan getStundenplan() {
 		return stundenplan;
 	}
 
-
-
 	public void setStundenplan(Stundenplan stundenplan) {
 		this.stundenplan = stundenplan;
 	}
 
-
-
 	public void setLehrveranstaltung(Lehrveranstaltung lehrveranstaltung) {
 		this.lehrveranstaltung = lehrveranstaltung;
 	}
-
-
 
 	public Lehrveranstaltung getLehrveranstaltung() {
 		return lehrveranstaltung;
@@ -148,7 +138,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	
 	
 	/**
-	 * Auslesen aller Rï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ume
+	 * Auslesen aller Räume
 	 */
 	
 	public Vector<Raum> getAllRaeume() throws IllegalArgumentException {
@@ -166,7 +156,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	
 	
 	/**
-	 * Auslesen aller Semesterverbï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½nde
+	 * Auslesen aller Semesterverbände
 	 */
 	
 	public Vector<Semesterverband> getAllSemesterverbaende() throws IllegalArgumentException {
@@ -182,7 +172,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	  }
 	
 	/**
-	 * Auslesen aller StundenplÃ¤ne
+	 * Auslesen aller Stundenpläne
 	 */
 	
 	public Vector<Stundenplan> getAllStundenplaene() throws IllegalArgumentException {
@@ -190,7 +180,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	  }
 	
 	/**
-	 * Auslesen aller StundenplaneintrÃ¤e
+	 * Auslesen aller Stundenplaneinträge
 	 */
 	
 	public Vector<Stundenplaneintrag> getAllStundenplaneintraege() throws IllegalArgumentException {
@@ -207,7 +197,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	
 	
 	/**
-	 * Auslesen eines Dozent Ã¼ber seine ID
+	 * Auslesen der jeweiligen BO's über ihre ID
 	 */
 	
 	public Dozent getDozentById(int id) throws IllegalArgumentException {
@@ -242,31 +232,41 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		return this.zeitslotMapper.findByKey(id);
 	}
 	
+	/**
+	 * Auslesen eines Stundenplaneintrages eines Dozenten zu einem bestimmten Zeitslot
+	 */
+	
 	public Stundenplaneintrag getStundenplaneintragByDozentAndZeitslot(int dozentId, int zeitslotId){
-		//return this.stundenplaneintragMapper.findByKeyandDozent(dozentId, zeitslotId);
-		return null;
+		//return this.stundenplaneintragMapper.findByDozentAndZeitslot(dozentId, zeitslotId);
 	}
+	
+	/**
+	 * Auslesen eines Stundenplaneintrages eines Raumes zu einem bestimmten Zeitslot
+	 */
 	
 	public Stundenplaneintrag getStundenplaneintragByRaumAndZeitslot(int raumId, int zeitslotId){
-		//return this.stundenplaneintragMapper.findByKeyandRaum(raumId, zeitslotId);
-		return null;
+		//return this.stundenplaneintragMapper.findByRaumAndZeitslot(raumId, zeitslotId);	
 	}
+	
+	/**
+	 * Auslesen eines Stundenplaneintrages eines Semesterverbandes zu einem bestimmten Zeitslot
+	 */
 	
 	public Stundenplaneintrag getStundenplaneintragBySemesterverbandAndZeitslot(int semesterverbandId, int zeitslotId){
-		//return this.stundenplaneintragMapper.findByKeyandSemsterverband(semesterverbandId, zeitslotId);
-		return null;
+	//	return this.stundenplaneintragMapper.
+		
 	}
 	
-	
+	/**
+	 * Anschließend folgen alle create-Methoden der BO's
+	 */
 	
 	public Dozent createDozent(String vorname, String nachname)
 			throws IllegalArgumentException {
 		
 	if (vorname.matches("[0-9]+") || nachname.matches("[0-9]+")){
 		
-		throw new IllegalArgumentException("ungültige Eingabe!");
-		
-		
+		throw new IllegalArgumentException("ungültige Eingabe!");	
 		}
 	else {
 		Dozent a = new Dozent();
@@ -274,16 +274,10 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		a.setNachname(nachname);
 	
 		a.setId(1);
-		return this.dozentMapper.insert(a);
-			
+		return this.dozentMapper.insert(a);	    	
+		}
 	}
-		
 	
-	
-			 	
-			    
-	
-	}
 	public Lehrveranstaltung createLehrveranstaltung(
 			String bezeichnung, int semester, int umfang)
 			throws IllegalArgumentException {
@@ -339,7 +333,6 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		return this.stundenplaneintragMapper.insert(s);
 	}
 
-	@Override
 	public Semesterverband createSemesterverband(int studiengangId,
 			int semester, int studierendenAnzahl, String jahrgang)
 			throws IllegalArgumentException {
@@ -364,6 +357,10 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		
 		return this.stundenplanMapper.insert(sp);
 	}
+	
+	/**
+	 * Anschließend folgen alle delete-Methoden der BO's
+	 */
 
 	public boolean deleteDozent(Dozent d) throws IllegalArgumentException {
 		
@@ -447,6 +444,10 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		   	return true;
 //		    }
 	}
+	
+	/**
+	 * Anschließend folgen alle Change-Methoden der BO's
+	 */
 
 	public void changeDozent(Dozent d) throws IllegalArgumentException {
 		 this.dozentMapper.update(d);

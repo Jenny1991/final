@@ -264,9 +264,8 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	 * Auslesen eines Stundenplaneintrages eines Semesterverbandes zu einem bestimmten Zeitslot
 	 */
 	
-	public Stundenplaneintrag getStundenplaneintragBySemesterverbandAndZeitslot(int semesterverbandId, int zeitslotId){
-	//return this.stundenplaneintragMapper.f
-		return null;
+	public Stundenplaneintrag getStundenplaneintragBySemesterverbandAndZeitslot(int semesterverbandId, int zeitslotId, int stundenplanId){
+	return this.stundenplaneintragMapper.findbySemesterverbandZeitslotAndStundenplan(semesterverbandId, zeitslotId, stundenplanId);
 	}
 	
 	/**

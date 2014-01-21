@@ -121,7 +121,7 @@ public interface VerwaltungsklasseAsync {
 	void getZeitslot(AsyncCallback<Zeitslot> callback);
 	
 	void getStundenplaneintragBySemesterverbandAndZeitslot(
-			int semesterverbandId, int zeitslotId,
+			int semesterverbandId, int zeitslotId, int stundenplanId,
 			AsyncCallback<Stundenplaneintrag> callback);
 
 	void getStundenplaneintragByRaumAndZeitslot(int raumId, int zeitslotId,

@@ -24,8 +24,8 @@ void createStundenplanDozentReport(Dozent d,
 
 void createRaumbelungsReport(Raum r, AsyncCallback<RaumbelegungsReport> callback);
 
-void createStundenplanSemesterverbandReport(int id,
-		AsyncCallback<String> callback);
+void createStundenplanSemesterverbandReport(int semesterverbandId,
+		int stundenplanId, AsyncCallback<String> callback);
 
 void setRaum(Raum r, AsyncCallback<Void> callback);
 

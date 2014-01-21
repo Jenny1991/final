@@ -296,9 +296,10 @@ public void setSemesterverband(int sv)
  */
 
 public String createStundenplanSemesterverbandReport(
-	int id) throws IllegalArgumentException {
+	int semesterverbandId, int stundenplanId) throws IllegalArgumentException {
 
-		Semesterverband sv = verwaltung.getSemesterverbandById(id);
+		Semesterverband sv = verwaltung.getSemesterverbandById(semesterverbandId);
+		Stundenplan sp = verwaltung.getStundenplanById(stundenplanId);
 		
 	  if (this.getVerwaltungsklasse() == null)
 	    return null;
@@ -362,7 +363,7 @@ public String createStundenplanSemesterverbandReport(
 	   */ 
 	  for(int i = 1; i < 37; i++){
 	  	
-	  	Stundenplaneintrag aktuell = this.verwaltung.getStundenplaneintragBySemesterverbandAndZeitslot(sv.getId(), i);
+	  	Stundenplaneintrag aktuell = this.verwaltung.getStundenplaneintragBySemesterverbandAndZeitslot(sv.getId(), i, sp.getId());
 	  	
 	  	if(aktuell != null){
 	  		accountRow.addColumn(new Column(verwaltung.getZeitslotById(aktuell.getZeitslotId()).toString()+ "/n"+

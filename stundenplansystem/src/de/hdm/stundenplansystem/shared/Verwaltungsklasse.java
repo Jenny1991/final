@@ -72,7 +72,7 @@ public interface Verwaltungsklasse extends RemoteService {
 	
 	public Stundenplaneintrag getStundenplaneintragByRaumAndZeitslot(int raumId, int zeitslotId) throws IllegalArgumentException;
 	
-	public Stundenplaneintrag getStundenplaneintragBySemesterverbandAndZeitslot(int semesterverbandId, int zeitslotId) throws IllegalArgumentException;
+	public Stundenplaneintrag getStundenplaneintragBySemesterverbandAndZeitslot(int semesterverbandId, int zeitslotId, int stundenplanId) throws IllegalArgumentException;
 	
 	public Vector<Semesterverband> getSemsterverbaendeByStudiengang(int studiengangId)  throws IllegalArgumentException;
 	

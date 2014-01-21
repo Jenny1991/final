@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Vector;
 
 import com.google.gwt.core.shared.GWT;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -60,6 +62,7 @@ public class ReportStundenplan extends Content {
 		this.add(anzeigen);
 		setTvm(tvm);
 		
+		
 		  libstudiengang.clear();
 		  verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
 			  public void onFailure(Throwable T){
@@ -74,7 +77,23 @@ public class ReportStundenplan extends Content {
 			  	getSemverband();
 		  }
 	});
-
+		  
+		  libstudiengang.addChangeHandler(new ChangeHandler() {
+			
+			@Override
+			public void onChange(ChangeEvent event) {
+				getSemverband();	
+			}
+		  });
+		  
+		  libsemverband.addChangeHandler(new ChangeHandler() {
+				
+				@Override
+				public void onChange(ChangeEvent event) {
+					getStundenplan();	
+				}
+			});
+		  
 		  anzeigen.addClickHandler(new ClickHandler() {
 			  public void onClick(ClickEvent event) {				 
 
@@ -95,7 +114,7 @@ public class ReportStundenplan extends Content {
 			  }
 		  });
 		  }
-		  
+	
 	public void setTvm(NavTreeViewModel tvm) {
 		this.tvm = tvm;
 	}
@@ -133,6 +152,8 @@ public class ReportStundenplan extends Content {
 		  }
 		  });
 		}
+		
+		
 }
 
 

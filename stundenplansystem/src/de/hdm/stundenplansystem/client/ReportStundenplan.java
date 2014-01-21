@@ -70,38 +70,10 @@ public class ReportStundenplan extends Content {
 				sgContainer = studiengang;
 			  	for (Studiengang sg : studiengang){
 			  		libstudiengang.addItem(sg.getBezeichnung(), String.valueOf(sg.getId()));
+			  		getSemverband();
 			  	}
 		  }
 	});
-		  
-		  libsemverband.clear();
-		  verwaltungsSvc.getSemsterverbaendeByStudiengang(sgContainer.elementAt(libstudiengang.getSelectedIndex()).getId(), new AsyncCallback<Vector<Semesterverband>>() {
-			  public void onFailure(Throwable T){
-				  
-			  }
-			  
-			  public void onSuccess(Vector<Semesterverband> semesterverband){
-				svContainer = semesterverband;
-			  	for (Semesterverband sv : semesterverband){
-			  		libsemverband.addItem(sv.getJahrgang(), String.valueOf(sv.getId()));
-//			  		libsemverband.addItem(String.valueOf(sv.getSemester())); 
-			  	}
-		  }
-	}); 
-		
-		libstundenplan.clear();
-		  verwaltungsSvc.getStundenplaeneBySemesterverband(svContainer.elementAt(libsemverband.getSelectedIndex()).getId(), new AsyncCallback<Vector<Stundenplan>>() {
-			  public void onFailure(Throwable T){
-				  
-			  }
-			  
-			  public void onSuccess(Vector<Stundenplan> stundenplaene){
-				spContainer = stundenplaene;
-			  	for (Stundenplan sp : stundenplaene){
-			  		libstundenplan.addItem(sp.getStudienhalbjahr(), String.valueOf(sp.getId()));
-			  	}
-		  }
-		  });
 
 		  anzeigen.addClickHandler(new ClickHandler() {
 			  public void onClick(ClickEvent event) {				 
@@ -127,6 +99,40 @@ public class ReportStundenplan extends Content {
 	public void setTvm(NavTreeViewModel tvm) {
 		this.tvm = tvm;
 	}
+	  public void getSemverband(){
+	  libsemverband.clear();
+	  verwaltungsSvc.getSemsterverbaendeByStudiengang(sgContainer.elementAt(libstudiengang.getSelectedIndex()).getId(), new AsyncCallback<Vector<Semesterverband>>() {
+		  public void onFailure(Throwable T){
+			  
+		  }
+		  
+		  public void onSuccess(Vector<Semesterverband> semesterverband){
+			svContainer = semesterverband;
+		  	for (Semesterverband sv : semesterverband){
+		  		libsemverband.addItem(sv.getJahrgang(), String.valueOf(sv.getId()));
+		  		getStundenplan();
+//		  		libsemverband.addItem(String.valueOf(sv.getSemester())); 
+		  	}
+	  }
+	  }); 
+	  }
+
+
+		public void getStundenplan(){  
+		libstundenplan.clear();
+		  verwaltungsSvc.getStundenplaeneBySemesterverband(svContainer.elementAt(libsemverband.getSelectedIndex()).getId(), new AsyncCallback<Vector<Stundenplan>>() {
+			  public void onFailure(Throwable T){
+				  
+			  }
+			  
+			  public void onSuccess(Vector<Stundenplan> stundenplaene){
+				spContainer = stundenplaene;
+			  	for (Stundenplan sp : stundenplaene){
+			  		libstundenplan.addItem(sp.getStudienhalbjahr(), String.valueOf(sp.getId()));
+			  	}
+		  }
+		  });
+		}
 }
 
 

@@ -98,6 +98,51 @@ public class StudiengangMapper {
 
     return null;
   }
+  
+  
+  /**
+   * Suchen eines Studienganges mit vorgegebener id. Da diese eindeutig ist,
+   * wird genau ein Objekt zurückgegeben.
+   * 
+   * @param id Primärschlüsselattribut (->DB)
+   * @return Studiengang-Objekt, das dem übergebenen Schlüssel entspricht, null bei
+   *         nicht vorhandenem DB-Tupel.
+   */
+  public Studiengang findBySemesterverbandId(int semesterverbandid) {
+    // DB-Verbindung holen
+    Connection con = DBConnection.connection();
+
+    try {
+      // Leeres SQL-Statement (JDBC) anlegen
+      Statement stmt = con.createStatement();
+
+      // Statement ausfüllen und als Query an die DB schicken
+      ResultSet rs = stmt.executeQuery("SELECT id, bezeichnung FROM studiengang "
+      		  + "INNER JOIN semsterverband "
+      		  + "ON semesterverband.studiengangid = studiengang.id"
+    		  + "WHERE semsterverband.id=" + semesterverbandid);
+
+      /*
+       * Da id Primärschlüssel ist, kann max. nur ein Tupel zurückgegeben
+       * werden. Prüfe, ob ein Ergebnis vorliegt.
+       */
+      if (rs.next()) {
+        // Ergebnis-Tupel in Objekt umwandeln
+        Studiengang s = new Studiengang();
+        s.setId(rs.getInt("id"));
+        s.setBezeichnung(rs.getString("bezeichnung"));
+                
+        return s;
+      }
+    }
+    catch (SQLException e2) {
+      e2.printStackTrace();
+      return null;
+    }
+
+    return null;
+  }
+  
 
   /**
    * Auslesen aller Studiengänge.

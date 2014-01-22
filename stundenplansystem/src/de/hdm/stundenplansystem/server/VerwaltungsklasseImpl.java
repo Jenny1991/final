@@ -275,23 +275,24 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	public Dozent createDozent(String vorname, String nachname)
 			throws IllegalArgumentException {
 		
-	if (vorname.matches("[0-9]+") || nachname.matches("[0-9]+")){
+	if (vorname.matches("[a-z]+[A-Z]+") || nachname.matches("[a-z]+[A-Z]+")){
 		
-		throw new IllegalArgumentException("ungültige Eingabe!");	
-		}
-	else {
 		Dozent a = new Dozent();
 		a.setVorname(vorname);
 		a.setNachname(nachname);
 	
 		a.setId(1);
-		return this.dozentMapper.insert(a);	    	
+		return this.dozentMapper.insert(a);	
+		}
+	else {		
+		throw new IllegalArgumentException("ungültige Eingabe!");	
 		}
 	}
 	
 	public Lehrveranstaltung createLehrveranstaltung(
 			String bezeichnung, int semester, int umfang)
 			throws IllegalArgumentException {
+
 		Lehrveranstaltung a = new Lehrveranstaltung();
 		a.setBezeichnung(bezeichnung);
 		a.setSemester(semester);
@@ -300,7 +301,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		a.setId(1);
 		
 		return this.lehrveranstaltungMapper.insert(a);
-	}		
+		}
 	
 	public Raum createRaum(String bezeichnung, int kapazitaet)
 			throws IllegalArgumentException {
@@ -316,20 +317,18 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	public Studiengang createStudiengang(String bezeichnung)
 			throws IllegalArgumentException {
 		
-		if (bezeichnung.matches("[0-9]+")){
+		if (bezeichnung.matches("[a-z]+[A-Z]+")){
+			Studiengang s = new Studiengang();
 			
+			s.setBezeichnung(bezeichnung);
+			
+			s.setId(1);
+			
+			return this.studiengangMapper.insert(s);
+		}
+		else {		
 			throw new IllegalArgumentException("ungültige Eingabe!");	
-			}
-		else {
-		
-		
-		Studiengang s = new Studiengang();
-		
-		s.setBezeichnung(bezeichnung);
-		
-		s.setId(1);
-		
-		return this.studiengangMapper.insert(s);}
+		}
 	}
 
 	public Stundenplaneintrag createStundenplaneintrag(int d,

@@ -35,10 +35,10 @@ public class ReportStundenplan extends Content {
 
 
 	/**
-	 * Aufbau der Seite, um den Stundenplan f�r Studenten anzuzeigen
+	 * Aufbau der Seite, um den Stundenplan f���r Studenten anzuzeigen
 	 */
 	
-	final HTML ueberschrift = new HTML ("<h2>Stundenplan f�r Studenten</h2>");
+	final HTML ueberschrift = new HTML ("<h2>Stundenplan f���r Studenten</h2>");
 	final FlexTable flexSv = new FlexTable();
 	final ListBox libstundenplan = new ListBox();
 	final ListBox libsemverband = new ListBox();
@@ -53,6 +53,7 @@ public class ReportStundenplan extends Content {
 	Studiengang sg;
 	Stundenplansystem stundenplansystem = null;
 	Integer sv;
+	ReportStundenplanDozent reportStundenplanDozent = null;
 	
 	public void onLoad() {
 		
@@ -96,6 +97,7 @@ public class ReportStundenplan extends Content {
 			});
 		  
 		  anzeigen.addClickHandler(new ClickHandler() {
+			  
 			  public void onClick(ClickEvent event) {				 
 
 				  reportSvc.createStundenplanSemesterverbandReport(svContainer.elementAt(libsemverband.getSelectedIndex()).getId(), spContainer.elementAt(libstundenplan.getSelectedIndex()).getId(), new AsyncCallback<StundenplanSemesterverbandReport>() {
@@ -104,7 +106,7 @@ public class ReportStundenplan extends Content {
 //					        if (result != null) {
 					            HTMLReportWriter writer = new HTMLReportWriter();
 					            writer.process(result);
-					            stundenplansystem.append(writer.getReportText());
+					            reportStundenplanDozent.append(writer.getReportText());
 //					          }
 						  
 					  }

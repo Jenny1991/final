@@ -367,7 +367,7 @@ public class StundenplaneintragForm extends Content {
 				  public void onSuccess(Vector<Dozent> dozent) {
 					  dozentContainer = dozent;
 					  	for (Dozent d : dozent){
-					  		libstudiengang.addItem(d.getNachname() + ", " + d.getVorname());
+					  		libdozent.addItem(d.getNachname() + ", " + d.getVorname());
 					  	}
 				  } 	
 			});
@@ -401,7 +401,7 @@ public class StundenplaneintragForm extends Content {
 				  public void onSuccess(Vector<Zeitslot> zeitslot) {
 					  zsContainer = zeitslot;
 					  	for (Zeitslot z : zeitslot){
-					  		libraum.addItem(z.getWochentag() + ", " + z.getAnfangszeit() + ", " + z.getEndzeit());
+					  		libzeitslot.addItem(z.getWochentag() + ", " + z.getAnfangszeit() + ", " + z.getEndzeit());
 					  	}
 				  } 	
 			});

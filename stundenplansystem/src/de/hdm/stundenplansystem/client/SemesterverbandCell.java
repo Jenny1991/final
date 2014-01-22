@@ -18,7 +18,7 @@ import de.hdm.stundenplansystem.shared.bo.*;
  */
 public class SemesterverbandCell extends AbstractCell<Semesterverband> {
 	
-	String bezeichnung = null;
+	String bezeichnung;
     final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
 
 	public void render(Context context, final Semesterverband value, final SafeHtmlBuilder sb) {
@@ -27,7 +27,7 @@ public class SemesterverbandCell extends AbstractCell<Semesterverband> {
 	        return;
 	      }
 	      
-			/**verwaltungsSvc.getStudiengangById(value.getStudiengangId(), new AsyncCallback<Studiengang>() {
+			verwaltungsSvc.getStudiengangById(value.getStudiengangId(), new AsyncCallback<Studiengang>() {
 				@Override
 				  public void onFailure (Throwable caught) {
 				  }
@@ -36,10 +36,11 @@ public class SemesterverbandCell extends AbstractCell<Semesterverband> {
 				public void onSuccess(Studiengang result) {
 					bezeichnung = result.getBezeichnung();
 				}
-			});*/
+				
+			});
 			
 		    sb.appendHtmlConstant("<div>");     
-			//sb.appendEscapedLines(bezeichnung);
+			sb.appendEscapedLines(bezeichnung);
 			sb.appendHtmlConstant(", ");
 		    sb.append(value.getSemester());
 		    sb.appendHtmlConstant(", ");
@@ -47,8 +48,7 @@ public class SemesterverbandCell extends AbstractCell<Semesterverband> {
 		    sb.appendHtmlConstant(", ");
 		    sb.appendEscaped(value.getJahrgang());
 		    sb.appendHtmlConstant("</div>");     
-				      
-						
+				      				
 		}
 }
 		

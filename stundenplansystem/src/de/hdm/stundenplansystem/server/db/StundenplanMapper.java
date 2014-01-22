@@ -211,7 +211,7 @@ public class StundenplanMapper {
 
         // Jetzt erst erfolgt die tatsächliche Einfügeoperation
         stmt.executeUpdate("INSERT INTO stundenplan (id, studienhalbjahr, semesterverbandid) " + "VALUES ("
-            + s.getId() + ",'" + s.getStudienhalbjahr() + s.getSemesterverbandId() + "')");
+            + s.getId() + ",'" + s.getStudienhalbjahr() + "," + s.getSemesterverbandId() + "')");
       }
     }
     catch (SQLException e2) {

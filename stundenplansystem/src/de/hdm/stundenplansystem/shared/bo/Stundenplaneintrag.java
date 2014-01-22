@@ -13,7 +13,6 @@ public class Stundenplaneintrag extends BusinessObjekt {
 	private int zeitslotId;
 	private int semesterverbandId;
 	private int studiengangId;
-	private int stundenplanId;
 	
 	public Stundenplaneintrag(){
 	}
@@ -66,12 +65,5 @@ public class Stundenplaneintrag extends BusinessObjekt {
 		this.studiengangId = studiengangId;
 	}
 
-	public int getStundenplanId() {
-		return stundenplanId;
-	}
-
-	public void setStundenplanId(int stundenplanId) {
-		this.stundenplanId = stundenplanId;
-	}
 
 }

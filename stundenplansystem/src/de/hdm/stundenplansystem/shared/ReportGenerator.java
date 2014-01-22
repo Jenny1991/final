@@ -15,7 +15,7 @@ public interface ReportGenerator extends RemoteService {
 
   /**
    * Initialisierung des Objekts. Diese Methode ist vor dem Hintergrund von GWT
-   * RPC zusï¿½tzlich zum No Argument Constructor der implementierenden Klasse
+   * RPC zus������tzlich zum No Argument Constructor der implementierenden Klasse
    *BankAdministrationImpltungImpl} notwendig. Bitte diese Methode direkt nach der
    * Instantiierung aufrufen.
    * 
@@ -64,3 +64,4 @@ public interface ReportGenerator extends RemoteService {
   public StundenplanSemesterverbandReport createStundenplanSemesterverbandReport(int semesterverbandId, int stundenplanId)
 	      throws IllegalArgumentException;
 }
+	

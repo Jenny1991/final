@@ -227,7 +227,7 @@ public class StundenplaneintragMapper {
         s.setZeitslotId(rs.getInt("zeitslotid"));
         s.setLehrveranstaltungId(rs.getInt("lehrveranstaltungid"));
 
-        return s;
+        return s; 
       }
     }
     catch (SQLException e2) {

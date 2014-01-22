@@ -76,7 +76,7 @@ public class LehrveranstaltungMapper {
 
       // Statement ausfÃ¼llen und als Query an die DB schicken
       ResultSet rs = stmt.executeQuery("SELECT id, bezeichnung, semester, umfang FROM lehrveranstaltung "
-          + "WHERE id=" + id);
+          + "WHERE id=" + id); 
 
       /*
        * Da id PrimÃ¤rschlÃ¼ssel ist, kann max. nur ein Tupel zurÃ¼ckgegeben

@@ -68,7 +68,7 @@ public class ZeitslotMapper {
    */
   public Zeitslot findByKey(int id) {
     // DB-Verbindung holen
-    Connection con = DBConnection.connection();
+    Connection con = DBConnection.connection(); 
 
     try {
       // Leeres SQL-Statement (JDBC) anlegen

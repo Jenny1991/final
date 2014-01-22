@@ -1,5 +1,7 @@
 package de.hdm.stundenplansystem.shared.bo;
 
+import de.hdm.stundenplansystem.shared.Verwaltungsklasse;
+
 public class Semesterverband extends BusinessObjekt {
 
 	private static final long serialVersionUID = 1L;
@@ -10,6 +12,7 @@ public class Semesterverband extends BusinessObjekt {
 	
 	private int StudiengangId;
 	private int StundenplanId;
+	private Verwaltungsklasse verwaltungsklasse;
 	
 	/**
 	 * Semesterstufe
@@ -25,6 +28,8 @@ public class Semesterverband extends BusinessObjekt {
 	 * Semesterjahrgang des Erstsemsters
 	 */
 	private String jahrgang;
+	
+	private String kuerzel;
 	
 	public Semesterverband(){
 	}
@@ -68,6 +73,17 @@ public class Semesterverband extends BusinessObjekt {
 	public void setStundenplanId(int stundenplanId) {
 		StundenplanId = stundenplanId;
 	}
+
+	public String getKuerzel() {
+		
+		
+	}
+
+	public void setKuerzel(String kuerzel) {
+		this.kuerzel = kuerzel;
+	}
+	
+	
 
 
 }

@@ -28,7 +28,7 @@ public interface VerwaltungsklasseAsync {
 	void createStudiengang(String bezeichnung,
 	AsyncCallback<Studiengang> callback);
 
-	void createStundenplaneintrag(int d, int l, int r, int z, int sv, int sg,
+	void createStundenplaneintrag(int d, int l, int r, int z, int sv, int sp,
 			AsyncCallback<Stundenplaneintrag> callback);
 
 	void createStundenplan(String studienhalbjahr, int semesterverbandId,

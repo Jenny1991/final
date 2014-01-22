@@ -346,7 +346,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	}
 
 	public Stundenplaneintrag createStundenplaneintrag(int d,
-		int l, int r, int z, int sv, int sg) 
+		int l, int r, int z, int sv, int sp) 
 					throws IllegalArgumentException {
 		
 		Stundenplaneintrag s = new Stundenplaneintrag();
@@ -356,7 +356,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		s.setRaumId(r);
 		s.setZeitslotId(z);
 		s.setSemesterverbandId(sv);
-		s.setStudiengangId(sg);
+		s.setStundenplanId(sp);
 		
 		s.setId(1);
 		

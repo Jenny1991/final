@@ -27,7 +27,7 @@ public class SemesterverbandCell extends AbstractCell<Semesterverband> {
 	        return;
 	      }
 	      
-			verwaltungsSvc.getStudiengangById(value.getStudiengangId(), new AsyncCallback<Studiengang>() {
+			/**verwaltungsSvc.getStudiengangById(value.getStudiengangId(), new AsyncCallback<Studiengang>() {
 				@Override
 				  public void onFailure (Throwable caught) {
 				  }
@@ -36,10 +36,10 @@ public class SemesterverbandCell extends AbstractCell<Semesterverband> {
 				public void onSuccess(Studiengang result) {
 					bezeichnung = result.getBezeichnung();
 				}
-			});
+			});*/
 			
 		    sb.appendHtmlConstant("<div>");     
-			sb.appendEscapedLines(bezeichnung);
+			//sb.appendEscapedLines(bezeichnung);
 			sb.appendHtmlConstant(", ");
 		    sb.append(value.getSemester());
 		    sb.appendHtmlConstant(", ");

@@ -411,5 +411,5 @@ public class ItProjekt implements EntryPoint {
 		public void append(String text) {
 		    HTML content = new HTML(text);
 		    detailsPanel.add(content);		
-		}
+		} 
 	}

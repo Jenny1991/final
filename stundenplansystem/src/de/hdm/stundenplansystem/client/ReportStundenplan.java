@@ -53,7 +53,6 @@ public class ReportStundenplan extends Content {
 	Studiengang sg;
 	Stundenplansystem stundenplansystem = null;
 	Integer sv;
-	ReportStundenplanDozent reportStundenplanDozent = null;
 	
 	public void onLoad() {
 		
@@ -106,8 +105,8 @@ public class ReportStundenplan extends Content {
 //					        if (result != null) {
 					            HTMLReportWriter writer = new HTMLReportWriter();
 					            writer.process(result);
-					            reportStundenplanDozent.append(writer.getReportText());
-//					          }
+					            stundenplansystem.append(writer.getReportText());
+//					          } 
 						  
 					  }
 			

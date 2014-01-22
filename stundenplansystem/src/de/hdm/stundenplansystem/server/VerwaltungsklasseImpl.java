@@ -15,6 +15,12 @@ import de.hdm.stundenplansystem.shared.bo.*;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+/**
+ * 
+ * @author L.Hofmann & Holz
+ *
+ */
+
 @SuppressWarnings("serial")
 public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwaltungsklasse {
 

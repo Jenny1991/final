@@ -91,7 +91,7 @@ public class StundenplaneintragForm extends Content {
 				
 				setTvm(tvm);
 			
-			/*speichern.addClickHandler(new ClickHandler() {
+			/**speichern.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 				this.add(createSpe);
 				}
@@ -154,14 +154,6 @@ public class StundenplaneintragForm extends Content {
 			//tbnachname.setText("");
 		}
 		
-		
-		/**public Stundenplaneintrag updateFlexTable (Stundenplaneintrag result) {
-			for (int i = 0; i < getAllStundenplaneintrag.size(); i++) { //getAllDozent wird noch als Methode oder Klasse ben����tigt
-				tabelleSpe.addItem(getAllStundenplaneintrag.get(i).getVorname());
-				
-			}
-		}
-	*/
 
 }
 

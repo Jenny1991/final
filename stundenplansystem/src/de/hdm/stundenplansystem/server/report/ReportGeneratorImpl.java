@@ -155,6 +155,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
     headline.addColumn(new Column("Mittwoch"));
     headline.addColumn(new Column("Donnerstag"));
     headline.addColumn(new Column("Freitag"));
+    headline.addColumn(new Column("Samstag"));
 
     // Hinzufügen der Kopfzeile
     result.addRow(headline);
@@ -251,6 +252,7 @@ public RaumbelegungsReport createRaumbelungsReport(Raum r)
   headline.addColumn(new Column("Mittwoch"));
   headline.addColumn(new Column("Donnerstag"));
   headline.addColumn(new Column("Freitag"));
+  headline.addColumn(new Column("Samstag"));
 
   // Hinzufügen der Kopfzeile
   result.addRow(headline);
@@ -352,6 +354,7 @@ public StundenplanSemesterverbandReport createStundenplanSemesterverbandReport(
 	  headline.addColumn(new Column("Mittwoch"));
 	  headline.addColumn(new Column("Donnerstag"));
 	  headline.addColumn(new Column("Freitag"));
+	  headline.addColumn(new Column("Samstag"));
 
 	  // Hinzufügen der Kopfzeile
 	  result.addRow(headline);

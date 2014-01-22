@@ -15,6 +15,12 @@ import de.hdm.stundenplansystem.shared.bo.*;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+/**
+ * 
+ * @author L.Hofmann & Holz
+ *
+ */
+
 @SuppressWarnings("serial")
 public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwaltungsklasse {
 
@@ -340,7 +346,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	}
 
 	public Stundenplaneintrag createStundenplaneintrag(int d,
-		int l, int r, int z, int sv, int sg, int sp) 
+		int l, int r, int z, int sv, int sg) 
 					throws IllegalArgumentException {
 		
 		Stundenplaneintrag s = new Stundenplaneintrag();
@@ -350,8 +356,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		s.setRaumId(r);
 		s.setZeitslotId(z);
 		s.setSemesterverbandId(sv);
-		s.setStudiengangId(sp);
-		s.setStundenplanId(sg);
+		s.setStudiengangId(sg);
 		
 		s.setId(1);
 		

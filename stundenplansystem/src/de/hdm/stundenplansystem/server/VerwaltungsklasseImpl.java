@@ -269,6 +269,14 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	}
 	
 	/**
+	 * Auslesen eines Studiengangs über die SemesterverbandId
+	 */
+	
+	public Studiengang getStudiengangBySemesterverbandId(int SemesterverbandId){
+		return this.studiengangMapper.findBySemesterverbandId(SemesterverbandId);
+	}
+	
+	/**
 	 * Anschließend folgen alle create-Methoden der BO's
 	 */
 	

@@ -75,7 +75,7 @@ public class SemesterverbandMapper {
       Statement stmt = con.createStatement();
 
       // Statement ausfüllen und als Query an die DB schicken
-      ResultSet rs = stmt.executeQuery("SELECT id, semester, studierendenAnzahl, jahrgang, studiengangid FROM Semesterverband "
+      ResultSet rs = stmt.executeQuery("SELECT id, semester, studierendenAnzahl, jahrgang, studiengangid FROM semesterverband "
           + "WHERE id=" + id);
 
       /*

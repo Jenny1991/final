@@ -75,7 +75,7 @@ public class StundenplanMapper {
       Statement stmt = con.createStatement();
 
       // Statement ausfüllen und als Query an die DB schicken
-      ResultSet rs = stmt.executeQuery("SELECT id, studienhalbjahr, semesterverbandid FROM Stundenplan "
+      ResultSet rs = stmt.executeQuery("SELECT id, studienhalbjahr, semesterverbandid FROM stundenplan "
     		  + "WHERE id=" + id);
 
       /*

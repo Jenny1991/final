@@ -64,9 +64,9 @@ public class StundenplaneintragForm extends Content {
 			    this.add(ueberschriftAenderung);
 				this.add(speGrid);
 				
-				Label lbStudiengang = new Label ("Studiengang");
+				/*Label lbStudiengang = new Label ("Studiengang");
 				speGrid.setWidget(0, 0, lbStudiengang);
-				speGrid.setWidget(0, 1, libstudiengang);
+				speGrid.setWidget(0, 1, libstudiengang);*/
 				
 				Label lbSemesterverband = new Label ("Semesterverband");
 				speGrid.setWidget(1, 0, lbSemesterverband);
@@ -114,6 +114,8 @@ public class StundenplaneintragForm extends Content {
 					deleteSelectedSpe();
 				}
 			});
+			
+			this.clearFields();
 			
 		}
 			
@@ -166,8 +168,9 @@ public class StundenplaneintragForm extends Content {
 					  }
 					  @Override
 					  public void onSuccess(Void result) {
-						  tvm.updateSpe(shownSpe);
 						  Window.alert ("Erfolgreich gespeichert.");
+						  tvm.updateSpe(shownSpe);
+						  
 					  } 	
 				}); 
 		}
@@ -186,7 +189,7 @@ public class StundenplaneintragForm extends Content {
 		} 
 		
 		public void setFields(){
-			/*verwaltungsSvc.getSemesterverbandById(shownSpe.g, new AsyncCallback<Studiengang>() {
+			/*verwaltungsSvc.getStudiengangById(shownSpe.getId(), new AsyncCallback<Studiengang>() {
 				@Override
 				  public void onFailure (Throwable caught) {
 					caught.getMessage();
@@ -198,6 +201,22 @@ public class StundenplaneintragForm extends Content {
 				  } 	
 			});*/
 			
+				verwaltungsSvc.getLehrveranstaltungById(shownSpe.getLehrveranstaltungId(), new AsyncCallback<Lehrveranstaltung>() {
+					@Override
+					  public void onFailure (Throwable caught) {
+						caught.getMessage();
+					  }
+
+					  @Override
+					  public void onSuccess(Lehrveranstaltung result) {
+						liblehrveranstaltung.addItem(result.getBezeichnung());
+						getLehrveranstaltungen();
+					  } 	
+				});
+				}
+			
+			
+			public void getNextListSv() {
 			verwaltungsSvc.getSemesterverbandById(shownSpe.getSemesterverbandId(), new AsyncCallback<Semesterverband>() {
 				@Override
 				  public void onFailure (Throwable caught) {
@@ -206,11 +225,13 @@ public class StundenplaneintragForm extends Content {
 
 				  @Override
 				  public void onSuccess(Semesterverband result) {
-					libsemesterverband.addItem(String.valueOf(result.getSemester()), String.valueOf(result.getId()));
+					libsemesterverband.addItem(result.getKuerzel() + String.valueOf(result.getSemester()));
 					getSemesterverbaende();
 				  } 	
 			});
+		}
 			
+			public void getNextListSp() {
 			verwaltungsSvc.getStundenplanById(shownSpe.getStundenplanId(), new AsyncCallback<Stundenplan>() {
 				@Override
 				  public void onFailure (Throwable caught) {
@@ -223,20 +244,10 @@ public class StundenplaneintragForm extends Content {
 					getStundenplaene();
 				  } 	
 			});
+			}
 			
-			verwaltungsSvc.getLehrveranstaltungById(shownSpe.getLehrveranstaltungId(), new AsyncCallback<Lehrveranstaltung>() {
-				@Override
-				  public void onFailure (Throwable caught) {
-					caught.getMessage();
-				  }
-
-				  @Override
-				  public void onSuccess(Lehrveranstaltung result) {
-					liblehrveranstaltung.addItem(result.getBezeichnung());
-					getLehrveranstaltungen();
-				  } 	
-			});
 			
+			public void getNextListDozent() {
 			verwaltungsSvc.getDozentById(shownSpe.getDozentId(), new AsyncCallback<Dozent>() {
 				@Override
 				  public void onFailure (Throwable caught) {
@@ -249,7 +260,9 @@ public class StundenplaneintragForm extends Content {
 					getDozenten();
 				  } 	
 			});
+			}
 			
+			public void getNextListRaum() {
 			verwaltungsSvc.getRaumById(shownSpe.getRaumId(), new AsyncCallback<Raum>() {
 				@Override
 				  public void onFailure (Throwable caught) {
@@ -262,7 +275,9 @@ public class StundenplaneintragForm extends Content {
 					getRaeume();
 				  } 	
 			});
+			}
 			
+			public void getNextListZs() {
 			verwaltungsSvc.getZeitslotById(shownSpe.getZeitslotId(), new AsyncCallback<Zeitslot>() {
 				@Override
 				  public void onFailure (Throwable caught) {
@@ -275,8 +290,8 @@ public class StundenplaneintragForm extends Content {
 					getZeitslots();
 				  } 	
 			});
-			
 		}
+			
 		
 		public void clearFields(){
 			libzeitslot.clear();
@@ -316,8 +331,9 @@ public class StundenplaneintragForm extends Content {
 				  public void onSuccess(Vector<Semesterverband> semesterverband) {
 					  svContainer = semesterverband;
 					  	for (Semesterverband sv : semesterverband){
-					  		libsemesterverband.addItem(sv.getJahrgang() + ", " + String.valueOf(sv.getSemester()));
+					  		libsemesterverband.addItem(sv.getKuerzel() + " " + String.valueOf(sv.getSemester()));
 					  	}
+					  	getNextListSp();
 				  } 	
 			});
 		}
@@ -352,6 +368,7 @@ public class StundenplaneintragForm extends Content {
 					  	for (Lehrveranstaltung lv : lehrveranstaltung){
 					  		liblehrveranstaltung.addItem(lv.getBezeichnung());
 					  	}
+					  	getNextListDozent();
 				  } 	
 			});
 		}
@@ -369,6 +386,7 @@ public class StundenplaneintragForm extends Content {
 					  	for (Dozent d : dozent){
 					  		libdozent.addItem(d.getNachname() + ", " + d.getVorname());
 					  	}
+					  	getNextListRaum();
 				  } 	
 			});
 		}
@@ -386,6 +404,7 @@ public class StundenplaneintragForm extends Content {
 					  	for (Raum r : raum){
 					  		libraum.addItem(r.getBezeichnung());
 					  	}
+					  	getNextListZs();
 				  } 	
 			});
 		}
@@ -403,6 +422,7 @@ public class StundenplaneintragForm extends Content {
 					  	for (Zeitslot z : zeitslot){
 					  		libzeitslot.addItem(z.getWochentag() + ", " + z.getAnfangszeit() + ", " + z.getEndzeit());
 					  	}
+					  	getNextListSv();
 				  } 	
 			});
 		}

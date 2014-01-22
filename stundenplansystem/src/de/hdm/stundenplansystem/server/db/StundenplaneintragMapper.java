@@ -202,7 +202,7 @@ public class StundenplaneintragMapper {
     try {
       Statement stmt = con.createStatement(); 
 
-      ResultSet rs = stmt.executeQuery("SELECT stundenplaneintrag.id, stundenplaneintrag.dozentid, stundenplaneintrag.raumid, "
+      ResultSet rs = stmt.executeQuery("SELECT stundenplaneintrag.id, stundenplaneintrag.stundenplanid stundenplaneintrag.dozentid, stundenplaneintrag.raumid, "
   	    	+ "stundenplaneintrag.zeitslotid, stundenplaneintrag.lehrveranstaltungid"
   	    	+ " FROM stundenplaneintrag"
   	    	+ " INNER JOIN stundenplan"
@@ -221,6 +221,7 @@ public class StundenplaneintragMapper {
       while (rs.next()) {
         Stundenplaneintrag s = new Stundenplaneintrag();
         s.setId(rs.getInt("id"));
+        s.setStundenplanId(rs.getInt("stundenplanid"));
         s.setDozentId(rs.getInt("dozentid"));
         s.setRaumId(rs.getInt("raumid"));
         s.setZeitslotId(rs.getInt("zeitslotid"));
@@ -254,7 +255,7 @@ public class StundenplaneintragMapper {
       Statement stmt = con.createStatement();
 
       ResultSet rs = stmt.executeQuery("SELECT id, dozentid, raumid, zeitslotid, "
-    	+ "lehrveranstaltungid "
+    	+ "stundenplanid, lehrveranstaltungid "
     	+ "FROM stundenplaneintrag "
         + " ORDER BY id");
 
@@ -265,6 +266,7 @@ public class StundenplaneintragMapper {
         s.setDozentId(rs.getInt("dozentid"));
         s.setRaumId(rs.getInt("raumid"));
         s.setZeitslotId(rs.getInt("zeitslotid"));
+        s.setStundenplanId(rs.getInt("stundenplanid"));
         s.setLehrveranstaltungId(rs.getInt("lehrveranstaltungid"));
 
         // Hinzufügen des neuen Objekts zum Ergebnisvektor
@@ -314,7 +316,7 @@ public class StundenplaneintragMapper {
 
         // Einfügeoperation für die Tabelle stundenplaneintrag
         stmt.executeUpdate("INSERT INTO stundenplaneintrag (id, dozentid, raumid, zeitslotid, "
-    		  + "lehrveranstaltungid) " + "VALUES ("
+    		  + "stundenplanid, lehrveranstaltungid) " + "VALUES ("
             + s.getId() + ",'" + s.getDozentId() + "','" + s.getRaumId() + "','" + s.getZeitslotId()  
              + "','" + s.getStundenplanId() + "','" + s.getLehrveranstaltungId() +"')");
         
@@ -352,7 +354,8 @@ public class StundenplaneintragMapper {
     		  + "lehrveranstaltungid='" + s.getLehrveranstaltungId() + "', "  
     		  + "raumid= " + "'" + s.getRaumId() + "', " 
     		  + "dozentid= " + "'" + s.getDozentId() + "', " 
-    		  + "zeitslotid= " + "'" + s.getZeitslotId() + "' "
+    		  + "zeitslotid= " + "'" + s.getZeitslotId() + "', " 
+    		  + "stundenplanid= " + "'" + s.getStundenplanId() + "' " 
               + "WHERE id=" + s.getId());
 
     }

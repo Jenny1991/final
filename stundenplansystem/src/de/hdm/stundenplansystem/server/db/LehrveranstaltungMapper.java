@@ -75,7 +75,7 @@ public class LehrveranstaltungMapper {
       Statement stmt = con.createStatement();
 
       // Statement ausfÃ¼llen und als Query an die DB schicken
-      ResultSet rs = stmt.executeQuery("SELECT id, bezeichnung, semester, umfang FROM Lehrveranstaltung "
+      ResultSet rs = stmt.executeQuery("SELECT id, bezeichnung, semester, umfang FROM lehrveranstaltung "
           + "WHERE id=" + id);
 
       /*

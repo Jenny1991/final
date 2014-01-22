@@ -75,7 +75,7 @@ public class ZeitslotMapper {
       Statement stmt = con.createStatement();
 
       // Statement ausfüllen und als Query an die DB schicken
-      ResultSet rs = stmt.executeQuery("SELECT id, wochentag, anfangszeit, endzeit FROM Zeitslot "
+      ResultSet rs = stmt.executeQuery("SELECT id, wochentag, anfangszeit, endzeit FROM zeitslot "
     		  + "WHERE id=" + id);
 
       /*

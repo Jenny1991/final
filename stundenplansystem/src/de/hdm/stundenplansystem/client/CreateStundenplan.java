@@ -41,7 +41,7 @@ public class CreateStundenplan extends Content{
 	  final Button speichern = new Button ("speichern");
 	  
       Vector<Semesterverband> svContainer = null;
-      Vector<Studiengang> sgContainer = null;
+ //     Vector<Studiengang> sgContainer = null;
 
 	  
 	  final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
@@ -53,8 +53,8 @@ public class CreateStundenplan extends Content{
 	  public void onLoad () {
 
 		  this.add(ueberschrift);
-		  this.add(lbstudiengang);
-		  this.add(libstudiengang);
+	//	  this.add(lbstudiengang);
+	//	  this.add(libstudiengang);
 		  this.add(lbsemverband);
 		  this.add(libsemverband);
 		  this.add(lbhalbjahr);
@@ -63,7 +63,7 @@ public class CreateStundenplan extends Content{
 		  	  
 		  setTvm(tvm);
 		  
-		  libstudiengang.clear();
+	/**	  libstudiengang.clear();
 		  verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
 			  public void onFailure(Throwable T){
 				  
@@ -84,7 +84,21 @@ public class CreateStundenplan extends Content{
 			public void onChange(ChangeEvent event) {
 				getSemverband();
 			}
-		  }); 
+		  });  */
+		  
+			verwaltungsSvc.getAllSemesterverbaende(new AsyncCallback<Vector<Semesterverband>>(){
+				@Override
+				public void onFailure(Throwable caught) {
+				}
+				
+				  @Override
+				  public void onSuccess(Vector<Semesterverband> s) {
+					  svContainer = s;
+					  	for (Semesterverband sv : s){
+					  		libsemverband.addItem(sv.getJahrgang(), String.valueOf(sv.getId()));
+					  	}
+				  }
+				  });					  	
 		  	
 		  speichern.addClickHandler(new ClickHandler() {
 			  public void onClick(ClickEvent event) {
@@ -108,7 +122,7 @@ public class CreateStundenplan extends Content{
 
 						  @Override
 						  public void onSuccess(Stundenplan result) {
-							  libstudiengang.clear();
+						//	  libstudiengang.clear();
 							  libsemverband.clear();
 							  tbhalbjahr.setText("");
 							  Window.alert ("Erfolgreich gespeichert.");
@@ -123,7 +137,7 @@ public class CreateStundenplan extends Content{
 			this.tvm = tvm;
 		}
 		
-		  public void getSemverband(){
+	/**	  public void getSemverband(){
 			  libsemverband.clear();
 			  verwaltungsSvc.getSemsterverbaendeByStudiengang(sgContainer.elementAt(libstudiengang.getSelectedIndex()).getId(), new AsyncCallback<Vector<Semesterverband>>() {
 				  public void onFailure(Throwable T){
@@ -137,5 +151,5 @@ public class CreateStundenplan extends Content{
 				  	}
 				  }
 			  }); 
-		  }
+		  } */
 }

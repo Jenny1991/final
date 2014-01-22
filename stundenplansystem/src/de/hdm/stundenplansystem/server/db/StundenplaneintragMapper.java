@@ -148,10 +148,10 @@ public class StundenplaneintragMapper {
   /**
    * Auslesen aller StundenplaneintrÃ¤ge nach einem bestimmten Raum.
    * 
-   * @return Ein Vektor mit Stundenplaneintrag-Objekten, die sämtliche Stundenplaneinträge
-   *         repräsentieren, die dem übergebenen Dozenten zugeordnet sind und nach der Anfangszeit 
-   *         im Zeitslot sortiert sind. Bei evtl. Exceptions wird ein partiell gefüllter
-   *         oder ggf. auch leerer Vetor zurückgeliefert.
+   * @return Ein Vektor mit Stundenplaneintrag-Objekten, die sï¿½mtliche Stundenplaneintrï¿½ge
+   *         reprï¿½sentieren, die dem ï¿½bergebenen Dozenten zugeordnet sind und nach der Anfangszeit 
+   *         im Zeitslot sortiert sind. Bei evtl. Exceptions wird ein partiell gefï¿½llter
+   *         oder ggf. auch leerer Vetor zurï¿½ckgeliefert.
    */
   public Stundenplaneintrag findByRaumAndZeitslot(int raumid, int zeitslotid) {
 	// DB-Verbindung holen
@@ -221,7 +221,6 @@ public class StundenplaneintragMapper {
       while (rs.next()) {
         Stundenplaneintrag s = new Stundenplaneintrag();
         s.setId(rs.getInt("id"));
-        s.setStundenplanId(rs.getInt("stundenplanid"));
         s.setDozentId(rs.getInt("dozentid"));
         s.setRaumId(rs.getInt("raumid"));
         s.setZeitslotId(rs.getInt("zeitslotid"));
@@ -255,7 +254,7 @@ public class StundenplaneintragMapper {
       Statement stmt = con.createStatement();
 
       ResultSet rs = stmt.executeQuery("SELECT id, dozentid, raumid, zeitslotid, "
-    	+ "stundenplanid, lehrveranstaltungid "
+    	+ "lehrveranstaltungid "
     	+ "FROM stundenplaneintrag "
         + " ORDER BY id");
 
@@ -266,7 +265,6 @@ public class StundenplaneintragMapper {
         s.setDozentId(rs.getInt("dozentid"));
         s.setRaumId(rs.getInt("raumid"));
         s.setZeitslotId(rs.getInt("zeitslotid"));
-        s.setStundenplanId(rs.getInt("stundenplanid"));
         s.setLehrveranstaltungId(rs.getInt("lehrveranstaltungid"));
 
         // HinzufÃ¼gen des neuen Objekts zum Ergebnisvektor
@@ -316,7 +314,7 @@ public class StundenplaneintragMapper {
 
         // EinfÃ¼geoperation fÃ¼r die Tabelle stundenplaneintrag
         stmt.executeUpdate("INSERT INTO stundenplaneintrag (id, dozentid, raumid, zeitslotid, "
-    		  + "stundenplanid, lehrveranstaltungid) " + "VALUES ("
+    		  + "lehrveranstaltungid) " + "VALUES ("
             + s.getId() + ",'" + s.getDozentId() + "','" + s.getRaumId() + "','" + s.getZeitslotId()  
              + "','" + s.getStundenplanId() + "','" + s.getLehrveranstaltungId() +"')");
         
@@ -354,8 +352,7 @@ public class StundenplaneintragMapper {
     		  + "lehrveranstaltungid='" + s.getLehrveranstaltungId() + "', "  
     		  + "raumid= " + "'" + s.getRaumId() + "', " 
     		  + "dozentid= " + "'" + s.getDozentId() + "', " 
-    		  + "zeitslotid= " + "'" + s.getZeitslotId() + "', " 
-    		  + "stundenplanid= " + "'" + s.getStundenplanId() + "' " 
+    		  + "zeitslotid= " + "'" + s.getZeitslotId() + "' "
               + "WHERE id=" + s.getId());
 
     }

@@ -57,11 +57,11 @@ public class Stundenplaneintrag extends BusinessObjekt {
 		this.semesterverbandId = semesterverbandId;
 	}
 
-	public int getStudiengangId() {
+	public int getStundenplanId() {
 		return stundenplanId;
 	}
 
-	public void setStudiengangId(int stundenplanId) {
+	public void setStundenplanId(int stundenplanId) {
 		this.stundenplanId = stundenplanId;
 	}
 

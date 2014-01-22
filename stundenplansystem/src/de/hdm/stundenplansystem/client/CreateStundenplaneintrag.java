@@ -123,10 +123,9 @@ public class CreateStundenplaneintrag extends Content {
 							  int r = listRaum.getSelectedIndex();
 							  int z = listZeitslot.getSelectedIndex();
 							  int sv = listSemesterverband.getSelectedIndex();
-							  int sg = listStudiengang.getSelectedIndex();
 							  int sp = listStudienhj.getSelectedIndex();
 					
-							 verwaltungsSvc.createStundenplaneintrag(dozentenContainer.elementAt(listDozent.getSelectedIndex()).getId(), lvContainer.elementAt(listLehrveranstaltung.getSelectedIndex()).getId(), raumContainer.elementAt(listRaum.getSelectedIndex()).getId(), zeitslotContainer.elementAt(listZeitslot.getSelectedIndex()).getId(), svContainer.elementAt(listSemesterverband.getSelectedIndex()).getId(), sgContainer.elementAt(listStudiengang.getSelectedIndex()).getId(), spContainer.elementAt(listStudienhj.getSelectedIndex()).getId(), new AsyncCallback<Stundenplaneintrag>(){
+							 verwaltungsSvc.createStundenplaneintrag(dozentenContainer.elementAt(listDozent.getSelectedIndex()).getId(), lvContainer.elementAt(listLehrveranstaltung.getSelectedIndex()).getId(), raumContainer.elementAt(listRaum.getSelectedIndex()).getId(), zeitslotContainer.elementAt(listZeitslot.getSelectedIndex()).getId(), svContainer.elementAt(listSemesterverband.getSelectedIndex()).getId(), spContainer.elementAt(listStudienhj.getSelectedIndex()).getId(), new AsyncCallback<Stundenplaneintrag>(){
 								 @Override
 								  public void onFailure (Throwable caught) {
 									  Window.alert("Der Stundenplaneintrag konnte nicht angelegt werden.");

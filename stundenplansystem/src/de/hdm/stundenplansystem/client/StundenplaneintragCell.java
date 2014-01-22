@@ -23,7 +23,7 @@ public class StundenplaneintragCell extends AbstractCell<Stundenplaneintrag> {
       sb.appendHtmlConstant(", ");
       sb.append(value.getRaumId());
       sb.appendHtmlConstant(", ");
-      sb.append(value.getStudiengangId());
+      sb.append(value.getStundenplanId());
       sb.appendHtmlConstant(", ");
       sb.append(value.getSemesterverbandId());
       sb.appendHtmlConstant(", ");

@@ -20,10 +20,6 @@ public class LehrveranstaltungCell extends AbstractCell<Lehrveranstaltung> {
 
       sb.appendHtmlConstant("<div>");
       sb.appendEscaped(value.getBezeichnung());
-      sb.appendHtmlConstant(", ");
-      sb.append(value.getSemester());
-      sb.appendHtmlConstant(", ");
-      sb.append(value.getUmfang());
       sb.appendHtmlConstant("</div>");
     }
 

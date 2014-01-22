@@ -122,7 +122,7 @@ public class CreateStundenplan extends Content{
 
 						  @Override
 						  public void onSuccess(Stundenplan result) {
-						//	  libstudiengang.clear();
+							  libstudiengang.clear();
 							  libsemverband.clear();
 							  tbhalbjahr.setText("");
 							  Window.alert ("Erfolgreich gespeichert.");
@@ -140,8 +140,8 @@ public class CreateStundenplan extends Content{
 		  public void getSemverband(){
 			  libsemverband.clear();
 			  verwaltungsSvc.getSemsterverbaendeByStudiengang(sgContainer.elementAt(libstudiengang.getSelectedIndex()).getId(), new AsyncCallback<Vector<Semesterverband>>() {
-				  public void onFailure(Throwable T){
-					  
+				  public void onFailure(Throwable caught){
+					  caught.getMessage();
 				  }
 				  
 				  public void onSuccess(Vector<Semesterverband> semesterverband){

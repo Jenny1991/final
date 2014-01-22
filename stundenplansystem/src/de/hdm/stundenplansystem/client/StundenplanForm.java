@@ -31,13 +31,13 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 
 public class StundenplanForm extends Content {
 	
-	private final HTML ueberschrift = new HTML ("<h2>�bersicht der Studienhalbjahre<h2>");
+	private final HTML ueberschrift = new HTML ("<h2>Übersicht der Stundenpläne pro Studienhalbjahre<h2>");
 
 	  final TextBox tbhalbjahr = new TextBox ();
 	  final ListBox libsemverband = new ListBox();
 	  final ListBox libstudiengang = new ListBox();
-	  final Button loeschen = new Button ("Studienhalbjahr l�schen");
-	  final Button speichern = new Button ("�nderungen speichern");
+	  final Button loeschen = new Button ("Studienhalbjahr löschen");
+	  final Button speichern = new Button ("Änderungen speichern");
 	  final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
 	  
       Vector<Semesterverband> svContainer = null;
@@ -156,39 +156,34 @@ public class StundenplanForm extends Content {
 		public void setFields(){
 			this.clearFields();
 			tbhalbjahr.setText(shownSp.getStudienhalbjahr());
-
-	
-	  
-			
 			verwaltungsSvc.getSemesterverbandById(shownSp.getSemesterverbandId(), new AsyncCallback<Semesterverband>(){
 				@Override
 				  public void onFailure (Throwable caught) {
 					caught.getMessage();
 				  }
 
-				  @Override
+				@Override
 				  public void onSuccess(Semesterverband result) {
 				  libsemverband.addItem(result.getJahrgang());
-				  //getStudiengaenge();
-				  getSemverband(); 
+				  versuch();
 				  }
-			
-			
-			}); 
-			
-			verwaltungsSvc.getStudiengangById(shownSp.getSemesterverbandId(), new AsyncCallback<Studiengang>() {
+			}); 	
+		}
+		
+		public void versuch(){
+			verwaltungsSvc.getStudiengangBySemesterverbandId(shownSp.getSemesterverbandId(), new AsyncCallback<Studiengang>(){
 				@Override
 				  public void onFailure (Throwable caught) {
 					caught.getMessage();
 				  }
 
-				  @Override
+				@Override
 				  public void onSuccess(Studiengang result) {
 				  libstudiengang.addItem(result.getBezeichnung());
-				  } 	
-			});
-}
-		
+				  getStudiengaenge();
+				  }
+			}); 
+		}
 		
 		public void getStudiengaenge(){
 			verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>> () {
@@ -203,29 +198,27 @@ public class StundenplanForm extends Content {
 					  	for (Studiengang sg : studiengang){
 					  		libstudiengang.addItem(sg.getBezeichnung(), String.valueOf(sg.getId()));
 					  	}
-					  	
+					getSemverband(); 
 				  } 
 			});
 			}
 		
 		  public void getSemverband(){
-			  //libsemverband.clear();
 			  verwaltungsSvc.getAllSemesterverbaende(new AsyncCallback<Vector<Semesterverband>>() {
-				  public void onFailure(Throwable T){
-					  
+				  public void onFailure(Throwable caught){
+						caught.getMessage();
 				  }
 				  
 				  public void onSuccess(Vector<Semesterverband> semesterverband){
 					svContainer = semesterverband;
 				  	for (Semesterverband sv : semesterverband){
-				  		libsemverband.addItem(sv.getJahrgang() + ", " + String.valueOf(sv.getSemester())); 
+				  		libsemverband.addItem(sv.getJahrgang() + ", Semester: " + String.valueOf(sv.getSemester())); 
 				  	}
 				  }
 			  }); 
 		  }
 		  
 		  public void onLoad(){
-			  
 			  libstudiengang.addChangeHandler(new ChangeHandler() {
 					
 					@Override

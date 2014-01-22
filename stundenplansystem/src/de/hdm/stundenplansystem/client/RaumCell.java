@@ -23,8 +23,6 @@ public class RaumCell extends AbstractCell<Raum> {
 
       sb.appendHtmlConstant("<div>");
       sb.appendEscaped(value.getBezeichnung());
-      sb.appendHtmlConstant(", ");
-      sb.append(value.getKapazitaet());
       sb.appendHtmlConstant("</div>");
     }
 

@@ -176,7 +176,7 @@ public class SemesterverbandMapper {
         s.setStudierendenAnzahl(rs.getInt("studierendenAnzahl"));
         s.setJahrgang(rs.getString("jahrgang"));
         s.setStudiengangId(rs.getInt("studiengangid"));
-        s.setKuerzel("kuerzel");
+        s.setKuerzel("kuerzel"); 
 
         // Hinzufügen des neuen Objekts zum Ergebnisvektor
         result.addElement(s);

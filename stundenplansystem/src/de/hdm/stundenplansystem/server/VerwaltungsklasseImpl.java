@@ -55,6 +55,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	private Zeitslot zeitslot = null;
 	
 	
+	
 	public Stundenplaneintrag getStundenplaneintrag() {
 		return stundenplaneintrag;
 	}
@@ -372,6 +373,13 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		a.setSemester(semester);
 		a.setStudierendenAnzahl(studierendenAnzahl);
 		a.setJahrgang(jahrgang);
+		
+		String bezeichnung = this.getStudiengangById(studiengangId).getBezeichnung();
+		String kuerzel = bezeichnung.substring(0, 1);
+		a.setKuerzel(kuerzel);
+		
+		
+		
 		
 		a.setId(1);
 		

@@ -61,6 +61,6 @@ public interface ReportGenerator extends RemoteService {
    * @see AllAccountsOfAllCustomersReport
    */
   
-  public String createStundenplanSemesterverbandReport(int semesterverbandId, int stundenplanId)
+  public StundenplanSemesterverbandReport createStundenplanSemesterverbandReport(int semesterverbandId, int stundenplanId)
 	      throws IllegalArgumentException;
 }

@@ -71,8 +71,7 @@ public class ItProjekt implements EntryPoint {
 
 		VerwaltungsklasseAsync verwaltungsSvc = null;
 		
-		private final HTML ueberschrift = new HTML ("<h2>Herzlich Willkommen im Stundenplansystem der HdM<h2>");
-		
+		private HTML ueberschrift = new HTML ("<h2>Herzlich Willkommen im Stundenplansystem der HdM<h2>");
 		
 		/*
 	     * Ab hier bauen wir sukzessive den Navigator mit seinen Buttons aus.
@@ -407,5 +406,10 @@ public class ItProjekt implements EntryPoint {
 		public void showReportStundenplanDozent(){
 			detailsPanel.clear();
 			detailsPanel.add(rsd);
+		}
+		
+		public void append(String text) {
+		    HTML content = new HTML(text);
+		    detailsPanel.add(content);		
 		}
 	}

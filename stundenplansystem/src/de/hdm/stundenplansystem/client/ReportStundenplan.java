@@ -51,6 +51,7 @@ public class ReportStundenplan extends Content {
 
 	private NavTreeViewModel tvm;
 	Studiengang sg;
+	Stundenplansystem stundenplansystem = null;
 	Integer sv;
 	
 	public void onLoad() {
@@ -97,12 +98,14 @@ public class ReportStundenplan extends Content {
 		  anzeigen.addClickHandler(new ClickHandler() {
 			  public void onClick(ClickEvent event) {				 
 
-				  reportSvc.createStundenplanSemesterverbandReport(svContainer.elementAt(libsemverband.getSelectedIndex()).getId(), spContainer.elementAt(libstundenplan.getSelectedIndex()).getId(), new AsyncCallback<String>() {
+				  reportSvc.createStundenplanSemesterverbandReport(svContainer.elementAt(libsemverband.getSelectedIndex()).getId(), spContainer.elementAt(libstundenplan.getSelectedIndex()).getId(), new AsyncCallback<StundenplanSemesterverbandReport>() {
 		
-					  public void onSuccess(String result){
-
-						  HTML plan = new HTML(result);
-						  neuesPanel.add(plan);					  
+					  public void onSuccess(StundenplanSemesterverbandReport result){
+					        if (result != null) {
+					            HTMLReportWriter writer = new HTMLReportWriter();
+					            writer.process(result);
+					            stundenplansystem.append(writer.getReportText());
+					          }
 						  
 					  }
 			

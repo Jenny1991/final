@@ -275,7 +275,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	public Dozent createDozent(String vorname, String nachname)
 			throws IllegalArgumentException {
 		
-	if (vorname.matches("[a-z]+[A-Z]+") || nachname.matches("[a-z]+[A-Z]+")){
+	if (vorname.matches("[A-Z]+" + "[a-z]+") || nachname.matches("[A-Z]+" + "[a-z]+")){
 		
 		Dozent a = new Dozent();
 		a.setVorname(vorname);
@@ -317,7 +317,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	public Studiengang createStudiengang(String bezeichnung)
 			throws IllegalArgumentException {
 		
-		if (bezeichnung.matches("[a-z]+[A-Z]+")){
+		if (bezeichnung.matches("[A-Z]+" + "[a-z]+")){
 			Studiengang s = new Studiengang();
 			
 			s.setBezeichnung(bezeichnung);

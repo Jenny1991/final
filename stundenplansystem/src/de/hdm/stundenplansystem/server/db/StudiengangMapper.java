@@ -107,7 +107,7 @@ public class StudiengangMapper {
    * @param id Primärschlüsselattribut (->DB)
    * @return Studiengang-Objekt, das dem übergebenen Schlüssel entspricht, null bei
    *         nicht vorhandenem DB-Tupel.
-   */
+   */ 
   public Studiengang findBySemesterverbandId(int semesterverbandid) {
     // DB-Verbindung holen
     Connection con = DBConnection.connection();

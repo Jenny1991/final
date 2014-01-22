@@ -41,31 +41,31 @@ public class LehrveranstaltungForm extends Content {
 	NavTreeViewModel tvm = null;	
 	
 	public LehrveranstaltungForm(){
-		Grid lehrGrid = new Grid (3, 5);
+		Grid lehrGrid = new Grid (5, 3);
 	    this.add(ueberschriftAenderung);
 		this.add(lehrGrid);
 	  
 		Label lbbezeichnung = new Label("Bezeichnung");
 		lehrGrid.setWidget(0, 0, lbbezeichnung);
-		lehrGrid.setWidget(1, 0, tbbezeichnung);
+		lehrGrid.setWidget(0, 1, tbbezeichnung);
 
 		Label lbsemester = new Label("Semester");
-		lehrGrid.setWidget(0, 1, lbsemester);
+		lehrGrid.setWidget(1, 0, lbsemester);
 		lehrGrid.setWidget(1, 1, tbsemester);
 		
 		Label lbumfang = new Label("Umfang (SWS)");
-		lehrGrid.setWidget(0, 2, lbumfang);
-		lehrGrid.setWidget(1, 2, tbumfang);
+		lehrGrid.setWidget(2, 0, lbumfang);
+		lehrGrid.setWidget(2, 1, tbumfang);
 		
 		Label lbfunktionen = new Label ("Funktionen");
-		lehrGrid.setWidget(0, 3, lbfunktionen);
-		lehrGrid.setWidget(1, 3, speichern);
+		lehrGrid.setWidget(3, 0, lbfunktionen);
+		lehrGrid.setWidget(3, 1, speichern);
 		speichern.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				changeSelectedLv();
 			}
 		});
-		lehrGrid.setWidget(1, 4, loeschen);
+		lehrGrid.setWidget(4, 1, loeschen);
 		loeschen.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				deleteSelectedLv();

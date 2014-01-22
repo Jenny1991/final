@@ -47,36 +47,36 @@ public class SemesterverbandForm extends Content {
 	  NavTreeViewModel tvm = null;
 	  
 	  public SemesterverbandForm() {
-		  Grid svGrid = new Grid (2, 6);
+		  Grid svGrid = new Grid (6, 2);
 		    this.add(ueberschriftAenderung);
 			this.add(svGrid);
 		  
 			Label lbjahrgang = new Label("Jahrgang");
 			svGrid.setWidget(0, 0, lbjahrgang);
-			svGrid.setWidget(1, 0, tbjahrgang);
+			svGrid.setWidget(0, 1, tbjahrgang);
 
 			Label lbstudiengang = new Label("Studiengang");
-			svGrid.setWidget(0, 1, lbstudiengang);
+			svGrid.setWidget(1, 0, lbstudiengang);
 			svGrid.setWidget(1, 1, libstudiengang);
 			
 			Label lbsemester = new Label("Semester");
-			svGrid.setWidget(0, 2, lbsemester);
-			svGrid.setWidget(1, 2, tbsemester);
+			svGrid.setWidget(2, 0, lbsemester);
+			svGrid.setWidget(2, 1, tbsemester);
 
 			Label lbanzahl = new Label("Anzahl der Studierenden");
-			svGrid.setWidget(0, 3, lbanzahl);
-			svGrid.setWidget(1, 3, tbanzahl);
+			svGrid.setWidget(3, 0, lbanzahl);
+			svGrid.setWidget(3, 1, tbanzahl);
 			
 			Label lbfunktionen = new Label ("Funktionen");
-			svGrid.setWidget(0, 4, lbfunktionen);
-			svGrid.setWidget(1, 4, speichern);
+			svGrid.setWidget(4, 0, lbfunktionen);
+			svGrid.setWidget(4, 1, speichern);
 			
 			speichern.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 					changeSelectedSv();
 				}
 			});
-			svGrid.setWidget(1, 5, loeschen);
+			svGrid.setWidget(5, 1, loeschen);
 			loeschen.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 					deleteSelectedSv();

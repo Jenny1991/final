@@ -3,6 +3,8 @@ package de.hdm.stundenplansystem.client;
 import java.util.Vector;
 
 import com.google.gwt.core.shared.GWT;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -15,6 +17,7 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import de.hdm.stundenplansystem.shared.*;
 import de.hdm.stundenplansystem.shared.bo.Semesterverband;
+import de.hdm.stundenplansystem.shared.bo.Studiengang;
 import de.hdm.stundenplansystem.shared.bo.Stundenplan;
 import de.hdm.stundenplansystem.client.NavTreeViewModel;
 
@@ -30,35 +33,46 @@ public class StundenplanForm extends Content {
 	
 	private final HTML ueberschrift = new HTML ("<h2>Übersicht der Studienhalbjahre<h2>");
 
-	  final TextBox tbhalbjahr = new TextBox ();	  			  
-	  final Button loeschen = new Button ("Studienhalbjahr löschen");
-	  final Label lbsemverband = new Label ("Semesterverband");
+	  final TextBox tbhalbjahr = new TextBox ();
 	  final ListBox libsemverband = new ListBox();
+	  final ListBox libstudiengang = new ListBox();
+	  final Button loeschen = new Button ("Studienhalbjahr löschen");
 	  final Button speichern = new Button ("Änderungen speichern");
 	  final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
+	  
+      Vector<Semesterverband> svContainer = null;
+      Vector<Studiengang> sgContainer = null;
 	  
 	  Integer id;
 	  Stundenplan shownSp = null; 
 	  NavTreeViewModel tvm = null;
 	  
 	  public StundenplanForm() {
-		  Grid stGrid = new Grid (2, 3);
+		  Grid stGrid = new Grid (5, 2);
 		  	this.add(ueberschrift);
 			this.add(stGrid);
 		  
+			Label lbstudiengang = new Label ("Studiengang");
+			stGrid.setWidget(0, 0, lbstudiengang);
+			stGrid.setWidget(0, 1, libstudiengang);
+			
+			Label lbsemverband = new Label ("Semesterverband");
+			stGrid.setWidget(1, 0, lbsemverband);
+			stGrid.setWidget(1, 1, libsemverband);
+			
 			Label lbhalbjahr = new Label("Studienhalbjahr");
-			stGrid.setWidget(0, 0, lbhalbjahr);
-			stGrid.setWidget(1, 0, tbhalbjahr);
+			stGrid.setWidget(2, 0, lbhalbjahr);
+			stGrid.setWidget(2, 1, tbhalbjahr);
 			
 			Label lbfunktionen = new Label ("Funktionen");
-			stGrid.setWidget(0, 1, lbfunktionen);
-			stGrid.setWidget(1, 1, speichern);
+			stGrid.setWidget(3, 0, lbfunktionen);
+			stGrid.setWidget(3, 1, speichern);
 			speichern.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 					changeSelectedHj();
 				}
 			});
-			stGrid.setWidget(1, 2, loeschen);
+			stGrid.setWidget(4, 1, loeschen);
 			loeschen.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 					deleteSelectedHj();
@@ -67,8 +81,6 @@ public class StundenplanForm extends Content {
 			setTvm(tvm);
 	  } 
 
-	  Vector<Semesterverband> svContainer = null;	  
-	  
 		public void getData() {
 				verwaltungsSvc.getStundenplanById(id, new AsyncCallback<Stundenplan>(){
 					@Override
@@ -83,10 +95,6 @@ public class StundenplanForm extends Content {
 					};		
 				});
 			}
-
-		public void setTvm(NavTreeViewModel tvm) {
-			this.tvm = tvm;
-		}
 		
 		public void changeSelectedHj(){
 			  
@@ -98,7 +106,8 @@ public class StundenplanForm extends Content {
 			  
 			  if (allFilled == true) {
 				  shownSp.setStudienhalbjahr(tbhalbjahr.getText().trim());
-				  
+				  shownSp.setSemesterverbandId(svContainer.elementAt(libsemverband.getSelectedIndex()-1).getId());
+				  				  
 				  verwaltungsSvc.changeStundenplan(shownSp, new  AsyncCallback<Void> () {
 
 					  @Override
@@ -130,6 +139,10 @@ public class StundenplanForm extends Content {
 			});
 			this.clearFields();
 	  }
+
+		public void setTvm(NavTreeViewModel tvm) {
+			this.tvm = tvm;
+		}
 	
 		public void setSelected(Stundenplan sp){
 			if (sp != null) {
@@ -141,10 +154,85 @@ public class StundenplanForm extends Content {
 		} 
 		
 		public void setFields(){
+			this.clearFields();
 			tbhalbjahr.setText(shownSp.getStudienhalbjahr());
-		}
+
+	/**
+	 * getStudiengangBySemesterverbandId neuer Mapper den ich vom Markus bekomm	
+			verwaltungsSvc.getStudiengangById(shownSp.getStudiengangId(), new AsyncCallback<Studiengang>() {
+				@Override
+				  public void onFailure (Throwable caught) {
+					caught.getMessage();
+				  }
+
+				  @Override
+				  public void onSuccess(Studiengang result) {
+				  libstudiengang.addItem(result.getBezeichnung());
+				  } 	
+			}); */
+			verwaltungsSvc.getSemesterverbandById(shownSp.getSemesterverbandId(), new AsyncCallback<Semesterverband>(){
+				@Override
+				  public void onFailure (Throwable caught) {
+					caught.getMessage();
+				  }
+
+				  @Override
+				  public void onSuccess(Semesterverband result) {
+				  libsemverband.addItem(result.getJahrgang());
+				  getStudiengaenge();
+				  getSemverband(); 
+				  }
+}); 
+}
 		
+		public void getStudiengaenge(){
+			verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>> () {
+				@Override
+				  public void onFailure (Throwable caught) {
+					caught.getMessage();
+				  }
+
+				  @Override
+				  public void onSuccess(Vector<Studiengang> studiengang) {
+					  sgContainer = studiengang;
+					  	for (Studiengang sg : studiengang){
+					  		libstudiengang.addItem(sg.getBezeichnung(), String.valueOf(sg.getId()));
+					  	}
+					  	getSemverband();
+				  } 
+			});
+			}
+		
+		  public void getSemverband(){
+			  libsemverband.clear();
+			  verwaltungsSvc.getSemsterverbaendeByStudiengang(sgContainer.elementAt(libstudiengang.getSelectedIndex()).getId(), new AsyncCallback<Vector<Semesterverband>>() {
+				  public void onFailure(Throwable T){
+					  
+				  }
+				  
+				  public void onSuccess(Vector<Semesterverband> semesterverband){
+					svContainer = semesterverband;
+				  	for (Semesterverband sv : semesterverband){
+				  		libsemverband.addItem(sv.getJahrgang() + ", " + String.valueOf(sv.getSemester())); 
+				  	}
+				  }
+			  }); 
+		  }
+		  
+		  public void onLoad(){
+			  
+			  libstudiengang.addChangeHandler(new ChangeHandler() {
+					
+					@Override
+					public void onChange(ChangeEvent event) {
+						getSemverband();	
+					}
+				  });
+		  }
+			  
 		public void clearFields(){
+			libstudiengang.clear();
+			libsemverband.clear();
 			tbhalbjahr.setText("");
 		}
 }

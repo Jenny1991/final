@@ -36,27 +36,27 @@ public class DozentForm extends Content {
 	  NavTreeViewModel tvm = null;
 	  
 	  public DozentForm() {
-		  Grid dozentGrid = new Grid (2, 4);
+		  Grid dozentGrid = new Grid (4, 2);
 		    this.add(ueberschriftAenderung);
 			this.add(dozentGrid);
 		  
 			Label lbvorname = new Label("Vorname");
 			dozentGrid.setWidget(0, 0, lbvorname);
-			dozentGrid.setWidget(1, 0, tbvorname);
+			dozentGrid.setWidget(0, 1, tbvorname);
 
 			Label lbnachname = new Label("Nachname");
-			dozentGrid.setWidget(0, 1, lbnachname);
+			dozentGrid.setWidget(1, 0, lbnachname);
 			dozentGrid.setWidget(1, 1, tbnachname);
 			
 			Label lbfunktionen = new Label ("Funktionen");
-			dozentGrid.setWidget(0, 2, lbfunktionen);
-			dozentGrid.setWidget(1, 2, speichern);
+			dozentGrid.setWidget(2, 0, lbfunktionen);
+			dozentGrid.setWidget(2, 1, speichern);
 			speichern.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 					changeSelectedDozent();
 				}
 			});
-			dozentGrid.setWidget(1, 3, loeschen);
+			dozentGrid.setWidget(3, 1, loeschen);
 			loeschen.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 					deleteSelectedDozent();

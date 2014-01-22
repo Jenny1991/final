@@ -8,6 +8,8 @@ public class Stundenplan extends BusinessObjekt {
 	
 	private int semesterverbandId;
 	
+	private int studiengangId;
+	
 	public Stundenplan(){
 	}
 
@@ -27,6 +29,4 @@ public class Stundenplan extends BusinessObjekt {
 		this.semesterverbandId = semesterverbandId;
 	}
 	
-	
-
 }

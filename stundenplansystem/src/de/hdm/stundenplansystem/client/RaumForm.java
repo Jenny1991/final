@@ -36,27 +36,27 @@ public class RaumForm extends Content {
 	  NavTreeViewModel tvm = null;
 	  
 	  public RaumForm() {
-		  Grid raumGrid = new Grid (2, 4);
+		  Grid raumGrid = new Grid (4, 2);
 		    this.add(ueberschriftAenderung);
 			this.add(raumGrid);
 		  
 			Label lbbezeichnung = new Label("Bezeichnung");
 			raumGrid.setWidget(0, 0, lbbezeichnung);
-			raumGrid.setWidget(1, 0, tbbezeichnung);
+			raumGrid.setWidget(0, 1, tbbezeichnung);
 
 			Label lbkapazitaet = new Label("Kapazität");
-			raumGrid.setWidget(0, 1, lbkapazitaet);
+			raumGrid.setWidget(1, 0, lbkapazitaet);
 			raumGrid.setWidget(1, 1, tbkapazitaet);
 			
 			Label lbfunktionen = new Label ("Funktionen");
-			raumGrid.setWidget(0, 2, lbfunktionen);
-			raumGrid.setWidget(1, 2, speichern);
+			raumGrid.setWidget(2, 0, lbfunktionen);
+			raumGrid.setWidget(2, 1, speichern);
 			speichern.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 					changeSelectedRaum();
 				}
 			});
-			raumGrid.setWidget(1, 3, loeschen);
+			raumGrid.setWidget(3, 1, loeschen);
 			loeschen.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 					deleteSelectedRaum();

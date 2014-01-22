@@ -36,23 +36,23 @@ public class StudiengangForm extends Content {
 	  NavTreeViewModel tvm = null;
 	  
 	  public StudiengangForm() {
-		  Grid studiengangGrid = new Grid (2, 3);
+		  Grid studiengangGrid = new Grid (3, 2);
 		    this.add(ueberschriftAenderung);
 			this.add(studiengangGrid);
 		  
 			Label lbbezeichnung = new Label("Bezeichnung");
 			studiengangGrid.setWidget(0, 0, lbbezeichnung);
-			studiengangGrid.setWidget(1, 0, tbbezeichnung);
+			studiengangGrid.setWidget(0, 1, tbbezeichnung);
 			
 			Label lbfunktionen = new Label ("Funktionen");
-			studiengangGrid.setWidget(0, 1, lbfunktionen);
+			studiengangGrid.setWidget(1, 0, lbfunktionen);
 			studiengangGrid.setWidget(1, 1, speichern);
 			speichern.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 					changeSelectedSg();
 				}
 			});
-			studiengangGrid.setWidget(1, 2, loeschen);
+			studiengangGrid.setWidget(1, 1, loeschen);
 			loeschen.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 					deleteSelectedSg();

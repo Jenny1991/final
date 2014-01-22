@@ -100,7 +100,6 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 						  if (allFilled == true) { 
 							  final String jahrgang = tbjahrgang.getText().trim();
 							  final int studiengangId = sgContainer.elementAt(libstudiengang.getSelectedIndex()).getId();
-							  //final int studiengangId  = Integer.valueOf(libstudiengang.getValue(libstudiengang.getSelectedIndex()));
 							  final int studierendenAnzahl = Integer.valueOf(tbanzahl.getValue());
 							  final int semester = Integer.valueOf(tbsemester.getText().trim());
 			
@@ -114,6 +113,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 								  @Override
 								  public void onSuccess(Semesterverband result) {
 									  tbjahrgang.setText("");
+									  libstudiengang.clear();
 									  tbsemester.setText("");
 									  tbanzahl.setText("");
 									  libstudiengang.clear();

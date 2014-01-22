@@ -171,7 +171,7 @@ public class StudiengangMapper {
         s.setBezeichnung(rs.getString("bezeichnung"));
 
         // Hinzufügen des neuen Objekts zum Ergebnisvektor
-        result.addElement(s);
+        result.addElement(s); 
       }
     }
     catch (SQLException e2) {

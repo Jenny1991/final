@@ -31,13 +31,13 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 
 public class StundenplanForm extends Content {
 	
-	private final HTML ueberschrift = new HTML ("<h2>Übersicht der Studienhalbjahre<h2>");
+	private final HTML ueberschrift = new HTML ("<h2>ï¿½bersicht der Studienhalbjahre<h2>");
 
 	  final TextBox tbhalbjahr = new TextBox ();
 	  final ListBox libsemverband = new ListBox();
 	  final ListBox libstudiengang = new ListBox();
-	  final Button loeschen = new Button ("Studienhalbjahr löschen");
-	  final Button speichern = new Button ("Änderungen speichern");
+	  final Button loeschen = new Button ("Studienhalbjahr lï¿½schen");
+	  final Button speichern = new Button ("ï¿½nderungen speichern");
 	  final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
 	  
       Vector<Semesterverband> svContainer = null;
@@ -102,7 +102,7 @@ public class StundenplanForm extends Content {
 			  
 			  if (tbhalbjahr.getValue().isEmpty())
 			  { allFilled = false;
-			  Window.alert ("Bitte füllen Sie alle Felder aus."); } 
+			  Window.alert ("Bitte fï¿½llen Sie alle Felder aus."); } 
 			  
 			  if (allFilled == true) {
 				  shownSp.setStudienhalbjahr(tbhalbjahr.getText().trim());
@@ -128,13 +128,13 @@ public class StundenplanForm extends Content {
 		public void deleteSelectedHj(){
 			verwaltungsSvc.deleteStundenplan(shownSp, new AsyncCallback<Boolean>() {
 			  public void onFailure (Throwable caught) {
-				  Window.alert("Das Studienhalbjahr konnte nicht gelöscht werden." +
-				  		"Es ist in ein oder mehreren Stundenplaneinträgen eingetragen");
+				  Window.alert("Das Studienhalbjahr konnte nicht gelï¿½scht werden." +
+				  		"Es ist in ein oder mehreren Stundenplaneintrï¿½gen eingetragen");
 			  }
 
 			  public void onSuccess(Boolean result) {
 				  tvm.deleteStudienhalbjahr(shownSp);
-				  Window.alert ("Erfolgreich gelöscht.");
+				  Window.alert ("Erfolgreich gelï¿½scht.");
 			  } 	
 			});
 			this.clearFields();
@@ -157,19 +157,9 @@ public class StundenplanForm extends Content {
 			this.clearFields();
 			tbhalbjahr.setText(shownSp.getStudienhalbjahr());
 
-	/**
-	 * getStudiengangBySemesterverbandId neuer Mapper den ich vom Markus bekomm	
-			verwaltungsSvc.getStudiengangById(shownSp.getStudiengangId(), new AsyncCallback<Studiengang>() {
-				@Override
-				  public void onFailure (Throwable caught) {
-					caught.getMessage();
-				  }
-
-				  @Override
-				  public void onSuccess(Studiengang result) {
-				  libstudiengang.addItem(result.getBezeichnung());
-				  } 	
-			}); */
+	
+	  
+			
 			verwaltungsSvc.getSemesterverbandById(shownSp.getSemesterverbandId(), new AsyncCallback<Semesterverband>(){
 				@Override
 				  public void onFailure (Throwable caught) {
@@ -179,11 +169,26 @@ public class StundenplanForm extends Content {
 				  @Override
 				  public void onSuccess(Semesterverband result) {
 				  libsemverband.addItem(result.getJahrgang());
-				  getStudiengaenge();
+				  //getStudiengaenge();
 				  getSemverband(); 
 				  }
-}); 
+			
+			
+			}); 
+			
+			verwaltungsSvc.getStudiengangById(shownSp.getSemesterverbandId(), new AsyncCallback<Studiengang>() {
+				@Override
+				  public void onFailure (Throwable caught) {
+					caught.getMessage();
+				  }
+
+				  @Override
+				  public void onSuccess(Studiengang result) {
+				  libstudiengang.addItem(result.getBezeichnung());
+				  } 	
+			});
 }
+		
 		
 		public void getStudiengaenge(){
 			verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>> () {
@@ -198,14 +203,14 @@ public class StundenplanForm extends Content {
 					  	for (Studiengang sg : studiengang){
 					  		libstudiengang.addItem(sg.getBezeichnung(), String.valueOf(sg.getId()));
 					  	}
-					  	getSemverband();
+					  	
 				  } 
 			});
 			}
 		
 		  public void getSemverband(){
-			  libsemverband.clear();
-			  verwaltungsSvc.getSemsterverbaendeByStudiengang(sgContainer.elementAt(libstudiengang.getSelectedIndex()).getId(), new AsyncCallback<Vector<Semesterverband>>() {
+			  //libsemverband.clear();
+			  verwaltungsSvc.getAllSemesterverbaende(new AsyncCallback<Vector<Semesterverband>>() {
 				  public void onFailure(Throwable T){
 					  
 				  }

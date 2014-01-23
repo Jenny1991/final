@@ -536,7 +536,8 @@ public class StundenplaneintragMapper {
     		  + "raumid= " + "'" + s.getRaumId() + "', " 
     		  + "dozentid= " + "'" + s.getDozentId() + "', " 
     		  + "zeitslotid= " + "'" + s.getZeitslotId() + "', " 
-    		  + "stundenplanid= " + "'" + s.getStundenplanId() + "' " 
+    		  + "stundenplanid= " + "'" + s.getStundenplanId() + "', "
+    		  + "abkuerzung= " + "'" + s.getAbkuerzung() + "' " 
               + "WHERE id=" + s.getId());
 
     }

@@ -303,7 +303,7 @@ public class StundenplaneintragForm extends Content {
 			libstudienhj.clear();
 		}
 		
-		public void getStudiengaenge(){
+		/*public void getStudiengaenge(){
 			verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>> () {
 				@Override
 				  public void onFailure (Throwable caught) {
@@ -318,7 +318,7 @@ public class StundenplaneintragForm extends Content {
 					  	}
 				  } 	
 			}); 
-			}
+			}*/
 		
 		public void getSemesterverbaende() {
 			verwaltungsSvc.getAllSemesterverbaende(new AsyncCallback<Vector<Semesterverband>> () {

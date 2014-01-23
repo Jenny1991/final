@@ -49,7 +49,6 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 	private StudiengangForm sgf;
 	private StundenplaneintragForm spef;
 	private StundenplanForm spf;
-	//private StudienhalbjahrForm shf;
 	private ReportRaum rr;
 	private ReportStundenplan rs;	
 	private ReportStundenplanDozent rsd;
@@ -566,8 +565,8 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			stringDataProvider.getList().add("Lehrveranstaltung");
 			stringDataProvider.getList().add("Raum");
 			stringDataProvider.getList().add("Studiengang");
-			stringDataProvider.getList().add("Studienhalbjahr");
 			stringDataProvider.getList().add("Semesterverband");
+			stringDataProvider.getList().add("Stundenplan");
 			
 			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);
 			
@@ -651,12 +650,12 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);	
 		}
 		
-		if (value instanceof String && (String)value == "Studienhalbjahr") {
+		if (value instanceof String && (String)value == "Stundenplan") {
 			
 			stringDataProvider = new ListDataProvider<String>();
 			
-			stringDataProvider.getList().add("Studienhalbjahr anlegen");
-			stringDataProvider.getList().add("Studienhalbjahr verwalten");
+			stringDataProvider.getList().add("Stundenplan anlegen");
+			stringDataProvider.getList().add("Stundenplan verwalten");
 			
 			return new DefaultNodeInfo<String>(stringDataProvider, new StringCell(), selectionModel, null);
 		}
@@ -740,7 +739,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			return new DefaultNodeInfo<Semesterverband>(svDataProvider, new SemesterverbandCell(), selectionModel, null);
 		}
 		
-		if (value instanceof String && (String)value=="Studiengang verwalten") {
+		if (value instanceof String && (String)value=="Stundenplan verwalten") {
 			sgDataProvider = new ListDataProvider<Studiengang>();
 			verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
 				public void onFailure(Throwable T) {
@@ -757,7 +756,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			return new DefaultNodeInfo<Studiengang>(sgDataProvider, new StudiengangCell(), selectionModel, null);
 		}
 		
-		if (value instanceof String && (String)value=="Studienhalbjahr verwalten") {
+		if (value instanceof String && (String)value=="Stundenplan verwalten") {
 			spDataProvider = new ListDataProvider<Stundenplan>();
 			verwaltungsSvc.getAllStundenplaene(new AsyncCallback<Vector<Stundenplan>>() {
 				public void onFailure(Throwable T) {

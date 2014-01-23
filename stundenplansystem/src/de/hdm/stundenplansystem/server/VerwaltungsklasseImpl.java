@@ -203,7 +203,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	  }
 	
 	/**
-	 * Auslesen der Stundenplaneinträge der jeweiligen BO's
+	 * Auslesen der Stundenplaneintrï¿½ge der jeweiligen BO's
 	 */
 	
 	public Vector<Stundenplaneintrag> getAllStundenplaneintraegeByDozent(int dozentId) throws IllegalArgumentException {
@@ -312,17 +312,18 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	public Dozent createDozent(String vorname, String nachname)
 			throws IllegalArgumentException {
 		
-	if (vorname.matches("[A-Z]+" + "[a-z]+" + " " + "[A-Z]+" + "[a-z]+"  + "-" + "[A-Z]+" + "[a-z]+" ) || nachname.matches("[A-Z]+" + "[a-z]+")){
+	if (vorname.matches("[0-9]+" ) || nachname.matches("[0-9]+")){
 		
+		throw new IllegalArgumentException("ungï¿½ltige Eingabe!");
+		}
+	else {		
+			
 		Dozent a = new Dozent();
 		a.setVorname(vorname);
 		a.setNachname(nachname);
 	
 		a.setId(1);
 		return this.dozentMapper.insert(a);	
-		}
-	else {		
-		throw new IllegalArgumentException("ungï¿½ltige Eingabe!");	
 		}
 	}
 	

@@ -222,7 +222,13 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		return this.stundenplaneintragMapper.findbyStundenplanId(stundenplanId);
 	}
 	
+	/**
+	 * Aulesen der SemesterverbandId über die StundenplanId
+	 */
 	
+	public Semesterverband getSemesterverbandByStundenplanId (int id) throws IllegalArgumentException {
+		return this.semesterverbandMapper.findByStundenplanId(id);
+	}
 	
 	
 	/**
@@ -372,7 +378,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	}
 
 	public Stundenplaneintrag createStundenplaneintrag(int d,
-		int l, int r, int z, int sv, int sp) 
+		int l, int r, int z, int sp) 
 					throws IllegalArgumentException {
 		
 		Stundenplaneintrag s = new Stundenplaneintrag();
@@ -381,10 +387,9 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		s.setLehrveranstaltungId(l);
 		s.setRaumId(r);
 		s.setZeitslotId(z);
-		s.setSemesterverbandId(sv);
 		s.setStundenplanId(sp);
 		
-		String bezeichnung = this.getStudiengangBySemesterverbandId(sv).getBezeichnung();
+		String bezeichnung = this.getStudiengangBySemesterverbandId(this.getSemesterverbandByStundenplanId(sp).getId()).getBezeichnung();
 		String abkuerzung = bezeichnung.substring(0, 2)+" , "+this.getLehrveranstaltungById(l).getBezeichnung();
 		s.setAbkuerzung(abkuerzung);
 		

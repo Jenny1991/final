@@ -52,6 +52,16 @@ public interface Verwaltungsklasse extends RemoteService {
 	public Vector<Studiengang> getAllStudiengaenge() 
 			throws IllegalArgumentException;
 	
+	public Vector<Stundenplaneintrag> getAllStundenplaneintraegeByStundenplan(int stundenplanId) throws IllegalArgumentException;
+	
+	public Vector<Stundenplaneintrag> getAllStundenplaneintraegeByDozent(int dozentId) throws IllegalArgumentException;
+	
+	public Vector<Stundenplaneintrag> getAllStundenplaneintraegeByRaum(int raumId) throws IllegalArgumentException;
+	
+	public Vector<Stundenplaneintrag> getAllStundenplaneintraegeByLehrveranstaltung(int lehrveranstaltungId) throws IllegalArgumentException;
+	
+	public Semesterverband getSemesterverbandByStundenplanId (int id) throws IllegalArgumentException;
+	
 	public Dozent getDozentById(int id) throws IllegalArgumentException;
 	
 	public Zeitslot getZeitslotById(int id) throws IllegalArgumentException;
@@ -80,7 +90,7 @@ public interface Verwaltungsklasse extends RemoteService {
 	
 	public Vector<Stundenplan> getStundenplaeneBySemesterverband(int studiengangId)  throws IllegalArgumentException;
 	
-	public Stundenplaneintrag createStundenplaneintrag(int d, int l, int r, int z, int sv, int sp)
+	public Stundenplaneintrag createStundenplaneintrag(int d, int l, int r, int z, int sp)
 					throws IllegalArgumentException;
 	
 	public Dozent createDozent(String vorname, String nachname)

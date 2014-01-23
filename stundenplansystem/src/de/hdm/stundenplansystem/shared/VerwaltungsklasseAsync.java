@@ -28,7 +28,7 @@ public interface VerwaltungsklasseAsync {
 	void createStudiengang(String bezeichnung,
 	AsyncCallback<Studiengang> callback);
 
-	void createStundenplaneintrag(int d, int l, int r, int z, int sv, int sp,
+	void createStundenplaneintrag(int d, int l, int r, int z, int sp,
 			AsyncCallback<Stundenplaneintrag> callback);
 
 	void createStundenplan(String studienhalbjahr, int semesterverbandId,
@@ -135,4 +135,19 @@ public interface VerwaltungsklasseAsync {
 
 	void getStudiengangBySemesterverbandId(int SemesterverbandId,
 			AsyncCallback<Studiengang> callback);
+
+	void getAllStundenplaneintraegeByStundenplan(int stundenplanId,
+			AsyncCallback<Vector<Stundenplaneintrag>> callback);
+
+	void getAllStundenplaneintraegeByDozent(int dozentId,
+			AsyncCallback<Vector<Stundenplaneintrag>> callback);
+
+	void getAllStundenplaneintraegeByLehrveranstaltung(int lehrveranstaltungId,
+			AsyncCallback<Vector<Stundenplaneintrag>> callback);
+
+	void getAllStundenplaneintraegeByRaum(int raumId,
+			AsyncCallback<Vector<Stundenplaneintrag>> callback);
+
+	void getSemesterverbandByStundenplanId(int id,
+			AsyncCallback<Semesterverband> callback);
 }

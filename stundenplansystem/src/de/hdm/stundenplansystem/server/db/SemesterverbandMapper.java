@@ -124,8 +124,8 @@ public class SemesterverbandMapper {
       ResultSet rs = stmt.executeQuery("SELECT id, semester, studierendenAnzahl, jahrgang, studiengangid "
       	  + "FROM stundenplan "
       	  + "INNER JOIN semesterverband "
-      	  + "ON stundenplan.semesterverbandid = stundenplan.id"
-          + "WHERE stundenplanid=" + semesterverbandid);
+      	  + "ON stundenplan.semesterverbandid = semesterverband.id"
+          + "WHERE semesterverbandid =" + semesterverbandid);
 
       /*
        * Da id Primärschlüssel ist, kann max. nur ein Tupel zurückgegeben

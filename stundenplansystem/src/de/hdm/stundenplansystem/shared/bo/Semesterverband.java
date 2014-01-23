@@ -76,8 +76,8 @@ public class Semesterverband extends BusinessObjekt {
 		return this.kuerzel;
 	}
 
-	public void setKuerzel(String kuerzel) {
-		this.kuerzel = kuerzel;
+	public void setKuerzel(String a) {
+		this.kuerzel = a;
 	}
 	
 	

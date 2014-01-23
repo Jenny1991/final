@@ -375,7 +375,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		a.setJahrgang(jahrgang);
 		
 		String bezeichnung = this.getStudiengangById(studiengangId).getBezeichnung();
-		String kuerzel = bezeichnung.substring(0, 1);
+		String kuerzel = bezeichnung.substring(0, 2);
 		a.setKuerzel(kuerzel);
 		
 		

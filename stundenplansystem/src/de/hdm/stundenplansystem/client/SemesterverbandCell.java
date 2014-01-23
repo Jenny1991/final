@@ -26,7 +26,7 @@ public class SemesterverbandCell extends AbstractCell<Semesterverband> {
 	      
 		    sb.appendHtmlConstant("<div>");     
 			sb.appendEscapedLines(value.getKuerzel());
-			sb.appendHtmlConstant(", Semester:");
+			sb.appendHtmlConstant(", Semester: ");
 		    sb.append(value.getSemester());
 		    sb.appendHtmlConstant("</div>");     
 				      				

@@ -207,19 +207,19 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	 */
 	
 	public Vector<Stundenplaneintrag> getAllStundenplaneintraegeByDozent(int dozentId) throws IllegalArgumentException {
-		return this.stundenplaneintragMapper.findByDozentId();
+		return this.stundenplaneintragMapper.findbyDozentId(dozentId);
 	}
 	
 	public Vector<Stundenplaneintrag> getAllStundenplaneintraegeByLehrveranstaltung(int lehrveranstaltungId) throws IllegalArgumentException {
-		return this.stundenplaneintragMapper.findByLehrveranstaltungId();
+		return this.stundenplaneintragMapper.findbyLehrveranstaltungId(lehrveranstaltungId);
 	}
 	
 	public Vector<Stundenplaneintrag> getAllStundenplaneintraegeByRaum(int raumId) throws IllegalArgumentException {
-		return this.stundenplaneintragMapper.findByRaumId();
+		return this.stundenplaneintragMapper.findbyRaumId(raumId);
 	}
 	
 	public Vector<Stundenplaneintrag> getAllStundenplaneintraegeByStundenplan(int stundenplanId) throws IllegalArgumentException {
-		return this.stundenplaneintragMapper.findByStundenplanId();
+		return this.stundenplaneintragMapper.findbyStundenplanId(stundenplanId);
 	}
 	
 	

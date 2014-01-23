@@ -224,11 +224,11 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 					setSelectedStundenplaneintrag(selectedSpe);
 				}
 				
-				if (selection instanceof String && (String)selection == "Studienhalbjahr anlegen") {
+				if (selection instanceof String && (String)selection == "Stundenplan anlegen") {
 					setCreateStudienhalbjahr();
 				}
 				
-				if (selection instanceof String && (String)selection == "Studienhalbjahr verwalten") {
+				if (selection instanceof String && (String)selection == "Stundenplan verwalten") {
 					setSelectedStudienhalbjahr(selectedSp);
 				}
 				
@@ -739,7 +739,7 @@ public class NavTreeViewModel extends Content implements TreeViewModel {
 			return new DefaultNodeInfo<Semesterverband>(svDataProvider, new SemesterverbandCell(), selectionModel, null);
 		}
 		
-		if (value instanceof String && (String)value=="Stundenplan verwalten") {
+		if (value instanceof String && (String)value=="Studiengang verwalten") {
 			sgDataProvider = new ListDataProvider<Studiengang>();
 			verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
 				public void onFailure(Throwable T) {

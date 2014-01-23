@@ -202,7 +202,7 @@ public class StundenplaneintragMapper {
     try {
       Statement stmt = con.createStatement(); 
 
-      ResultSet rs = stmt.executeQuery("SELECT stundenplaneintrag.id, stundenplaneintrag.stundenplanid stundenplaneintrag.dozentid, stundenplaneintrag.raumid, "
+      ResultSet rs = stmt.executeQuery("SELECT stundenplaneintrag.id, stundenplaneintrag.stundenplanid, stundenplaneintrag.dozentid, stundenplaneintrag.raumid, "
   	    	+ "stundenplaneintrag.zeitslotid, stundenplaneintrag.lehrveranstaltungid"
   	    	+ " FROM stundenplaneintrag"
   	    	+ " INNER JOIN stundenplan"

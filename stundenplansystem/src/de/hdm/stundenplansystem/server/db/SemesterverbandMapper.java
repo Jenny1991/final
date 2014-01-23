@@ -90,6 +90,7 @@ public class SemesterverbandMapper {
         s.setStudierendenAnzahl(rs.getInt("studierendenAnzahl"));
         s.setJahrgang(rs.getString("jahrgang"));
         s.setStudiengangId(rs.getInt("studiengangid"));
+        s.setKuerzel("kuerzel");
         
         return s;
       }

@@ -1,6 +1,5 @@
 package de.hdm.stundenplansystem.shared.bo;
 
-import java.sql.Time;
 import java.util.Date;
 
 public class Zeitslot extends BusinessObjekt {
@@ -46,7 +45,7 @@ public class Zeitslot extends BusinessObjekt {
 		return this.endzeit.getHours()+":"+this.endzeit.getMinutes();
 	}
 
-	public void setEndzeit(Time endzeit) {
+	public void setEndzeit(Date endzeit) {
 		this.endzeit = endzeit;
 	}
 

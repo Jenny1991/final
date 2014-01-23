@@ -17,7 +17,9 @@ public class StundenplaneintragCell extends AbstractCell<Stundenplaneintrag> {
       }
 
       sb.appendHtmlConstant("<div>");
-      sb.appendEscaped(value.getAbkuerzung());
+      sb.append(value.getDozentId());
+      sb.appendHtmlConstant(", ");
+     // sb.appendEscaped(value.getAbkuerzung());
       sb.appendHtmlConstant("</div>");
     }
 

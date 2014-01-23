@@ -27,8 +27,8 @@ public class StudiengangForm extends Content {
 	private final HTML ueberschriftAenderung = new HTML ("<h2>Studiengang verwalten<h2>");
 
 	  final TextBox tbbezeichnung = new TextBox ();
-	  final Button loeschen = new Button ("Studiengang löschen");
-	  final Button speichern = new Button ("Änderungen speichern");	  			  
+	  final Button loeschen = new Button ("Studiengang lï¿½schen");
+	  final Button speichern = new Button ("ï¿½nderungen speichern");	  			  
 	  final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
 	  
 	  Integer id;
@@ -52,7 +52,7 @@ public class StudiengangForm extends Content {
 					changeSelectedSg();
 				}
 			});
-			studiengangGrid.setWidget(1, 1, loeschen);
+			studiengangGrid.setWidget(2, 1, loeschen);
 			loeschen.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 					deleteSelectedSg();
@@ -86,7 +86,7 @@ public class StudiengangForm extends Content {
 					  
 					  if (tbbezeichnung.getValue().isEmpty()) {
 						  allFilled = false;
-					  Window.alert ("Bitte füllen Sie alle Felder aus."); }
+					  Window.alert ("Bitte fï¿½llen Sie alle Felder aus."); }
 					  
 					  if (allFilled == true) {
 						  shownSg.setBezeichnung(tbbezeichnung.getText().trim());
@@ -111,14 +111,14 @@ public class StudiengangForm extends Content {
 					verwaltungsSvc.deleteStudiengang(shownSg, new AsyncCallback<Boolean>() {
 						  @Override
 						  public void onFailure (Throwable caught) {
-						  Window.alert("Der Studiengang konnte nicht gelöscht werden." +
-					  		"Er ist in ein oder mehreren Stundenplaneinträgen vorhanden");
+						  Window.alert("Der Studiengang konnte nicht gelï¿½scht werden." +
+					  		"Er ist in ein oder mehreren Stundenplaneintrï¿½gen vorhanden");
 							  }
 
 						  @Override
 						  public void onSuccess(Boolean result) {
 						  tvm.deleteStudiengang(shownSg);
-						  Window.alert ("Erfolgreich gelöscht.");
+						  Window.alert ("Erfolgreich gelï¿½scht.");
 						  } 	
 						});
 			  		this.clearFields();

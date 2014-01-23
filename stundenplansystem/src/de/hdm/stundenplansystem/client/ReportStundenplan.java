@@ -38,13 +38,14 @@ public class ReportStundenplan extends Content {
 	 * Aufbau der Seite, um den Stundenplan f���r Studenten anzuzeigen
 	 */
 	
-	final HTML ueberschrift = new HTML ("<h2>Stundenplan f���r Studenten</h2>");
+	HTML ueberschrift = new HTML ("<h2>Stundenplan f���r Studenten</h2>");
 	final FlexTable flexSv = new FlexTable();
 	final ListBox libstundenplan = new ListBox();
 	final ListBox libsemverband = new ListBox();
 	final ListBox libstudiengang = new ListBox();
 	final Button anzeigen = new Button("Stundenplan anzeigen");
 	final VerticalPanel neuesPanel = new VerticalPanel(); 
+	HTML feld = new HTML ();
 
 	final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
 	final ReportGeneratorAsync reportSvc = GWT.create(ReportGenerator.class);
@@ -102,6 +103,8 @@ public class ReportStundenplan extends Content {
 				  reportSvc.createStundenplanSemesterverbandReport(svContainer.elementAt(libsemverband.getSelectedIndex()).getId(), spContainer.elementAt(libstundenplan.getSelectedIndex()).getId(), new AsyncCallback<StundenplanSemesterverbandReport>() {
 		
 					  public void onSuccess(StundenplanSemesterverbandReport result){
+						  
+						//  feld.getHTML()
 //					        if (result != null) {
 					            HTMLReportWriter writer = new HTMLReportWriter();
 					            writer.process(result);

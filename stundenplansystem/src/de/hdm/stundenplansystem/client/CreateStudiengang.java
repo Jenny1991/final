@@ -57,10 +57,10 @@ public class CreateStudiengang extends Content{
 				  
 				  	if (tbbezeichnung.getValue().isEmpty())  
 				  	{ allFilled = false;
-					  Window.alert ("Bitte füllen Sie alle Felder aus."); }
+					  Window.alert ("Bitte fï¿½llen Sie alle Felder aus."); }
 				  	
 				  	if (allFilled == true){
-				  		final String bezeichnung = tbbezeichnung.getValue().trim();
+				  		final String bezeichnung = tbbezeichnung.getValue();
 				  
 					  verwaltungsSvc.createStudiengang(bezeichnung, new AsyncCallback<Studiengang>() {
 

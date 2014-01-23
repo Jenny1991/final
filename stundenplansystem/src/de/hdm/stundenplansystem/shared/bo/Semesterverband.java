@@ -73,7 +73,7 @@ public class Semesterverband extends BusinessObjekt {
 	}
 
 	public String getKuerzel() {
-		return this.kuerzel;
+		return kuerzel;
 	}
 
 	public void setKuerzel(String a) {

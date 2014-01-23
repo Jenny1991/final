@@ -66,7 +66,7 @@ public class CreateStudiengang extends Content{
 
 						  @Override
 						  public void onFailure (Throwable caught) {
-							  Window.alert("Der Studiengang konnte nicht angelegt werden.");
+							  Window.alert(caught.getMessage());
 						  }
 
 						  @Override

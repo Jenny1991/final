@@ -3,6 +3,8 @@ package de.hdm.stundenplansystem.client;
 import java.util.Vector;
 
 import com.google.gwt.core.shared.GWT;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -75,12 +77,12 @@ public class CreateStundenplaneintrag extends Content {
 		  public void onLoad () {
 
 				  this.add(ueberschrift);
-				  this.add(lbstudienhj);
-				  this.add(listStudienhj);
 				  this.add(lbstudiengang);
 				  this.add(listStudiengang);
 				  this.add(lbsemesterverband);
 				  this.add(listSemesterverband);
+				  this.add(lbstudienhj);
+				  this.add(listStudienhj);
 				  this.add(lblehrveranstaltung);
 				  this.add(listLehrveranstaltung);
 			  	  this.add(lbdozent);
@@ -99,21 +101,40 @@ public class CreateStundenplaneintrag extends Content {
 				  listRaum.clear();
 				  listLehrveranstaltung.clear();
 				  
-				  
-				  verwaltungsSvc.getAllStundenplaene(new AsyncCallback<Vector<Stundenplan>>() {
+				  verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
 						@Override
 						public void onFailure(Throwable caught) {	
 						}
 						@Override
-						public void onSuccess(Vector<Stundenplan> result) {
-							spContainer = result;
-							for (Stundenplan sp : result) {
-								listStudienhj.addItem(sp.getStudienhalbjahr(), String.valueOf(sp.getId()));
+						public void onSuccess(Vector<Studiengang> result) {
+							sgContainer = result;
+							for (Studiengang sg : result) {
+								listStudiengang.addItem(sg.getBezeichnung(), String.valueOf(sg.getId()));
 							}
-							ladeAlleStudiengaenge();
+							ladeAlleSemester();
 						} 
 					  });
-							
+				  
+				  listStudiengang.addChangeHandler(new ChangeHandler() {
+						@Override
+						public void onChange(ChangeEvent event) {
+							ladeAlleSemester();	
+						}
+					  });
+				  
+				  listSemesterverband.addChangeHandler(new ChangeHandler() {
+					  @Override
+					  public void onChange(ChangeEvent event) {
+						  ladeAlleStundenplaene();
+					  }
+				  });
+				  
+				  listRaum.addChangeHandler(new ChangeHandler() {
+					  @Override 
+					  public void onChange(ChangeEvent event) {
+						  ladeAlleZeitslots();
+					  }
+				  });
 				  
 				  speichern.addClickHandler(new ClickHandler() {
 						public void onClick(ClickEvent event) {
@@ -130,8 +151,6 @@ public class CreateStundenplaneintrag extends Content {
 								  public void onFailure (Throwable caught) {
 									  Window.alert("Der Stundenplaneintrag konnte nicht angelegt werden.");
 								  }
-
-
 								@Override
 								public void onSuccess(Stundenplaneintrag result) {
 									Window.alert ("Der Stundenplaneintrag wurde erfolgreich gespeichert.");
@@ -142,39 +161,40 @@ public class CreateStundenplaneintrag extends Content {
 				});				  
 		  }
 		  
-		public void ladeAlleStudiengaenge() {
-			verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
-				@Override
-				public void onFailure(Throwable caught) {	
-				}
-				@Override
-				public void onSuccess(Vector<Studiengang> result) {
-					sgContainer = result;
-					for (Studiengang sg : result) {
-						listStudiengang.addItem(sg.getBezeichnung(), String.valueOf(sg.getId()));
-					}
-					ladeAlleSemester();
-				} 
+		
+		  public void ladeAlleStundenplaene() {  
+			  listStudienhj.clear();
+			  verwaltungsSvc.getStundenplaeneBySemesterverband(svContainer.elementAt(listStudiengang.getSelectedIndex()).getId(), new AsyncCallback<Vector<Stundenplan>>() {
+				  public void onFailure(Throwable T){
+				  }
+				  public void onSuccess(Vector<Stundenplan> stundenplaene){
+					spContainer = stundenplaene;
+				  	for (Stundenplan sp : stundenplaene){
+				  		listStudienhj.addItem(sp.getStudienhalbjahr(), String.valueOf(sp.getId()));
+				  	}
+						ladeAlleLehrveranstaltungen();
+					} 
 			  });
-		}
+			}
+		
 		
 		public void ladeAlleSemester() {
-			 verwaltungsSvc.getAllSemesterverbaende(new AsyncCallback<Vector<Semesterverband>>() {
-					@Override
-					public void onFailure(Throwable caught) {	
-					}
-					@Override
-					public void onSuccess(Vector<Semesterverband> result) {
-						svContainer = result;
-						for (Semesterverband sv : result) {
-							listSemesterverband.addItem(String.valueOf(sv.getSemester()), String.valueOf(sv.getId()));
-						}
-						ladeAlleLehrveranstaltungen();
+			listSemesterverband.clear();
+			  verwaltungsSvc.getSemsterverbaendeByStudiengang(sgContainer.elementAt(listStudiengang.getSelectedIndex()).getId(), new AsyncCallback<Vector<Semesterverband>>() {
+				  public void onFailure(Throwable T){
+				  }
+				  public void onSuccess(Vector<Semesterverband> semesterverband){
+					svContainer = semesterverband;
+				  	for (Semesterverband sv : semesterverband){
+				  		listSemesterverband.addItem("Semester: " + String.valueOf(sv.getSemester())); 
+				  	}
+						ladeAlleStundenplaene();
 					}
 				});
 		}
 		
 		public void ladeAlleLehrveranstaltungen() {
+			listLehrveranstaltung.clear();
 			verwaltungsSvc.getAllLehrveranstaltungen(new AsyncCallback<Vector<Lehrveranstaltung>>() {
 				@Override
 				public void onFailure(Throwable caught) {	
@@ -191,6 +211,7 @@ public class CreateStundenplaneintrag extends Content {
 		}
 		
 		public void ladeAlleDozenten() {
+			listDozent.clear();
 			verwaltungsSvc.getAllDozenten(new AsyncCallback<Vector<Dozent>>() {
 				@Override
 				public void onFailure(Throwable caught) {	
@@ -207,6 +228,7 @@ public class CreateStundenplaneintrag extends Content {
 		}
 		
 		public void ladeAlleRaeume() {
+			listRaum.clear();
 			verwaltungsSvc.getAllRaeume(new AsyncCallback<Vector<Raum>>() {
 				@Override
 				public void onFailure(Throwable caught) {	
@@ -223,6 +245,7 @@ public class CreateStundenplaneintrag extends Content {
 		}
 		
 		public void ladeAlleZeitslots() {
+			listZeitslot.clear();
 			verwaltungsSvc.getAllZeitslots(new AsyncCallback<Vector<Zeitslot>>() {
 				@Override
 				public void onFailure(Throwable caught) {	

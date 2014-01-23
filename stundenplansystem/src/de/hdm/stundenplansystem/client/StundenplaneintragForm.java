@@ -29,7 +29,7 @@ import de.hdm.stundenplansystem.shared.Verwaltungsklasse;
 public class StundenplaneintragForm extends Content {
 
 		/**
-		 * Aufbau der Seite, um Stundenplaneintr��ge anzuzeigen, zu l����schen und zu bearbeiten
+		 * Aufbau der Seite, um Stundenplaneinträge anzuzeigen, zu löschen und zu bearbeiten
 		 */
 	
 	private final HTML ueberschriftAenderung = new HTML ("<h2>Stundenplaneintrag bearbeiten<h2>");
@@ -189,7 +189,7 @@ public class StundenplaneintragForm extends Content {
 		} 
 		
 		public void setFields(){
-			/*verwaltungsSvc.getStudiengangById(shownSpe.getId(), new AsyncCallback<Studiengang>() {
+			verwaltungsSvc.getStudiengangBySemesterverbandId(shownSpe.getSemesterverbandId(), new AsyncCallback<Studiengang>() {
 				@Override
 				  public void onFailure (Throwable caught) {
 					caught.getMessage();
@@ -197,10 +197,12 @@ public class StundenplaneintragForm extends Content {
 				  @Override
 				  public void onSuccess(Studiengang result) {
 					libstudiengang.addItem(result.getBezeichnung());
-					getStudiengaenge();
+					//getStudiengaenge();
 				  } 	
-			});*/
-			
+			});
+		}
+				
+			public void getNextListLv() {
 				verwaltungsSvc.getLehrveranstaltungById(shownSpe.getLehrveranstaltungId(), new AsyncCallback<Lehrveranstaltung>() {
 					@Override
 					  public void onFailure (Throwable caught) {
@@ -316,6 +318,7 @@ public class StundenplaneintragForm extends Content {
 					  	for (Studiengang sg : studiengang){
 					  		libstudiengang.addItem(sg.getBezeichnung(), String.valueOf(sg.getId()));
 					  	}
+					  	getNextListLv();
 				  } 	
 			}); 
 			}*/

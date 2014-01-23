@@ -414,6 +414,9 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 
 	public Stundenplan createStundenplan(String studienhalbjahr, int semesterverbandId) throws IllegalArgumentException {
 		
+		if (studienhalbjahr.matches("[0-9]+") || studienhalbjahr.matches("[0-9]+"+"/"+"[0-9]+")){
+			
+		
 		Stundenplan sp = new Stundenplan();
 		
 		sp.setStudienhalbjahr(studienhalbjahr);
@@ -422,6 +425,11 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		sp.setId(1);
 		
 		return this.stundenplanMapper.insert(sp);
+		
+	} else {
+		
+		throw new IllegalArgumentException("ung�ltige Eingabe!");
+	}
 	}
 	
 	/**

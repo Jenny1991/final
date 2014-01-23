@@ -145,7 +145,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	
 	
 	/**
-	 * Auslesen aller Rï¿½ume
+	 * Auslesen aller Rï¿½ï¿½ï¿½ume
 	 */
 	
 	public Vector<Raum> getAllRaeume() throws IllegalArgumentException {
@@ -163,7 +163,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	
 	
 	/**
-	 * Auslesen aller Semesterverbï¿½nde
+	 * Auslesen aller Semesterverbï¿½ï¿½ï¿½nde
 	 */
 	
 	public Vector<Semesterverband> getAllSemesterverbaende() throws IllegalArgumentException {
@@ -179,7 +179,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	  }
 	
 	/**
-	 * Auslesen aller Stundenplï¿½ne
+	 * Auslesen aller Stundenplï¿½ï¿½ï¿½ne
 	 */
 	
 	public Vector<Stundenplan> getAllStundenplaene() throws IllegalArgumentException {
@@ -187,7 +187,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	  }
 	
 	/**
-	 * Auslesen aller Stundenplaneintrï¿½ge
+	 * Auslesen aller Stundenplaneintrï¿½ï¿½ï¿½ge
 	 */
 	
 	public Vector<Stundenplaneintrag> getAllStundenplaneintraege() throws IllegalArgumentException {
@@ -203,7 +203,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	  }
 	
 	/**
-	 * Auslesen der Stundenplaneintrï¿½ge der jeweiligen BO's
+	 * Auslesen der Stundenplaneintrï¿½ï¿½ï¿½ge der jeweiligen BO's
 	 */
 	
 	public Vector<Stundenplaneintrag> getAllStundenplaneintraegeByDozent(int dozentId) throws IllegalArgumentException {
@@ -223,7 +223,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	}
 	
 	/**
-	 * Aulesen der SemesterverbandId über die StundenplanId
+	 * Aulesen der SemesterverbandId ï¿½ber die StundenplanId
 	 */
 	
 	public Semesterverband getSemesterverbandByStundenplanId (int id) throws IllegalArgumentException {
@@ -232,7 +232,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	
 	
 	/**
-	 * Auslesen der jeweiligen BO's ï¿½ber ihre ID
+	 * Auslesen der jeweiligen BO's ï¿½ï¿½ï¿½ber ihre ID
 	 */
 	
 	public Dozent getDozentById(int id) throws IllegalArgumentException {
@@ -268,7 +268,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	}
 	
 	/**
-	 * Auslesen der Semesterverbï¿½nde eines Studiengangs
+	 * Auslesen der Semesterverbï¿½ï¿½ï¿½nde eines Studiengangs
 	 */
 	
 	public Vector<Semesterverband> getSemsterverbaendeByStudiengang(int studiengangId){
@@ -304,7 +304,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	}
 	
 	/**
-	 * Auslesen eines Studiengangs ï¿½ber die SemesterverbandId
+	 * Auslesen eines Studiengangs ï¿½ï¿½ï¿½ber die SemesterverbandId
 	 */
 	
 	public Studiengang getStudiengangBySemesterverbandId(int SemesterverbandId){
@@ -312,7 +312,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	}
 	
 	/**
-	 * Anschlieï¿½end folgen alle create-Methoden der BO's
+	 * Anschlieï¿½ï¿½ï¿½end folgen alle create-Methoden der BO's
 	 */
 	
 	public Dozent createDozent(String vorname, String nachname)
@@ -320,7 +320,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		
 	if (vorname.matches("[0-9]+" ) || nachname.matches("[0-9]+")){
 		
-		throw new IllegalArgumentException("ungï¿½ltige Eingabe!");
+		throw new IllegalArgumentException("ungï¿½ï¿½ï¿½ltige Eingabe!");
 		}
 	else {		
 			
@@ -363,7 +363,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		
 		if (bezeichnung.matches("[0-9]+")){
 			
-			throw new IllegalArgumentException("ungï¿½ltige Eingabe!");
+			throw new IllegalArgumentException("ungï¿½ï¿½ï¿½ltige Eingabe!");
 		}
 		else {	
 			Studiengang s = new Studiengang();
@@ -402,6 +402,8 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 			int semester, int studierendenAnzahl, String jahrgang)
 			throws IllegalArgumentException {
 		
+		if (jahrgang.matches("[0-9]+") || jahrgang.matches("[0-9]+"+"/"+"[0-9]+")){
+		
 		Semesterverband a = new Semesterverband();
 		a.setStudiengangId(studiengangId);
 		a.setSemester(semester);
@@ -415,6 +417,12 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		a.setId(1);
 		
 		return this.semesterverbandMapper.insert(a);
+		
+		} else {
+			
+			throw new IllegalArgumentException("ungï¿½ï¿½ï¿½ltige Eingabe des jahrgangs!");
+		}
+		
 	}
 
 	public Stundenplan createStundenplan(String studienhalbjahr, int semesterverbandId) throws IllegalArgumentException {
@@ -433,12 +441,12 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		
 	} else {
 		
-		throw new IllegalArgumentException("ungï¿½ltige Eingabe!");
+		throw new IllegalArgumentException("ungï¿½ï¿½ï¿½ltige Eingabe!");
 	}
 	}
 	
 	/**
-	 * Anschlieï¿½end folgen alle delete-Methoden der BO's
+	 * Anschlieï¿½ï¿½ï¿½end folgen alle delete-Methoden der BO's
 	 */
 
 	public boolean deleteDozent(Dozent d) throws IllegalArgumentException {
@@ -525,7 +533,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	}
 	
 	/**
-	 * Anschlieï¿½end folgen alle Change-Methoden der BO's
+	 * Anschlieï¿½ï¿½ï¿½end folgen alle Change-Methoden der BO's
 	 */
 
 	public void changeDozent(Dozent d) throws IllegalArgumentException {

@@ -3,6 +3,8 @@ package de.hdm.stundenplansystem.client;
 import java.util.Vector;
 
 import com.google.gwt.core.shared.GWT;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -12,6 +14,7 @@ import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
+
 
 
 import de.hdm.stundenplansystem.shared.VerwaltungsklasseAsync;
@@ -60,13 +63,13 @@ public class StundenplaneintragForm extends Content {
 		NavTreeViewModel tvm = null;
 		  
 		  public StundenplaneintragForm() {
-			  Grid speGrid = new Grid (8, 2);
+			  Grid speGrid = new Grid (9, 2);
 			    this.add(ueberschriftAenderung);
 				this.add(speGrid);
 				
-				/*Label lbStudiengang = new Label ("Studiengang");
+				Label lbStudiengang = new Label ("Studiengang");
 				speGrid.setWidget(0, 0, lbStudiengang);
-				speGrid.setWidget(0, 1, libstudiengang);*/
+				speGrid.setWidget(0, 1, libstudiengang);
 				
 				Label lbSemesterverband = new Label ("Semesterverband");
 				speGrid.setWidget(1, 0, lbSemesterverband);
@@ -94,9 +97,9 @@ public class StundenplaneintragForm extends Content {
 				
 				
 				Label lbFunktionen = new Label ("Funktionen");
-				speGrid.setWidget(6, 0, lbFunktionen);
-				speGrid.setWidget(6, 1, speichern);
-				speGrid.setWidget(7, 1, loeschen);
+				speGrid.setWidget(7, 0, lbFunktionen);
+				speGrid.setWidget(7, 1, speichern);
+				speGrid.setWidget(8, 1, loeschen);
 				}
 		  
 			public void onLoad() {
@@ -115,7 +118,29 @@ public class StundenplaneintragForm extends Content {
 				}
 			});
 			
+			
 			this.clearFields();
+			
+			libstudiengang.addChangeHandler(new ChangeHandler() {
+				@Override
+				public void onChange(ChangeEvent event) {
+					getSemesterverbaende();	
+				}
+			  });
+		  
+		  libsemesterverband.addChangeHandler(new ChangeHandler() {
+			  @Override
+			  public void onChange(ChangeEvent event) {
+				  getStundenplaene();
+			  }
+		  });
+		  
+		  libraum.addChangeHandler(new ChangeHandler() {
+			  @Override 
+			  public void onChange(ChangeEvent event) {
+				  getZeitslots();
+			  }
+		  });
 			
 		}
 			
@@ -197,7 +222,7 @@ public class StundenplaneintragForm extends Content {
 				  @Override
 				  public void onSuccess(Studiengang result) {
 					libstudiengang.addItem(result.getBezeichnung());
-					//getStudiengaenge();
+					getStudiengaenge();
 				  } 	
 			});
 		}
@@ -305,7 +330,7 @@ public class StundenplaneintragForm extends Content {
 			libstudienhj.clear();
 		}
 		
-		/*public void getStudiengaenge(){
+		public void getStudiengaenge(){
 			verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>> () {
 				@Override
 				  public void onFailure (Throwable caught) {
@@ -321,7 +346,7 @@ public class StundenplaneintragForm extends Content {
 					  	getNextListLv();
 				  } 	
 			}); 
-			}*/
+			}
 		
 		public void getSemesterverbaende() {
 			verwaltungsSvc.getAllSemesterverbaende(new AsyncCallback<Vector<Semesterverband>> () {

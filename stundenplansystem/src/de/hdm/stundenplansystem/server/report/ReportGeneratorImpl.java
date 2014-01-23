@@ -312,7 +312,7 @@ public StundenplanSemesterverbandReport createStundenplanSemesterverbandReport(
 	  StundenplanSemesterverbandReport result = new StundenplanSemesterverbandReport();
 
 	  // Jeder Report hat einen Titel (Bezeichnung / Überschrift).
-	  result.setTitle("Stundenplan des Semsterverbandes");
+	  result.setTitle("Stundenplan des Semesterverbandes");
 
 	  // Imressum hinzufügen
 	  this.addImprint(result);
@@ -331,7 +331,7 @@ public StundenplanSemesterverbandReport createStundenplanSemesterverbandReport(
 	  CompositeParagraph header = new CompositeParagraph();
 
 	  // Bezeichnung des Semesterverbandes aufnehmen
-	  header.addSubParagraph(new SimpleParagraph(sv.getStudiengangId() + ", "
+	  header.addSubParagraph(new SimpleParagraph(sv.getKuerzel() + ", "
 	      + sv.getSemester()));
 
 	  // Hinzufügen der zusammengestellten Kopfdaten zu dem Report

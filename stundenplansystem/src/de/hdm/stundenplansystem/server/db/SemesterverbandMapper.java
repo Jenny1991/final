@@ -124,7 +124,7 @@ public class SemesterverbandMapper {
       ResultSet rs = stmt.executeQuery("SELECT id, semester, studierendenAnzahl, jahrgang, studiengangid "
       	  + "FROM stundenplan "
       	  + "INNER JOIN semesterverband "
-      	  + "ON stundenplan.semesterverbandid = semesterverband.id"
+      	  + "ON stundenplan.semesterverbandid = semesterverband.id "
           + "WHERE semesterverbandid =" + semesterverbandid);
 
       /*

@@ -202,6 +202,28 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	    return this.studiengangMapper.findAll();
 	  }
 	
+	/**
+	 * Auslesen der Stundenplaneinträge der jeweiligen BO's
+	 */
+	
+	public Vector<Stundenplaneintrag> getAllStundenplaneintraegeByDozent(int dozentId) throws IllegalArgumentException {
+		return this.stundenplaneintragMapper.findByDozentId();
+	}
+	
+	public Vector<Stundenplaneintrag> getAllStundenplaneintraegeByLehrveranstaltung(int lehrveranstaltungId) throws IllegalArgumentException {
+		return this.stundenplaneintragMapper.findByLehrveranstaltungId();
+	}
+	
+	public Vector<Stundenplaneintrag> getAllStundenplaneintraegeByRaum(int raumId) throws IllegalArgumentException {
+		return this.stundenplaneintragMapper.findByRaumId();
+	}
+	
+	public Vector<Stundenplaneintrag> getAllStundenplaneintraegeByStundenplan(int stundenplanId) throws IllegalArgumentException {
+		return this.stundenplaneintragMapper.findByStundenplanId();
+	}
+	
+	
+	
 	
 	/**
 	 * Auslesen der jeweiligen BO's ï¿½ber ihre ID
@@ -405,38 +427,38 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 
 	public boolean deleteDozent(Dozent d) throws IllegalArgumentException {
 		
-//		Vector<Stundenplaneintrag> dozenten = this.getAllStundenplaneintragOf(d);
-//
-//		    if (dozenten != null) {
-//		    	return false;
-//		    } else {
+		Vector<Stundenplaneintrag> dozenten = this.getAllStundenplaneintraegeByDozent(d.getId());
+
+		    if (dozenten != null) {
+		    	return false;
+		    } else {
 		   	this.dozentMapper.delete(d);
 		   	return true;
-//		    }
+	    }
 	}
 	
 	public boolean deleteLehrveranstaltung(Lehrveranstaltung a)
 			throws IllegalArgumentException {
 		
-//		Vector<Stundenplaneintrag> lvs = this.getAllStundenplaneintragOf(a);
-//
-//		    if (lvs != null) {
-//		    	return false;
-//		    } else {
+		Vector<Stundenplaneintrag> lvs = this.getAllStundenplaneintraegeByLehrveranstaltung(a.getId());
+
+		    if (lvs != null) {
+		    	return false;
+		    } else {
 		   	this.lehrveranstaltungMapper.delete(a);
 		   	return true;
-//		    }
+	    }
 	}
 
 	public boolean deleteStundenplan(Stundenplan sp) throws IllegalArgumentException {
-//		Vector<Stundenplaneintrag> sps = this.getAllStundenplaneintragOf(sp);
-//
-//		    if (sps != null) {
-//		    	return false;
-//		    } else {
+	Vector<Stundenplaneintrag> sps = this.getAllStundenplaneintraegeByStundenplan(sp.getId());
+
+	    if (sps != null) {
+	    	return false;
+	    } else {
 		   	this.stundenplanMapper.delete(sp);
 		   	return true;
-//		    }	
+	    }	
 		   	}
 
 	public boolean deleteStudiengang(Studiengang studiengang)
@@ -464,14 +486,14 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		   	}
 
 	public boolean deleteRaum(Raum a) throws IllegalArgumentException {
-//		Vector<Stundenplaneintrag> r = this.getAllStundenplaneintragOf(a);
-//
-//		    if (r != null) {
-//		    	return false;
-//		    } else {
+	Vector<Stundenplaneintrag> r = this.getAllStundenplaneintraegeByRaum(a.getId());
+
+		    if (r != null) {
+	    	return false;
+	    } else {
 		   	this.raumMapper.delete(a);
 		   	return true;
-//		    }
+	    }
 	}
 
 	public boolean deleteSemesterverband(Semesterverband a)

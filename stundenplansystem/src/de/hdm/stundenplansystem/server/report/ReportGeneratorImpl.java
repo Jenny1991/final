@@ -378,9 +378,9 @@ public StundenplanSemesterverbandReport createStundenplanSemesterverbandReport(
 				accountRow.addColumn(new Column("----"));
 			}
 	  	
-	  	if (i == 6 | i == 12 | i == 18 | i == 24 | i == 30)
+	  	if (i == 6 | i == 12 | i == 18 | i == 24 | i == 30){
 	  		result.addRow(accountRow);
-	  		accountRow = new Row();
+	  		accountRow = new Row();}
 	  }
 	  /*
 	   * Zum Schluss m�ssen wir noch den fertigen Report zur�ckgeben.

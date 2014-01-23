@@ -44,6 +44,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 		  final ListBox libstudiengang = new ListBox();
 		  final TextBox tbsemester = new TextBox ();
 		  final TextBox tbanzahl = new TextBox ();
+		  final TextBox tbkuerzel = new TextBox();
 		  final Button speichern = new Button ("speichern");
 		  
 		  Vector<Studiengang> sgContainer = null;
@@ -62,6 +63,8 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 			  this.add(tbjahrgang);
 			  this.add(lbstudiengang);
 			  this.add(libstudiengang);
+			  this.add(tbkuerzel);
+			  tbkuerzel.setEnabled(false);
 			  this.add(lbsemester);
 			  this.add(tbsemester);
 			  this.add(lbanzahl);

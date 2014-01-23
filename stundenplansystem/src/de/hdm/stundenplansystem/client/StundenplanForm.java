@@ -27,6 +27,8 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
  * 
  * @author Thies, Espich
  *
+ *
+ *Ich bekomm die Krise mit dieser KLasse -.-
  */
 
 public class StundenplanForm extends Content {

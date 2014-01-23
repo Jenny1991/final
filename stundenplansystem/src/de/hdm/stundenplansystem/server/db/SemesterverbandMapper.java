@@ -147,7 +147,7 @@ public class SemesterverbandMapper {
     // Ergebnisvektor zurückgeben
     return result;
   }
-
+ 
   
   /**
    * Auslesen aller Semesterverbände.

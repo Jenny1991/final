@@ -47,7 +47,7 @@ public class StundenplanForm extends Content {
 	  Stundenplan shownSp = null; 
 	  NavTreeViewModel tvm = null;
 	  
-	  public void onLoad() {
+	  public StundenplanForm(){
 		  Grid stGrid = new Grid (5, 2);
 		  	this.add(ueberschrift);
 			this.add(stGrid);
@@ -79,28 +79,88 @@ public class StundenplanForm extends Content {
 				}
 			});
 			setTvm(tvm);
+	  }
 
-				verwaltungsSvc.getStundenplanById(id, new AsyncCallback<Stundenplan>(){
-					@Override
-					public void onFailure(Throwable caught) {
-					}
-					
-					@Override
-					public void onSuccess(Stundenplan sp) {
-						if (sp != null) {
-							setSelected(sp);
-						}
-					};		
-				});
-				
-				  libstudiengang.addChangeHandler(new ChangeHandler() {
-						
-						@Override
-						public void onChange(ChangeEvent event) {
-							getSemverband();	
-						}
-					  });
+//	  	public void getData(){
+//				verwaltungsSvc.getStundenplanById(id, new AsyncCallback<Stundenplan>(){
+//					@Override
+//					public void onFailure(Throwable caught) {
+//					}
+//					
+//					@Override
+//					public void onSuccess(Stundenplan sp) {
+//						if (sp != null) {
+//							setSelected(sp);
+//						}
+//					};		
+//				});
+//			}
+	  
+	  public void setFields(){
+			this.clearFields();
+			tbhalbjahr.setText(shownSp.getStudienhalbjahr());
+			verwaltungsSvc.getSemesterverbandById(shownSp.getSemesterverbandId(), new AsyncCallback<Semesterverband>(){
+				@Override
+				  public void onFailure (Throwable caught) {
+					caught.getMessage();
+				  }
+
+				@Override
+				  public void onSuccess(Semesterverband result) {
+				  libsemverband.addItem(result.getJahrgang() + ", Semester: " + String.valueOf(result.getSemester())); 
+				  versuch();
+				  }
+			}); 	
+		}
+		
+		public void versuch(){
+			verwaltungsSvc.getStudiengangBySemesterverbandId(shownSp.getSemesterverbandId(), new AsyncCallback<Studiengang>(){
+				@Override
+				  public void onFailure (Throwable caught) {
+					caught.getMessage();
+				  }
+
+				@Override
+				  public void onSuccess(Studiengang result) {
+				  libstudiengang.addItem(result.getBezeichnung());
+				  getStudiengaenge();
+				  }
+			}); 
+		}
+		
+		public void getStudiengaenge(){
+			verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>> () {
+				@Override
+				  public void onFailure (Throwable caught) {
+					caught.getMessage();
+				  }
+
+				  @Override
+				  public void onSuccess(Vector<Studiengang> studiengang) {
+					  sgContainer = studiengang;
+					  	for (Studiengang sg : studiengang){
+					  		libstudiengang.addItem(sg.getBezeichnung(), String.valueOf(sg.getId()));
+					  	}
+					getSemverband(); 
+				  } 
+			});
 			}
+		
+		  public void getSemverband(){
+			  verwaltungsSvc.getAllSemesterverbaende(new AsyncCallback<Vector<Semesterverband>>() {
+				  public void onFailure(Throwable caught){
+						caught.getMessage();
+				  }
+				  
+				  public void onSuccess(Vector<Semesterverband> semesterverband){
+					svContainer = semesterverband;
+				  	for (Semesterverband sv : semesterverband){
+				  		libsemverband.addItem(sv.getJahrgang() + ", Semester: " + String.valueOf(sv.getSemester())); 
+				  	}
+				  }
+			  }); 
+		  }
+		  
 		
 		public void changeSelectedHj(){
 			  
@@ -159,70 +219,15 @@ public class StundenplanForm extends Content {
 			}
 		} 
 		
-		public void setFields(){
-			this.clearFields();
-			tbhalbjahr.setText(shownSp.getStudienhalbjahr());
-			verwaltungsSvc.getSemesterverbandById(shownSp.getSemesterverbandId(), new AsyncCallback<Semesterverband>(){
-				@Override
-				  public void onFailure (Throwable caught) {
-					caught.getMessage();
-				  }
-
-				@Override
-				  public void onSuccess(Semesterverband result) {
-				  libsemverband.addItem(result.getJahrgang());
-				  versuch();
-				  }
-			}); 	
-		}
-		
-		public void versuch(){
-			verwaltungsSvc.getStudiengangBySemesterverbandId(shownSp.getSemesterverbandId(), new AsyncCallback<Studiengang>(){
-				@Override
-				  public void onFailure (Throwable caught) {
-					caught.getMessage();
-				  }
-
-				@Override
-				  public void onSuccess(Studiengang result) {
-				  libstudiengang.addItem(result.getBezeichnung());
-				  getStudiengaenge();
-				  }
-			}); 
-		}
-		
-		public void getStudiengaenge(){
-			verwaltungsSvc.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>> () {
-				@Override
-				  public void onFailure (Throwable caught) {
-					caught.getMessage();
-				  }
-
-				  @Override
-				  public void onSuccess(Vector<Studiengang> studiengang) {
-					  sgContainer = studiengang;
-					  	for (Studiengang sg : studiengang){
-					  		libstudiengang.addItem(sg.getBezeichnung(), String.valueOf(sg.getId()));
-					  	}
-					getSemverband(); 
-				  } 
-			});
+			public void onLoad(){	
+				  libstudiengang.addChangeHandler(new ChangeHandler() {
+						
+						@Override
+						public void onChange(ChangeEvent event) {
+							getSemverband();	
+						}
+					  });	
 			}
-		
-		  public void getSemverband(){
-			  verwaltungsSvc.getAllSemesterverbaende(new AsyncCallback<Vector<Semesterverband>>() {
-				  public void onFailure(Throwable caught){
-						caught.getMessage();
-				  }
-				  
-				  public void onSuccess(Vector<Semesterverband> semesterverband){
-					svContainer = semesterverband;
-				  	for (Semesterverband sv : semesterverband){
-				  		libsemverband.addItem(sv.getJahrgang() + ", Semester: " + String.valueOf(sv.getSemester())); 
-				  	}
-				  }
-			  }); 
-		  }
 			  
 		public void clearFields(){
 			libstudiengang.clear();

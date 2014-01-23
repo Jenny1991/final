@@ -537,7 +537,14 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	 */
 
 	public void changeDozent(Dozent d) throws IllegalArgumentException {
-		 this.dozentMapper.update(d);
+		
+		if (d.getVorname().matches("[0-9]+" ) || d.getNachname().matches("[0-9]+")){
+			
+			throw new IllegalArgumentException("ung���ltige Eingabe!");
+			}
+		else {		
+				
+		this.dozentMapper.update(d);}
 	}
 
 	public void changeStundenplaneintrag(Stundenplaneintrag s)
@@ -556,16 +563,43 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 
 	public void changeSemsterverband(Semesterverband sv)
 			throws IllegalArgumentException {
-		this.semesterverbandMapper.update(sv);
+		
+		
+		if (sv.getJahrgang().matches("[0-9]+") || sv.getJahrgang().matches("[0-9]+"+"/"+"[0-9]+")){
+			
+			this.semesterverbandMapper.update(sv);
+			
+			} else {
+				
+				throw new IllegalArgumentException("ung���ltige Eingabe des jahrgangs!");
+			}
+		
 	}
 
 	public void changeStudiengang(Studiengang s)
 			throws IllegalArgumentException {
+		
+		if (s.getBezeichnung().matches("[0-9]+")){
+			
+			throw new IllegalArgumentException("ung���ltige Eingabe!");
+		}
+		else {	
+		
 		this.studiengangMapper.update(s);
+		}
 	}
 
 	public void changeStundenplan(Stundenplan sp) throws IllegalArgumentException {
-		this.stundenplanMapper.update(sp);
+		
+		if (sp.getStudienhalbjahr().matches("[0-9]+") || sp.getStudienhalbjahr().matches("[0-9]+"+"/"+"[0-9]+")){
+			
+			this.stundenplanMapper.update(sp);
+			
+		} else {
+			
+			throw new IllegalArgumentException("ung���ltige Eingabe!");
+		}
+		
 	}
 
 }

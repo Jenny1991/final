@@ -59,8 +59,6 @@ public class SemesterverbandForm extends Content {
 			Label lbstudiengang = new Label("Studiengang");
 			svGrid.setWidget(1, 0, lbstudiengang);
 			svGrid.setWidget(1, 1, libstudiengang);
-//			svGrid.setWidget(2, 1, tbkuerzel);
-//			tbkuerzel.setEnabled(false);
 			
 			Label lbsemester = new Label("Semester");
 			svGrid.setWidget(3, 0, lbsemester);

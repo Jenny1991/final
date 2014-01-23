@@ -359,6 +359,10 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		s.setSemesterverbandId(sv);
 		s.setStundenplanId(sp);
 		
+		String bezeichnung = this.getStudiengangBySemesterverbandId(sv).getBezeichnung();
+		String abkuerzung = bezeichnung.substring(0, 2)+" , "+this.getLehrveranstaltungById(l).getBezeichnung();
+		s.setAbkuerzung(abkuerzung);
+		
 		s.setId(1);
 		
 		return this.stundenplaneintragMapper.insert(s);
@@ -377,9 +381,6 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		String bezeichnung = this.getStudiengangById(studiengangId).getBezeichnung();
 		String kuerzel = bezeichnung.substring(0, 2);
 		a.setKuerzel(kuerzel);
-		
-		
-		
 		
 		a.setId(1);
 		

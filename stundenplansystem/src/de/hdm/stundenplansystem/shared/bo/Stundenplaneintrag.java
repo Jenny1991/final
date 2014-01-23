@@ -13,6 +13,7 @@ public class Stundenplaneintrag extends BusinessObjekt {
 	private int zeitslotId;
 	private int semesterverbandId;
 	private int stundenplanId;
+	private String abkuerzung;
 	
 	public Stundenplaneintrag(){
 	}
@@ -63,6 +64,14 @@ public class Stundenplaneintrag extends BusinessObjekt {
 
 	public void setStundenplanId(int stundenplanId) {
 		this.stundenplanId = stundenplanId;
+	}
+
+	public String getAbkuerzung() {
+		return abkuerzung;
+	}
+
+	public void setAbkuerzung(String abkuerzung) {
+		this.abkuerzung = abkuerzung;
 	}
 
 

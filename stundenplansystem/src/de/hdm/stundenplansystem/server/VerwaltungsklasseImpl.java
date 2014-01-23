@@ -355,7 +355,11 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	public Studiengang createStudiengang(String bezeichnung)
 			throws IllegalArgumentException {
 		
-		if (bezeichnung.matches("[A-Z]+" + "[a-z]+")){
+		if (bezeichnung.matches("[0-9]+")){
+			
+			throw new IllegalArgumentException("ung�ltige Eingabe!");
+		}
+		else {	
 			Studiengang s = new Studiengang();
 			
 			s.setBezeichnung(bezeichnung);
@@ -363,9 +367,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 			s.setId(1);
 			
 			return this.studiengangMapper.insert(s);
-		}
-		else {		
-			throw new IllegalArgumentException("ung�ltige Eingabe!");	
+				
 		}
 	}
 

@@ -47,7 +47,7 @@ public class StundenplanForm extends Content {
 	  Stundenplan shownSp = null; 
 	  NavTreeViewModel tvm = null;
 	  
-	  public StundenplanForm() {
+	  public void onLoad() {
 		  Grid stGrid = new Grid (5, 2);
 		  	this.add(ueberschrift);
 			this.add(stGrid);
@@ -79,9 +79,7 @@ public class StundenplanForm extends Content {
 				}
 			});
 			setTvm(tvm);
-	  } 
 
-		public void getData() {
 				verwaltungsSvc.getStundenplanById(id, new AsyncCallback<Stundenplan>(){
 					@Override
 					public void onFailure(Throwable caught) {
@@ -94,6 +92,14 @@ public class StundenplanForm extends Content {
 						}
 					};		
 				});
+				
+				  libstudiengang.addChangeHandler(new ChangeHandler() {
+						
+						@Override
+						public void onChange(ChangeEvent event) {
+							getSemverband();	
+						}
+					  });
 			}
 		
 		public void changeSelectedHj(){
@@ -216,16 +222,6 @@ public class StundenplanForm extends Content {
 				  	}
 				  }
 			  }); 
-		  }
-		  
-		  public void onLoad(){
-			  libstudiengang.addChangeHandler(new ChangeHandler() {
-					
-					@Override
-					public void onChange(ChangeEvent event) {
-						getSemverband();	
-					}
-				  });
 		  }
 			  
 		public void clearFields(){

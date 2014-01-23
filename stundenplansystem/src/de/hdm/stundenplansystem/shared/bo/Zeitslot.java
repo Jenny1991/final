@@ -22,9 +22,8 @@ public class Zeitslot extends BusinessObjekt {
 	private Date endzeit;
 	
 	public Zeitslot(){
-		
 	}
-
+	
 	public String getWochentag() {
 		return wochentag;
 	}
@@ -33,22 +32,23 @@ public class Zeitslot extends BusinessObjekt {
 		this.wochentag = wochentag;
 	}
 
-	public Date getAnfangszeit() {
-		return anfangszeit;
+	
+	public String getAnfangszeit() {
+		return this.anfangszeit.getHours()+":"+this.anfangszeit.getMinutes();
 	}
 
 	public void setAnfangszeit(Date anfangszeit) {
 		this.anfangszeit = anfangszeit;
 	}
 
-	public Date getEndzeit() {
-		return endzeit;
+	public String getEndzeit() {
+		return this.endzeit.getHours()+":"+this.endzeit.getMinutes();
 	}
 
 	public void setEndzeit(Date endzeit) {
 		this.endzeit = endzeit;
 	}
-	
+
 	@Override
 	public String toString() {
 		return this.anfangszeit+" - "+this.endzeit;

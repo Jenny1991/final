@@ -36,10 +36,10 @@ public class ReportStundenplan extends Content {
 
 
 	/**
-	 * Aufbau der Seite, um den Stundenplan f���r Studenten anzuzeigen
+	 * Aufbau der Seite, um den Stundenplan f���������r Studenten anzuzeigen
 	 */
 	
-	HTML ueberschrift = new HTML ("<h2>Stundenplan f���r Studenten</h2>");
+	HTML ueberschrift = new HTML ("<h2>Stundenplan f���������r Studenten</h2>");
 	final Label lbstundenplan = new Label ("Stundenplan:");
 	final Label lbsemverband = new Label ("Semesterverband:");
 	final Label lbstudiengang = new Label ("Studiengang:");
@@ -112,7 +112,7 @@ public class ReportStundenplan extends Content {
 						  
 						//  feld.getHTML()
 //					        if (result != null) {
-					            HTMLReportWriter writer = new HTMLReportWriter();
+					            PlainTextReportWriter writer = new PlainTextReportWriter();
 					            writer.process(result);
 					            stundenplansystem.append(writer.getReportText());
 //					          } 

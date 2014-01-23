@@ -402,7 +402,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 			int semester, int studierendenAnzahl, String jahrgang)
 			throws IllegalArgumentException {
 		
-		if (jahrgang.matches("[0-9]+") || jahrgang.matches("[0-9]+"+"/"+"[0-9]+")){
+		if (jahrgang.matches("[A-Z]+"+" "+"[0-9]+") || jahrgang.matches("[A-Z]+"+" "+"[0-9]+"+"/"+"[0-9]+")){
 		
 		Semesterverband a = new Semesterverband();
 		a.setStudiengangId(studiengangId);
@@ -427,7 +427,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 
 	public Stundenplan createStundenplan(String studienhalbjahr, int semesterverbandId) throws IllegalArgumentException {
 		
-		if (studienhalbjahr.matches("[0-9]+") || studienhalbjahr.matches("[0-9]+"+"/"+"[0-9]+")){
+		if (studienhalbjahr.matches("[A-Z]+"+" "+"[0-9]+") || studienhalbjahr.matches("[A-Z]+"+" "+"[0-9]+"+"/"+"[0-9]+")){
 			
 		
 		Stundenplan sp = new Stundenplan();
@@ -565,7 +565,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 			throws IllegalArgumentException {
 		
 		
-		if (sv.getJahrgang().matches("[0-9]+") || sv.getJahrgang().matches("[0-9]+"+"/"+"[0-9]+")){
+		if (sv.getJahrgang().matches("[A-Z]+"+" "+"[0-9]+") || sv.getJahrgang().matches("[A-Z]+"+" "+"[0-9]+"+"/"+"[0-9]+")){
 			
 			this.semesterverbandMapper.update(sv);
 			
@@ -591,7 +591,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 
 	public void changeStundenplan(Stundenplan sp) throws IllegalArgumentException {
 		
-		if (sp.getStudienhalbjahr().matches("[0-9]+") || sp.getStudienhalbjahr().matches("[0-9]+"+"/"+"[0-9]+")){
+		if (sp.getStudienhalbjahr().matches("[A-Z]+"+" "+"[0-9]+") || sp.getStudienhalbjahr().matches("[A-Z]+"+" "+"[0-9]+"+"/"+"[0-9]+")){
 			
 			this.stundenplanMapper.update(sp);
 			

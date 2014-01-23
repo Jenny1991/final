@@ -104,7 +104,53 @@ public class SemesterverbandMapper {
   }
 
   
-  
+  /**
+   * Suchen eines Semesterverbandes mit vorgegebener id. Da diese eindeutig ist,
+   * wird genau ein Objekt zurückgegeben.
+   * 
+   * @param id Primärschlüsselattribut (->DB)
+   * @return Semesterverband-Objekt, das dem übergebenen Schlüssel entspricht, null bei
+   *         nicht vorhandenem DB-Tupel.
+   */
+  public Semesterverband findByStundenplanId(int semesterverbandid) {
+    // DB-Verbindung holen
+    Connection con = DBConnection.connection();
+
+    try {
+      // Leeres SQL-Statement (JDBC) anlegen
+      Statement stmt = con.createStatement();
+
+      // Statement ausfüllen und als Query an die DB schicken
+      ResultSet rs = stmt.executeQuery("SELECT id, semester, studierendenAnzahl, jahrgang, studiengangid "
+      	  + "FROM stundenplan "
+      	  + "INNER JOIN semesterverband "
+      	  + "ON stundenplan.semesterverbandid = stundenplan.id"
+          + "WHERE stundenplanid=" + semesterverbandid);
+
+      /*
+       * Da id Primärschlüssel ist, kann max. nur ein Tupel zurückgegeben
+       * werden. Prüfe, ob ein Ergebnis vorliegt.
+       */
+      if (rs.next()) {
+        // Ergebnis-Tupel in Objekt umwandeln
+        Semesterverband s = new Semesterverband();
+        s.setId(rs.getInt("id"));
+        s.setSemester(rs.getInt("semester"));
+        s.setStudierendenAnzahl(rs.getInt("studierendenAnzahl"));
+        s.setJahrgang(rs.getString("jahrgang"));
+        s.setStudiengangId(rs.getInt("studiengangid"));
+        s.setKuerzel("kuerzel");
+        
+        return s;
+      }
+    }
+    catch (SQLException e2) {
+      e2.printStackTrace();
+      return null;
+    }
+
+    return null;
+  }
   
   
   /**

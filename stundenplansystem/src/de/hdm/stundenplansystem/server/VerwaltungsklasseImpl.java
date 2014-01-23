@@ -145,7 +145,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	
 	
 	/**
-	 * Auslesen aller Räume
+	 * Auslesen aller Rï¿½ume
 	 */
 	
 	public Vector<Raum> getAllRaeume() throws IllegalArgumentException {
@@ -163,7 +163,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	
 	
 	/**
-	 * Auslesen aller Semesterverbände
+	 * Auslesen aller Semesterverbï¿½nde
 	 */
 	
 	public Vector<Semesterverband> getAllSemesterverbaende() throws IllegalArgumentException {
@@ -179,7 +179,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	  }
 	
 	/**
-	 * Auslesen aller Stundenpläne
+	 * Auslesen aller Stundenplï¿½ne
 	 */
 	
 	public Vector<Stundenplan> getAllStundenplaene() throws IllegalArgumentException {
@@ -187,7 +187,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	  }
 	
 	/**
-	 * Auslesen aller Stundenplaneinträge
+	 * Auslesen aller Stundenplaneintrï¿½ge
 	 */
 	
 	public Vector<Stundenplaneintrag> getAllStundenplaneintraege() throws IllegalArgumentException {
@@ -204,7 +204,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	
 	
 	/**
-	 * Auslesen der jeweiligen BO's über ihre ID
+	 * Auslesen der jeweiligen BO's ï¿½ber ihre ID
 	 */
 	
 	public Dozent getDozentById(int id) throws IllegalArgumentException {
@@ -240,7 +240,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	}
 	
 	/**
-	 * Auslesen der Semesterverbände eines Studiengangs
+	 * Auslesen der Semesterverbï¿½nde eines Studiengangs
 	 */
 	
 	public Vector<Semesterverband> getSemsterverbaendeByStudiengang(int studiengangId){
@@ -276,7 +276,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	}
 	
 	/**
-	 * Auslesen eines Studiengangs über die SemesterverbandId
+	 * Auslesen eines Studiengangs ï¿½ber die SemesterverbandId
 	 */
 	
 	public Studiengang getStudiengangBySemesterverbandId(int SemesterverbandId){
@@ -284,7 +284,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	}
 	
 	/**
-	 * Anschließend folgen alle create-Methoden der BO's
+	 * Anschlieï¿½end folgen alle create-Methoden der BO's
 	 */
 	
 	public Dozent createDozent(String vorname, String nachname)
@@ -300,7 +300,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		return this.dozentMapper.insert(a);	
 		}
 	else {		
-		throw new IllegalArgumentException("ungültige Eingabe!");	
+		throw new IllegalArgumentException("ungï¿½ltige Eingabe!");	
 		}
 	}
 	
@@ -342,7 +342,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 			return this.studiengangMapper.insert(s);
 		}
 		else {		
-			throw new IllegalArgumentException("ungültige Eingabe!");	
+			throw new IllegalArgumentException("ungï¿½ltige Eingabe!");	
 		}
 	}
 
@@ -358,6 +358,10 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		s.setZeitslotId(z);
 		s.setSemesterverbandId(sv);
 		s.setStundenplanId(sp);
+		
+		String bezeichnung = this.getStudiengangBySemesterverbandId(sv).getBezeichnung();
+		String abkuerzung = bezeichnung.substring(0, 2)+" , "+this.getLehrveranstaltungById(l).getBezeichnung();
+		s.setAbkuerzung(abkuerzung);
 		
 		s.setId(1);
 		
@@ -375,11 +379,8 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		a.setJahrgang(jahrgang);
 		
 		String bezeichnung = this.getStudiengangById(studiengangId).getBezeichnung();
-		String kuerzel = bezeichnung.substring(0, 1);
+		String kuerzel = bezeichnung.substring(0, 2);
 		a.setKuerzel(kuerzel);
-		
-		
-		
 		
 		a.setId(1);
 		
@@ -399,7 +400,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	}
 	
 	/**
-	 * Anschließend folgen alle delete-Methoden der BO's
+	 * Anschlieï¿½end folgen alle delete-Methoden der BO's
 	 */
 
 	public boolean deleteDozent(Dozent d) throws IllegalArgumentException {
@@ -486,7 +487,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	}
 	
 	/**
-	 * Anschließend folgen alle Change-Methoden der BO's
+	 * Anschlieï¿½end folgen alle Change-Methoden der BO's
 	 */
 
 	public void changeDozent(Dozent d) throws IllegalArgumentException {

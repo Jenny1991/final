@@ -18,8 +18,8 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
     implements ReportGenerator {
 
   /**
-   * Ein ReportGenerator benötigt Zugriff auf die Verwaltungsklasse, da diese die
-   * essentiellen Methoden für die Koexistenz von Datenobjekten (vgl.
+   * Ein ReportGenerator benï¿½tigt Zugriff auf die Verwaltungsklasse, da diese die
+   * essentiellen Methoden fï¿½r die Koexistenz von Datenobjekten (vgl.
    * bo-Package) bietet.
    */
   private Verwaltungsklasse verwaltung = null;
@@ -49,7 +49,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
    */
   public void init() throws IllegalArgumentException {
     /*
-     * Ein ReportGeneratorImpl-Objekt instantiiert für seinen Eigenbedarf eine
+     * Ein ReportGeneratorImpl-Objekt instantiiert fï¿½r seinen Eigenbedarf eine
      * VerwaltungklasseImpl-Instanz.
      */
     VerwaltungsklasseImpl a = new VerwaltungsklasseImpl();
@@ -58,7 +58,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
   }
 
   /**
-   * Auslesen der zugehörigen Verwaltungsklasse (interner Gebrauch).
+   * Auslesen der zugehï¿½rigen Verwaltungsklasse (interner Gebrauch).
    * 
    * @return das Verwaltungsklassenobjekt
    */
@@ -67,16 +67,16 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
   }
 
   /**
-   * Setzen des zugehörigen Dozenten-Objekts.
+   * Setzen des zugehï¿½rigen Dozenten-Objekts.
    */
   public void setDozent(Dozent d) {
     this.verwaltung.setDozent(d);
   }
 
   /**
-   * Hinzufügen des Report-Impressums. Diese Methode ist aus den
+   * Hinzufï¿½gen des Report-Impressums. Diese Methode ist aus den
    * <code>create...</code>-Methoden ausgegliedert, da jede dieser Methoden
-   * diese Tätigkeiten redundant auszuführen hätte. Stattdessen rufen die
+   * diese Tï¿½tigkeiten redundant auszufï¿½hren hï¿½tte. Stattdessen rufen die
    * <code>create...</code>-Methoden diese Methode auf.
    * 
    * @param r der um das Impressum zu erweiternde Report.
@@ -112,14 +112,14 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
      */
     StundenplanDozentReport result = new StundenplanDozentReport();
 
-    // Jeder Report hat einen Titel (Bezeichnung / Üerschrift).
+    // Jeder Report hat einen Titel (Bezeichnung / ï¿½erschrift).
     result.setTitle("Stundenplan des Dozenten");
 
-    // Imressum hinzufügen
+    // Imressum hinzufï¿½gen
     this.addImprint(result);
 
     /*
-     * Datum der Erstellung hinzufügen. new Date() erzeugt autom. einen
+     * Datum der Erstellung hinzufï¿½gen. new Date() erzeugt autom. einen
      * "Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts.
      */
     result.setCreated(new Date());
@@ -135,20 +135,20 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
     header.addSubParagraph(new SimpleParagraph(d.getVorname() + ", "
         + d.getNachname()));
 
-    // Hinzufügen der zusammengestellten Kopfdaten zu dem Report
+    // Hinzufï¿½gen der zusammengestellten Kopfdaten zu dem Report
     result.setHeaderData(header);
 
     /*
-     * Ab hier erfolgt ein zeilenweises Hinzufügen von Stundenplaneintrag-Informationen.
+     * Ab hier erfolgt ein zeilenweises Hinzufï¿½gen von Stundenplaneintrag-Informationen.
      */
     
     /*
-     * ZunÃ¤chst legen wir eine Kopfzeile für die Stundenplaneintrag-Tabelle an.
+     * ZunÃ¤chst legen wir eine Kopfzeile fï¿½r die Stundenplaneintrag-Tabelle an.
      */
     Row headline = new Row();
 
     /*
-     * Erzeugen einer StundenplanTabelle mit 6 Spalten für jeden Wochentag.
+     * Erzeugen einer StundenplanTabelle mit 6 Spalten fï¿½r jeden Wochentag.
      */
     headline.addColumn(new Column("Montag"));
     headline.addColumn(new Column("Dienstag"));
@@ -157,13 +157,13 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
     headline.addColumn(new Column("Freitag"));
     headline.addColumn(new Column("Samstag"));
 
-    // Hinzufügen der Kopfzeile
+    // Hinzufï¿½gen der Kopfzeile
     result.addRow(headline);
     
     Row accountRow = new Row();
     
     /*
-     * Nun werden sämtliche Stundenplaneintraege des Dozenten ausgelesen und in die Tabelle eingetragen.
+     * Nun werden sï¿½mtliche Stundenplaneintraege des Dozenten ausgelesen und in die Tabelle eingetragen.
      */ 
     for(int i = 1; i < 37; i++){
     	
@@ -178,10 +178,11 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
 		}
     	
     	if (i == 6 | i == 12 | i == 18 | i == 24 | i == 30)
+    		result.addRow(accountRow);
     		accountRow = new Row();
     }
     /*
-     * Zum Schluss müssen wir noch den fertigen Report zurückgeben.
+     * Zum Schluss mï¿½ssen wir noch den fertigen Report zurï¿½ckgeben.
      */
     return result;
   }
@@ -205,18 +206,18 @@ public RaumbelegungsReport createRaumbelungsReport(Raum r)
     return null;
 
   /*
-   * Zunächst legen wir uns einen leeren Report an.
+   * Zunï¿½chst legen wir uns einen leeren Report an.
    */
   RaumbelegungsReport result = new RaumbelegungsReport();
 
-  // Jeder Report hat einen Titel (Bezeichnung / Überschrift).
+  // Jeder Report hat einen Titel (Bezeichnung / ï¿½berschrift).
   result.setTitle("Raumbelegungsplan");
 
-  // Imressum hinzufügen
+  // Imressum hinzufï¿½gen
   this.addImprint(result);
 
   /*
-   * Datum der Erstellung hinzufügen. new Date() erzeugt autom. einen
+   * Datum der Erstellung hinzufï¿½gen. new Date() erzeugt autom. einen
    * "Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts.
    */
   result.setCreated(new Date());
@@ -228,24 +229,24 @@ public RaumbelegungsReport createRaumbelungsReport(Raum r)
    */
   CompositeParagraph header = new CompositeParagraph();
 
-  // Bezeichnung und Kapazität des Raumes aufnehmen
+  // Bezeichnung und Kapazitï¿½t des Raumes aufnehmen
   header.addSubParagraph(new SimpleParagraph(r.getBezeichnung() + ", Kapatitï¿½t: "
       + r.getKapazitaet()));
 
-  // Hinzufügen der zusammengestellten Kopfdaten zu dem Report
+  // Hinzufï¿½gen der zusammengestellten Kopfdaten zu dem Report
   result.setHeaderData(header);
 
   /*
-   * Ab hier erfolgt ein zeilenweises Hinzufügen von Stundenplaneintrag-Informationen.
+   * Ab hier erfolgt ein zeilenweises Hinzufï¿½gen von Stundenplaneintrag-Informationen.
    */
   
   /*
-   * ZunÃ¤chst legen wir eine Kopfzeile für die Stundenplaneintrag-Tabelle an.
+   * ZunÃ¤chst legen wir eine Kopfzeile fï¿½r die Stundenplaneintrag-Tabelle an.
    */
   Row headline = new Row();
 
   /*
-   * Erzeugen einer StundenplanTabelle mit 6 Spalten für jeden Wochentag.
+   * Erzeugen einer StundenplanTabelle mit 6 Spalten fï¿½r jeden Wochentag.
    */
   headline.addColumn(new Column("Montag"));
   headline.addColumn(new Column("Dienstag"));
@@ -254,13 +255,13 @@ public RaumbelegungsReport createRaumbelungsReport(Raum r)
   headline.addColumn(new Column("Freitag"));
   headline.addColumn(new Column("Samstag"));
 
-  // Hinzufügen der Kopfzeile
+  // Hinzufï¿½gen der Kopfzeile
   result.addRow(headline);
   
   Row accountRow = new Row();
   
   /*
-   * Nun werden sämtliche Stundenplaneintraege des Dozenten ausgelesen und in die Tabelle eingetragen.
+   * Nun werden sï¿½mtliche Stundenplaneintraege des Dozenten ausgelesen und in die Tabelle eingetragen.
    */ 
   for(int i = 1; i < 37; i++){
   	
@@ -275,10 +276,11 @@ public RaumbelegungsReport createRaumbelungsReport(Raum r)
 		}
   	
   	if (i == 6 | i == 12 | i == 18 | i == 24 | i == 30)
+  		result.addRow(accountRow);
   		accountRow = new Row();
   }
   /*
-   * Zum Schluss müssen wir noch den fertigen Report zurückgeben.
+   * Zum Schluss mï¿½ssen wir noch den fertigen Report zurï¿½ckgeben.
    */
   return result;
 }
@@ -307,18 +309,18 @@ public StundenplanSemesterverbandReport createStundenplanSemesterverbandReport(
 	    return null;
 
 	  /*
-	   * Zunächst legen wir uns einen leeren Report an.
+	   * Zunï¿½chst legen wir uns einen leeren Report an.
 	   */
 	  StundenplanSemesterverbandReport result = new StundenplanSemesterverbandReport();
 
-	  // Jeder Report hat einen Titel (Bezeichnung / Überschrift).
-	  result.setTitle("Stundenplan des Semsterverbandes");
+	  // Jeder Report hat einen Titel (Bezeichnung / ï¿½berschrift).
+	  result.setTitle("Stundenplan des Semesterverbandes");
 
-	  // Imressum hinzufügen
+	  // Imressum hinzufï¿½gen
 	  this.addImprint(result);
 
 	  /*
-	   * Datum der Erstellung hinzufügen. new Date() erzeugt autom. einen
+	   * Datum der Erstellung hinzufï¿½gen. new Date() erzeugt autom. einen
 	   * "Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts.
 	   */
 	  result.setCreated(new Date());
@@ -331,23 +333,23 @@ public StundenplanSemesterverbandReport createStundenplanSemesterverbandReport(
 	  CompositeParagraph header = new CompositeParagraph();
 
 	  // Bezeichnung des Semesterverbandes aufnehmen
-	  header.addSubParagraph(new SimpleParagraph(sv.getStudiengangId() + ", "
+	  header.addSubParagraph(new SimpleParagraph(sv.getKuerzel() + ", "
 	      + sv.getSemester()));
 
-	  // Hinzufügen der zusammengestellten Kopfdaten zu dem Report
+	  // Hinzufï¿½gen der zusammengestellten Kopfdaten zu dem Report
 	  result.setHeaderData(header);
 
 	  /*
-	   * Ab hier erfolgt ein zeilenweises Hinzufügen von Stundenplaneintrag-Informationen.
+	   * Ab hier erfolgt ein zeilenweises Hinzufï¿½gen von Stundenplaneintrag-Informationen.
 	   */
 	  
 	  /*
-	   * ZunÃ¤chst legen wir eine Kopfzeile für die Stundenplaneintrag-Tabelle an.
+	   * ZunÃ¤chst legen wir eine Kopfzeile fï¿½r die Stundenplaneintrag-Tabelle an.
 	   */
 	  Row headline = new Row();
 
 	  /*
-	   * Erzeugen einer StundenplanTabelle mit 6 Spalten für jeden Wochentag.
+	   * Erzeugen einer StundenplanTabelle mit 6 Spalten fï¿½r jeden Wochentag.
 	   */
 	  headline.addColumn(new Column("Montag"));
 	  headline.addColumn(new Column("Dienstag"));
@@ -356,13 +358,13 @@ public StundenplanSemesterverbandReport createStundenplanSemesterverbandReport(
 	  headline.addColumn(new Column("Freitag"));
 	  headline.addColumn(new Column("Samstag"));
 
-	  // Hinzufügen der Kopfzeile
+	  // Hinzufï¿½gen der Kopfzeile
 	  result.addRow(headline);
 	  
 	  Row accountRow = new Row();
 	  
 	  /*
-	   * Nun werden sämtliche Stundenplaneintraege des Semsterverbandes ausgelesen und in die Tabelle eingetragen.
+	   * Nun werden sï¿½mtliche Stundenplaneintraege des Semsterverbandes ausgelesen und in die Tabelle eingetragen.
 	   */ 
 	  for(int i = 1; i < 37; i++){
 	  	
@@ -377,11 +379,13 @@ public StundenplanSemesterverbandReport createStundenplanSemesterverbandReport(
 			}
 	  	
 	  	if (i == 6 | i == 12 | i == 18 | i == 24 | i == 30)
+	  		result.addRow(accountRow);
 	  		accountRow = new Row();
 	  }
 	  /*
-	   * Zum Schluss müssen wir noch den fertigen Report zurückgeben.
+	   * Zum Schluss mï¿½ssen wir noch den fertigen Report zurï¿½ckgeben.
 	   */  
+	 
 	  
 	return result;
 	

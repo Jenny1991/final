@@ -35,6 +35,7 @@ public class SemesterverbandForm extends Content {
 	  final ListBox libstudiengang = new ListBox();
 	  final TextBox tbsemester = new TextBox ();
 	  final TextBox tbanzahl = new TextBox ();
+	  final TextBox tbkuerzel = new TextBox();
 	  final Button loeschen = new Button ("Semesterverband löschen");
 	  final Button speichern = new Button ("Änderungen speichern");
 	  
@@ -47,7 +48,7 @@ public class SemesterverbandForm extends Content {
 	  NavTreeViewModel tvm = null;
 	  
 	  public SemesterverbandForm() {
-		  Grid svGrid = new Grid (6, 2);
+		  Grid svGrid = new Grid (7, 2);
 		    this.add(ueberschriftAenderung);
 			this.add(svGrid);
 		  
@@ -58,25 +59,27 @@ public class SemesterverbandForm extends Content {
 			Label lbstudiengang = new Label("Studiengang");
 			svGrid.setWidget(1, 0, lbstudiengang);
 			svGrid.setWidget(1, 1, libstudiengang);
+//			svGrid.setWidget(2, 1, tbkuerzel);
+//			tbkuerzel.setEnabled(false);
 			
 			Label lbsemester = new Label("Semester");
-			svGrid.setWidget(2, 0, lbsemester);
-			svGrid.setWidget(2, 1, tbsemester);
+			svGrid.setWidget(3, 0, lbsemester);
+			svGrid.setWidget(3, 1, tbsemester);
 
 			Label lbanzahl = new Label("Anzahl der Studierenden");
-			svGrid.setWidget(3, 0, lbanzahl);
-			svGrid.setWidget(3, 1, tbanzahl);
+			svGrid.setWidget(4, 0, lbanzahl);
+			svGrid.setWidget(4, 1, tbanzahl);
 			
 			Label lbfunktionen = new Label ("Funktionen");
-			svGrid.setWidget(4, 0, lbfunktionen);
-			svGrid.setWidget(4, 1, speichern);
+			svGrid.setWidget(5, 0, lbfunktionen);
+			svGrid.setWidget(5, 1, speichern);
 			
 			speichern.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 					changeSelectedSv();
 				}
 			});
-			svGrid.setWidget(5, 1, loeschen);
+			svGrid.setWidget(6, 1, loeschen);
 			loeschen.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 					deleteSelectedSv();

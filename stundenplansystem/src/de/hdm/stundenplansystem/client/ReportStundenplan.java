@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ButtonBase;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RadioButton;
@@ -39,7 +40,9 @@ public class ReportStundenplan extends Content {
 	 */
 	
 	HTML ueberschrift = new HTML ("<h2>Stundenplan f���r Studenten</h2>");
-	final FlexTable flexSv = new FlexTable();
+	final Label lbstundenplan = new Label ("Stundenplan:");
+	final Label lbsemverband = new Label ("Semesterverband:");
+	final Label lbstudiengang = new Label ("Studiengang:");
 	final ListBox libstundenplan = new ListBox();
 	final ListBox libsemverband = new ListBox();
 	final ListBox libstudiengang = new ListBox();
@@ -58,8 +61,11 @@ public class ReportStundenplan extends Content {
 	public void onLoad() {
 		
 		this.add(ueberschrift);
+		this.add(lbstudiengang);
 		this.add(libstudiengang);
+		this.add(lbsemverband);
 		this.add(libsemverband);
+		this.add(lbstundenplan);
 		this.add(libstundenplan);
 		this.add(anzeigen);
 		setTvm(tvm);

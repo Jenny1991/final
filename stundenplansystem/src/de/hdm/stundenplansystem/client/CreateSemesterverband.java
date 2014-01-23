@@ -36,16 +36,15 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 		  /**
 		   * Unter der ������berschrift tr������gt der User die Daten des neuen Semesterverbands ein. 
 		   */
-		  final Label lbjahrgang = new Label ("Jahrgang"); 
-		  final Label lbstudiengang = new Label ("Studiengang");
-		  final Label lbsemester = new Label ("Semester");
-		  final Label lbanzahl = new Label ("Anzahl");
+		  final Label lbjahrgang = new Label ("Beginn des Studiums (z.B. SS 2012 oder WS 2012/2013):"); 
+		  final Label lbstudiengang = new Label ("Studiengang:");
+		  final Label lbsemester = new Label ("aktuelles Semester (z.B. 1, 2, 3, ...):");
+		  final Label lbanzahl = new Label ("Anzahl der Studierenden:");
 		  final TextBox tbjahrgang = new TextBox ();
 		  final ListBox libstudiengang = new ListBox();
 		  final TextBox tbsemester = new TextBox ();
 		  final TextBox tbanzahl = new TextBox ();
-		  final TextBox tbkuerzel = new TextBox();
-		  final Button speichern = new Button ("speichern");
+		  final Button speichern = new Button ("Eingaben speichern");
 		  
 		  Vector<Studiengang> sgContainer = null;
 		  
@@ -63,8 +62,6 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 			  this.add(tbjahrgang);
 			  this.add(lbstudiengang);
 			  this.add(libstudiengang);
-			  this.add(tbkuerzel);
-			  tbkuerzel.setEnabled(false);
 			  this.add(lbsemester);
 			  this.add(tbsemester);
 			  this.add(lbanzahl);
@@ -110,7 +107,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 
 								  @Override
 								  public void onFailure (Throwable caught) {
-									  Window.alert("Der Semesterverband konnte nicht angelegt werden.");
+									  Window.alert(caught.getMessage());
 								  }
 
 								  @Override
@@ -118,7 +115,6 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 									  tbjahrgang.setText("");
 									  libstudiengang.clear();
 									  tbsemester.setText("");
-									  tbanzahl.setText("");
 									  libstudiengang.clear();
 									  Window.alert ("Erfolgreich gespeichert.");
 									  tvm.addSemesterverband(result);

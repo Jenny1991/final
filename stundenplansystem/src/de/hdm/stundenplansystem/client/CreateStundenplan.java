@@ -32,13 +32,13 @@ public class CreateStundenplan extends Content{
 	  /**
 	   * Unter der ï¿½berschrift trï¿½gt der User die Daten des neuen Studiengangs ein. 
 	   */
-	  final Label lbhalbjahr = new Label ("Studienhalbjahr des Stundenplans: (z.B. SS 2012 oder WS 2012/2013)"); 
+	  final Label lbhalbjahr = new Label ("Studienhalbjahr des Stundenplans (z.B. SS 2012 oder WS 2012/2013):"); 
 	  final TextBox tbhalbjahr = new TextBox ();
 	  final Label lbsemverband = new Label ("Semesterverband:");
 	  final ListBox libsemverband = new ListBox();
 	  final Label lbstudiengang = new Label ("Studiengang:");
 	  final ListBox libstudiengang = new ListBox();
-	  final Button speichern = new Button ("speichern");
+	  final Button speichern = new Button ("Eingaben speichern");
 	  
       Vector<Semesterverband> svContainer = null;
       Vector<Studiengang> sgContainer = null;

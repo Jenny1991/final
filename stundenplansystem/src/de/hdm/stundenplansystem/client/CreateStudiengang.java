@@ -31,9 +31,9 @@ public class CreateStudiengang extends Content{
 	  /**
 	   * Unter der ï¿½berschrift trï¿½gt der User die Daten des neuen Studiengangs ein. 
 	   */
-	  final Label lbbezeichnung = new Label ("Bezeichnung"); 
+	  final Label lbbezeichnung = new Label ("Bezeichnung:"); 
 	  final TextBox tbbezeichnung = new TextBox ();
-	  final Button speichern = new Button ("speichern");
+	  final Button speichern = new Button ("Eingabe speichern");
 	  
 	  final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
 	  NavTreeViewModel tvm = null;

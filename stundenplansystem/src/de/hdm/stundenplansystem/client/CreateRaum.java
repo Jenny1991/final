@@ -31,11 +31,11 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 		  /**
 		   * Unter der Ã¯Â¿Â½berschrift tragt der User die Daten des neuen Raums ein. 
 		   */
-		  final Label lbbezeichnung = new Label ("Bezeichnung"); 
-		  final Label lbkapazitaet = new Label ("Kapazität");
+		  final Label lbbezeichnung = new Label ("Bezeichnung:"); 
+		  final Label lbkapazitaet = new Label ("Kapazitï¿½t des Raums:");
 		  final TextBox tbbezeichnung = new TextBox ();
 		  final TextBox tbkapazitaet = new TextBox ();
-		  final Button speichern = new Button ("speichern");
+		  final Button speichern = new Button ("Eingaben speichern");
 		  
 		  final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
 		  NavTreeViewModel tvm = null;
@@ -63,7 +63,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 						  if (tbbezeichnung.getValue().isEmpty() 
 								  || tbkapazitaet.getValue().isEmpty())
 						  {	allFilled = false;
-						  Window.alert ("Bitte füllen Sie alle Felder aus."); }
+						  Window.alert ("Bitte fï¿½llen Sie alle Felder aus."); }
 						  
 						  if (allFilled == true) { 
 							  final String bezeichnung = tbbezeichnung.getValue().trim();

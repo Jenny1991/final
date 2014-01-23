@@ -31,13 +31,13 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 		   /**
 		   * Unter der ï¿½berschrift trï¿½gt der User die Daten der neuen Lehrveranstaltung ein. 
 		   */
-		  final Label lbbezeichnung = new Label ("Bezeichnung"); 
-		  final Label lbsemester = new Label ("Semester");
-		  final Label lbumfang = new Label ("Umfang");
+		  final Label lbbezeichnung = new Label ("Bezeichnung der Lehrveranstaltung:"); 
+		  final Label lbsemester = new Label ("Semester:");
+		  final Label lbumfang = new Label ("Umfang (in SWS):");
 		  final TextBox tbbezeichnung = new TextBox ();
 		  final TextBox tbsemester = new TextBox();
 		  final TextBox tbumfang = new TextBox (); 	  
-		  final Button speichern = new Button ("speichern");
+		  final Button speichern = new Button ("Eingaben speichern");
 		  
 		  final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
 		  NavTreeViewModel tvm = null;
@@ -67,7 +67,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 								  || tbsemester.getValue().isEmpty()
 								  || tbumfang.getValue().isEmpty())
 						  {	allFilled = false;
-						  Window.alert("Bitte f�llen Sie alle Felder aus."); }
+						  Window.alert("Bitte f�llen Sie alle Felder aus."); }
 						 
 						  if (allFilled == true) {
 							  final String bezeichnung = tbbezeichnung.getValue().trim();
@@ -78,7 +78,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 
 								  @Override
 								  public void onFailure (Throwable caught) {
-									  Window.alert("Die Lehrveranstaltung konnte nicht angelegt werden.");
+									  Window.alert(caught.getMessage());
 								  }
 
 								  @Override

@@ -32,11 +32,11 @@ public class CreateDozent extends Content {
 	  /**
 	   * Unter der ï¿½berschrift trï¿½gt der User die Daten des neuen Dozenten ein. 
 	   */
-	  Label lbvorname = new Label ("Vorname"); 
-	  final Label lbnachname = new Label ("Nachname");
+	  Label lbvorname = new Label ("Vorname:"); 
+	  final Label lbnachname = new Label ("Nachname:");
 	  final TextBox tbvorname = new TextBox ();
 	  final TextBox tbnachname = new TextBox ();
-	  final Button speichern = new Button ("speichern");
+	  final Button speichern = new Button ("Eingaben speichern");
 	  
 	  final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
 	  NavTreeViewModel tvm = null;
@@ -66,11 +66,11 @@ public class CreateDozent extends Content {
 					  if (tbnachname.getValue().isEmpty() 
 							  ||tbvorname.getValue().isEmpty()) {	
 						  allFilled = false;
-					  Window.alert ("Bitte f�llen Sie alle Felder aus."); } 
+					  Window.alert ("Bitte f�llen Sie alle Felder aus."); } 
 					  
 //					  if (tbnachname.getValue().matches("[0-9] + ")){
 //						  allFilled = false;
-//						  Window.alert("Ung�ltiger Eingabewert!");
+//						  Window.alert("Ung�ltiger Eingabewert!");
 //					  }
 					  
 					  if (allFilled == true) {	

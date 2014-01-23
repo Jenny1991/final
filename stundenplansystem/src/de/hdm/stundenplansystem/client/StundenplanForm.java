@@ -52,19 +52,19 @@ public class StundenplanForm extends Content {
 		  	this.add(ueberschrift);
 			this.add(stGrid);
 		  
-			Label lbstudiengang = new Label ("Studiengang");
+			Label lbstudiengang = new Label ("Studiengang:");
 			stGrid.setWidget(0, 0, lbstudiengang);
 			stGrid.setWidget(0, 1, libstudiengang);
 			
-			Label lbsemverband = new Label ("Semesterverband");
+			Label lbsemverband = new Label ("Semesterverband:");
 			stGrid.setWidget(1, 0, lbsemverband);
 			stGrid.setWidget(1, 1, libsemverband);
 			
-			Label lbhalbjahr = new Label("Studienhalbjahr");
+			Label lbhalbjahr = new Label("Studienhalbjahr:");
 			stGrid.setWidget(2, 0, lbhalbjahr);
 			stGrid.setWidget(2, 1, tbhalbjahr);
 			
-			Label lbfunktionen = new Label ("Funktionen");
+			Label lbfunktionen = new Label ("Funktionen:");
 			stGrid.setWidget(3, 0, lbfunktionen);
 			stGrid.setWidget(3, 1, speichern);
 			speichern.addClickHandler(new ClickHandler() {

@@ -566,7 +566,7 @@ public class StundenplaneintragMapper {
     catch (SQLException e2) {
       e2.printStackTrace();
     }
-  }
+  } 
 
 }
 

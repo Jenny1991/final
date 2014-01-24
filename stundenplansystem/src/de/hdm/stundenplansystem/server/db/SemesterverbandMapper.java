@@ -121,9 +121,9 @@ public class SemesterverbandMapper {
       Statement stmt = con.createStatement();
 
       // Statement ausfÃ¼llen und als Query an die DB schicken
-      ResultSet rs = stmt.executeQuery("SELECT id, semester, studierendenAnzahl, jahrgang, studiengangid "
-      	  + "FROM stundenplan "
-      	  + "INNER JOIN semesterverband "
+      ResultSet rs = stmt.executeQuery("SELECT semesterverband.id, semesterverband.semester, semesterverband.studierendenAnzahl, semesterverband.jahrgang, semesterverband.studiengangid, semesterverband.kuerzel "
+      	  + "FROM semesterverband "
+      	  + "INNER JOIN stundenplan "
       	  + "ON stundenplan.semesterverbandid = semesterverband.id "
           + "WHERE semesterverbandid =" + semesterverbandid);
 
@@ -134,12 +134,12 @@ public class SemesterverbandMapper {
       if (rs.next()) {
         // Ergebnis-Tupel in Objekt umwandeln
         Semesterverband s = new Semesterverband();
-        s.setId(rs.getInt("id"));
-        s.setSemester(rs.getInt("semester"));
-        s.setStudierendenAnzahl(rs.getInt("studierendenAnzahl"));
-        s.setJahrgang(rs.getString("jahrgang"));
-        s.setStudiengangId(rs.getInt("studiengangid"));
-        s.setKuerzel(rs.getString("kuerzel"));
+        s.setId(rs.getInt("semesterverband.id"));
+        s.setSemester(rs.getInt("semesterverband.semester"));
+        s.setStudierendenAnzahl(rs.getInt("semesterverband.studierendenAnzahl"));
+        s.setJahrgang(rs.getString("semesterverband.jahrgang"));
+        s.setStudiengangId(rs.getInt("semesterverband.studiengangid"));
+        s.setKuerzel(rs.getString("semesterverband.kuerzel"));
         
         return s;
       }
@@ -211,19 +211,19 @@ public class SemesterverbandMapper {
     try {
       Statement stmt = con.createStatement(); 
 
-      ResultSet rs = stmt.executeQuery("SELECT id, semester, studierendenAnzahl, jahrgang, studiengangid, kuerzel"
+      ResultSet rs = stmt.executeQuery("SELECT semesterverband.id, semesterverband.semester, semesterverband.studierendenAnzahl, semesterverband.jahrgang, semesterverband.studiengangid, semesterverband.kuerzel"
       		+ " FROM semesterverband"
             + " WHERE studiengangid = " + studiengangid);
 
       // FÃ¼r jeden Eintrag im Suchergebnis wird nun ein Semesterverband-Objekt erstellt.
       while (rs.next()) {
         Semesterverband s = new Semesterverband();
-        s.setId(rs.getInt("id"));
-        s.setSemester(rs.getInt("semester"));
-        s.setStudierendenAnzahl(rs.getInt("studierendenAnzahl"));
-        s.setJahrgang(rs.getString("jahrgang"));
-        s.setStudiengangId(rs.getInt("studiengangid"));
-        s.setKuerzel(rs.getString("kuerzel"));
+        s.setId(rs.getInt("semesterverband.id"));
+        s.setSemester(rs.getInt("semesterverband.semester"));
+        s.setStudierendenAnzahl(rs.getInt("semesterverband.studierendenAnzahl"));
+        s.setJahrgang(rs.getString("semesterverband.jahrgang"));
+        s.setStudiengangId(rs.getInt("semesterverband.studiengangid"));
+        s.setKuerzel(rs.getString("semesterverband.kuerzel"));
 
         // HinzufÃ¼gen des neuen Objekts zum Ergebnisvektor
         result.addElement(s);

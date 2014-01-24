@@ -117,10 +117,10 @@ public class StudiengangMapper {
       Statement stmt = con.createStatement();
 
       // Statement ausfüllen und als Query an die DB schicken
-      ResultSet rs = stmt.executeQuery("SELECT id, bezeichnung FROM studiengang "
-      		  + "INNER JOIN semsterverband "
+      ResultSet rs = stmt.executeQuery("SELECT studiengang.id, studiengang.bezeichnung FROM studiengang "
+      		  + "INNER JOIN semesterverband "
       		  + "ON semesterverband.studiengangid = studiengang.id"
-    		  + "WHERE semsterverband.id=" + semesterverbandid);
+    		  + "WHERE semesterverband.id=" + semesterverbandid);
 
       /*
        * Da id Primärschlüssel ist, kann max. nur ein Tupel zurückgegeben
@@ -129,8 +129,8 @@ public class StudiengangMapper {
       if (rs.next()) {
         // Ergebnis-Tupel in Objekt umwandeln
         Studiengang s = new Studiengang();
-        s.setId(rs.getInt("id"));
-        s.setBezeichnung(rs.getString("bezeichnung"));
+        s.setId(rs.getInt("studiengang.id"));
+        s.setBezeichnung(rs.getString("studiengang.bezeichnung"));
                 
         return s;
       }

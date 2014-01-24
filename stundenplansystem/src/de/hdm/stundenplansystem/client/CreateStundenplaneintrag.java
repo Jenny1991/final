@@ -35,12 +35,12 @@ import de.hdm.stundenplansystem.shared.bo.Zeitslot;
 public class CreateStundenplaneintrag extends Content {
 	
 		/**
-		 * Jede Klasse enthältt eine Überschrift, die definiert, was der User machen kann.
+		 * Jede Klasse enth��ltt eine ��berschrift, die definiert, was der User machen kann.
 		 */
 		private final HTML ueberschrift = new HTML ("<h2>Neuen Stundenplaneintrag anlegen<h2>");
 
 		  /**
-		   * Unter der Überschrift trägt der User die Daten des neuen Stundenplaneintrags ein. 
+		   * Unter der ��berschrift tr��gt der User die Daten des neuen Stundenplaneintrags ein. 
 		   */
 		  final Label lbdozent = new Label ("Dozent:"); 
 		  final Label lbzeitslot = new Label ("Zeitslot:");
@@ -149,7 +149,7 @@ public class CreateStundenplaneintrag extends Content {
 							 verwaltungsSvc.createStundenplaneintrag(dozentenContainer.elementAt(listDozent.getSelectedIndex()).getId(), lvContainer.elementAt(listLehrveranstaltung.getSelectedIndex()).getId(), raumContainer.elementAt(listRaum.getSelectedIndex()).getId(), zeitslotContainer.elementAt(listZeitslot.getSelectedIndex()).getId(), spContainer.elementAt(listStudienhj.getSelectedIndex()).getId(), new AsyncCallback<Stundenplaneintrag>(){
 								 @Override
 								  public void onFailure (Throwable caught) {
-									  Window.alert("Der Stundenplaneintrag konnte nicht angelegt werden.");
+									 Window.alert(caught.getMessage());
 								  }
 								@Override
 								public void onSuccess(Stundenplaneintrag result) {

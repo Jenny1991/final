@@ -120,7 +120,7 @@ public class StundenplaneintragMapper {
     try {
       Statement stmt = con.createStatement();
 
-      ResultSet rs = stmt.executeQuery("SELECT stundenplaneintrag.id, stundenplaneintrag.dozentid, stundenplaneintrag.raumid, "
+      ResultSet rs = stmt.executeQuery("SELECT stundenplaneintrag.id, stundenplaneintrag.dozentid, stundenplaneintrag.stundenplanid, stundenplaneintrag.raumid, "
   	    	+ "stundenplaneintrag.zeitslotid, stundenplaneintrag.lehrveranstaltungid, stundenplaneintrag.abkuerzung "
   	    	+ "FROM stundenplaneintrag "
   	    	+ "WHERE stundenplaneintrag.zeitslotid = " + zeitslotid
@@ -129,13 +129,13 @@ public class StundenplaneintragMapper {
       // Für jeden Eintrag im Suchergebnis wird nun ein Stundenplaneintrag-Objekt erstellt.
       while (rs.next()) {
         Stundenplaneintrag s = new Stundenplaneintrag();
-        s.setId(rs.getInt("id"));
-        s.setStundenplanId(rs.getInt("stundenplanid"));
-        s.setDozentId(rs.getInt("dozentid"));
-        s.setRaumId(rs.getInt("raumid"));
-        s.setZeitslotId(rs.getInt("zeitslotid"));
-        s.setLehrveranstaltungId(rs.getInt("lehrveranstaltungid"));
-        s.setAbkuerzung(rs.getString("abkuerzung"));
+        s.setId(rs.getInt("stundenplaneintrag.id"));
+        s.setDozentId(rs.getInt("stundenplaneintrag.dozentid"));
+        s.setStundenplanId(rs.getInt("stundenplaneintrag.stundenplanid"));
+        s.setRaumId(rs.getInt("stundenplaneintrag.raumid"));
+        s.setZeitslotId(rs.getInt("stundenplaneintrag.zeitslotid"));
+        s.setLehrveranstaltungId(rs.getInt("stundenplaneintrag.lehrveranstaltungid"));
+        s.setAbkuerzung(rs.getString("stundenplaneintrag.abkuerzung"));
 
         return s;
       }

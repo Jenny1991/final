@@ -119,7 +119,7 @@ public class ZeitslotMapper {
 
       ResultSet rs = stmt.executeQuery("SELECT id, wochentag, anfangszeit, endzeit"
     	+ " FROM zeitslot "
-        + " ORDER BY wochentag, anfangszeit");
+        + " ORDER BY id");
 
       // Für jeden Eintrag im Suchergebnis wird nun ein Zeitslot-Objekt erstellt.
       while (rs.next()) {
@@ -166,7 +166,7 @@ public class ZeitslotMapper {
 	    	+ " WHERE stundenplaneintrag.raumid <> " + raumid
 	    	+ " AND stundenplaneintrag.dozentid <> " + dozentid
 	    	+ " AND stundenplaneintrag.stundenplanid <> " + stundenplanid
-	        + " ORDER BY wochentag, anfangszeit");
+	        + " ORDER BY id");
 
 	      // Für jeden Eintrag im Suchergebnis wird nun ein Zeitslot-Objekt erstellt.
 	      while (rs.next()) {

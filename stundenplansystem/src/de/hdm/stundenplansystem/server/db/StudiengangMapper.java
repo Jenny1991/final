@@ -119,7 +119,7 @@ public class StudiengangMapper {
       // Statement ausfüllen und als Query an die DB schicken
       ResultSet rs = stmt.executeQuery("SELECT studiengang.id, studiengang.bezeichnung FROM studiengang "
       		  + "INNER JOIN semesterverband "
-      		  + "ON semesterverband.studiengangid = studiengang.id"
+      		  + "ON semesterverband.studiengangid = studiengang.id "
     		  + "WHERE semesterverband.id=" + semesterverbandid);
 
       /*

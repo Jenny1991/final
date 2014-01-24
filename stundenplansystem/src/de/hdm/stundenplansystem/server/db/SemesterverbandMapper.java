@@ -112,7 +112,7 @@ public class SemesterverbandMapper {
    * @return Semesterverband-Objekt, das dem Ã¼bergebenen SchlÃ¼ssel entspricht, null bei
    *         nicht vorhandenem DB-Tupel.
    */
-  public Semesterverband findByStundenplanId(int semesterverbandid) {
+  public Semesterverband findByStundenplanId(int stundenplanid) {
     // DB-Verbindung holen
     Connection con = DBConnection.connection();
 
@@ -125,7 +125,7 @@ public class SemesterverbandMapper {
       	  + "FROM semesterverband "
       	  + "INNER JOIN stundenplan "
       	  + "ON stundenplan.semesterverbandid = semesterverband.id "
-          + "WHERE semesterverbandid =" + semesterverbandid);
+          + "WHERE stundenplan.id =" + stundenplanid);
 
       /*
        * Da id PrimÃ¤rschlÃ¼ssel ist, kann max. nur ein Tupel zurÃ¼ckgegeben

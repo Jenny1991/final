@@ -555,14 +555,15 @@ implements Verwaltungsklasse {
 					throws IllegalArgumentException {
 		
 	Dozent dozent = this.getDozentById(d);
-	Lehrveranstaltung lehrveranstaltung = this.getLehrveranstaltungById(l);		
+	Lehrveranstaltung lehrveranstaltung = this.getLehrveranstaltungById(l);	
 	Raum raum = this.getRaumById(r);
 	Zeitslot zeitslot = this.getZeitslotById(z);
-	Stundenplan stundenpan = this.getStundenplanById(sp);
+	Stundenplan stundenplan = this.getStundenplanById(sp);
+	
 		
-	if( dozent == null || lehrveranstaltung == null || raum == null || zeitslot == null || stundenpan == null){
+	if( dozent == null || lehrveranstaltung == null || raum == null || zeitslot == null || stundenplan == null){
 		
-		throw new IllegalArgumentException("Eins der ausgewählten Objekte wurde gelöscht und ist somit nicht mehr vorhanden!");
+		throw new IllegalArgumentException("");
 		
 	} 
 	else {

@@ -473,7 +473,7 @@ implements Verwaltungsklasse {
 		int l, int r, int z, int sp) 
 					throws IllegalArgumentException {
 		
-//		if( this.getDozentById(d) != null && this.getLehrveranstaltungById(l) != null && this.getRaumById(r) != null && this.getZeitslotById(z) != null && this.getStundenplanById(sp) != null){
+	if( this.getDozentById(d) != null && this.getLehrveranstaltungById(l) != null && this.getRaumById(r) != null && this.getZeitslotById(z) != null && this.getStundenplanById(sp) != null){
 		
 		Stundenplaneintrag s = new Stundenplaneintrag();
 		
@@ -491,10 +491,10 @@ implements Verwaltungsklasse {
 		s.setId(1);
 		
 		return this.stundenplaneintragMapper.insert(s);
-//		} else {
+		} else {
 			
-//			throw new IllegalArgumentException("Eins der ausgewählten Objekte wurde gelöscht und ist somit nicht mehr vorhanden!");
-//		}
+			throw new IllegalArgumentException("Eins der ausgewählten Objekte wurde gelöscht und ist somit nicht mehr vorhanden!");
+		}
 	}
 
 	public Semesterverband createSemesterverband(int studiengangId,

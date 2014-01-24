@@ -551,12 +551,22 @@ implements Verwaltungsklasse {
 	   * @throws IllegalArgumentException
 	   */
 
-	public Stundenplaneintrag createStundenplaneintrag(int d,
-		int l, int r, int z, int sp) 
+	public Stundenplaneintrag createStundenplaneintrag(int d,int l, int r, int z, int sp) 
 					throws IllegalArgumentException {
 		
-	if( this.getDozentById(d) != null & this.getLehrveranstaltungById(l) != null & this.getRaumById(r) != null & this.getZeitslotById(z) != null & this.getStundenplanById(sp) != null){
+	Dozent dozent = this.getDozentById(d);
+	Lehrveranstaltung lehrveranstaltung = this.getLehrveranstaltungById(l);		
+	Raum raum = this.getRaumById(r);
+	Zeitslot zeitslot = this.getZeitslotById(z);
+	Stundenplan stundenpan = this.getStundenplanById(sp);
 		
+	if( dozent == null || lehrveranstaltung == null || raum == null || zeitslot == null || stundenpan == null){
+		
+		throw new IllegalArgumentException("Eins der ausgewählten Objekte wurde gelöscht und ist somit nicht mehr vorhanden!");
+		
+	} 
+	else {
+			
 		Stundenplaneintrag s = new Stundenplaneintrag();
 		
 		s.setDozentId(d);
@@ -573,10 +583,6 @@ implements Verwaltungsklasse {
 		s.setId(1);
 		
 		return this.stundenplaneintragMapper.insert(s);
-		} 
-	else {
-			
-			throw new IllegalArgumentException("Eins der ausgewählten Objekte wurde gelöscht und ist somit nicht mehr vorhanden!");
 		}
 	}
 	

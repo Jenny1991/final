@@ -101,8 +101,10 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
    * @param d das Dozentenobjekt bzgl. dessen der Report erstellt werden soll.
    * @return der fertige Report
    */
-  public StundenplanDozentReport createStundenplanDozentReport(Dozent d) 
+  public StundenplanDozentReport createStundenplanDozentReport(int dozentId) 
 		  throws IllegalArgumentException {
+	  
+	  Dozent d = verwaltung.getDozentById(dozentId);
 
     if (this.getVerwaltungsklasse() == null)
       return null;
@@ -197,9 +199,10 @@ public void setRaum(Raum r) throws IllegalArgumentException {
  * @param r das Raumobjekt bzgl. dessen der Report erstellt werden soll.
  * @return der fertige Report
  */
-public RaumbelegungsReport createRaumbelungsReport(Raum r) 
+public RaumbelegungsReport createRaumbelungsReport(int raumId) 
 		throws IllegalArgumentException {
 
+	Raum r = verwaltung.getRaumById(raumId);
 
 
   if (this.getVerwaltungsklasse() == null)
@@ -351,6 +354,7 @@ public StundenplanSemesterverbandReport createStundenplanSemesterverbandReport(
 	  /*
 	   * Erzeugen einer StundenplanTabelle mit 6 Spalten für jeden Wochentag.
 	   */
+	  headline.addColumn(new Column("      "));
 	  headline.addColumn(new Column("Montag"));
 	  headline.addColumn(new Column("Dienstag"));
 	  headline.addColumn(new Column("Mittwoch"));
@@ -362,34 +366,43 @@ public StundenplanSemesterverbandReport createStundenplanSemesterverbandReport(
 	  result.addRow(headline);
 	  
 	  Row accountRow = new Row();
-	  
+
+	  accountRow.addColumn(new Column(verwaltung.getZeitslotById(1).toString()));
+
 	  /*
-	   * Nun werden sämtliche Stundenplaneintraege des Semsterverbandes ausgelesen und in die Tabelle eingetragen.
-	   */ 
+	  * Nun werden sämtliche Stundenplaneintraege des Semsterverbandes ausgelesen und in die Tabelle eingetragen.
+	  */ 
+	  
+	  int hilfsZeitslotId = 1;
+
 	  for(int i = 1; i < 37; i++){
-	  	
-	  	Stundenplaneintrag aktuell = this.verwaltung.getStundenplaneintragBySemesterverbandAndZeitslot(sv.getId(), i, sp.getId());
-	  	
-	  	if(aktuell != null){
-	  		accountRow.addColumn(new Column(verwaltung.getZeitslotById(aktuell.getZeitslotId()).toString()+ "/n"+
-	  		verwaltung.getLehrveranstaltungById(aktuell.getLehrveranstaltungId()).toString()+ "/n"+ 
-	  		verwaltung.getRaumById(aktuell.getRaumId()).toString()));
-	  	} else {
-				accountRow.addColumn(new Column("----"));
-			}
-	  	
-	  	if (i == 6 | i == 12 | i == 18 | i == 24 | i == 30){
-	  		result.addRow(accountRow);
-	  		accountRow = new Row();}
-	  }
+
+		  Stundenplaneintrag aktuell = this.verwaltung.getStundenplaneintragBySemesterverbandAndZeitslot(sv.getId(), i, sp.getId());
+
+		  if(aktuell != null){
+			  accountRow.addColumn(new Column(
+
+					  verwaltung.getLehrveranstaltungById(aktuell.getLehrveranstaltungId()).toString()+ 
+					  verwaltung.getRaumById(aktuell.getRaumId()).toString()));
+
+		  } 
+		  else {
+			  		accountRow.addColumn(new Column("----"));
+		  }
+
+		  if (i == 6 | i == 12 | i == 18 | i == 24 | i == 30){
+			  
+			  result.addRow(accountRow);
+			  accountRow = new Row();
+			  accountRow.addColumn(new Column(verwaltung.getZeitslotById(hilfsZeitslotId).toString()));
+			  hilfsZeitslotId = hilfsZeitslotId + 6;
+			  }
+		  }
 	  /*
 	   * Zum Schluss müssen wir noch den fertigen Report zurückgeben.
 	   */  
-	 
-	  
-	return result;
-	
-	  }
+	 return result;
+	 }
 }
 
 

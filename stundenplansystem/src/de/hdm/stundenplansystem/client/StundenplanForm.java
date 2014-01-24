@@ -110,7 +110,6 @@ public class StundenplanForm extends Content {
 	  public void setFields(){
 			this.clearFields();
 			tbhalbjahr.setText(shownSp.getStudienhalbjahr());
-			System.out.println(shownSp.getSemesterverbandId());
 			verwaltungsSvc.getSemesterverbandById(shownSp.getSemesterverbandId(), new AsyncCallback<Semesterverband>(){
 				@Override
 				  public void onFailure (Throwable caught) {

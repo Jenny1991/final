@@ -63,6 +63,7 @@ public class StundenplaneintragForm extends Content {
 		NavTreeViewModel tvm = null;
 		  
 		  public StundenplaneintragForm() {
+			  this.clear();
 			  Grid speGrid = new Grid (9, 2);
 			    this.add(ueberschriftAenderung);
 				this.add(speGrid);

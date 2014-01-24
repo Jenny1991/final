@@ -141,6 +141,52 @@ public class ZeitslotMapper {
     return result;
   }
 
+
+  
+  /**
+   * Auslesen aller Zeitslots.
+   * 
+   * @return Ein Vektor mit Zeitslot-Objekten, die sämtliche Zeitslots
+   *         repräsentieren. Bei evtl. Exceptions wird ein partiell gefüllter
+   *         oder ggf. auch leerer Vetor zurückgeliefert.
+   */
+  public Vector<Zeitslot> findFreeZeitslots(int raumid, int dozentid, int stundenplanid) {
+	    Connection con = DBConnection.connection();
+
+	    // Ergebnisvektor vorbereiten
+	    Vector<Zeitslot> result = new Vector<Zeitslot>();
+
+	    try {
+	      Statement stmt = con.createStatement();
+	      
+	      ResultSet rs = stmt.executeQuery("SELECT id, wochentag, anfangszeit, endzeit"
+	    	+ " FROM zeitslot"
+	    	+ " INNER JOIN stundenplaneintrag"
+	    	+ " ON stundenplaneintrag.zeitslotid = zeitslot.id"
+	    	+ " WHERE stundenplaneintrag.raumid <> " + raumid
+	    	+ " AND stundenplaneintrag.dozentid <> " + dozentid
+	    	+ " AND stundenplaneintrag.stundenplanid <> " + stundenplanid
+	        + " ORDER BY Wochentag AND Anfangszeit");
+
+	      // Für jeden Eintrag im Suchergebnis wird nun ein Zeitslot-Objekt erstellt.
+	      while (rs.next()) {
+	        Zeitslot z = new Zeitslot();
+	        z.setId(rs.getInt("id"));
+	        z.setWochentag(rs.getString("wochentag"));
+	        z.setAnfangszeit(rs.getTime("anfangszeit"));
+	        z.setEndzeit(rs.getTime("endzeit"));
+
+	        // Hinzufügen des neuen Objekts zum Ergebnisvektor
+	        result.addElement(z);
+	      }
+	    }
+	    catch (SQLException e2) {
+	      e2.printStackTrace();
+	    }
+
+	    // Ergebnisvektor zurückgeben
+	    return result;
+	  }
   
   /**
    * Einfügen eines <code>Zeitslot</code>-Objekts in die Datenbank. Dabei wird

@@ -110,16 +110,11 @@ public class ReportStundenplan extends Content {
 		
 					  public void onSuccess(StundenplanSemesterverbandReport result){
 						  
-						//  feld.getHTML()
-//					        if (result != null) {
 					      PlainTextReportWriter writer = new PlainTextReportWriter();
 					      writer.process(result);
 					      String test = writer.getReportText();
 					      test = feld.getText();
-				          neuesPanel.add(new HTML(test));
-
-//					          } 
-						  
+				          neuesPanel.add(new HTML(test));						  
 					  }
 			
 					  @Override
@@ -129,7 +124,11 @@ public class ReportStundenplan extends Content {
 				  });
 			  }
 		  });
+		  
+		  
+		  
 		  }
+	
 	
 	public void setTvm(NavTreeViewModel tvm) {
 		this.tvm = tvm;

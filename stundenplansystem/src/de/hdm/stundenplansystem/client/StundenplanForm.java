@@ -83,24 +83,34 @@ public class StundenplanForm extends Content {
 			setTvm(tvm);
 	  }
 
-//	  	public void getData(){
-//				verwaltungsSvc.getStundenplanById(id, new AsyncCallback<Stundenplan>(){
-//					@Override
-//					public void onFailure(Throwable caught) {
-//					}
-//					
-//					@Override
-//					public void onSuccess(Stundenplan sp) {
-//						if (sp != null) {
-//							setSelected(sp);
-//						}
-//					};		
-//				});
-//			}
+	  	public void onLoad(){
+				verwaltungsSvc.getStundenplanById(id, new AsyncCallback<Stundenplan>(){
+					@Override
+					public void onFailure(Throwable caught) {
+					}
+					
+					@Override
+					public void onSuccess(Stundenplan sp) {
+						if (sp != null) {
+							setSelected(sp);
+						}
+					};		
+				});
+				
+				libstudiengang.addChangeHandler(new ChangeHandler() {
+					
+					@Override
+					public void onChange(ChangeEvent event) {
+						getSemverband();	
+					}
+				  });
+				
+			}
 	  
 	  public void setFields(){
 			this.clearFields();
 			tbhalbjahr.setText(shownSp.getStudienhalbjahr());
+			System.out.println(shownSp.getSemesterverbandId());
 			verwaltungsSvc.getSemesterverbandById(shownSp.getSemesterverbandId(), new AsyncCallback<Semesterverband>(){
 				@Override
 				  public void onFailure (Throwable caught) {
@@ -221,15 +231,7 @@ public class StundenplanForm extends Content {
 			}
 		} 
 		
-			public void onLoad(){	
-				  libstudiengang.addChangeHandler(new ChangeHandler() {
-						
-						@Override
-						public void onChange(ChangeEvent event) {
-							getSemverband();	
-						}
-					  });	
-			}
+
 			  
 		public void clearFields(){
 			libstudiengang.clear();

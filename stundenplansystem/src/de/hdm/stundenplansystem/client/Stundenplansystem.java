@@ -1,8 +1,6 @@
 package de.hdm.stundenplansystem.client;
 
-
 import com.google.gwt.core.client.EntryPoint;
-
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.client.ui.Button;
@@ -13,45 +11,28 @@ import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 
-import de.hdm.stundenplansystem.shared.VerwaltungsklasseAsync;
-
-
 
 /**
- * Die Klasse Stundenplansystem 
- * Entry point classes define <code>onModuleLoad()</code>.
- 
-public class ItProjekt implements EntryPoint {
-	/**
-	 * The message displayed to the user when the server cannot be reached or
-	 * returns an error.
-	 
-	private static final String SERVER_ERROR = "An error occurred while "
-			+ "attempting to contact the server. Please check your network "
-			+ "connection and try again.";
-
-	/**
-	 * Create a remote service proxy to talk to the server-side Greeting service.
-	 
-	private final GreetingServiceAsync greetingService = GWT
-			.create(GreetingService.class);
-
-	*/
-	/**
-	 * EntryPoint Klasse des Projekts <b>ItProjekt</b>
-	 * Diese Klasse implementiert das Interface <code>EntryPoint</code>
-	   * daher ben������������tigen wir die Methode <code>public void onModuleLoad()</code>. 
-	   * Sie ist das GWT-Pendant der <code>main()</code>-Methode normaler Java-Applikationen.
-	 */
+ * Stundenplansystem ist die Hauptklasse des Projekts <b>stundenplansystem</b>
+ * 
+ * Diese Klasse implementiert das Interface <code>EntryPoint</code>
+ * Zunächst werden alle Panels der Klasse instantiiert.
+ * 
+ */
 
 	public class Stundenplansystem implements EntryPoint {
-
-		VerwaltungsklasseAsync verwaltungsSvc = null;
 		
+		final ScrollPanel navigation = new ScrollPanel();
+	    public VerticalPanel detailsPanel = new VerticalPanel(); 
+		
+		/**
+		* Jede Klasse enthält eine Überschrift, die definiert, was der User machen kann. 
+		*/
+	    private HTML ueberschritgesamt = new HTML("<h1>Stundenplansystem</h1>");
 		private HTML ueberschrift = new HTML ("<h2>Herzlich Willkommen im Stundenplansystem der HdM<h2>");
 		
-		/*
-	     * Ab hier bauen wir sukzessive den Navigator mit seinen Buttons aus.
+		/**
+	     * Hier bauen wir sukzessive den Navigator mit seinen Buttons aus.
 	     */
 	    final Button dozentButton = new Button ("Dozent");
 	    final Button raumButton = new Button ("Raum");
@@ -62,6 +43,9 @@ public class ItProjekt implements EntryPoint {
 	    final Button raumplanButton = new Button ("Raumplan");
 	    final Button stundenplanButton = new Button ("Stundenplan");
 	    
+		/**
+	     * Hier instantiieren wir alle Klassen.
+	     */
 	    public DozentForm df = new DozentForm();
 	    public LehrveranstaltungForm lf = new LehrveranstaltungForm();
 	    public RaumForm rf = new RaumForm();
@@ -80,95 +64,55 @@ public class ItProjekt implements EntryPoint {
 	    public CreateStudiengang csg = new CreateStudiengang();
 	    public CreateStundenplaneintrag cspe = new CreateStundenplaneintrag();
 	    public CreateStundenplan csp = new CreateStundenplan();
-	    
-	    public VerticalPanel detailsPanel = new VerticalPanel(); 
 		
-		@Override
 		/**
-		 * Initialisiert die Webseite, die beim ���������������ffnen als erstes angezeigt wird
+		 * Wir benötigen die Methode <code>public void onModuleLoad()</code>, die durch das EntryPoint Interface vorgegeben ist.
+		 * Diese ist das GWT-Pendant der <code>main()</code>-Methode normaler Java-Applikationen.	
 		 */
 		public void onModuleLoad() {
-			
-			detailsPanel.add(ueberschrift);
-				
-			/*
-			 * Die Anwendung besteht aus zwei seperaten horizontalen Panels. Im rechten Panel wird ein Navigationsteil 
-			 * mit Baumstruktur der Stamm,- und Bewegunsdaten, sowie des Reports realisiert.
-			 * Im rechten Panel wird der Inhalt, einem Datenteil mit Formularen realisiert. 
-		     * Daher bietet sich ein DockLayoutPanel als Container an.
-		     *
-		     */
-		
-			//NavTreeViewModel tvm = new NavTreeViewModel(df, lf, rf, zf, sgf, svf, this);
-			NavTreeViewModel tvm = new NavTreeViewModel(cd, cl, cr, csg, csv, cspe, csp, df, lf, rf, sgf, svf, spef, spf, rr, rs, rsd, this);
-			
-			
-			CellTree cellTree = new CellTree(tvm, "Root");
-			
+							
+		/**
+		 * Die Anwendung besteht aus zwei seperaten horizontalen Panels, sowie einem vertikalen Panel.
+		 * Daher bietet sich ein DockLayoutPanel als Container an.
+		 * Wir erstellen eine Instanz des DockLayoutPanels, welches durch die Methode <code>add()</code> dem RootPanel
+		 * zugeordnet wird und somit den Aufbau des Projekts definiert.
+		 * Durch die Methode <code>addNorth()</code> bekommt unser Projekt die Überschrift "Stundenplansystem".
+		 * @param ueberschriftgesamt Überschrift der Klasse, die im oberen Teil des Panels, welches 100 Pixel beträgt, erscheint. 
+		 * Die Methode <code>addWest()</code> fügt im linken Teil des Panels den Baum zur Navigation hinzu.
+		 * @param navigation Instanz der Klasse Scroll Panel, welches 300 Pixel breit ist
+		 * Die Methode <code>add()</code> fügt im rechten Teil des Panels die Instanz des Vertical Panels hinzu, 
+		 * die den Inhalt, einem Datenteil mit Formularen, realisiert.
+		 * @param detailsPanel Instanz der Klasse Vertical Panel
+		 * Im linken Panel wird ein Navigationsteil mit Baumstruktur der Stamm,- und Bewegungsdaten, 
+		 * sowie des Reports realisiert.
+		 * Zunächst erstellen wir eine Instanz der Klasse NavTreeModel, das Inhalt des Baums definiert. 
+		 * Anschließend erstellen wir eine Instanz der Klasse CellTree. 
+		 * Diese lässt die Hierarchie der Knoten (nodes) des Baums zu, so kann es Leafs und Children geben.
+		 * @param tvm Instanz der Klasse NavTreeModel
+		 * @param "Root" Definiert den Wurzelknoten des Baums
+		 * Wir weisen  dem Scroll Panel durch die Methode <code>add()</code> die Instanz der Klasse CellTree zu. 
+		 * Im rechten Panel wir zunächst nur die Überschrift der jeweiligen Seite durch die  Methode <code>add()</code>
+		 * zugewiesen.
+		 */
 			RootLayoutPanel rlp = RootLayoutPanel.get();
 			DockLayoutPanel mainPanel = new DockLayoutPanel(Unit.PX);
 			rlp.add(mainPanel);
 			
-			final ScrollPanel navigation = new ScrollPanel();
-			navigation.add(cellTree);
-			
-			mainPanel.addNorth(new HTML("<h1>Stundenplansystem</h1>"), 100);
+			mainPanel.addNorth(ueberschritgesamt, 100);
 			mainPanel.addWest(navigation, 300);
 			mainPanel.add(detailsPanel);
 
 			RootPanel.get("ItProjektFrame").add(rlp);
-			
-			
-			/*
+
+			NavTreeViewModel tvm = new NavTreeViewModel(cd, cl, cr, csg, csv, cspe, csp, df, lf, rf, sgf, svf, spef, spf, rr, rs, rsd, this);
+
+			CellTree cellTree = new CellTree(tvm, "Root");
+			navigation.add(cellTree);			
+
 			detailsPanel.add(ueberschrift);
-			
-			detailsPanel.add(df);
-			detailsPanel.add(lf);
-			detailsPanel.add(rf);
-			//detailsPanel.add(zf);
-			detailsPanel.add(svf);
-			detailsPanel.add(sgf);
-			*/
-			
-			/**RootLayoutPanel rlp = RootLayoutPanel.get();
-			SplitLayoutPanel mainPanel = new SplitLayoutPanel();
-			rlp.add(mainPanel);
-			
-			VerticalPanel detailsPanel = new VerticalPanel();	
-			
-			ScrollPanel navigation = new ScrollPanel(new Tree());
-			navigation.setHeight("300px");
-			
-			mainPanel.addWest(new HTML ("navigation"), 150);
-			mainPanel.addEast(new HTML ("detailsPanel"), 350);
-			
-			RootPanel.get("ItProjektFrame").add(rlp);
-			*/
-				 
-			
-		  /**	SplitLayoutPanel s = new SplitLayoutPanel();
-		 	s.addWest(new Label ("navigation"), 130);
-		 	s.addEast(new Label ("details"), 300);
-		 	//SplitLayoutPanel p = new SplitLayoutPanel();
-		 	//s.addWest(new HTML ("details"), 200);
-		 	//RootLayoutPanel rp = RootLayoutPanel.get();
-		 	//rp.add(s);
-		 	RootPanel.get().add(s);
-		    //RootPanel.get("ItProjektFrame").add();
-		     * 
-		     */
 
-
-		    /*
-		     * Das DockLayoutPanel wird einem DIV-Element namens "Details" in der
-		     * zugeh������������rigen HTML-Datei zugewiesen und erh������������lt so seinen Darstellungsort.
-		     */
-		    
-		    
-		    	    
-		    /*
-		     * Unter welchem Namen k������������nnen wir den Button durch die CSS-Datei des
-		     * Projekts formatieren?
+		    /**
+		     * Hier wird definiert unter welchem Namen wir Buttons durch die CSS-Datei des Projekts formatieren können.
 		     */
 		    dozentButton.setStylePrimaryName("BaumButton");
 		    raumButton.setStylePrimaryName("BaumButton");
@@ -177,134 +121,14 @@ public class ItProjekt implements EntryPoint {
 		    studiengangButton.setStylePrimaryName("BaumButton");
 		    stundenplaneintragButton.setStylePrimaryName("BaumButton");
 		    stundenplanButton.setStylePrimaryName("BaumButton");
-		    raumplanButton.setStylePrimaryName("BaumButton");
-		    
-		    
-		    
-		    
-		    
-		    
-		    /*
-		     * Ab hier wird die Baumdarstellung mit den Zweigen Report, Stammdaten und Bewegungsdaten definiert
-		     */
-		    
-		    /*Tree uebersicht = new Tree();
-			
-		    /*
-		     * Zweig: Report mit Stundenplan und Raumplan
-		     
-			TreeItem report = new TreeItem();
-			report.setText("Report");
-			report.addItem(stundenplanButton);
-			report.addItem(raumplanButton);
-				
-			stundenplanButton.addClickHandler(new ClickHandler() {
-				public void onClick(ClickEvent event) {
-					ReportStundenplan spf = new ReportStundenplan();
-					detailsPanel.clear();
-					detailsPanel.add(spf);
-				}
-			});
-			
-			raumplanButton.addClickHandler(new ClickHandler() {
-				public void onClick(ClickEvent event) {
-					ReportRaum rpf = new ReportRaum();
-					detailsPanel.clear();
-					detailsPanel.add(rpf);
-				}
-			});
-			
-			/*
-			 * Zweig: Stammdaten mit Dozent, Zeitslot, Raum, Studiengang, Semesterverband, Lehrveranstaltung
-			 
-			
-			TreeItem stammdaten = new TreeItem();
-			stammdaten.setText("Stammdaten");
-			stammdaten.addItem(dozentButton);
-			stammdaten.addItem(zeitslotButton);
-			stammdaten.addItem(raumButton);
-			stammdaten.addItem(studiengangButton);
-			stammdaten.addItem(semesterverbandButton);
-			stammdaten.addItem(lehrveranstaltungButton);
-			
-
-			dozentButton.addClickHandler(new ClickHandler() {
-				public void onClick(ClickEvent event) {
-				DozentForm df = new DozentForm();
-				detailsPanel.clear();
-				detailsPanel.add(df);
-				}
-			});
-			
-			zeitslotButton.addClickHandler(new ClickHandler(){
-				public void onClick(ClickEvent event) {
-					ZeitslotForm zf = new ZeitslotForm();
-					detailsPanel.clear();
-					detailsPanel.add(zf);
-				}
-			});
-			
-			raumButton.addClickHandler(new ClickHandler(){
-				public void onClick(ClickEvent event) {
-					RaumForm rf = new RaumForm();
-					detailsPanel.clear();
-					detailsPanel.add(rf);
-				}
-			});
-			
-			studiengangButton.addClickHandler(new ClickHandler(){
-				public void onClick(ClickEvent event) {
-					StudiengangForm sgf = new StudiengangForm();
-					detailsPanel.clear();
-					detailsPanel.add(sgf);
-				}
-			});
-			
-			semesterverbandButton.addClickHandler(new ClickHandler(){
-				public void onClick(ClickEvent event) {
-					SemesterverbandForm svf = new SemesterverbandForm();
-					detailsPanel.clear();
-					detailsPanel.add(svf);
-				}
-			});
-			
-			lehrveranstaltungButton.addClickHandler(new ClickHandler() {
-				public void onClick(ClickEvent event) {
-					LehrveranstaltungForm lv = new LehrveranstaltungForm();
-					detailsPanel.clear();
-					detailsPanel.add(lv);
-				}
-			});
-			
-			
-			/*
-			 * Zweig: Bewegungsdaten mit Stundeplaneintrag
-			 
-			
-			TreeItem bewegungsdaten = new TreeItem();
-			bewegungsdaten.setText("Bewegungsdaten");
-			bewegungsdaten.addItem(stundenplaneintragButton);
-			
-			stundenplaneintragButton.addClickHandler(new ClickHandler(){
-				public void onClick(ClickEvent event) {
-					StundenplaneintragForm sef = new StundenplaneintragForm();
-					detailsPanel.clear();
-					detailsPanel.add(sef);
-				}
-			});
-			
-			
-			/*
-			 * Hier wird der Baum aus den drei Zweigen zusammengebaut und im Layout der Navigation zugeordnet
-			 
-			uebersicht.addItem(report);
-			uebersicht.addItem(stammdaten);
-			uebersicht.addItem(bewegungsdaten);
-			
-
-			navigation.add(uebersicht);*/
-			
+		    raumplanButton.setStylePrimaryName("BaumButton");	
 		}
+		
+		/**
+	     * Hier weisen wir dem rechten Panel durch die Methode <code>add()</code>den Datenteil zum Erstellen sowie die Formulare
+	     * für das ausgwählte Objekt zu. Die Methode <code>clear()</code> löscht zuvor den Inhalt des gesamten Panels damit neue
+	     * Klassen angezeigt werden
+	     */
 		
 		public void createDozentForm() {
 			detailsPanel.clear();
@@ -384,9 +208,4 @@ public class ItProjekt implements EntryPoint {
 			detailsPanel.clear();
 			detailsPanel.add(rsd);
 		}
-		
-		public void append(String text) {
-		    HTML content = new HTML(text);
-		    detailsPanel.add(content);		
-		} 
 	}

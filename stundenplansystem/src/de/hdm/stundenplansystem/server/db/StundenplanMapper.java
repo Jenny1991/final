@@ -87,6 +87,7 @@ public class StundenplanMapper {
         Stundenplan s = new Stundenplan();
         s.setId(rs.getInt("id"));
         s.setStudienhalbjahr(rs.getString("studienhalbjahr"));
+        s.setSemesterverbandId(rs.getInt("semesterverbandid"));
                 
         return s;
       }
@@ -124,6 +125,7 @@ public class StundenplanMapper {
         Stundenplan s = new Stundenplan();
         s.setId(rs.getInt("id"));
         s.setStudienhalbjahr(rs.getString("studienhalbjahr"));
+        s.setSemesterverbandId(rs.getInt("semesterverbandid"));
 
         // Hinzufügen des neuen Objekts zum Ergebnisvektor
         result.addElement(s);
@@ -163,6 +165,7 @@ public class StundenplanMapper {
         Stundenplan s = new Stundenplan();
         s.setId(rs.getInt("id"));
         s.setStudienhalbjahr(rs.getString("studienhalbjahr"));
+        s.setSemesterverbandId(rs.getInt("semesterverbandid"));
 
         // Hinzufügen des neuen Objekts zum Ergebnisvektor
         result.addElement(s);

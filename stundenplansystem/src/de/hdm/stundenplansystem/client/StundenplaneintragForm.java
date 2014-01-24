@@ -99,25 +99,20 @@ public class StundenplaneintragForm extends Content {
 				Label lbFunktionen = new Label ("Funktionen");
 				speGrid.setWidget(7, 0, lbFunktionen);
 				speGrid.setWidget(7, 1, speichern);
-				speGrid.setWidget(8, 1, loeschen);
-				}
-		  
-			public void onLoad() {
+				speichern.addClickHandler(new ClickHandler() {
+					public void onClick(ClickEvent event) {
+					changeSelectedSpe();
+					}
+				});
 				
-				setTvm(tvm);
-			
-			speichern.addClickHandler(new ClickHandler() {
-				public void onClick(ClickEvent event) {
-				changeSelectedSpe();
-				}
-			});
-			
-			loeschen.addClickHandler(new ClickHandler() {
-				public void onClick(ClickEvent event) {
-					deleteSelectedSpe();
-				}
-			});
-			
+				speGrid.setWidget(8, 1, loeschen);
+				loeschen.addClickHandler(new ClickHandler() {
+					public void onClick(ClickEvent event) {
+						deleteSelectedSpe();
+					}
+				});
+				
+				setTvm(tvm);		
 			
 			this.clearFields();
 			

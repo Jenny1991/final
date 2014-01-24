@@ -563,7 +563,8 @@ implements Verwaltungsklasse {
 		
 	if( dozent == null || lehrveranstaltung == null || raum == null || zeitslot == null || stundenplan == null){
 		
-		throw new IllegalArgumentException("");
+		throw new IllegalArgumentException("Eines der ausgewählten Objekte existiert nicht mehr+"
+				+ "und kann somit nicht für ein Stundenplaneintrag ausgewählt werden.");
 		
 	} 
 	else {

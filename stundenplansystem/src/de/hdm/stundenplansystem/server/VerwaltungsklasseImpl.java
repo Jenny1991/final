@@ -276,8 +276,8 @@ implements Verwaltungsklasse {
 	/**
 	   * Auslesen der Stundenplaneinträge der jeweiligen BO's
 	   * 
-	   * @param id des jeweiligen Businessobjektes ist die Kontonummer.
-	   * @return Vector aller Stundenplaneintrag-Instanzen
+	   * @param id des jeweiligen BO's
+	   * @return Vector aller Stundenplaneintrag-Instanzen des BO's
 	   * @throws IllegalArgumentException
 	   */
 	
@@ -304,8 +304,12 @@ implements Verwaltungsklasse {
 	 */	
 
 	/**
-	 * Auslesen der jeweiligen BO's ���ber ihre ID
-	 */
+	   * Auslesen der jeweiligen BO's über ihre ID
+	   * 
+	   * @param id des jeweiligen BO's
+	   * @return das jeweilige BO-Objekt
+	   * @throws IllegalArgumentException
+	   */
 	
 	public Dozent getDozentById(int id) throws IllegalArgumentException {
 		return this.dozentMapper.findByKey(id);
@@ -346,41 +350,40 @@ implements Verwaltungsklasse {
 	 */	
 		
 	/**
-	 * Aulesen des Semesterverbandobjektes über die StundenplanId
-	 */
-	
-	public Semesterverband getSemesterverbandByStundenplanId (int id) throws IllegalArgumentException {
-		return this.semesterverbandMapper.findByStundenplanId(id);
-	}
-	
-	/**
-	 * Auslesen der Semesterverb���nde eines Studiengangs
-	 */
-	
-	public Vector<Semesterverband> getSemsterverbaendeByStudiengang(int studiengangId){
-		return this.semesterverbandMapper.findByStudiengangId(studiengangId);
-	}
-	
-	public Vector<Stundenplan> getStundenplaeneBySemesterverband (int semesterverbandId){
-		return this.stundenplanMapper.findBySemesterverband(semesterverbandId);
-	}
-	
-	/**
-	 * Auslesen eines Stundenplaneintrages eines Raumes zu einem bestimmten Zeitslot
-	 */
+	   * Auslesen eines Stundenplaneintrag-Objekt über die ID des zugehörigen Raumes und Zeitslot.
+	   * Ermittlung ob ein Raum zur gegebenen Zeit besetzt ist.
+	   * 
+	   * @param id des jeweiligen Raumes und Zeitslot
+	   * @return Stundenplaneintrag-Objekten
+	   * @throws IllegalArgumentException
+	   */
 	
 	public Stundenplaneintrag getStundenplaneintragByRaumAndZeitslot(int raumId, int zeitslotId){
 		return this.stundenplaneintragMapper.findByRaumAndZeitslot(raumId, zeitslotId);	
 	}
 	
 	/**
-	 * Auslesen eines Stundenplaneintrages eines Semesterverbandes zu einem bestimmten Zeitslot
-	 */
+	   * Auslesen eines Stundenplaneintrag-Objekt über die ID des zugehörigen Semesterverbands, Zeitslot und Stundenplanes
+	   * Ermittlung ob ein Semesterverband zur gegebenen Zeit besetzt ist.
+	   * 
+	   * @param id des jeweiligen Semesterverbands, Zeitslot und Stundenplanes
+	   * @return Stundenplaneintrag-Objekten
+	   * @throws IllegalArgumentException
+	   */
 	
 	public Stundenplaneintrag getStundenplaneintragBySemesterverbandAndZeitslot(
 			int semesterverbandId, int zeitslotId, int stundenplanId){
 	return this.stundenplaneintragMapper.findbySemesterverbandZeitslotAndStundenplan(semesterverbandId, zeitslotId, stundenplanId);
 	}
+	
+	/**
+	   * Auslesen eines Stundenplaneintrag-Objekt über die ID des zugehörigen Dozenten und Zeitslots
+	   * Ermittlung ob ein Dozent zur gegebenen Zeit besetzt ist.
+	   * 
+	   * @param id des jeweiligen Dozenten und Zeitslots
+	   * @return Stundenplaneintrag-Objekten
+	   * @throws IllegalArgumentException
+	   */
 	
 	public Stundenplaneintrag getStundenplaneintragByDozentAndZeitslot(
 			int dozentId, int zeitslotId) throws IllegalArgumentException {
@@ -389,13 +392,52 @@ implements Verwaltungsklasse {
 	}
 	
 	/**
-	 * Auslesen eines Studiengangs ���ber die SemesterverbandId
-	 */
+	   * Auslesen eines Semesterverband-Objekt über die ID des zugehörigen Stundenplans
+	   * 
+	   * @param id des jeweiligen Stundenplans
+	   * @return das Semesterverband-Objekt
+	   * @throws IllegalArgumentException
+	   */
+	
+	public Semesterverband getSemesterverbandByStundenplanId (int id) throws IllegalArgumentException {
+		return this.semesterverbandMapper.findByStundenplanId(id);
+	}
+	
+	/**
+	   * Auslesen eines Vectors aus Semesterverband-Objekten über die ID des zugehörigen Studienganges
+	   * 
+	   * @param id des jeweiligen Studienganges
+	   * @return Vector aus den Semesterverbands-Objekten
+	   * @throws IllegalArgumentException
+	   */
+	
+	public Vector<Semesterverband> getSemsterverbaendeByStudiengang(int studiengangId){
+		return this.semesterverbandMapper.findByStudiengangId(studiengangId);
+	}
+	
+	/**
+	   * Auslesen eines Vectors aus Stundenplan-Objekten über die ID des zugehörigen Semesterverbands
+	   * 
+	   * @param id des jeweiligen Semesterverbands
+	   * @return Vector aus den Stundenplan-Objekten
+	   * @throws IllegalArgumentException
+	   */
+	
+	public Vector<Stundenplan> getStundenplaeneBySemesterverband (int semesterverbandId){
+		return this.stundenplanMapper.findBySemesterverband(semesterverbandId);
+	}
+	
+	/**
+	   * Auslesen eines Stundiengang-Objekts über die ID des zugehörigen Semesterverbands
+	   * 
+	   * @param id des jeweiligen Semesterverbands
+	   * @return Stundenplaneintrag-Objekten
+	   * @throws IllegalArgumentException
+	   */
 	
 	public Studiengang getStudiengangBySemesterverbandId(int SemesterverbandId){
 		return this.studiengangMapper.findBySemesterverbandId(SemesterverbandId);
 	}
-	
 	
 	/*
 	 *********************************************************************************************************************
@@ -404,15 +446,20 @@ implements Verwaltungsklasse {
 	 */	
 	
 	/**
-	 * Anschlie���end folgen alle create-Methoden der BO's
-	 */
+	   * create-Methoden zum Anlegen eines Dozenten
+	   * Anschliessende Überprüfung auf ungültige Eingabe 
+	   * 
+	   * @param Vorname und Nachname des jeweiligen Dozenten
+	   * @return Das jeweilige Dozenten-Objekt
+	   * @throws IllegalArgumentException
+	   */
 	
 	public Dozent createDozent(String vorname, String nachname)
 			throws IllegalArgumentException {
 		
 	if (vorname.matches("[0-9]+" ) || nachname.matches("[0-9]+")){
 		
-		throw new IllegalArgumentException("ung���ltige Eingabe!");
+		throw new IllegalArgumentException("ungültige Eingabe!");
 		}
 	else {		
 			
@@ -424,6 +471,14 @@ implements Verwaltungsklasse {
 		return this.dozentMapper.insert(a);	
 		}
 	}
+	
+	/**
+	   * create-Methoden zum Anlegen einer Lehrveranstaltung
+	   * 
+	   * @param Bezeichnung, Semester und Umfang der Lehrveranstaltung
+	   * @return Das jeweilige Lehrveranstaltungs-Objekt
+	   * @throws IllegalArgumentException
+	   */
 	
 	public Lehrveranstaltung createLehrveranstaltung(
 			String bezeichnung, int semester, int umfang)
@@ -439,6 +494,14 @@ implements Verwaltungsklasse {
 		return this.lehrveranstaltungMapper.insert(a);
 		}
 	
+	/**
+	   * create-Methoden zum Anlegen eines Raumes
+	   * 
+	   * @param Bezeichnung und Kapazität des Raumes
+	   * @return Das jeweilige Raum-Objekt
+	   * @throws IllegalArgumentException
+	   */
+	
 	public Raum createRaum(String bezeichnung, int kapazitaet)
 			throws IllegalArgumentException {
 		Raum a = new Raum();
@@ -449,13 +512,22 @@ implements Verwaltungsklasse {
 
 		return this.raumMapper.insert(a);
 	}
+	
+	/**
+	   * create-Methoden zum Anlegen eines Studienganges
+	   * Anschliessende Prüfung auf gültige Eingabe
+	   * 
+	   * @param Bezeichnung des Studienganges
+	   * @return Das jeweilige Raum-Objekt
+	   * @throws IllegalArgumentException
+	   */
 
 	public Studiengang createStudiengang(String bezeichnung)
 			throws IllegalArgumentException {
 		
 		if (bezeichnung.matches("[0-9]+")){
 			
-			throw new IllegalArgumentException("ung���ltige Eingabe!");
+			throw new IllegalArgumentException("ungültige Eingabe!");
 		}
 		else {	
 			Studiengang s = new Studiengang();
@@ -468,6 +540,16 @@ implements Verwaltungsklasse {
 				
 		}
 	}
+	
+	/**
+	   * create-Methoden zum Anlegen eines Stundenplaneintrages
+	   * Anschliessende Prüfung ob die ausgewählten BO's in der Datenbank vorhanden sind 
+	   * und somit verwendet werden können.
+	   * 
+	   * @param die jeweiligen Fremdschlüssel der BO's
+	   * @return Das jeweilige Stundenplaneintrag-Objekt
+	   * @throws IllegalArgumentException
+	   */
 
 	public Stundenplaneintrag createStundenplaneintrag(int d,
 		int l, int r, int z, int sp) 
@@ -496,6 +578,15 @@ implements Verwaltungsklasse {
 			throw new IllegalArgumentException("Eins der ausgewählten Objekte wurde gelöscht und ist somit nicht mehr vorhanden!");
 		}
 	}
+	
+	/**
+	   * create-Methoden zum Anlegen eines Semesterverbands
+	   * Anschliessende Prüfung auf gültige Eingabe (Entweder: SS 2014 Oder: WS 2014/2015)
+	   * 
+	   * @param Semester, Jahrgang und StudierendenAnzahl und der Fremdschlüssel des Studienganges
+	   * @return Das jeweilige Semesterverband-Objekt
+	   * @throws IllegalArgumentException
+	   */
 
 	public Semesterverband createSemesterverband(int studiengangId,
 			int semester, int studierendenAnzahl, String jahrgang)
@@ -520,10 +611,19 @@ implements Verwaltungsklasse {
 		
 		} else {
 			
-			throw new IllegalArgumentException("ung���ltige Eingabe des jahrgangs!");
+			throw new IllegalArgumentException("ungültige Eingabe des jahrgangs!");
 		}
 		
 	}
+	
+	/**
+	   * create-Methoden zum Anlegen eines Stundenplans
+	   * Anschliessende Prüfung auf gültige Eingabe (Entweder: SS 2014 Oder: WS 2014/2015)
+	   * 
+	   * @param Studienhalbjahr und der Fremdschlüssel des Semesterverbands
+	   * @return Das jeweilige Stundenplan-Objekt
+	   * @throws IllegalArgumentException
+	   */
 
 	public Stundenplan createStundenplan(String studienhalbjahr, int semesterverbandId) throws IllegalArgumentException {
 		
@@ -541,7 +641,7 @@ implements Verwaltungsklasse {
 		
 	} else {
 		
-		throw new IllegalArgumentException("ung���ltige Eingabe!");
+		throw new IllegalArgumentException("ungültige Eingabe!");
 	}
 	}
 	
@@ -552,8 +652,13 @@ implements Verwaltungsklasse {
 	 */	
 	
 	/**
-	 * Anschlie���end folgen alle delete-Methoden der BO's
-	 */
+	   * delete-Methoden zum Löschen eines BO's
+	   * Anschliessende Prüfung, ob für den jeweiligen BO's noch Stundenplaneinträge vorhanden sind
+	   * 
+	   * @param das jeweilige BO-Objekt
+	   * @return boolean
+	   * @throws IllegalArgumentException
+	   */
 
 	public boolean deleteDozent(Dozent d) throws IllegalArgumentException {
 		
@@ -591,30 +696,6 @@ implements Verwaltungsklasse {
 	    }	
 		   	}
 
-	public boolean deleteStudiengang(Studiengang studiengang)
-			throws IllegalArgumentException {
-//		Vector<Stundenplaneintrag> sgs = this.getAllStundenplaneintragOf(studiengang);
-//
-//		    if (sgs != null) {
-//		    	return false;
-//		    } else {
-		   	this.studiengangMapper.delete(studiengang);
-		   	return true;
-//		    }
-	}
-
-	public boolean deleteStundenplaneintrag(Stundenplaneintrag s)
-			throws IllegalArgumentException {
-//		Vector<Stundenplaneintrag> lvs = this.getAllStundenplaneintragOf(a);
-//
-//		    if (lvs != null) {
-//		    	return false;
-//		    } else {
-		   	this.stundenplaneintragMapper.delete(s);
-		   	return true;
-//		    }	
-		   	}
-
 	public boolean deleteRaum(Raum a) throws IllegalArgumentException {
 	Vector<Stundenplaneintrag> r = this.getAllStundenplaneintraegeByRaum(a.getId());
 
@@ -625,17 +706,26 @@ implements Verwaltungsklasse {
 		   	return true;
 	    }
 	}
+	
+	public boolean deleteStudiengang(Studiengang studiengang)
+			throws IllegalArgumentException {
+
+		   	this.studiengangMapper.delete(studiengang);
+		   	return true;
+	}
+
+	public boolean deleteStundenplaneintrag(Stundenplaneintrag s)
+			throws IllegalArgumentException {
+		
+		   	this.stundenplaneintragMapper.delete(s);
+		   	return true;	
+		   	}
 
 	public boolean deleteSemesterverband(Semesterverband a)
 			throws IllegalArgumentException {
-//		Vector<Stundenplaneintrag> svs = this.getAllStundenplaneintragOf(a);
-//
-//		    if (svs != null) {
-//		    	return false;
-//		    } else {
+
 		   	this.semesterverbandMapper.delete(a);
 		   	return true;
-//		    }
 	}
 	
 	/*
@@ -645,33 +735,24 @@ implements Verwaltungsklasse {
 	 */	
 	
 	/**
-	 * Anschlie���end folgen alle Change-Methoden der BO's
-	 */
-
+	   * change-Methoden zum Ändern eines BO's
+	   * Anschliessende Prüfung auf gültige Eingabe 
+	   * 
+	   * @param das jeweilige BO-Objekt
+	   * @return void
+	   * @throws IllegalArgumentException
+	   */
 	public void changeDozent(Dozent d) throws IllegalArgumentException {
 		
 		if (d.getVorname().matches("[0-9]+" ) || d.getNachname().matches("[0-9]+")){
 			
-			throw new IllegalArgumentException("ung���ltige Eingabe!");
+			throw new IllegalArgumentException("ungültige Eingabe!");
 			}
 		else {		
 				
 		this.dozentMapper.update(d);}
 	}
-
-	public void changeStundenplaneintrag(Stundenplaneintrag s)
-			throws IllegalArgumentException {
-		this.stundenplaneintragMapper.update(s);
-	}
-
-	public void changeLehrveranstaltung(Lehrveranstaltung l)
-			throws IllegalArgumentException {
-		this.lehrveranstaltungMapper.update(l);
-	}
-
-	public void changeRaum(Raum r) throws IllegalArgumentException {
-		this.raumMapper.update(r);
-	}
+	
 
 	public void changeSemsterverband(Semesterverband sv)
 			throws IllegalArgumentException {
@@ -683,7 +764,7 @@ implements Verwaltungsklasse {
 			
 			} else {
 				
-				throw new IllegalArgumentException("ung���ltige Eingabe des jahrgangs!");
+				throw new IllegalArgumentException("ungültige Eingabe des jahrgangs!");
 			}
 		
 	}
@@ -693,7 +774,7 @@ implements Verwaltungsklasse {
 		
 		if (s.getBezeichnung().matches("[0-9]+")){
 			
-			throw new IllegalArgumentException("ung���ltige Eingabe!");
+			throw new IllegalArgumentException("ungültige Eingabe!");
 		}
 		else {	
 		
@@ -709,9 +790,23 @@ implements Verwaltungsklasse {
 			
 		} else {
 			
-			throw new IllegalArgumentException("ung���ltige Eingabe!");
+			throw new IllegalArgumentException("ungültige Eingabe!");
 		}
 		
+	}
+
+	public void changeStundenplaneintrag(Stundenplaneintrag s)
+			throws IllegalArgumentException {
+		this.stundenplaneintragMapper.update(s);
+	}
+
+	public void changeLehrveranstaltung(Lehrveranstaltung l)
+			throws IllegalArgumentException {
+		this.lehrveranstaltungMapper.update(l);
+	}
+
+	public void changeRaum(Raum r) throws IllegalArgumentException {
+		this.raumMapper.update(r);
 	}
 
 }

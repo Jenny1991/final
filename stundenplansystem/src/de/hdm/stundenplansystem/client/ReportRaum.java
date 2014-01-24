@@ -22,6 +22,7 @@ import de.hdm.stundenplansystem.shared.*;
 import de.hdm.stundenplansystem.shared.bo.Dozent;
 import de.hdm.stundenplansystem.shared.bo.Raum;
 import de.hdm.stundenplansystem.shared.bo.Stundenplaneintrag;
+import de.hdm.stundenplansystem.shared.report.HTMLReportWriter;
 import de.hdm.stundenplansystem.shared.report.PlainTextReportWriter;
 import de.hdm.stundenplansystem.shared.report.RaumbelegungsReport;
 import de.hdm.stundenplansystem.client.*;
@@ -39,10 +40,12 @@ public class ReportRaum extends Content {
 	
 	Vector<Raum> rContainer = null;
 	private NavTreeViewModel tvm;
+	String test;
 	
 	public void onLoad(){
 		this.add(ueberschrift);
 		this.add(libRaum);
+		this.add(anzeigen);
 		setTvm(tvm);
 	
 	  libRaum.clear();
@@ -65,10 +68,9 @@ public class ReportRaum extends Content {
 			
 						  public void onSuccess(RaumbelegungsReport result){
 							  
-						      PlainTextReportWriter writer = new PlainTextReportWriter();
+						      HTMLReportWriter writer = new HTMLReportWriter();
 						      writer.process(result);
-						      String test = writer.getReportText();
-						      test = feld.getText();
+						      test = writer.getReportText();
 					          neuesPanel.add(new HTML(test));							  
 						  }
 				

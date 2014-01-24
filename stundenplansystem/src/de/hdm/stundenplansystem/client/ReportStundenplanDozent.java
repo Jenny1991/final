@@ -19,6 +19,7 @@ import de.hdm.stundenplansystem.shared.VerwaltungsklasseAsync;
 import de.hdm.stundenplansystem.shared.bo.Dozent;
 import de.hdm.stundenplansystem.shared.bo.Semesterverband;
 import de.hdm.stundenplansystem.shared.bo.Studiengang;
+import de.hdm.stundenplansystem.shared.report.HTMLReportWriter;
 import de.hdm.stundenplansystem.shared.report.PlainTextReportWriter;
 import de.hdm.stundenplansystem.shared.report.StundenplanDozentReport;
 import de.hdm.stundenplansystem.shared.report.StundenplanSemesterverbandReport;
@@ -37,10 +38,12 @@ public class ReportStundenplanDozent extends Content  {
 	
 	Vector<Dozent> dContainer = null;
 	private NavTreeViewModel tvm;
+	String test;
 	
 	public void onLoad(){
 		this.add(ueberschrift);
 		this.add(libDozent);
+		this.add(anzeigen);
 		setTvm(tvm);
 	
 	  libDozent.clear();
@@ -63,10 +66,9 @@ public class ReportStundenplanDozent extends Content  {
 			
 						  public void onSuccess(StundenplanDozentReport result){
 							  
-						      PlainTextReportWriter writer = new PlainTextReportWriter();
+						      HTMLReportWriter writer = new HTMLReportWriter();
 						      writer.process(result);
-						      String test = writer.getReportText();
-						      test = feld.getText();
+						      test = writer.getReportText();
 					          neuesPanel.add(new HTML(test));							  
 						  }
 				

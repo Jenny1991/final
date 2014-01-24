@@ -57,6 +57,7 @@ public class ReportStundenplan extends Content {
 	Studiengang sg;
 	Stundenplansystem stundenplansystem = null;
 	Integer sv;
+	String test;
 	
 	public void onLoad() {
 		
@@ -110,13 +111,12 @@ public class ReportStundenplan extends Content {
 		
 					  public void onSuccess(StundenplanSemesterverbandReport result){
 						  
-					      PlainTextReportWriter writer = new PlainTextReportWriter();
+					      HTMLReportWriter writer = new HTMLReportWriter();
 					      writer.process(result);
-					      String test = writer.getReportText();
-					      test = feld.getText();
-				          neuesPanel.add(new HTML(test));						  
+					      test = writer.getReportText();
+				          neuesPanel.add(new HTML(test));							  
 					  }
-			
+					  
 					  @Override
 					  public void onFailure (Throwable caught) {
 						  caught.getMessage();

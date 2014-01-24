@@ -414,6 +414,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		String kuerzel = bezeichnung.substring(0, 2);
 		a.setKuerzel(kuerzel);
 		
+		
 		a.setId(1);
 		
 		return this.semesterverbandMapper.insert(a);

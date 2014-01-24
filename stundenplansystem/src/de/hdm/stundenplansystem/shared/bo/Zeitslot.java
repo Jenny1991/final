@@ -40,22 +40,9 @@ public class Zeitslot extends BusinessObjekt {
 		return this.endzeit;
 	}
 
-	
-//	@SuppressWarnings("deprecation")
-//	public String getAnfangsuhrzeit() {
-//		return this.anfangszeit.getHours()+":"+this.anfangszeit.getMinutes();
-//	}
-
 	public void setAnfangszeit(Time anfangszeit) {
 		this.anfangszeit = anfangszeit;
 	}
-
-//	@SuppressWarnings("deprecation")
-//	public String getEndzeit() { 
-//		return this.endzeit.getHours()+":"+this.endzeit.getMinutes();
-//	}
-	
-	
 
 	public void setEndzeit(Time endzeit) {
 		this.endzeit = endzeit;

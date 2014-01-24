@@ -7,10 +7,32 @@ import de.hdm.stundenplansystem.shared.bo.*;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
+/**
+ * <p>
+ * Synchrone Schnittstelle für eine RPC-fähige Klasse zur Verwaltung von Banken.
+ * </p>
+ * <p>
+ * <code>@RemoteServiceRelativePath("greet")</code> ist bei der
+ * Adressierung des aus der zugehörigen Impl-Klasse entstehenden
+ * Servlet-Kompilats behilflich. Es gibt im Wesentlichen einen Teil der URL des
+ * Servlets an.
+ * </p>
+ * 
+ * @author Thies & L.Hofmann & Holz
+ */
+
 
 @RemoteServiceRelativePath("greet")
 public interface Verwaltungsklasse extends RemoteService {
 	
+	/**
+	   * Initialisierung des Objekts. Diese Methode ist vor dem Hintergrund von GWT
+	   * RPC zusätzlich zum No Argument Constructor der implementierenden Klasse
+	   * {@link VerwaltungsklasseImpl} notwendig. Bitte diese Methode direkt nach der
+	   * Instantiierung aufrufen.
+	   * 
+	   * @throws IllegalArgumentException
+	   */
 	public void init() throws IllegalArgumentException;
 	
 	public void setDozent(Dozent d) throws IllegalArgumentException;

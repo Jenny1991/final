@@ -381,7 +381,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		int l, int r, int z, int sp) 
 					throws IllegalArgumentException {
 		
-		if( this.getDozentById(d) != null && this.getRaumById(r) != null && this.getZeitslotById(z) != null && this.getStundenplanById(sp) != null){
+		if( this.getDozentById(d) != null && this.getLehrveranstaltungById(l) != null && this.getRaumById(r) != null && this.getZeitslotById(z) != null && this.getStundenplanById(sp) != null){
 		
 		Stundenplaneintrag s = new Stundenplaneintrag();
 		

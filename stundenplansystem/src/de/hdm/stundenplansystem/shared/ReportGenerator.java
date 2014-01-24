@@ -46,7 +46,7 @@ public interface ReportGenerator extends RemoteService {
    * 
    */
   public abstract RaumbelegungsReport createRaumbelungsReport(
-      Raum r) throws IllegalArgumentException;
+      int raumId) throws IllegalArgumentException;
 
   /**
    * Erstellen eines <code>StundenplanDozentReport</code>-Reports.
@@ -58,7 +58,7 @@ public interface ReportGenerator extends RemoteService {
    * @throws IllegalArgumentException
    * @see StundenplanDozentReport
    */
-  public StundenplanDozentReport createStundenplanDozentReport(Dozent d)
+  public StundenplanDozentReport createStundenplanDozentReport(int dozentId)
       throws IllegalArgumentException;
   
   /**

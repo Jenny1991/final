@@ -101,8 +101,10 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
    * @param d das Dozentenobjekt bzgl. dessen der Report erstellt werden soll.
    * @return der fertige Report
    */
-  public StundenplanDozentReport createStundenplanDozentReport(Dozent d) 
+  public StundenplanDozentReport createStundenplanDozentReport(int dozentId) 
 		  throws IllegalArgumentException {
+	  
+	  Dozent d = verwaltung.getDozentById(dozentId);
 
     if (this.getVerwaltungsklasse() == null)
       return null;
@@ -197,9 +199,10 @@ public void setRaum(Raum r) throws IllegalArgumentException {
  * @param r das Raumobjekt bzgl. dessen der Report erstellt werden soll.
  * @return der fertige Report
  */
-public RaumbelegungsReport createRaumbelungsReport(Raum r) 
+public RaumbelegungsReport createRaumbelungsReport(int raumId) 
 		throws IllegalArgumentException {
 
+	Raum r = verwaltung.getRaumById(raumId);
 
 
   if (this.getVerwaltungsklasse() == null)

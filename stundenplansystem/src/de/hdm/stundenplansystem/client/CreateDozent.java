@@ -19,18 +19,18 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
  * Hier wird ein neuer Dozent angelegt.
  * 
  * @author Thies, Espich
- * 
+ * @version 1.0
  */
 
 public class CreateDozent extends Content {
 	
 	/**
-    * Jede Klasse enthï¿½t eine ï¿½berschrift, die definiert, was der User machen kann. 
+    * Jede Klasse enthält eine Überschrift, die definiert, was der User machen kann. 
     */
 	private final HTML ueberschrift = new HTML ("<h2>Neuen Dozenten anlegen<h2>");
 
 	  /**
-	   * Unter der ï¿½berschrift trï¿½gt der User die Daten des neuen Dozenten ein. 
+	   * Unter der Überschrift trägt der User die Daten des neuen Dozenten ein. 
 	   */
 	  Label lbvorname = new Label ("Vorname:"); 
 	  final Label lbnachname = new Label ("Nachname:");
@@ -38,6 +38,10 @@ public class CreateDozent extends Content {
 	  final TextBox tbnachname = new TextBox ();
 	  final Button speichern = new Button ("Eingaben speichern");
 	  
+	  /** Create a remote service proxy to talk to the server-side Greeting service.
+	   * 
+	   */
+		 
 	  final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
 	  NavTreeViewModel tvm = null;
 	  
@@ -67,11 +71,6 @@ public class CreateDozent extends Content {
 							  ||tbvorname.getValue().isEmpty()) {	
 						  allFilled = false;
 					  Window.alert ("Bitte f�llen Sie alle Felder aus."); } 
-					  
-//					  if (tbnachname.getValue().matches("[0-9] + ")){
-//						  allFilled = false;
-//						  Window.alert("Ung�ltiger Eingabewert!");
-//					  }
 					  
 					  if (allFilled == true) {	
 						  String vorname = tbvorname.getValue().trim();

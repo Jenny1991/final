@@ -8,89 +8,80 @@ package de.hdm.stundenplansystem.client;
 import java.util.Vector;
 
 import com.google.gwt.core.shared.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.stundenplansystem.shared.*;
+import de.hdm.stundenplansystem.shared.bo.Dozent;
 import de.hdm.stundenplansystem.shared.bo.Raum;
 import de.hdm.stundenplansystem.shared.bo.Stundenplaneintrag;
+import de.hdm.stundenplansystem.shared.report.PlainTextReportWriter;
 import de.hdm.stundenplansystem.shared.report.RaumbelegungsReport;
 import de.hdm.stundenplansystem.client.*;
 
-public class ReportRaum extends Content {
-	
-	
+public class ReportRaum extends Content {	
 
-	final FlexTable flexRaum = new FlexTable();
-	final ListBox libraum = new ListBox();
+	final HTML ueberschrift = new HTML ("<h2>Raumbelegungsplan</h2>");
+
+	final ListBox libRaum = new ListBox();
 	final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
 	final ReportGeneratorAsync reportSvc = GWT.create(ReportGenerator.class);
-	final HTML ueberschrift = new HTML ("<h2>Raumbelegungsplan</h2>");
-	Raum r;
+	final Button anzeigen = new Button("Raumbelegungen anzeigen");
+	final VerticalPanel neuesPanel = new VerticalPanel(); 
+	HTML feld = new HTML ();
+	
+	Vector<Raum> rContainer = null;
 	private NavTreeViewModel tvm;
 	
 	public void onLoad(){
-		
 		this.add(ueberschrift);
-		this.add(libraum);		
+		this.add(libRaum);
 		setTvm(tvm);
-		
-		libraum.clear();			  
-		  verwaltungsSvc.getAllRaeume(new AsyncCallback<Vector<Raum>>() {
-			  public void onFailure(Throwable T){ 
-					Window.alert("Es sind keine Räume in der Datenbank vorhanden.");
-			  }
-			  
-			  public void onSuccess(Vector<Raum> raum){
-			  	for (Raum r : raum){
-			  		libraum.addItem(r.getBezeichnung(), String.valueOf(r.getId()));
-			  	}
+	
+	  libRaum.clear();
+	  verwaltungsSvc.getAllRaeume(new AsyncCallback<Vector<Raum>>() {
+		  public void onFailure(Throwable T){
 		  }
-		  });
-//		getData();
-	}
-
-	public void setTvm(NavTreeViewModel tvm) {
-		this.tvm = tvm;
+		  
+		  public void onSuccess(Vector<Raum> raum){
+			  rContainer = raum;
+		  	for (Raum r : raum){
+		  		libRaum.addItem(r.getBezeichnung(), String.valueOf(r.getId()));
+		  	}
+		  }
+	  });
+		  
+		  	anzeigen.addClickHandler(new ClickHandler() {			  
+				  public void onClick(ClickEvent event) {
+					  
+					  reportSvc.createRaumbelungsReport(rContainer.elementAt(libRaum.getSelectedIndex()).getId(), new AsyncCallback<RaumbelegungsReport>() {
+			
+						  public void onSuccess(RaumbelegungsReport result){
+							  
+						      PlainTextReportWriter writer = new PlainTextReportWriter();
+						      writer.process(result);
+						      String test = writer.getReportText();
+						      test = feld.getText();
+					          neuesPanel.add(new HTML(test));							  
+						  }
+				
+						  @Override
+						  public void onFailure (Throwable caught) {
+							  caught.getMessage();
+						  }
+					  });
+				  }
+		 });
 	}
 	
-//		public void getData(){	
-//			this.add(flexRaum);
-//			
-//			reportSvc.createRaumbelungsReport(r, new AsyncCallback<RaumbelegungsReport>() {
-//
-//				public void onSuccess(RaumbelegungsReport result){
-//					if (result != null){
-//				
-//						flexRaum.setText(0, 0, "Zeit");
-//						flexRaum.setText(1, 0, "08:15 - 09:45 Uhr");
-//						flexRaum.setText(2, 0, "10:00 - 11:30 Uhr");
-//						flexRaum.setText(3, 0, "11:45 - 13:15 Uhr");
-//						flexRaum.setText(4, 0, "13:25 - 14:15 Uhr");
-//						flexRaum.setText(5, 0, "14:15 - 15:45 Uhr");
-//						flexRaum.setText(6, 0, "16:00 - 17:30 Uhr");
-//						flexRaum.setText(7, 0, "17:45 - 19:15 Uhr");
-//						flexRaum.setText(0, 1, "Montag");
-//						flexRaum.setText(0, 2, "Dienstag");
-//						flexRaum.setText(0, 3, "Mittowch");
-//						flexRaum.setText(0, 4, "Donnerstag");
-//						flexRaum.setText(0, 5, "Freitag");
-//						flexRaum.setText(0, 6, "Samstag");
-//				
-//					int row = 1; 
-//						for (int i=0; i<result..size(); i++) {
-//							flexRaum.setText(row, 1, String.valueOf(result.get(i).getLehrveranstaltungId())); 
-//						}
-//					}
-//				}
-//
-//				@Override
-//				public void onFailure(Throwable caught) {					
-//				}
-//			});
-//		} 
-
+		public void setTvm(NavTreeViewModel tvm) {
+			this.tvm = tvm;
+		}		
 }

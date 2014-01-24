@@ -31,19 +31,31 @@ public class Zeitslot extends BusinessObjekt {
 	public void setWochentag(String wochentag) {
 		this.wochentag = wochentag;
 	}
+	
+	public Date getAnfangszeit(){
+		return this.anfangszeit;
+	}
+	
+	public Date getEndzeit(){
+		return this.endzeit;
+	}
 
 	
-	public String getAnfangszeit() {
-		return this.anfangszeit.getHours()+":"+this.anfangszeit.getMinutes();
-	}
+//	@SuppressWarnings("deprecation")
+//	public String getAnfangsuhrzeit() {
+//		return this.anfangszeit.getHours()+":"+this.anfangszeit.getMinutes();
+//	}
 
 	public void setAnfangszeit(Date anfangszeit) {
 		this.anfangszeit = anfangszeit;
 	}
 
-	public String getEndzeit() {
-		return this.endzeit.getHours()+":"+this.endzeit.getMinutes();
-	}
+//	@SuppressWarnings("deprecation")
+//	public String getEndzeit() { 
+//		return this.endzeit.getHours()+":"+this.endzeit.getMinutes();
+//	}
+	
+	
 
 	public void setEndzeit(Date endzeit) {
 		this.endzeit = endzeit;

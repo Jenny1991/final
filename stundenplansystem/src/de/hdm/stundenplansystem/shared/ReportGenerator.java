@@ -45,7 +45,7 @@ public interface ReportGenerator extends RemoteService {
    * @see RaumbelegungsReport
    * 
    */
-  public abstract RaumbelegungsReport createRaumbelungsReport(
+  public RaumbelegungsReport createRaumbelungsReport(
       int raumId) throws IllegalArgumentException;
 
   /**

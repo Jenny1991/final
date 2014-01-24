@@ -399,7 +399,6 @@ implements Verwaltungsklasse {
 	public Stundenplaneintrag getStundenplaneintragByRaumAndZeitslot(int raumId, int zeitslotId){
 		return this.stundenplaneintragMapper.findByRaumAndZeitslot(raumId, zeitslotId);	
 	}
-	
 	/**
 	   * Auslesen eines Stundenplaneintrag-Objekt über die ID des zugehörigen Semesterverbands, Zeitslot und Stundenplanes
 	   * Ermittlung ob ein Semesterverband zur gegebenen Zeit besetzt ist.
@@ -473,10 +472,14 @@ implements Verwaltungsklasse {
 	   * @throws IllegalArgumentException
 	   */
 	
-	public Studiengang getStudiengangBySemesterverbandId(int SemesterverbandId){
-		return this.studiengangMapper.findBySemesterverbandId(SemesterverbandId);
+	public Studiengang getStudiengangBySemesterverbandId(int semesterverbandId){
+		return this.studiengangMapper.findBySemesterverbandId(semesterverbandId);
 	}
 	
+	
+	public Vector<Zeitslot> getFreieZeitslot(int raumId, int dozentId, int stundenplanId){
+		return this.zeitslotMapper.findFreeZeitslots(raumId, dozentId, stundenplanId);
+	}
 	/*
 	 *********************************************************************************************************************
 	 * ABSCHNITT, Beginn: create-Methoden

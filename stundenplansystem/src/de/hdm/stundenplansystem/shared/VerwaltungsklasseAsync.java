@@ -156,4 +156,7 @@ public interface VerwaltungsklasseAsync {
 
 	void getSemesterverbandByStundenplanId(int id,
 			AsyncCallback<Semesterverband> callback);
+
+	void getFreieZeitslot(int raumId, int dozentId, int stundenplanId,
+			AsyncCallback<Vector<Zeitslot>> callback);
 }

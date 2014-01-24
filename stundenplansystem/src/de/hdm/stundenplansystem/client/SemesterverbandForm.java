@@ -14,14 +14,13 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import de.hdm.stundenplansystem.shared.*;
-import de.hdm.stundenplansystem.shared.bo.Lehrveranstaltung;
 import de.hdm.stundenplansystem.shared.bo.Semesterverband;
 import de.hdm.stundenplansystem.shared.bo.Studiengang;
 import de.hdm.stundenplansystem.client.NavTreeViewModel;
 
 
 /**
- * Formular f��r die Darstellung des selektierten Semesterverbands
+ * Formular für die Darstellung des selektierten Semesterverbands
  * 
  * @author Thies, Espich, V. Hofmann
  *

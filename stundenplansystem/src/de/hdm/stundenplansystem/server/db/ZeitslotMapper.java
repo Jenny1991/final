@@ -119,7 +119,7 @@ public class ZeitslotMapper {
 
       ResultSet rs = stmt.executeQuery("SELECT id, wochentag, anfangszeit, endzeit"
     	+ " FROM zeitslot "
-        + " ORDER BY id");
+        + " ORDER BY wochentag, anfangszeit");
 
       // Für jeden Eintrag im Suchergebnis wird nun ein Zeitslot-Objekt erstellt.
       while (rs.next()) {
@@ -159,22 +159,22 @@ public class ZeitslotMapper {
 	    try {
 	      Statement stmt = con.createStatement();
 	      
-	      ResultSet rs = stmt.executeQuery("SELECT id, wochentag, anfangszeit, endzeit"
+	      ResultSet rs = stmt.executeQuery("SELECT zeitslot.id, zeitslot.wochentag, zeitslot.anfangszeit, zeitslot.endzeit"
 	    	+ " FROM zeitslot"
 	    	+ " INNER JOIN stundenplaneintrag"
 	    	+ " ON stundenplaneintrag.zeitslotid = zeitslot.id"
 	    	+ " WHERE stundenplaneintrag.raumid <> " + raumid
 	    	+ " AND stundenplaneintrag.dozentid <> " + dozentid
 	    	+ " AND stundenplaneintrag.stundenplanid <> " + stundenplanid
-	        + " ORDER BY Wochentag AND Anfangszeit");
+	        + " ORDER BY wochentag, anfangszeit");
 
 	      // Für jeden Eintrag im Suchergebnis wird nun ein Zeitslot-Objekt erstellt.
 	      while (rs.next()) {
 	        Zeitslot z = new Zeitslot();
-	        z.setId(rs.getInt("id"));
-	        z.setWochentag(rs.getString("wochentag"));
-	        z.setAnfangszeit(rs.getTime("anfangszeit"));
-	        z.setEndzeit(rs.getTime("endzeit"));
+	        z.setId(rs.getInt("zeitslot.id"));
+	        z.setWochentag(rs.getString("zeitslot.wochentag"));
+	        z.setAnfangszeit(rs.getTime("zeitslot.anfangszeit"));
+	        z.setEndzeit(rs.getTime("zeitslot.endzeit"));
 
 	        // Hinzufügen des neuen Objekts zum Ergebnisvektor
 	        result.addElement(z);

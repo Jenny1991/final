@@ -123,14 +123,6 @@ implements Verwaltungsklasse {
 	 */
 	
 	/**
-	   *
-	   * 
-	   * @param id ist die Kontonummer.
-	   * @return Das erste Konto-Objekt, dass den Suchkriterien entspricht.
-	   * @throws IllegalArgumentException
-	   */
-	
-	/**
 	   * getter eines BusinessObjekt-Objekts
 	   * 
 	   * @return das jeweilige BusinessObjekt-Objekt
@@ -282,8 +274,12 @@ implements Verwaltungsklasse {
 	 */
 	
 	/**
-	 * Auslesen der Stundenplaneintr���ge der jeweiligen BO's
-	 */
+	   * Auslesen der Stundenplaneinträge der jeweiligen BO's
+	   * 
+	   * @param id des jeweiligen Businessobjektes ist die Kontonummer.
+	   * @return Vector aller Stundenplaneintrag-Instanzen
+	   * @throws IllegalArgumentException
+	   */
 	
 	public Vector<Stundenplaneintrag> getAllStundenplaneintraegeByDozent(int dozentId) throws IllegalArgumentException {
 		return this.stundenplaneintragMapper.findbyDozentId(dozentId);
@@ -487,7 +483,8 @@ implements Verwaltungsklasse {
 		s.setZeitslotId(z);
 		s.setStundenplanId(sp);
 		
-		String bezeichnung = this.getStudiengangBySemesterverbandId(this.getSemesterverbandByStundenplanId(sp).getId()).getBezeichnung();
+		int semesterverbandId = this.getSemesterverbandByStundenplanId(sp).getId();
+		String bezeichnung = this.getStudiengangBySemesterverbandId(semesterverbandId).getBezeichnung();
 		String abkuerzung = bezeichnung.substring(0, 2)+" , "+this.getLehrveranstaltungById(l).getBezeichnung();
 		s.setAbkuerzung(abkuerzung);
 		

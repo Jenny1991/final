@@ -250,12 +250,11 @@ public class CreateStundenplaneintrag extends Content {
 				@Override
 				public void onFailure(Throwable caught) {	
 				}
-				@SuppressWarnings("deprecation")
 				@Override
 				public void onSuccess(Vector<Zeitslot> result) {
 					zeitslotContainer = result;
 					for (Zeitslot zs : result) {
-						listZeitslot.addItem(zs.getWochentag() + ", " + (String.valueOf(zs.getAnfangszeit().getHours())+":"+ (String.valueOf(zs.getAnfangszeit().getMinutes()))) + ", " + (String.valueOf(zs.getEndzeit().getHours())+":"+ (String.valueOf(zs.getEndzeit().getMinutes()))), String.valueOf(zs.getId()));
+						listZeitslot.addItem(zs.getWochentag() + ", " + String.valueOf(zs.getAnfangszeit()) + ", " + String.valueOf(zs.getEndzeit()), String.valueOf(zs.getId()));
 					}
 				} 
 		  });

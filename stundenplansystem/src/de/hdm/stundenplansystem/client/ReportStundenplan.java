@@ -68,6 +68,7 @@ public class ReportStundenplan extends Content {
 		this.add(lbstundenplan);
 		this.add(libstundenplan);
 		this.add(anzeigen);
+		this.add(neuesPanel);
 		setTvm(tvm);
 		
 		
@@ -102,19 +103,21 @@ public class ReportStundenplan extends Content {
 				}
 			});
 		  
-		  anzeigen.addClickHandler(new ClickHandler() {
-			  
-			  public void onClick(ClickEvent event) {				 
-
+		  anzeigen.addClickHandler(new ClickHandler() {			  
+			  public void onClick(ClickEvent event) {	
+				  
 				  reportSvc.createStundenplanSemesterverbandReport(svContainer.elementAt(libsemverband.getSelectedIndex()).getId(), spContainer.elementAt(libstundenplan.getSelectedIndex()).getId(), new AsyncCallback<StundenplanSemesterverbandReport>() {
 		
 					  public void onSuccess(StundenplanSemesterverbandReport result){
 						  
 						//  feld.getHTML()
 //					        if (result != null) {
-					            PlainTextReportWriter writer = new PlainTextReportWriter();
-					            writer.process(result);
-					            stundenplansystem.append(writer.getReportText());
+					      PlainTextReportWriter writer = new PlainTextReportWriter();
+					      writer.process(result);
+					      String test = writer.getReportText();
+					      test = feld.getText();
+				          neuesPanel.add(new HTML(test));
+
 //					          } 
 						  
 					  }

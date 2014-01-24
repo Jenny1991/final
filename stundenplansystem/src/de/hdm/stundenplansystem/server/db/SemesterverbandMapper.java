@@ -7,9 +7,9 @@ import de.hdm.stundenplansystem.shared.bo.*;
 
 /**
  * Mapper-Klasse, die <code>Semesterverband</code>-Objekte auf eine relationale
- * Datenbank abbildet. Hierzu wird eine Reihe von Methoden zur Verfügung
+ * Datenbank abbildet. Hierzu wird eine Reihe von Methoden zur VerfÃ¼gung
  * gestellt, mit deren Hilfe z.B. Objekte gesucht, erzeugt, modifiziert und
- * gelöscht werden können. Das Mapping ist bidirektional. D.h., Objekte können
+ * gelÃ¶scht werden kÃ¶nnen. Das Mapping ist bidirektional. D.h., Objekte kÃ¶nnen
  * in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
  * 
  * @see DozentMapper, LehrveranstaltungMapper, RaumMapper, 
@@ -22,8 +22,8 @@ public class SemesterverbandMapper {
    * Die Klasse SemesterverbandMapper wird nur einmal instantiiert. Man spricht hierbei
    * von einem sogenannten <b>Singleton</b>.
    * <p>
-   * Diese Variable ist durch den Bezeichner <code>static</code> nur einmal für
-   * sämtliche eventuellen Instanzen dieser Klasse vorhanden. Sie speichert die
+   * Diese Variable ist durch den Bezeichner <code>static</code> nur einmal fÃ¼r
+   * sÃ¤mtliche eventuellen Instanzen dieser Klasse vorhanden. Sie speichert die
    * einzige Instanz dieser Klasse.
    * 
    * @see semesterverbandMapper()
@@ -31,7 +31,7 @@ public class SemesterverbandMapper {
   private static SemesterverbandMapper semesterverbandMapper = null;
 
   /**
-   * Geschützter Konstruktor - verhindert die Möglichkeit, mit <code>new</code>
+   * GeschÃ¼tzter Konstruktor - verhindert die MÃ¶glichkeit, mit <code>new</code>
    * neue Instanzen dieser Klasse zu erzeugen.
    */
   protected SemesterverbandMapper() {
@@ -40,7 +40,7 @@ public class SemesterverbandMapper {
   /**
    * Diese statische Methode kann aufgrufen werden durch
    * <code>SemesterverbandMapper.semesterverbandMapper()</code>. Sie stellt die
-   * Singleton-Eigenschaft sicher, indem Sie dafür sorgt, dass nur eine einzige
+   * Singleton-Eigenschaft sicher, indem Sie dafÃ¼r sorgt, dass nur eine einzige
    * Instanz von <code>SemesterverbandMapper</code> existiert.
    * <p>
    * 
@@ -60,10 +60,10 @@ public class SemesterverbandMapper {
 
   /**
    * Suchen eines Semesterverbandes mit vorgegebener id. Da diese eindeutig ist,
-   * wird genau ein Objekt zurückgegeben.
+   * wird genau ein Objekt zurÃ¼ckgegeben.
    * 
-   * @param id Primärschlüsselattribut (->DB)
-   * @return Semesterverband-Objekt, das dem übergebenen Schlüssel entspricht, null bei
+   * @param id PrimÃ¤rschlÃ¼sselattribut (->DB)
+   * @return Semesterverband-Objekt, das dem Ã¼bergebenen SchlÃ¼ssel entspricht, null bei
    *         nicht vorhandenem DB-Tupel.
    */
   public Semesterverband findByKey(int id) {
@@ -74,13 +74,13 @@ public class SemesterverbandMapper {
       // Leeres SQL-Statement (JDBC) anlegen
       Statement stmt = con.createStatement();
 
-      // Statement ausfüllen und als Query an die DB schicken
+      // Statement ausfÃ¼llen und als Query an die DB schicken
       ResultSet rs = stmt.executeQuery("SELECT id, semester, studierendenAnzahl, jahrgang, studiengangid, kuerzel FROM semesterverband "
           + "WHERE id=" + id);
 
       /*
-       * Da id Primärschlüssel ist, kann max. nur ein Tupel zurückgegeben
-       * werden. Prüfe, ob ein Ergebnis vorliegt.
+       * Da id PrimÃ¤rschlÃ¼ssel ist, kann max. nur ein Tupel zurÃ¼ckgegeben
+       * werden. PrÃ¼fe, ob ein Ergebnis vorliegt.
        */
       if (rs.next()) {
         // Ergebnis-Tupel in Objekt umwandeln
@@ -106,10 +106,10 @@ public class SemesterverbandMapper {
   
   /**
    * Suchen eines Semesterverbandes mit vorgegebener id. Da diese eindeutig ist,
-   * wird genau ein Objekt zurückgegeben.
+   * wird genau ein Objekt zurÃ¼ckgegeben.
    * 
-   * @param id Primärschlüsselattribut (->DB)
-   * @return Semesterverband-Objekt, das dem übergebenen Schlüssel entspricht, null bei
+   * @param id PrimÃ¤rschlÃ¼sselattribut (->DB)
+   * @return Semesterverband-Objekt, das dem Ã¼bergebenen SchlÃ¼ssel entspricht, null bei
    *         nicht vorhandenem DB-Tupel.
    */
   public Semesterverband findByStundenplanId(int semesterverbandid) {
@@ -120,7 +120,7 @@ public class SemesterverbandMapper {
       // Leeres SQL-Statement (JDBC) anlegen
       Statement stmt = con.createStatement();
 
-      // Statement ausfüllen und als Query an die DB schicken
+      // Statement ausfÃ¼llen und als Query an die DB schicken
       ResultSet rs = stmt.executeQuery("SELECT id, semester, studierendenAnzahl, jahrgang, studiengangid "
       	  + "FROM stundenplan "
       	  + "INNER JOIN semesterverband "
@@ -128,8 +128,8 @@ public class SemesterverbandMapper {
           + "WHERE semesterverbandid =" + semesterverbandid);
 
       /*
-       * Da id Primärschlüssel ist, kann max. nur ein Tupel zurückgegeben
-       * werden. Prüfe, ob ein Ergebnis vorliegt.
+       * Da id PrimÃ¤rschlÃ¼ssel ist, kann max. nur ein Tupel zurÃ¼ckgegeben
+       * werden. PrÃ¼fe, ob ein Ergebnis vorliegt.
        */
       if (rs.next()) {
         // Ergebnis-Tupel in Objekt umwandeln
@@ -154,11 +154,11 @@ public class SemesterverbandMapper {
   
   
   /**
-   * Auslesen aller Semesterverbände.
+   * Auslesen aller SemesterverbÃ¤nde.
    * 
-   * @return Ein Vektor mit Semesterverband-Objekten, die sämtliche Semesterverbände
-   *         repräsentieren. Bei evtl. Exceptions wird ein partiell gefüllter
-   *         oder ggf. auch leerer Vetor zurückgeliefert.
+   * @return Ein Vektor mit Semesterverband-Objekten, die sÃ¤mtliche SemesterverbÃ¤nde
+   *         reprÃ¤sentieren. Bei evtl. Exceptions wird ein partiell gefÃ¼llter
+   *         oder ggf. auch leerer Vetor zurÃ¼ckgeliefert.
    */
   public Vector<Semesterverband> findAll() {
     Connection con = DBConnection.connection();
@@ -172,7 +172,7 @@ public class SemesterverbandMapper {
       ResultSet rs = stmt.executeQuery("SELECT id, semester, studierendenAnzahl, jahrgang, studiengangid, kuerzel FROM semesterverband "
           + " ORDER BY id");
 
-      // Für jeden Eintrag im Suchergebnis wird nun ein Semesterverband-Objekt erstellt.
+      // FÃ¼r jeden Eintrag im Suchergebnis wird nun ein Semesterverband-Objekt erstellt.
       while (rs.next()) {
         Semesterverband s = new Semesterverband();
         s.setId(rs.getInt("id"));
@@ -182,7 +182,7 @@ public class SemesterverbandMapper {
         s.setStudiengangId(rs.getInt("studiengangid"));
         s.setKuerzel(rs.getString("kuerzel"));
 
-        // Hinzufügen des neuen Objekts zum Ergebnisvektor
+        // HinzufÃ¼gen des neuen Objekts zum Ergebnisvektor
         result.addElement(s);
       }
     }
@@ -190,17 +190,17 @@ public class SemesterverbandMapper {
       e2.printStackTrace();
     }
 
-    // Ergebnisvektor zurückgeben
+    // Ergebnisvektor zurÃ¼ckgeben
     return result;
   }
  
   
   /**
-   * Auslesen aller Semesterverbände.
+   * Auslesen aller SemesterverbÃ¤nde.
    * 
-   * @return Ein Vektor mit Semesterverband-Objekten, die sämtliche Semesterverbände
-   *         repräsentieren. Bei evtl. Exceptions wird ein partiell gefüllter
-   *         oder ggf. auch leerer Vetor zurückgeliefert.
+   * @return Ein Vektor mit Semesterverband-Objekten, die sÃ¤mtliche SemesterverbÃ¤nde
+   *         reprÃ¤sentieren. Bei evtl. Exceptions wird ein partiell gefÃ¼llter
+   *         oder ggf. auch leerer Vetor zurÃ¼ckgeliefert.
    */
   public Vector<Semesterverband> findByStudiengangId(int studiengangid) {
     Connection con = DBConnection.connection();
@@ -215,7 +215,7 @@ public class SemesterverbandMapper {
       		+ " FROM semesterverband"
             + " WHERE studiengangid = " + studiengangid);
 
-      // Für jeden Eintrag im Suchergebnis wird nun ein Semesterverband-Objekt erstellt.
+      // FÃ¼r jeden Eintrag im Suchergebnis wird nun ein Semesterverband-Objekt erstellt.
       while (rs.next()) {
         Semesterverband s = new Semesterverband();
         s.setId(rs.getInt("id"));
@@ -225,7 +225,7 @@ public class SemesterverbandMapper {
         s.setStudiengangId(rs.getInt("studiengangid"));
         s.setKuerzel(rs.getString("kuerzel"));
 
-        // Hinzufügen des neuen Objekts zum Ergebnisvektor
+        // HinzufÃ¼gen des neuen Objekts zum Ergebnisvektor
         result.addElement(s);
       }
     }
@@ -233,18 +233,18 @@ public class SemesterverbandMapper {
       e2.printStackTrace();
     }
 
-    // Ergebnisvektor zurückgeben
+    // Ergebnisvektor zurÃ¼ckgeben
     return result;
   }
   
   
   /**
-   * Einfügen eines <code>Semesterverband</code>-Objekts in die Datenbank. Dabei wird
-   * auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
+   * EinfÃ¼gen eines <code>Semesterverband</code>-Objekts in die Datenbank. Dabei wird
+   * auch der PrimÃ¤rschlÃ¼ssel des Ã¼bergebenen Objekts geprÃ¼ft und ggf.
    * berichtigt.
    * 
    * @param s das zu speichernde Objekt
-   * @return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
+   * @return das bereits Ã¼bergebene Objekt, jedoch mit ggf. korrigierter
    *         <code>id</code>.
    */
   public Semesterverband insert(Semesterverband s) {
@@ -254,23 +254,23 @@ public class SemesterverbandMapper {
       Statement stmt = con.createStatement();
 
       /*
-       * Zunächst schauen wir nach, welches der momentan höchste
-       * Primärschlüsselwert ist.
+       * ZunÃ¤chst schauen wir nach, welches der momentan hÃ¶chste
+       * PrimÃ¤rschlÃ¼sselwert ist.
        */
       ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
           + "FROM semesterverband ");
 
-      // Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
+      // Wenn wir etwas zurÃ¼ckerhalten, kann dies nur einzeilig sein
       if (rs.next()) {
         /*
-         * s erhält den bisher maximalen, nun um 1 inkrementierten
-         * Primärschlüssel.
+         * s erhÃ¤lt den bisher maximalen, nun um 1 inkrementierten
+         * PrimÃ¤rschlÃ¼ssel.
          */
         s.setId(rs.getInt("maxid") + 1);
 
         stmt = con.createStatement();
 
-        // Jetzt erst erfolgt die tatsächliche Einfügeoperation
+        // Jetzt erst erfolgt die tatsÃ¤chliche EinfÃ¼geoperation
         stmt.executeUpdate("INSERT INTO semesterverband (id, semester, studierendenAnzahl, jahrgang, studiengangid, kuerzel) " + "VALUES ("
             + s.getId() + "," + s.getSemester() + "," + s.getStudierendenAnzahl() + ",'" + s.getJahrgang() + "'," + s.getStudiengangId() + ",'" + s.getKuerzel() + "')");
       }
@@ -280,13 +280,13 @@ public class SemesterverbandMapper {
     }
 
     /*
-     * Rückgabe, des evtl. korrigierten Semesterverbandes.
+     * RÃ¼ckgabe, des evtl. korrigierten Semesterverbandes.
      * 
      * HINWEIS: Da in Java nur Referenzen auf Objekte und keine physischen
-     * Objekte übergeben werden, wäre die Anpassung des Semesterverband-Objekts auch
-     * ohne diese explizite Rückgabe außerhalb dieser Methode sichtbar. Die
-     * explizite Rückgabe von s ist eher ein Stilmittel, um zu signalisieren,
-     * dass sich das Objekt evtl. im Laufe der Methode verändert hat.
+     * Objekte Ã¼bergeben werden, wÃ¤re die Anpassung des Semesterverband-Objekts auch
+     * ohne diese explizite RÃ¼ckgabe auÃŸerhalb dieser Methode sichtbar. Die
+     * explizite RÃ¼ckgabe von s ist eher ein Stilmittel, um zu signalisieren,
+     * dass sich das Objekt evtl. im Laufe der Methode verÃ¤ndert hat.
      */
     return s;
   }
@@ -295,7 +295,7 @@ public class SemesterverbandMapper {
    * Wiederholtes Schreiben eines Objekts in die Datenbank.
    * 
    * @param s das Objekt, das in die DB geschrieben werden soll
-   * @return das als Parameter übergebene Objekt
+   * @return das als Parameter Ã¼bergebene Objekt
    */
   public Semesterverband update(Semesterverband s) {
     Connection con = DBConnection.connection();
@@ -316,14 +316,14 @@ public class SemesterverbandMapper {
       e2.printStackTrace();
     }
 
-    // Um Analogie zu insert(Semesterverband s) zu wahren, geben wir s zurück
+    // Um Analogie zu insert(Semesterverband s) zu wahren, geben wir s zurÃ¼ck
     return s;
   }
 
   /**
-   * Löschen der Daten eines <code>Semesterverband</code>-Objekts aus der Datenbank.
+   * LÃ¶schen der Daten eines <code>Semesterverband</code>-Objekts aus der Datenbank.
    * 
-   * @param s das aus der DB zu löschende "Objekt"
+   * @param s das aus der DB zu lÃ¶schende "Objekt"
    */
   public void delete(Semesterverband s) {
     Connection con = DBConnection.connection();
@@ -340,4 +340,3 @@ public class SemesterverbandMapper {
   }
 
 }
-

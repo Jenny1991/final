@@ -254,7 +254,7 @@ public class CreateStundenplaneintrag extends Content {
 				public void onSuccess(Vector<Zeitslot> result) {
 					zeitslotContainer = result;
 					for (Zeitslot zs : result) {
-						listZeitslot.addItem(zs.getWochentag() + ", " + String.valueOf(zs.getAnfangszeit()) + ", " + String.valueOf(zs.getEndzeit()), String.valueOf(zs.getId()));
+						listZeitslot.addItem(zs.getWochentag() + ", " + zs.getAnfangszeit() + ", " + zs.getEndzeit(), String.valueOf(zs.getId()));
 					}
 				} 
 		  });

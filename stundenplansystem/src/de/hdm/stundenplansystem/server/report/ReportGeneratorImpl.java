@@ -382,7 +382,7 @@ public StundenplanSemesterverbandReport createStundenplanSemesterverbandReport(
 		  if(aktuell != null){
 			  accountRow.addColumn(new Column(
 
-					  verwaltung.getLehrveranstaltungById(aktuell.getLehrveranstaltungId()).toString()+ 
+					  verwaltung.getLehrveranstaltungById(aktuell.getLehrveranstaltungId()).toString()+"/n"+ 
 					  verwaltung.getRaumById(aktuell.getRaumId()).toString()));
 
 		  } 

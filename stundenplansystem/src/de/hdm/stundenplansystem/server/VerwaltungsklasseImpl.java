@@ -13,38 +13,100 @@ import de.hdm.stundenplansystem.server.db.ZeitslotMapper;
 import de.hdm.stundenplansystem.shared.Verwaltungsklasse;
 import de.hdm.stundenplansystem.shared.bo.*;
 
+
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
+ * <p>
+ * Implementierungsklasse des Interface <code>Verwaltungsklasse</code>. Diese
+ * Klasse ist <em>die</em> Klasse, die neben {@link ReportGeneratorImpl}
+ * sämtliche Applikationslogik (oder engl. Business Logic) aggregiert. Sie ist
+ * wie eine Spinne, die sämtliche Zusammenhänge in ihrem Netz (in unserem Fall
+ * die Daten der Applikation) überblickt und für einen geordneten Ablauf und
+ * dauerhafte Konsistenz der Daten und Abläufe sorgt.
+ * </p>
+ * <p>
+ * Die Applikationslogik findet sich in den Methoden dieser Klasse. Jede dieser
+ * Methoden kann als <em>Transaction Script</em> bezeichnet werden. Dieser Name
+ * lässt schon vermuten, dass hier analog zu Datenbanktransaktion pro
+ * Transaktion gleiche mehrere Teilaktionen durchgeführt werden, die das System
+ * von einem konsistenten Zustand in einen anderen, auch wieder konsistenten
+ * Zustand überführen. Wenn dies zwischenzeitig scheitern sollte, dann ist das
+ * jeweilige Transaction Script dafür verwantwortlich, eine Fehlerbehandlung
+ * durchzuführen.
+ * </p>
+ * <p>
+ * Diese Klasse steht mit einer Reihe weiterer Datentypen in Verbindung. Dies
+ * sind:
+ * <ol>
+ * <li>{@link Verwaltungsklasse}: Dies ist das <em>lokale</em> - also
+ * Server-seitige - Interface, das die im System zur Verfügung gestellten
+ * Funktionen deklariert.</li>
+ * <li>{@link VerwaltungsklasseAsync}: <code>VerwaltungsklasseImpl</code> und
+ * <code>Verwaltunsklasse</code> bilden nur die Server-seitige Sicht der
+ * Applikationslogik ab. Diese basiert vollständig auf synchronen
+ * Funktionsaufrufen. Wir müssen jedoch in der Lage sein, Client-seitige
+ * asynchrone Aufrufe zu bedienen. Dies bedingt ein weiteres Interface, das in
+ * der Regel genauso benannt wird, wie das synchrone Interface, jedoch mit dem
+ * zusätzlichen Suffix "Async". Es steht nur mittelbar mit dieser Klasse in
+ * Verbindung. Die Erstellung und Pflege der Async Interfaces wird durch das
+ * Google Plugin semiautomatisch unterstützt. Weitere Informationen unter
+ * {@link VerwaltungsklasseAsync}.</li>
+ * <li> {@link RemoteServiceServlet}: Jede Server-seitig instantiierbare und
+ * Client-seitig über GWT RPC nutzbare Klasse muss die Klasse
+ * <code>RemoteServiceServlet</code> implementieren. Sie legt die funktionale
+ * Basis für die Anbindung von <code>VerwaltungsklasseImpl</code> an die Runtime
+ * des GWT RPC-Mechanismus.</li>
+ * </ol>
+ * </p>
+ * <p>
+ * <b>Wichtiger Hinweis:</b> Diese Klasse bedient sich sogenannter
+ * Mapper-Klassen. Sie gehören der Datenbank-Schicht an und bilden die
+ * objektorientierte Sicht der Applikationslogik auf die relationale
+ * organisierte Datenbank ab.
+ * </p>
+ * <p>
+ * Beachten Sie, dass sämtliche Methoden, die mittels GWT RPC aufgerufen werden
+ * können ein <code>throws IllegalArgumentException</code> in der
+ * Methodendeklaration aufweisen. Diese Methoden dürfen also Instanzen von
+ * {@link IllegalArgumentException} auswerfen. Mit diesen Exceptions können z.B.
+ * Probleme auf der Server-Seite in einfacher Weise auf die Client-Seite
+ * transportiert und dort systematisch in einem Catch-Block abgearbeitet werden.
+ * </p>
  * 
- * @author L.Hofmann & Holz
- *
+ * @see Verwaltungsklasse
+ * @see VerwaltungsklasseAsync
+ * @see RemoteServiceServlet
+ * @author Thies & L.Hofmann & Holz
  */
 
 @SuppressWarnings("serial")
-public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwaltungsklasse {
+public class VerwaltungsklasseImpl extends RemoteServiceServlet 
+implements Verwaltungsklasse {
 
+	
 	/**
 	 * Standard StundenplaneintragID
 	 */
 	private static final long serialVersionUID = 7027992284251455305L;
 
+	
+	/**
+	 * Instanzen der jeweiligen Mappern 
+	 */
 	private RaumMapper raumMapper = null;
-	
 	private DozentMapper dozentMapper = null;
-	
 	private LehrveranstaltungMapper lehrveranstaltungMapper = null;
-	
 	private SemesterverbandMapper semesterverbandMapper = null;
-	
 	private StundenplaneintragMapper stundenplaneintragMapper = null;
-	
 	private StundenplanMapper stundenplanMapper = null;
-	
 	private ZeitslotMapper zeitslotMapper = null;
-	
 	private StudiengangMapper studiengangMapper = null;
 	
+	
+	/**
+	 * Instanzen der jeweiligen Businessonjekte
+	 */
 	private Dozent dozent = null;
 	private Raum raum = null;
 	private Semesterverband semesterverband = null;
@@ -54,71 +116,104 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	private Stundenplan stundenplan = null;
 	private Zeitslot zeitslot = null;
 	
+	/*
+	 **********************************************************************************
+	 * ABSCHNITT, Beginn: Initialisierung
+	 **********************************************************************************
+	 */
 	
+	/**
+	   *
+	   * 
+	   * @param id ist die Kontonummer.
+	   * @return Das erste Konto-Objekt, dass den Suchkriterien entspricht.
+	   * @throws IllegalArgumentException
+	   */
 	
-	public Stundenplaneintrag getStundenplaneintrag() {
+	/**
+	   * getter eines BusinessObjekt-Objekts
+	   * 
+	   * @return das jeweilige BusinessObjekt-Objekt
+	   * @throws IllegalArgumentException
+	   */
+	
+	public Stundenplaneintrag getStundenplaneintrag() throws IllegalArgumentException {
 		return stundenplaneintrag;
 	}
-
-	public void setStundenplaneintrag(Stundenplaneintrag stundenplaneintrag) {
-		this.stundenplaneintrag = stundenplaneintrag;
-	}
-
-	public Stundenplan getStundenplan() {
+	
+	public Stundenplan getStundenplan() throws IllegalArgumentException {
 		return stundenplan;
 	}
-
-	public void setStundenplan(Stundenplan stundenplan) {
-		this.stundenplan = stundenplan;
-	}
-
-	public void setLehrveranstaltung(Lehrveranstaltung lehrveranstaltung) {
-		this.lehrveranstaltung = lehrveranstaltung;
-	}
-
-	public Lehrveranstaltung getLehrveranstaltung() {
+	
+	public Lehrveranstaltung getLehrveranstaltung()  throws IllegalArgumentException {
 		return lehrveranstaltung;
 	}
 	
-	public Zeitslot getZeitslot(){
+	public Zeitslot getZeitslot()  throws IllegalArgumentException {
 		return zeitslot;
 	}
-
-	public void setZeitslot(Zeitslot zeitslot) throws IllegalArgumentException {
-		this.zeitslot = zeitslot;
-	}
 	
-	public Dozent getDozent() {
+	public Dozent getDozent()  throws IllegalArgumentException {
 		return dozent;
 	}
-
-	public void setDozent(Dozent dozent) throws IllegalArgumentException {
-		this.dozent = dozent;
-	}
-
+	
 	public Raum getRaum() throws IllegalArgumentException {
 		return raum;
 	}
-
-	public void setRaum(Raum raum) throws IllegalArgumentException {
-		this.raum = raum;
-	}
-
+	
 	public Semesterverband getSemesterverband() throws IllegalArgumentException {
 		return semesterverband;
-	}
-
-	public void setSemesterverband(Semesterverband semesterverband) throws IllegalArgumentException {
-		this.semesterverband = semesterverband;
 	}
 
 	public Studiengang getStudiengang() throws IllegalArgumentException {
 		return studiengang;
 	}
 	
+	/**
+	   * setter des Stundenplaneintrag-Objekts
+	   * 
+	   * @return void
+	   * @throws IllegalArgumentException
+	   */
+
+	public void setStundenplaneintrag(Stundenplaneintrag stundenplaneintrag) throws IllegalArgumentException {
+		this.stundenplaneintrag = stundenplaneintrag;
+	}
+
+	public void setStundenplan(Stundenplan stundenplan)  throws IllegalArgumentException {
+		this.stundenplan = stundenplan;
+	}
+
+	public void setLehrveranstaltung(Lehrveranstaltung lehrveranstaltung)  throws IllegalArgumentException {
+		this.lehrveranstaltung = lehrveranstaltung;
+	}
+
+	public void setZeitslot(Zeitslot zeitslot) throws IllegalArgumentException {
+		this.zeitslot = zeitslot;
+	}
+
+	public void setDozent(Dozent dozent) throws IllegalArgumentException {
+		this.dozent = dozent;
+	}
+
+	public void setRaum(Raum raum) throws IllegalArgumentException {
+		this.raum = raum;
+	}
+
+	public void setSemesterverband(Semesterverband semesterverband) throws IllegalArgumentException {
+		this.semesterverband = semesterverband;
+	}
+
+	
 	public void setStudiengang(Studiengang studiengang) throws IllegalArgumentException {
 		this.studiengang = studiengang;
 	}
+	
+	/*
+	 *****************************************************************************************************
+	 * ABSCHNITT, Beginn: Initialisierung
+	 *****************************************************************************************************
+	 */
 
 	public VerwaltungsklasseImpl() throws IllegalArgumentException {
 		
@@ -136,71 +231,55 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		this.studiengangMapper = StudiengangMapper.studiengangMapper();
 	}
 	
-	/**
-	 * Auslesen aller Dozenten
+	/*
+	 ******************************************************************************************************
+	 * ABSCHNITT, Beginn: getAll-Methoden
+	 ******************************************************************************************************
 	 */
+	
+	/**
+	   * Auslesen aller jeweiligen BusinessObjekte
+	   * 
+	   * @return Vector aus allen jeweiligen BusinessObjekten
+	   * @throws IllegalArgumentException
+	   */
 	public Vector<Dozent> getAllDozenten() throws IllegalArgumentException {
 	    return this.dozentMapper.findAll();
 	  }
-	
-	
-	/**
-	 * Auslesen aller R���ume
-	 */
 	
 	public Vector<Raum> getAllRaeume() throws IllegalArgumentException {
 	    return this.raumMapper.findAll();
 	  }
 	
-	
-	/**
-	 * Auslesen aller Lehrveranstaltungen
-	 */
 	public Vector<Lehrveranstaltung> getAllLehrveranstaltungen() throws IllegalArgumentException {
 	    return this.lehrveranstaltungMapper.findAll();
 	  }
-	
-	
-	
-	/**
-	 * Auslesen aller Semesterverb���nde
-	 */
 	
 	public Vector<Semesterverband> getAllSemesterverbaende() throws IllegalArgumentException {
 	    return this.semesterverbandMapper.findAll();
 	  }
 	
-	/**
-	 * Auslesen aller Zeitslots
-	 */
-	
 	public Vector<Zeitslot> getAllZeitslots() throws IllegalArgumentException {
 	    return this.zeitslotMapper.findAll();
 	  }
-	
-	/**
-	 * Auslesen aller Stundenpl���ne
-	 */
 	
 	public Vector<Stundenplan> getAllStundenplaene() throws IllegalArgumentException {
 	    return this.stundenplanMapper.findAll();
 	  }
 	
-	/**
-	 * Auslesen aller Stundenplaneintr���ge
-	 */
-	
 	public Vector<Stundenplaneintrag> getAllStundenplaneintraege() throws IllegalArgumentException {
 	    return this.stundenplaneintragMapper.findAll();
 	  }
 	
-	/**
-	 * Auslesen aller Studiengaenge
-	 */
-	
 	public Vector<Studiengang> getAllStudiengaenge() throws IllegalArgumentException {
 	    return this.studiengangMapper.findAll();
 	  }
+	
+	/*
+	 *********************************************************************************************************
+	 * ABSCHNITT, Beginn: get(All)Stundenplaneintraege-Methoden
+	 *********************************************************************************************************
+	 */
 	
 	/**
 	 * Auslesen der Stundenplaneintr���ge der jeweiligen BO's
@@ -222,15 +301,12 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		return this.stundenplaneintragMapper.findbyStundenplanId(stundenplanId);
 	}
 	
-	/**
-	 * Aulesen der SemesterverbandId �ber die StundenplanId
-	 */
-	
-	public Semesterverband getSemesterverbandByStundenplanId (int id) throws IllegalArgumentException {
-		return this.semesterverbandMapper.findByStundenplanId(id);
-	}
-	
-	
+	/*
+	 **********************************************************************************
+	 * ABSCHNITT, Beginn: getBoById-Methoden
+	 **********************************************************************************
+	 */	
+
 	/**
 	 * Auslesen der jeweiligen BO's ���ber ihre ID
 	 */
@@ -267,6 +343,20 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		return this.zeitslotMapper.findByKey(id);
 	}
 	
+	/*
+	 *****************************************************************************************************
+	 * ABSCHNITT, Beginn: verschiedene Getter-Methoden
+	 *****************************************************************************************************
+	 */	
+		
+	/**
+	 * Aulesen des Semesterverbandobjektes über die StundenplanId
+	 */
+	
+	public Semesterverband getSemesterverbandByStundenplanId (int id) throws IllegalArgumentException {
+		return this.semesterverbandMapper.findByStundenplanId(id);
+	}
+	
 	/**
 	 * Auslesen der Semesterverb���nde eines Studiengangs
 	 */
@@ -277,14 +367,6 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	
 	public Vector<Stundenplan> getStundenplaeneBySemesterverband (int semesterverbandId){
 		return this.stundenplanMapper.findBySemesterverband(semesterverbandId);
-	}
-	
-	/**
-	 * Auslesen eines Stundenplaneintrages eines Dozenten zu einem bestimmten Zeitslot
-	 */
-	
-	public Stundenplaneintrag getStundenplaneintragByDozentAndZeitslot(int dozentId, int zeitslotId){
-		return this.stundenplaneintragMapper.findByDozentAndZeitslot(dozentId, zeitslotId);
 	}
 	
 	/**
@@ -299,8 +381,15 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	 * Auslesen eines Stundenplaneintrages eines Semesterverbandes zu einem bestimmten Zeitslot
 	 */
 	
-	public Stundenplaneintrag getStundenplaneintragBySemesterverbandAndZeitslot(int semesterverbandId, int zeitslotId, int stundenplanId){
+	public Stundenplaneintrag getStundenplaneintragBySemesterverbandAndZeitslot(
+			int semesterverbandId, int zeitslotId, int stundenplanId){
 	return this.stundenplaneintragMapper.findbySemesterverbandZeitslotAndStundenplan(semesterverbandId, zeitslotId, stundenplanId);
+	}
+	
+	public Stundenplaneintrag getStundenplaneintragByDozentAndZeitslot(
+			int dozentId, int zeitslotId) throws IllegalArgumentException {
+		
+		return this.stundenplaneintragMapper.findByDozentAndZeitslot(dozentId, zeitslotId);
 	}
 	
 	/**
@@ -310,6 +399,13 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 	public Studiengang getStudiengangBySemesterverbandId(int SemesterverbandId){
 		return this.studiengangMapper.findBySemesterverbandId(SemesterverbandId);
 	}
+	
+	
+	/*
+	 *********************************************************************************************************************
+	 * ABSCHNITT, Beginn: create-Methoden
+	 *********************************************************************************************************************
+	 */	
 	
 	/**
 	 * Anschlie���end folgen alle create-Methoden der BO's
@@ -381,7 +477,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		int l, int r, int z, int sp) 
 					throws IllegalArgumentException {
 		
-		if( this.getDozentById(d) != null && this.getLehrveranstaltungById(l) != null && this.getRaumById(r) != null && this.getZeitslotById(z) != null && this.getStundenplanById(sp) != null){
+//		if( this.getDozentById(d) != null && this.getLehrveranstaltungById(l) != null && this.getRaumById(r) != null && this.getZeitslotById(z) != null && this.getStundenplanById(sp) != null){
 		
 		Stundenplaneintrag s = new Stundenplaneintrag();
 		
@@ -398,10 +494,10 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		s.setId(1);
 		
 		return this.stundenplaneintragMapper.insert(s);
-		} else {
+//		} else {
 			
-			throw new IllegalArgumentException("Eins der ausgewählten Objekte wurde gelöscht und ist somit nicht mehr vorhanden!");
-		}
+//			throw new IllegalArgumentException("Eins der ausgewählten Objekte wurde gelöscht und ist somit nicht mehr vorhanden!");
+//		}
 	}
 
 	public Semesterverband createSemesterverband(int studiengangId,
@@ -451,6 +547,12 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		throw new IllegalArgumentException("ung���ltige Eingabe!");
 	}
 	}
+	
+	/*
+	 *****************************************************************************************************
+	 * ABSCHNITT, Beginn: Delete-Methoden
+	 *****************************************************************************************************
+	 */	
 	
 	/**
 	 * Anschlie���end folgen alle delete-Methoden der BO's
@@ -538,6 +640,12 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet implements Verwa
 		   	return true;
 //		    }
 	}
+	
+	/*
+	 *****************************************************************************************************
+	 * ABSCHNITT, Beginn: Change-Methoden
+	 *****************************************************************************************************
+	 */	
 	
 	/**
 	 * Anschlie���end folgen alle Change-Methoden der BO's

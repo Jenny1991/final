@@ -372,6 +372,8 @@ public StundenplanSemesterverbandReport createStundenplanSemesterverbandReport(
 	  /*
 	  * Nun werden sämtliche Stundenplaneintraege des Semsterverbandes ausgelesen und in die Tabelle eingetragen.
 	  */ 
+	  
+	  int hilfsZeitslotId = 1;
 
 	  for(int i = 1; i < 37; i++){
 
@@ -387,8 +389,6 @@ public StundenplanSemesterverbandReport createStundenplanSemesterverbandReport(
 		  else {
 			  		accountRow.addColumn(new Column("----"));
 		  }
-		  	
-		  int hilfsZeitslotId = 1;
 
 		  if (i == 6 | i == 12 | i == 18 | i == 24 | i == 30){
 			  

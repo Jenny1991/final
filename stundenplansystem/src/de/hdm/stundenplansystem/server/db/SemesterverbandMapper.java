@@ -209,7 +209,7 @@ public class SemesterverbandMapper {
     Vector<Semesterverband> result = new Vector<Semesterverband>();
 
     try {
-      Statement stmt = con.createStatement();
+      Statement stmt = con.createStatement(); 
 
       ResultSet rs = stmt.executeQuery("SELECT id, semester, studierendenAnzahl, jahrgang, studiengangid, kuerzel"
       		+ " FROM semesterverband"

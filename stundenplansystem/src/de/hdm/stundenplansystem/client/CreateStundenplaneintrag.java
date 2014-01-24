@@ -245,7 +245,7 @@ public class CreateStundenplaneintrag extends Content {
 		
 		public void ladeAlleZeitslots() {
 			listZeitslot.clear();
-			verwaltungsSvc.getAllZeitslots(new AsyncCallback<Vector<Zeitslot>>() {
+			verwaltungsSvc.getFreieZeitslot(raumContainer.elementAt(listRaum.getSelectedIndex()).getId(), dozentenContainer.elementAt(listDozent.getSelectedIndex()).getId(), spContainer.elementAt(listStudienhj.getSelectedIndex()).getId(), new AsyncCallback<Vector<Zeitslot>>() {
 				@Override
 				public void onFailure(Throwable caught) {	
 				}

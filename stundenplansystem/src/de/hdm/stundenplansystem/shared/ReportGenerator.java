@@ -4,19 +4,20 @@ import de.hdm.stundenplansystem.shared.bo.*;
 import de.hdm.stundenplansystem.shared.report.*;
 
 
+
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
- * @author thies & hofmann
+ * @author thies & l.hofmann & holz
  */
 @RemoteServiceRelativePath("reportgenerator")
 public interface ReportGenerator extends RemoteService {
 
   /**
    * Initialisierung des Objekts. Diese Methode ist vor dem Hintergrund von GWT
-   * RPC zus������tzlich zum No Argument Constructor der implementierenden Klasse
-   *BankAdministrationImpltungImpl} notwendig. Bitte diese Methode direkt nach der
+   * RPC zustzlich zum No Argument Constructor der implementierenden Klasse
+   *VerwaltungsklasseImpl} notwendig. Bitte diese Methode direkt nach der
    * Instantiierung aufrufen.
    * 
    * @throws IllegalArgumentException
@@ -35,30 +36,42 @@ public interface ReportGenerator extends RemoteService {
 
   /**
    * Erstellen eines <code>RaumbelegungsReport</code>-Reports. Dieser
-   * Report-Typ stellt samtliche Raume und ihre Belegungen dar.
+   * Report-Typ stellt sämtliche Raume und ihre Belegungen dar.
+   * 
+   * @param r eine Referenz auf das Raumobjekt bzgl. dessen der Report
+   *          erstellt werden soll.
+   * @return das fertige Reportobjekt
+   * @throws IllegalArgumentException
+   * @see RaumbelegungsReport
    * 
    */
-  public RaumbelegungsReport createRaumbelungsReport(
+  public abstract RaumbelegungsReport createRaumbelungsReport(
       Raum r) throws IllegalArgumentException;
 
   /**
    * Erstellen eines <code>StundenplanDozentReport</code>-Reports.
    * Dieser Report-Typ stellt den Stundenplan eines Dozenten dar.
    * 
+   * @param d eine Referenz auf das Dozentenobjekt bzgl. dessen der Report
+   *          erstellt werden soll.
    * @return das fertige Reportobjekt
    * @throws IllegalArgumentException
-   * @see AllAccountsOfAllCustomersReport
+   * @see StundenplanDozentReport
    */
   public StundenplanDozentReport createStundenplanDozentReport(Dozent d)
       throws IllegalArgumentException;
   
   /**
-   * Erstellen eines <code>StundenplanDozentReport</code>-Reports.
+   * Erstellen eines <code>StundenplanSemesterverbandReport</code>-Reports.
    * Dieser Report-Typ stellt den Stundenplan eine dar.
    * 
+   * @param semesterverbandId die Id der Referenz auf das Semesterverbandobjekt bzgl. dessen der Report
+   *          erstellt werden soll.
+   * @param stundenplanId die Id der Referenz auf das Stundenplanobjekt bzgl. dessen der Report
+   *          erstellt werden soll.
    * @return das fertige Reportobjekt
    * @throws IllegalArgumentException
-   * @see AllAccountsOfAllCustomersReport
+   * @see StundenplanSemesterverbandReport
    */
   
   public StundenplanSemesterverbandReport createStundenplanSemesterverbandReport(int semesterverbandId, int stundenplanId)

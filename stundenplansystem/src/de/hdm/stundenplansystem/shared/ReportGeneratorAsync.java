@@ -6,12 +6,12 @@ import de.hdm.stundenplansystem.shared.bo.*;
 import de.hdm.stundenplansystem.shared.report.*;
 
 /**
- * Das asynchrone Gegenst��ck des Interface {@link ReportGenerator}. Es wird
+ * Das asynchrone Gegenstück des Interface {@link ReportGenerator}. Es wird
  * semiautomatisch durch das Google Plugin erstellt und gepflegt. Daher erfolgt
- * hier keine weitere Dokumentation. F��r weitere Informationen siehe das
+ * hier keine weitere Dokumentation. Für weitere Informationen siehe das
  * synchrone Interface {@link ReportGenerator}.
  * 
- * @author thies
+ * @author thies & l.hofmann & holz
  */
 public interface ReportGeneratorAsync {
 

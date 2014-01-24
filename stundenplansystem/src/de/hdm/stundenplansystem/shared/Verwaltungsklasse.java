@@ -47,6 +47,10 @@ public interface Verwaltungsklasse extends RemoteService {
 	
 	public void setSemesterverband (Semesterverband s) throws IllegalArgumentException;
 	
+	public Zeitslot getZeitslot() throws IllegalArgumentException;
+
+	public void setZeitslot(Zeitslot z) throws IllegalArgumentException;
+	
 	public Studiengang createStudiengang(String bezeichnung)
 			throws IllegalArgumentException;
 	
@@ -171,10 +175,6 @@ public interface Verwaltungsklasse extends RemoteService {
 	
 	public void changeSemsterverband(Semesterverband sv)
 			throws IllegalArgumentException;
-
-	public Zeitslot getZeitslot() throws IllegalArgumentException;
-
-	public void setZeitslot(Zeitslot z) throws IllegalArgumentException;
 }
 
 

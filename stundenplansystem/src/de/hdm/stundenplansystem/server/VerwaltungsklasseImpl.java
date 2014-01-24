@@ -84,28 +84,13 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class VerwaltungsklasseImpl extends RemoteServiceServlet 
 implements Verwaltungsklasse {
 
-	
 	/**
 	 * Standard StundenplaneintragID
 	 */
 	private static final long serialVersionUID = 7027992284251455305L;
-
 	
 	/**
-	 * Instanzen der jeweiligen Mappern 
-	 */
-	private RaumMapper raumMapper = null;
-	private DozentMapper dozentMapper = null;
-	private LehrveranstaltungMapper lehrveranstaltungMapper = null;
-	private SemesterverbandMapper semesterverbandMapper = null;
-	private StundenplaneintragMapper stundenplaneintragMapper = null;
-	private StundenplanMapper stundenplanMapper = null;
-	private ZeitslotMapper zeitslotMapper = null;
-	private StudiengangMapper studiengangMapper = null;
-	
-	
-	/**
-	 * Instanzen der jeweiligen Businessonjekte
+	 * Referenz auf das zugehörige BusinessObjekt-Objekt.
 	 */
 	private Dozent dozent = null;
 	private Raum raum = null;
@@ -116,14 +101,87 @@ implements Verwaltungsklasse {
 	private Stundenplan stundenplan = null;
 	private Zeitslot zeitslot = null;
 	
+	/**
+	 * Referenzen auf die DatenbankMapper, welche die BusinessObjekte-Objekte mit der Datenbank
+     * abgleicht.
+	 */
+	private RaumMapper raumMapper = null;
+	private DozentMapper dozentMapper = null;
+	private LehrveranstaltungMapper lehrveranstaltungMapper = null;
+	private SemesterverbandMapper semesterverbandMapper = null;
+	private StundenplaneintragMapper stundenplaneintragMapper = null;
+	private StundenplanMapper stundenplanMapper = null;
+	private ZeitslotMapper zeitslotMapper = null;
+	private StudiengangMapper studiengangMapper = null;
+
+	  /*
+	   * Da diese Klasse ein gewisse Größe besitzt - dies ist eigentlich ein
+	   * Hinweise, dass hier eine weitere Gliederung sinnvoll ist - haben wir zur
+	   * besseren Übersicht Abschnittskomentare eingefügt. Sie leiten ein Cluster in
+	   * irgeneinerweise zusammengehöriger Methoden ein. Ein entsprechender
+	   * Kommentar steht am Ende eines solchen Clusters.
+	   */
+
+	  /*
+	   * ***************************************************************************
+	   * ABSCHNITT, Beginn: Initialisierung
+	   * ***************************************************************************
+	   */
+	 /**
+	   * <p>
+	   * Ein <code>RemoteServiceServlet</code> wird unter GWT mittels
+	   * <code>GWT.create(Klassenname.class)</code> Client-seitig erzeugt. Hierzu
+	   * ist ein solcher No-Argument-Konstruktor anzulegen. Ein Aufruf eines anderen
+	   * Konstruktors ist durch die Client-seitige Instantiierung durch
+	   * <code>GWT.create(Klassenname.class)</code> nach derzeitigem Stand nicht
+	   * möglich.
+	   * </p>
+	   * <p>
+	   * Es bietet sich also an, eine separate Instanzenmethode zu erstellen, die
+	   * Client-seitig direkt nach <code>GWT.create(Klassenname.class)</code>
+	   * aufgerufen wird, um eine Initialisierung der Instanz vorzunehmen.
+	   * </p>
+	   * 
+	   * @see #init()
+	   */
+	public VerwaltungsklasseImpl() throws IllegalArgumentException {
+		}
+	 /*
+     * Eine weitergehende Funktion muss der No-Argument-Constructor nicht haben.
+     * Er muss einfach vorhanden sein.
+     */
+	
+	 /**
+	   * Initialsierungsmethode. Siehe dazu Anmerkungen zum No-Argument-Konstruktor
+	   * {@link #ReportGeneratorImpl()}. Diese Methode muss für jede Instanz von
+	   * <code>VerwaltungsklasseImpl</code> aufgerufen werden.
+	   * 
+	   * @see #ReportGeneratorImpl()
+	   */
+	public void init() throws IllegalArgumentException {
+		 /*
+	     * Ganz wesentlich ist, dass die BankAdministration einen vollständigen Satz
+	     * von Mappern besitzt, mit deren Hilfe sie dann mit der Datenbank
+	     * kommunizieren kann.
+	     */
+		this.dozentMapper = DozentMapper.dozentMapper();
+		this.lehrveranstaltungMapper = LehrveranstaltungMapper.lehrveranstaltungMapper();
+		this.semesterverbandMapper = SemesterverbandMapper.semesterverbandMapper();
+		this.stundenplaneintragMapper = StundenplaneintragMapper.stundenplaneintragMapper();
+		this.stundenplanMapper = StundenplanMapper.stundenplanMapper();
+		this.zeitslotMapper = ZeitslotMapper.zeitslotMapper();
+		this.raumMapper = RaumMapper.raumMapper();
+		this.studiengangMapper = StudiengangMapper.studiengangMapper();
+	}
+	
 	/*
 	 **********************************************************************************
-	 * ABSCHNITT, Beginn: Initialisierung
+	 * ABSCHNITT, Beginn: der Auslesen und Setzen Methoden eines BusinessObjektes
 	 **********************************************************************************
 	 */
 	
 	/**
-	   * getter eines BusinessObjekt-Objekts
+	   * Auslesen eines BusinessObjekt-Objekts
 	   * 
 	   * @return das jeweilige BusinessObjekt-Objekt
 	   * @throws IllegalArgumentException
@@ -162,7 +220,7 @@ implements Verwaltungsklasse {
 	}
 	
 	/**
-	   * setter des Stundenplaneintrag-Objekts
+	   * Setzen des BusinessObjekt-Objekts
 	   * 
 	   * @return void
 	   * @throws IllegalArgumentException
@@ -201,27 +259,7 @@ implements Verwaltungsklasse {
 		this.studiengang = studiengang;
 	}
 	
-	/*
-	 *****************************************************************************************************
-	 * ABSCHNITT, Beginn: Initialisierung
-	 *****************************************************************************************************
-	 */
-
-	public VerwaltungsklasseImpl() throws IllegalArgumentException {
-		
-	  }
 	
-	public void init() throws IllegalArgumentException {
-		
-		this.dozentMapper = DozentMapper.dozentMapper();
-		this.lehrveranstaltungMapper = LehrveranstaltungMapper.lehrveranstaltungMapper();
-		this.semesterverbandMapper = SemesterverbandMapper.semesterverbandMapper();
-		this.stundenplaneintragMapper = StundenplaneintragMapper.stundenplaneintragMapper();
-		this.stundenplanMapper = StundenplanMapper.stundenplanMapper();
-		this.zeitslotMapper = ZeitslotMapper.zeitslotMapper();
-		this.raumMapper = RaumMapper.raumMapper();
-		this.studiengangMapper = StudiengangMapper.studiengangMapper();
-	}
 	
 	/*
 	 ******************************************************************************************************
@@ -345,7 +383,7 @@ implements Verwaltungsklasse {
 	
 	/*
 	 *****************************************************************************************************
-	 * ABSCHNITT, Beginn: verschiedene Getter-Methoden
+	 * ABSCHNITT, Beginn: verschiedene Auslese-Methoden
 	 *****************************************************************************************************
 	 */	
 		

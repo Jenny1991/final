@@ -7,8 +7,14 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import de.hdm.stundenplansystem.shared.bo.*;
 
 /**
- * The async counterpart of <code>Verwaltungsklasse</code>.
+ * Das asynchrone Gegenstück des Interface {@link Verwaltungsklasse}. Es wird
+ * semiautomatisch durch das Google Plugin erstellt und gepflegt. Daher erfolgt
+ * hier keine weitere Dokumentation. Für weitere Informationen siehe das
+ * synchrone Interface {@link Verwaltungsklasse}.
+ * 
+ * @author thies & L.Hofmann & Holz
  */
+
 public interface VerwaltungsklasseAsync {
 	
 	void init(AsyncCallback<Void> callback);

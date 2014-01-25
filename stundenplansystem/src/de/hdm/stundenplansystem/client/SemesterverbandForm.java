@@ -144,7 +144,7 @@ public class SemesterverbandForm extends Content {
 			shownSv.setSemester(Integer.valueOf(tbsemester.getValue()
 					.trim()));
 
-			verwaltungsSvc.changeSemsterverband(shownSv,
+			verwaltungsSvc.changeSemesterverband(shownSv,
 					new AsyncCallback<Void>() {
 
 						@Override

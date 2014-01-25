@@ -219,12 +219,15 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
 
 				result.addRow(accountRow);
 				accountRow = new Row();
-				accountRow
-						.addColumn(new Column(verwaltung
-								.getZeitslotById(hilfsZeitslotId)
-								.toString()));
+				accountRow.addColumn(new Column(verwaltung
+						  .getZeitslotById(hilfsZeitslotId)
+						  .toString()));
 				hilfsZeitslotId = hilfsZeitslotId + 6;
 			}
+			
+			if ( i == 36){
+				result.addRow(accountRow);
+				}
 		}
 		/*
 		 * Zum Schluss müssen wir noch den fertigen Report zurückgeben.
@@ -353,7 +356,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
 			 * jeweiligen Uhrzeit beginnt
 			 */
 
-			if (i == 6 | i == 12 | i == 18 | i == 24 | i == 30) {
+			if (i == 6 | i == 12 | i == 18 | i == 24 | i == 30 ) {
 
 				result.addRow(accountRow);
 				accountRow = new Row();
@@ -362,6 +365,9 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
 								.getZeitslotById(hilfsZeitslotId)
 								.toString()));
 				hilfsZeitslotId = hilfsZeitslotId + 6;
+			}
+			if ( i == 36){
+			result.addRow(accountRow);
 			}
 		}
 		/*
@@ -498,7 +504,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
 			 * jeweiligen Uhrzeit beginnt
 			 */
 
-			if (i == 6 | i == 12 | i == 18 | i == 24 | i == 30) {
+			if (i == 6 | i == 12 | i == 18 | i == 24 | i == 30 ) {
 
 				result.addRow(accountRow);
 				accountRow = new Row();
@@ -508,6 +514,10 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
 								.toString()));
 				hilfsZeitslotId = hilfsZeitslotId + 6;
 			}
+			
+			if ( i == 36){
+				result.addRow(accountRow);
+				}
 		}
 		/*
 		 * Zum Schluss müssen wir noch den fertigen Report zurückgeben.

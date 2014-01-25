@@ -15,7 +15,6 @@ import com.google.gwt.user.client.ui.ListBox;
 
 import de.hdm.stundenplansystem.shared.*;
 import de.hdm.stundenplansystem.shared.bo.Studiengang;
-import de.hdm.stundenplansystem.shared.bo.Stundenplan;
 import de.hdm.stundenplansystem.shared.bo.Semesterverband;
 import de.hdm.stundenplansystem.client.NavTreeViewModel;
 
@@ -29,14 +28,14 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 public class CreateSemesterverband extends Content {
 
 	/**
-	 * Jede Klasse enth������t eine ������berschrift, die definiert, was der
+	 * Jede Klasse enthält eine Überschrift, die definiert, was der
 	 * User machen kann.
 	 */
 	private final HTML ueberschrift = new HTML(
 			"<h2>Neuen Semesterverband anlegen<h2>");
 
 	/**
-	 * Unter der ������berschrift tr������gt der User die Daten des neuen
+	 * Unter der Überschrift trägt der User die Daten des neuen
 	 * Semesterverbands ein.
 	 */
 	final Label lbjahrgang = new Label(
@@ -132,7 +131,7 @@ public class CreateSemesterverband extends Content {
 									tbjahrgang.setText("");
 									libstudiengang.clear();
 									tbsemester.setText("");
-									libstudiengang.clear();
+									tbanzahl.setText("");
 									Window.alert("Erfolgreich gespeichert.");
 									tvm.addSemesterverband(result);
 								}

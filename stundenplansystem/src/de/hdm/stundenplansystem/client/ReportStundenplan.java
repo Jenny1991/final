@@ -147,8 +147,8 @@ public class ReportStundenplan extends Content {
 							Vector<Semesterverband> semesterverband) {
 						svContainer = semesterverband;
 						for (Semesterverband sv : semesterverband) {
-							libSemverband.addItem(sv.getJahrgang()
-									+ ", "
+							libSemverband.addItem(sv.getKuerzel()
+									+ ", Semester: "
 									+ String.valueOf(sv.getSemester()));
 						}
 						getStundenplan();

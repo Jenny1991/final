@@ -137,8 +137,11 @@ public class SemesterverbandForm extends Content {
 
 		if (allFilled == true) {
 			shownSv.setJahrgang(tbjahrgang.getText().trim());
+			
+			if(libstudiengang.getSelectedIndex() != 0)
 			shownSv.setStudiengangId(sgContainer.elementAt(
 					libstudiengang.getSelectedIndex()-1).getId());
+			
 			shownSv.setStudierendenAnzahl(Integer.valueOf(tbanzahl
 					.getValue()));
 			shownSv.setSemester(Integer.valueOf(tbsemester.getValue()

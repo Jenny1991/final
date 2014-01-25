@@ -112,30 +112,9 @@ public class CreateStundenplaneintrag extends Content {
 									sg.getBezeichnung(),
 									String.valueOf(sg.getId()));
 						}
-						ladeAlleSemester();
+						getSemesterverband();
 					}
 				});
-
-		listStudiengang.addChangeHandler(new ChangeHandler() {
-			@Override
-			public void onChange(ChangeEvent event) {
-				ladeAlleSemester();
-			}
-		});
-
-		listSemesterverband.addChangeHandler(new ChangeHandler() {
-			@Override
-			public void onChange(ChangeEvent event) {
-				ladeAlleStundenplaene();
-			}
-		});
-
-		listRaum.addChangeHandler(new ChangeHandler() {
-			@Override
-			public void onChange(ChangeEvent event) {
-				ladeAlleZeitslots();
-			}
-		});
 
 		speichern.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -167,14 +146,57 @@ public class CreateStundenplaneintrag extends Content {
 						});
 			}
 		});
+		
+		listStudiengang.addChangeHandler(new ChangeHandler() {
+			@Override
+			public void onChange(ChangeEvent event) {
+				getSemesterverband();
+			}
+		});
+
+		listSemesterverband.addChangeHandler(new ChangeHandler() {
+			@Override
+			public void onChange(ChangeEvent event) {
+				getStundenplan();
+			}
+		});
+
+		listRaum.addChangeHandler(new ChangeHandler() {
+			@Override
+			public void onChange(ChangeEvent event) {
+				ladeAlleZeitslots();
+			}
+		});
 	}
 
-	public void ladeAlleStundenplaene() {
+	public void getSemesterverband() {
+		listSemesterverband.clear();
+		verwaltungsSvc.getSemsterverbaendeByStudiengang(
+				sgContainer.elementAt(
+						listStudiengang.getSelectedIndex()).getId(),
+				new AsyncCallback<Vector<Semesterverband>>() {
+					public void onFailure(Throwable caught) {
+					}
+
+					public void onSuccess(
+							Vector<Semesterverband> semesterverband) {
+						svContainer = semesterverband;
+						for (Semesterverband sv : semesterverband) {
+							listSemesterverband.addItem(sv.getJahrgang()
+									+ ", Semester: "
+									+ String.valueOf(sv.getSemester()));
+						}
+						getStundenplan();
+					}
+				});
+	}
+	
+	public void getStundenplan() {
 		listStudienhj.clear();
 		verwaltungsSvc.getStundenplaeneBySemesterverband(svContainer
 				.elementAt(listStudiengang.getSelectedIndex())
 				.getId(), new AsyncCallback<Vector<Stundenplan>>() {
-			public void onFailure(Throwable T) {
+			public void onFailure(Throwable caught) {
 			}
 
 			public void onSuccess(Vector<Stundenplan> stundenplaene) {
@@ -186,27 +208,6 @@ public class CreateStundenplaneintrag extends Content {
 				ladeAlleLehrveranstaltungen();
 			}
 		});
-	}
-
-	public void ladeAlleSemester() {
-		listSemesterverband.clear();
-		verwaltungsSvc.getSemsterverbaendeByStudiengang(sgContainer
-				.elementAt(listStudiengang.getSelectedIndex())
-				.getId(),
-				new AsyncCallback<Vector<Semesterverband>>() {
-					public void onFailure(Throwable T) {
-					}
-
-					public void onSuccess(
-							Vector<Semesterverband> semesterverband) {
-						svContainer = semesterverband;
-						for (Semesterverband sv : semesterverband) {
-							listSemesterverband.addItem("Semester: "
-									+ String.valueOf(sv.getSemester()));
-						}
-						ladeAlleStundenplaene();
-					}
-				});
 	}
 
 	public void ladeAlleLehrveranstaltungen() {

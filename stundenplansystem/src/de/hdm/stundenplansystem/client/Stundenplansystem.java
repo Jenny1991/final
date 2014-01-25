@@ -8,19 +8,20 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 
 /**
  * Stundenplansystem ist die Hauptklasse des Projekts <b>stundenplansystem</b>
+ * Diese Klasse implementiert das Interface <code>EntryPoint</code> 
  * 
- * Diese Klasse implementiert das Interface <code>EntryPoint</code> Zunächst
- * werden alle Panels der Klasse instantiiert.
- * 
+ * @author V.Hofmann, Espich
+ * @version 1.0
  */
-
 public class Stundenplansystem implements EntryPoint {
 
+	/**
+	 * Zunächst werden alle Panels der Klasse instantiiert.
+	 */
 	final ScrollPanel navigation = new ScrollPanel();
 	public ScrollPanel detailsPanel = new ScrollPanel();
 
@@ -85,32 +86,38 @@ public class Stundenplansystem implements EntryPoint {
 		 * <code>addNorth()</code> bekommt unser Projekt die Überschrift
 		 * "Stundenplansystem".
 		 * 
-		 * @param ueberschriftgesamt
-		 *            Überschrift der Klasse, die im oberen Teil des Panels,
-		 *            welches 100 Pixel beträgt, erscheint. Die Methode
-		 *            <code>addWest()</code> fügt im linken Teil des Panels den
-		 *            Baum zur Navigation hinzu.
-		 * @param navigation
-		 *            Instanz der Klasse Scroll Panel, welches 300 Pixel breit
-		 *            ist Die Methode <code>add()</code> fügt im rechten Teil
-		 *            des Panels die Instanz des Vertical Panels hinzu, die den
-		 *            Inhalt, einem Datenteil mit Formularen, realisiert.
-		 * @param detailsPanel
-		 *            Instanz der Klasse Vertical Panel Im linken Panel wird ein
-		 *            Navigationsteil mit Baumstruktur der Stamm,- und
-		 *            Bewegungsdaten, sowie des Reports realisiert. Zunächst
-		 *            erstellen wir eine Instanz der Klasse NavTreeModel, das
-		 *            Inhalt des Baums definiert. Anschließend erstellen wir
-		 *            eine Instanz der Klasse CellTree. Diese lässt die
-		 *            Hierarchie der Knoten (nodes) des Baums zu, so kann es
-		 *            Leafs und Children geben.
-		 * @param tvm
-		 *            Instanz der Klasse NavTreeModel
-		 * @param "Root" Definiert den Wurzelknoten des Baums Wir weisen dem
-		 *        Scroll Panel durch die Methode <code>add()</code> die Instanz
-		 *        der Klasse CellTree zu. Im rechten Panel wir zunächst nur die
-		 *        Überschrift der jeweiligen Seite durch die Methode
-		 *        <code>add()</code> zugewiesen.
+		 * @param ueberschriftgesamt Überschrift der Klasse, 
+		 * 			  die im oberen Teil des Panels,
+		 *            welches 100 Pixel beträgt, erscheint. 
+		 *            
+		 * Die Methode <code>addWest()</code> fügt im linken Teil
+		 * des Panels den Baum zur Navigation hinzu.
+		 * 
+		 * @param navigation Instanz der Klasse Scroll Panel, 
+		 * 			  welches 300 Pixel breit ist.
+		 * 
+		 * Die Methode <code>add()</code> fügt im rechten Teil
+		 * des Panels die Instanz des Scroll Panels hinzu, die den
+		 * Inhalt, einem Datenteil mit Formularen, realisiert.
+		 * 
+		 * @param detailsPanel Instanz der Klasse Vertical Panel.
+		 * 			  
+		 * Im linken Panel wird ein Navigationsteil mit Baumstruktur der Stamm,-
+		 * und Bewegungsdaten,sowie des Reports realisiert. 
+		 * Zunächst erstellen wir eine Instanz der Klasse NavTreeModel, 
+		 * das den Inhalt des Baums definiert. Anschließend erstellen wir
+		 * eine Instanz der Klasse CellTree. Diese lässt die
+		 * Hierarchie der Knoten (nodes) des Baums zu, so kann es
+		 * Leafs und Children geben.
+		 * 
+		 * @param tvm Instanz der Klasse NavTreeModel
+		 * 
+		 * @param "Root" Definiert den Wurzelknoten des Baums 
+		 * 
+		 * Wir weisen dem Scroll Panel durch die Methode 
+		 * <code>add()</code> die Instanz der Klasse CellTree zu. 
+		 * Im rechten Panel wir zunächst nur die Überschrift der 
+		 * jeweiligen Seite durch die Methode <code>add()</code> zugewiesen.
 		 */
 		RootLayoutPanel rlp = RootLayoutPanel.get();
 		DockLayoutPanel mainPanel = new DockLayoutPanel(Unit.PX);
@@ -146,10 +153,11 @@ public class Stundenplansystem implements EntryPoint {
 	}
 
 	/**
-	 * Hier weisen wir dem rechten Panel durch die Methode <code>add()</code>den
-	 * Datenteil zum Erstellen sowie die Formulare für das ausgwählte Objekt zu.
+	 * Hier weisen wir dem rechten Panel durch die Methode 
+	 * <code>add()</code> den Datenteil zum Erstellen 
+	 * sowie die Formulare für das ausgwählte Objekt zu.
 	 * Die Methode <code>clear()</code> löscht zuvor den Inhalt des gesamten
-	 * Panels damit neue Klassen angezeigt werden
+	 * Panels damit neue Klassen angezeigt werden.
 	 */
 
 	public void createDozentForm() {

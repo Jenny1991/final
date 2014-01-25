@@ -25,32 +25,33 @@ import de.hdm.stundenplansystem.shared.bo.Stundenplaneintrag;
 import de.hdm.stundenplansystem.shared.bo.Zeitslot;
 
 /**
- * Hier wird ein neuer Stundenplaneintrag angelegt.
+ * Klasse, in der ein neuer Stundenplaneintrag angelegt wird.
+ * Diese Klasse erbt von der Klasse Content und lässt sich somit 
+ * unter GWT entsprechend anordnen.
  * 
- * @author Thies, Espich, V. Hofmann
- * 
+ * @author Thies, V.Hofmann, Espich
+ * @version 1.0
  */
-
 public class CreateStundenplaneintrag extends Content {
 
 	/**
-	 * Jede Klasse enth��ltt eine ��berschrift, die definiert, was der User
+	 * Jede Klasse enthält eine Überschrift, die definiert, was der User
 	 * machen kann.
 	 */
 	private final HTML ueberschrift = new HTML(
 			"<h2>Neuen Stundenplaneintrag anlegen<h2>");
 
 	/**
-	 * Unter der ��berschrift tr��gt der User die Daten des neuen
-	 * Stundenplaneintrags ein.
+	 * Unter der Überschrift wählt der User die Daten des
+	 * anzulegenden Stundenplaneintrags mit Hilfe von List Boxen.
 	 */
-	final Label lbdozent = new Label("Dozent:");
-	final Label lbzeitslot = new Label("Zeitslot:");
-	final Label lbraum = new Label("Raum:");
-	final Label lbstudienhj = new Label("Studienhalbjahr:");
-	final Label lbsemesterverband = new Label("Semester:");
-	final Label lblehrveranstaltung = new Label("Lehrveranstaltung:");
-	final Label lbstudiengang = new Label("Studiengang:");
+	final Label lbDozent = new Label("Dozent:");
+	final Label lbZeitslot = new Label("Zeitslot:");
+	final Label lbRaum = new Label("Raum:");
+	final Label lbStudienhj = new Label("Studienhalbjahr des Stundenplans:");
+	final Label lbSemesterverband = new Label("Semester:");
+	final Label lbLehrveranstaltung = new Label("Lehrveranstaltung:");
+	final Label lbStudiengang = new Label("Studiengang:");
 
 	final ListBox listDozent = new ListBox();
 	final ListBox listZeitslot = new ListBox();
@@ -59,6 +60,10 @@ public class CreateStundenplaneintrag extends Content {
 	final ListBox listSemesterverband = new ListBox();
 	final ListBox listLehrveranstaltung = new ListBox();
 	final ListBox listStudiengang = new ListBox();
+	final Button speichern = new Button("speichern");
+	
+	final VerwaltungsklasseAsync verwaltungsSvc = GWT
+			.create(Verwaltungsklasse.class);
 
 	Vector<Dozent> dozentenContainer = null;
 	Vector<Zeitslot> zeitslotContainer = null;
@@ -67,11 +72,6 @@ public class CreateStundenplaneintrag extends Content {
 	Vector<Semesterverband> svContainer = null;
 	Vector<Lehrveranstaltung> lvContainer = null;
 	Vector<Studiengang> sgContainer = null;
-
-	final Button speichern = new Button("speichern");
-
-	final VerwaltungsklasseAsync verwaltungsSvc = GWT
-			.create(Verwaltungsklasse.class);
 	NavTreeViewModel tvm = null;
 
 	/**
@@ -80,30 +80,24 @@ public class CreateStundenplaneintrag extends Content {
 	public void onLoad() {
 
 		this.add(ueberschrift);
-		this.add(lbstudiengang);
+		this.add(lbStudiengang);
 		this.add(listStudiengang);
-		this.add(lbsemesterverband);
+		this.add(lbSemesterverband);
 		this.add(listSemesterverband);
-		this.add(lbstudienhj);
+		this.add(lbStudienhj);
 		this.add(listStudienhj);
-		this.add(lblehrveranstaltung);
+		this.add(lbLehrveranstaltung);
 		this.add(listLehrveranstaltung);
-		this.add(lbdozent);
+		this.add(lbDozent);
 		this.add(listDozent);
-		this.add(lbraum);
+		this.add(lbRaum);
 		this.add(listRaum);
-		this.add(lbzeitslot);
+		this.add(lbZeitslot);
 		this.add(listZeitslot);
 		this.add(speichern);
-
 		setTvm(tvm);
-		listDozent.clear();
-		listZeitslot.clear();
-		listSemesterverband.clear();
+		
 		listStudiengang.clear();
-		listRaum.clear();
-		listLehrveranstaltung.clear();
-
 		verwaltungsSvc
 				.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
 					@Override

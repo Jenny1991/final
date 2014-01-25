@@ -24,7 +24,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 public class CreateRaum extends Content {
 
 	/**
-	 * Jede Klasse enthï¿½t eine ï¿½berschrift, die definiert, was der User
+	 * Jede Klasse enthält eine Überschrift, die definiert, was der User
 	 * machen kann.
 	 */
 	private final HTML ueberschrift = new HTML(
@@ -34,7 +34,7 @@ public class CreateRaum extends Content {
 	 * Unter der ï¿½berschrift tragt der User die Daten des neuen Raums ein.
 	 */
 	final Label lbbezeichnung = new Label("Bezeichnung:");
-	final Label lbkapazitaet = new Label("Kapazit�t des Raums:");
+	final Label lbkapazitaet = new Label("Kapazität des Raums:");
 	final TextBox tbbezeichnung = new TextBox();
 	final TextBox tbkapazitaet = new TextBox();
 	final Button speichern = new Button("Eingaben speichern");
@@ -66,7 +66,7 @@ public class CreateRaum extends Content {
 				if (tbbezeichnung.getValue().isEmpty()
 						|| tbkapazitaet.getValue().isEmpty()) {
 					allFilled = false;
-					Window.alert("Bitte f�llen Sie alle Felder aus.");
+					Window.alert("Bitte füllen Sie alle Felder aus.");
 				}
 
 				if (allFilled == true) {
@@ -80,7 +80,7 @@ public class CreateRaum extends Content {
 
 								@Override
 								public void onFailure(Throwable caught) {
-									Window.alert("Der Raum konnte nicht angelegt werden.");
+									Window.alert(caught.getMessage());
 								}
 
 								@Override

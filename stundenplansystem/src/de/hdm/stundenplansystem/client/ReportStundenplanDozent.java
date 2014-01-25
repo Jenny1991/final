@@ -7,45 +7,42 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.ScrollPanel;
 
 import de.hdm.stundenplansystem.shared.ReportGenerator;
 import de.hdm.stundenplansystem.shared.ReportGeneratorAsync;
 import de.hdm.stundenplansystem.shared.Verwaltungsklasse;
 import de.hdm.stundenplansystem.shared.VerwaltungsklasseAsync;
 import de.hdm.stundenplansystem.shared.bo.Dozent;
-import de.hdm.stundenplansystem.shared.bo.Semesterverband;
-import de.hdm.stundenplansystem.shared.bo.Studiengang;
 import de.hdm.stundenplansystem.shared.report.HTMLReportWriter;
-import de.hdm.stundenplansystem.shared.report.PlainTextReportWriter;
 import de.hdm.stundenplansystem.shared.report.StundenplanDozentReport;
-import de.hdm.stundenplansystem.shared.report.StundenplanSemesterverbandReport;
 
 public class ReportStundenplanDozent extends Content {
 
-	final HTML ueberschrift = new HTML(
-			"<h2>Stundenplan für Dozenten</h2>");
+	HTML ueberschrift = new HTML("<h2>Stundenplan für Dozenten</h2>");
 
 	final ListBox libDozent = new ListBox();
+	final Button anzeigen = new Button("Stundenplan anzeigen");
+	final ScrollPanel panel = new ScrollPanel();
+	HTML feld = new HTML();
+	
 	final VerwaltungsklasseAsync verwaltungsSvc = GWT
 			.create(Verwaltungsklasse.class);
 	final ReportGeneratorAsync reportSvc = GWT
 			.create(ReportGenerator.class);
-	final Button anzeigen = new Button("Stundenplan anzeigen");
-	final VerticalPanel neuesPanel = new VerticalPanel();
-	HTML feld = new HTML();
 
 	Vector<Dozent> dContainer = null;
-	private NavTreeViewModel tvm;
+	NavTreeViewModel tvm;
 	String test;
 
 	public void onLoad() {
+		
 		this.add(ueberschrift);
 		this.add(libDozent);
 		this.add(anzeigen);
+		this.add(panel);
 		setTvm(tvm);
 
 		libDozent.clear();
@@ -78,7 +75,7 @@ public class ReportStundenplanDozent extends Content {
 								HTMLReportWriter writer = new HTMLReportWriter();
 								writer.process(result);
 								test = writer.getReportText();
-								neuesPanel.add(new HTML(test));
+								panel.add(new HTML(test));
 							}
 
 							@Override

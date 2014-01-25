@@ -117,7 +117,7 @@ public class CreateStundenplan extends Content {
 
 				if (tbhalbjahr.getValue().isEmpty()) {
 					allFilled = false;
-					Window.alert("Bitte f�llen Sie alle Felder aus.");
+					Window.alert("Bitte füllen Sie alle Felder aus.");
 				}
 
 				if (allFilled == true) {

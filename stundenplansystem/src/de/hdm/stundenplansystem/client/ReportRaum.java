@@ -10,44 +10,41 @@ import java.util.Vector;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.ScrollPanel;
 
 import de.hdm.stundenplansystem.shared.*;
-import de.hdm.stundenplansystem.shared.bo.Dozent;
 import de.hdm.stundenplansystem.shared.bo.Raum;
-import de.hdm.stundenplansystem.shared.bo.Stundenplaneintrag;
 import de.hdm.stundenplansystem.shared.report.HTMLReportWriter;
-import de.hdm.stundenplansystem.shared.report.PlainTextReportWriter;
 import de.hdm.stundenplansystem.shared.report.RaumbelegungsReport;
-import de.hdm.stundenplansystem.client.*;
 
 public class ReportRaum extends Content {
 
-	final HTML ueberschrift = new HTML("<h2>Raumbelegungsplan</h2>");
+	HTML ueberschrift = new HTML("<h2>Raumbelegungsplan</h2>");
 
 	final ListBox libRaum = new ListBox();
+	final Button anzeigen = new Button("Raumbelegungen anzeigen");
+	final ScrollPanel panel = new ScrollPanel();
+	HTML feld = new HTML();
+	
 	final VerwaltungsklasseAsync verwaltungsSvc = GWT
 			.create(Verwaltungsklasse.class);
 	final ReportGeneratorAsync reportSvc = GWT
 			.create(ReportGenerator.class);
-	final Button anzeigen = new Button("Raumbelegungen anzeigen");
-	final VerticalPanel neuesPanel = new VerticalPanel();
-	HTML feld = new HTML();
 
 	Vector<Raum> rContainer = null;
-	private NavTreeViewModel tvm;
+	NavTreeViewModel tvm;
 	String test;
 
 	public void onLoad() {
+		
 		this.add(ueberschrift);
 		this.add(libRaum);
 		this.add(anzeigen);
+		this.add(panel);
 		setTvm(tvm);
 
 		libRaum.clear();
@@ -79,7 +76,7 @@ public class ReportRaum extends Content {
 								HTMLReportWriter writer = new HTMLReportWriter();
 								writer.process(result);
 								test = writer.getReportText();
-								neuesPanel.add(new HTML(test));
+								panel.add(new HTML(test));
 							}
 
 							@Override

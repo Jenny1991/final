@@ -101,7 +101,7 @@ public class LehrveranstaltungForm extends Content {
 				|| tbsemester.getValue().isEmpty()
 				|| tbumfang.getValue().isEmpty()) {
 			allFilled = false;
-			Window.alert("Bitte f�llen Sie alle Felder aus.");
+			Window.alert("Bitte füllen Sie alle Felder aus.");
 		}
 
 		if (allFilled == true) {
@@ -128,17 +128,16 @@ public class LehrveranstaltungForm extends Content {
 
 	public void deleteSelectedLv() {
 		verwaltungsSvc.deleteLehrveranstaltung(shownLv,
-				new AsyncCallback<Boolean>() {
+				new AsyncCallback<Void>() {
 					@Override
 					public void onFailure(Throwable caught) {
-						Window.alert("Die Lehrveranstaltung konnte nicht gel�scht werden."
-								+ "Sie ist in ein oder mehreren Stundenplaneintr�gen vorhanden");
+						Window.alert(caught.getMessage());
 					}
 
 					@Override
-					public void onSuccess(Boolean result) {
+					public void onSuccess(Void result) {
 						tvm.deleteLehrveranstaltung(shownLv);
-						Window.alert("Erfolgreich gel�scht.");
+						Window.alert("Erfolgreich gelöscht.");
 					}
 				});
 		this.clearFields();

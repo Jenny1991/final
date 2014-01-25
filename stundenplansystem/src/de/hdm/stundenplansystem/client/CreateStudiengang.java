@@ -61,7 +61,7 @@ public class CreateStudiengang extends Content {
 
 				if (tbbezeichnung.getValue().isEmpty()) {
 					allFilled = false;
-					Window.alert("Bitte f�llen Sie alle Felder aus.");
+					Window.alert("Bitte füllen Sie alle Felder aus.");
 				}
 
 				if (allFilled == true) {

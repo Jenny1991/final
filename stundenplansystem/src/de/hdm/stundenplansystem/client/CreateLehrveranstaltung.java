@@ -89,7 +89,7 @@ public class CreateLehrveranstaltung extends Content {
 
 								@Override
 								public void onFailure(Throwable caught) {
-									Window.alert(caught.getMessage());
+									Window.alert("Die Lehrveranstaltung konnte nicht angelegt werden.");
 								}
 
 								@Override

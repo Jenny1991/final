@@ -149,7 +149,7 @@ public class SemesterverbandForm extends Content {
 
 						@Override
 						public void onFailure(Throwable caught) {
-							Window.alert("Der Semesterverband konnte nicht angelegt werden.");
+							Window.alert(caught.getMessage());
 						}
 
 						@Override
@@ -163,15 +163,14 @@ public class SemesterverbandForm extends Content {
 
 	public void deleteSelectedSv() {
 		verwaltungsSvc.deleteSemesterverband(shownSv,
-				new AsyncCallback<Boolean>() {
+				new AsyncCallback<Void>() {
 					@Override
 					public void onFailure(Throwable caught) {
-						Window.alert("Der Studiengang konnte nicht gelöscht werden."
-								+ "Er ist in ein oder mehreren Stundenplaneinträgen eingetragen");
+						Window.alert(caught.getMessage());
 					}
 
 					@Override
-					public void onSuccess(Boolean result) {
+					public void onSuccess(Void result) {
 						tvm.deleteSemesterverband(shownSv);
 						Window.alert("Erfolgreich gelöscht.");
 					}

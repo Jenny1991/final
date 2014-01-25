@@ -93,7 +93,7 @@ public class RaumForm extends Content {
 		if (tbbezeichnung.getValue().isEmpty()
 				|| tbkapazitaet.getValue().isEmpty()) {
 			allFilled = false;
-			Window.alert("Bitte f�llen Sie alle Felder aus.");
+			Window.alert("Bitte füllen Sie alle Felder aus.");
 		}
 
 		if (allFilled == true) {
@@ -106,7 +106,7 @@ public class RaumForm extends Content {
 
 						@Override
 						public void onFailure(Throwable caught) {
-							Window.alert("Der Raum konnte nicht bearbeitet werden.");
+							Window.alert(caught.getMessage());
 						}
 
 						@Override
@@ -120,15 +120,14 @@ public class RaumForm extends Content {
 
 	public void deleteSelectedRaum() {
 		verwaltungsSvc.deleteRaum(shownRaum,
-				new AsyncCallback<Boolean>() {
+				new AsyncCallback<Void>() {
 					@Override
 					public void onFailure(Throwable caught) {
-						Window.alert("Der Raum konnte nicht gel�scht werden."
-								+ "Er ist in ein oder mehreren Stundenplaneintr�gen vorhanden");
+						Window.alert(caught.getMessage());
 					}
 
 					@Override
-					public void onSuccess(Boolean result) {
+					public void onSuccess(Void result) {
 						tvm.deleteRaum(shownRaum);
 						Window.alert("Erfolgreich gel�scht.");
 					}

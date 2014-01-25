@@ -102,7 +102,7 @@ public class CreateSemesterverband extends Content {
 						|| tbanzahl.getText().isEmpty()
 						|| tbsemester.getText().isEmpty()) {
 					allFilled = false;
-					Window.alert("Bitte f�llen Sie alle Felder aus.");
+					Window.alert("Bitte füllen Sie alle Felder aus.");
 				}
 
 				if (allFilled == true) {

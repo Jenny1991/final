@@ -23,50 +23,48 @@ import de.hdm.stundenplansystem.shared.report.*;
 
 public class ReportStundenplan extends Content {
 
-	Vector<Semesterverband> svContainer = null;
-	Vector<Stundenplan> spContainer = null;
-	Vector<Studiengang> sgContainer = null;
-
 	/**
 	 * Aufbau der Seite, um den Stundenplan für Studenten anzuzeigen
 	 */
 
 	HTML ueberschrift = new HTML("<h2>Stundenplan für Studenten</h2>");
-	final Label lbstundenplan = new Label("Stundenplan:");
-	final Label lbsemverband = new Label("Semesterverband:");
-	final Label lbstudiengang = new Label("Studiengang:");
-	final ListBox libstundenplan = new ListBox();
-	final ListBox libsemverband = new ListBox();
-	final ListBox libstudiengang = new ListBox();
+	final Label lbStundenplan = new Label("Stundenplan:");
+	final Label lbSemverband = new Label("Semesterverband:");
+	final Label lbStudiengang = new Label("Studiengang:");
+	final ListBox libStundenplan = new ListBox();
+	final ListBox libSemverband = new ListBox();
+	final ListBox libStudiengang = new ListBox();
 	final Button anzeigen = new Button("Stundenplan anzeigen");
-	final ScrollPanel neuesPanel = new ScrollPanel();
+	final ScrollPanel panel = new ScrollPanel();
 	HTML feld = new HTML();
 
 	final VerwaltungsklasseAsync verwaltungsSvc = GWT
 			.create(Verwaltungsklasse.class);
 	final ReportGeneratorAsync reportSvc = GWT
 			.create(ReportGenerator.class);
-
-	private NavTreeViewModel tvm;
+	
+	Vector<Semesterverband> svContainer = null;
+	Vector<Stundenplan> spContainer = null;
+	Vector<Studiengang> sgContainer = null;
+	NavTreeViewModel tvm;
 	Studiengang sg;
-	Stundenplansystem stundenplansystem = null;
 	Integer sv;
 	String test;
 
 	public void onLoad() {
 
-		this.add(neuesPanel);
 		this.add(ueberschrift);
-		this.add(lbstudiengang);
-		this.add(libstudiengang);
-		this.add(lbsemverband);
-		this.add(libsemverband);
-		this.add(lbstundenplan);
-		this.add(libstundenplan);
+		this.add(lbStudiengang);
+		this.add(libStudiengang);
+		this.add(lbSemverband);
+		this.add(libSemverband);
+		this.add(lbStundenplan);
+		this.add(libStundenplan);
 		this.add(anzeigen);
+		this.add(panel);
 		setTvm(tvm);
 
-		libstudiengang.clear();
+		libStudiengang.clear();
 		verwaltungsSvc
 				.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
 					public void onFailure(Throwable T) {
@@ -77,7 +75,7 @@ public class ReportStundenplan extends Content {
 							Vector<Studiengang> studiengang) {
 						sgContainer = studiengang;
 						for (Studiengang sg : studiengang) {
-							libstudiengang.addItem(
+							libStudiengang.addItem(
 									sg.getBezeichnung(),
 									String.valueOf(sg.getId()));
 						}
@@ -85,7 +83,7 @@ public class ReportStundenplan extends Content {
 					}
 				});
 
-		libstudiengang.addChangeHandler(new ChangeHandler() {
+		libStudiengang.addChangeHandler(new ChangeHandler() {
 
 			@Override
 			public void onChange(ChangeEvent event) {
@@ -93,7 +91,7 @@ public class ReportStundenplan extends Content {
 			}
 		});
 
-		libsemverband.addChangeHandler(new ChangeHandler() {
+		libSemverband.addChangeHandler(new ChangeHandler() {
 
 			@Override
 			public void onChange(ChangeEvent event) {
@@ -106,10 +104,10 @@ public class ReportStundenplan extends Content {
 
 				reportSvc.createStundenplanSemesterverbandReport(
 						svContainer.elementAt(
-								libsemverband.getSelectedIndex())
+								libSemverband.getSelectedIndex())
 								.getId(),
 						spContainer.elementAt(
-								libstundenplan.getSelectedIndex())
+								libStundenplan.getSelectedIndex())
 								.getId(),
 						new AsyncCallback<StundenplanSemesterverbandReport>() {
 
@@ -119,7 +117,7 @@ public class ReportStundenplan extends Content {
 								HTMLReportWriter writer = new HTMLReportWriter();
 								writer.process(result);
 								test = writer.getReportText();
-								neuesPanel.add(new HTML(test));
+								panel.add(new HTML(test));
 							}
 
 							@Override
@@ -136,10 +134,10 @@ public class ReportStundenplan extends Content {
 	}
 
 	public void getSemverband() {
-		libsemverband.clear();
+		libSemverband.clear();
 		verwaltungsSvc.getSemsterverbaendeByStudiengang(
 				sgContainer.elementAt(
-						libstudiengang.getSelectedIndex()).getId(),
+						libStudiengang.getSelectedIndex()).getId(),
 				new AsyncCallback<Vector<Semesterverband>>() {
 					public void onFailure(Throwable T) {
 
@@ -149,7 +147,7 @@ public class ReportStundenplan extends Content {
 							Vector<Semesterverband> semesterverband) {
 						svContainer = semesterverband;
 						for (Semesterverband sv : semesterverband) {
-							libsemverband.addItem(sv.getJahrgang()
+							libSemverband.addItem(sv.getJahrgang()
 									+ ", "
 									+ String.valueOf(sv.getSemester()));
 						}
@@ -159,9 +157,9 @@ public class ReportStundenplan extends Content {
 	}
 
 	public void getStundenplan() {
-		libstundenplan.clear();
+		libStundenplan.clear();
 		verwaltungsSvc.getStundenplaeneBySemesterverband(svContainer
-				.elementAt(libsemverband.getSelectedIndex()).getId(),
+				.elementAt(libSemverband.getSelectedIndex()).getId(),
 				new AsyncCallback<Vector<Stundenplan>>() {
 					public void onFailure(Throwable T) {
 
@@ -171,7 +169,7 @@ public class ReportStundenplan extends Content {
 							Vector<Stundenplan> stundenplaene) {
 						spContainer = stundenplaene;
 						for (Stundenplan sp : stundenplaene) {
-							libstundenplan.addItem(
+							libStundenplan.addItem(
 									sp.getStudienhalbjahr(),
 									String.valueOf(sp.getId()));
 						}

@@ -25,9 +25,6 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
  * Formular für die Darstellung des selektierten Kunden
  * 
  * @author Thies, Espich
- * 
- * 
- *         Ich bekomm die Krise mit dieser KLasse -.-
  */
 
 public class StundenplanForm extends Content {
@@ -125,12 +122,12 @@ public class StundenplanForm extends Content {
 						libsemverband.addItem(result.getJahrgang()
 								+ ", Semester: "
 								+ String.valueOf(result.getSemester()));
-						versuch();
+						getNextListSg();
 					}
 				});
 	}
 
-	public void versuch() {
+	public void getNextListSg() {
 		verwaltungsSvc.getStudiengangBySemesterverbandId(
 				shownSp.getSemesterverbandId(),
 				new AsyncCallback<Studiengang>() {
@@ -195,7 +192,7 @@ public class StundenplanForm extends Content {
 
 		if (tbhalbjahr.getValue().isEmpty()) {
 			allFilled = false;
-			Window.alert("Bitte f�llen Sie alle Felder aus.");
+			Window.alert("Bitte füllen Sie alle Felder aus.");
 		}
 
 		if (allFilled == true) {
@@ -208,7 +205,7 @@ public class StundenplanForm extends Content {
 
 						@Override
 						public void onFailure(Throwable caught) {
-							Window.alert("Das Studienhalbjahr konnte nicht bearbeitet werden.");
+							Window.alert(caught.getMessage());
 						}
 
 						@Override
@@ -223,15 +220,14 @@ public class StundenplanForm extends Content {
 
 	public void deleteSelectedHj() {
 		verwaltungsSvc.deleteStundenplan(shownSp,
-				new AsyncCallback<Boolean>() {
+				new AsyncCallback<Void>() {
 					public void onFailure(Throwable caught) {
-						Window.alert("Das Studienhalbjahr konnte nicht gel�scht werden."
-								+ "Es ist in ein oder mehreren Stundenplaneintr�gen eingetragen");
+						Window.alert(caught.getMessage());
 					}
 
-					public void onSuccess(Boolean result) {
+					public void onSuccess(Void result) {
 						tvm.deleteStudienhalbjahr(shownSp);
-						Window.alert("Erfolgreich gel�scht.");
+						Window.alert("Erfolgreich gelöscht.");
 					}
 				});
 		this.clearFields();

@@ -93,7 +93,7 @@ public class DozentForm extends Content {
 		if (tbnachname.getValue().isEmpty()
 				|| tbvorname.getValue().isEmpty()) {
 			allFilled = false;
-			Window.alert("Bitte f�llen Sie alle Felder aus.");
+			Window.alert("Bitte füllen Sie alle Felder aus.");
 		}
 
 		if (allFilled == true) {
@@ -105,7 +105,7 @@ public class DozentForm extends Content {
 
 						@Override
 						public void onFailure(Throwable caught) {
-							Window.alert("Der Dozent konnte nicht bearbeitet werden.");
+							Window.alert(caught.getMessage());
 						}
 
 						@Override
@@ -120,13 +120,12 @@ public class DozentForm extends Content {
 
 	public void deleteSelectedDozent() {
 		verwaltungsSvc.deleteDozent(shownDozent,
-				new AsyncCallback<Boolean>() {
+				new AsyncCallback<Void>() {
 					public void onFailure(Throwable caught) {
-						Window.alert("Der Dozent konnte nicht gel�scht werden."
-								+ "Er ist in ein oder mehreren Stundenplaneintr�gen eingetragen");
+						Window.alert(caught.getMessage());
 					}
 
-					public void onSuccess(Boolean result) {
+					public void onSuccess(Void result) {
 						tvm.deleteDozent(shownDozent);
 						Window.alert("Erfolgreich gel�scht.");
 					}

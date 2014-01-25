@@ -88,7 +88,7 @@ public class StudiengangForm extends Content {
 
 		if (tbbezeichnung.getValue().isEmpty()) {
 			allFilled = false;
-			Window.alert("Bitte f�llen Sie alle Felder aus.");
+			Window.alert("Bitte füllen Sie alle Felder aus.");
 		}
 
 		if (allFilled == true) {
@@ -99,7 +99,7 @@ public class StudiengangForm extends Content {
 
 						@Override
 						public void onFailure(Throwable caught) {
-							Window.alert("Der Studiengang konnte nicht bearbeitet werden.");
+							Window.alert(caught.getMessage());
 						}
 
 						@Override
@@ -113,17 +113,16 @@ public class StudiengangForm extends Content {
 
 	public void deleteSelectedSg() {
 		verwaltungsSvc.deleteStudiengang(shownSg,
-				new AsyncCallback<Boolean>() {
+				new AsyncCallback<Void>() {
 					@Override
 					public void onFailure(Throwable caught) {
-						Window.alert("Der Studiengang konnte nicht gel�scht werden."
-								+ "Er ist in ein oder mehreren Stundenplaneintr�gen vorhanden");
+						Window.alert("Der Studiengang konnte nicht gelöscht werden.");
 					}
 
 					@Override
-					public void onSuccess(Boolean result) {
+					public void onSuccess(Void result) {
 						tvm.deleteStudiengang(shownSg);
-						Window.alert("Erfolgreich gel�scht.");
+						Window.alert("Erfolgreich gelöscht.");
 					}
 				});
 		this.clearFields();

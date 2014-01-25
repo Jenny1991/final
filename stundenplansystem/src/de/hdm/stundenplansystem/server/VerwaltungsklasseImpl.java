@@ -642,14 +642,16 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 
 	public Raum createRaum(String bezeichnung, int kapazitaet)
 			throws IllegalArgumentException {
-		Raum a = new Raum();
-		a.setBezeichnung(bezeichnung);
-		a.setKapazitaet(kapazitaet);
+		
+				Raum a = new Raum();
+				a.setBezeichnung(bezeichnung);
+				a.setKapazitaet(kapazitaet);
 
-		a.setId(1);
+				a.setId(1);
+				
+				return this.raumMapper.insert(a);
+			}
 
-		return this.raumMapper.insert(a);
-	}
 
 	/**
 	 * create-Methoden zum Anlegen eines Studienganges 

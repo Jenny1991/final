@@ -7,29 +7,28 @@ public class Semesterverband extends BusinessObjekt {
 	/**
 	 * Bezeichnung des jeweiligen Semesterverbands
 	 */
-	
+
 	private int StudiengangId;
 	private int StundenplanId;
 
-	
 	/**
 	 * Semesterstufe
 	 */
 	private int semester;
-	
+
 	/**
 	 * Anzahl der Studierenden
 	 */
 	private int studierendenAnzahl;
-	
+
 	/**
 	 * Semesterjahrgang des Erstsemsters
 	 */
 	private String jahrgang;
-	
+
 	private String kuerzel;
-	
-	public Semesterverband(){
+
+	public Semesterverband() {
 	}
 
 	public int getSemester() {
@@ -79,9 +78,5 @@ public class Semesterverband extends BusinessObjekt {
 	public void setKuerzel(String a) {
 		this.kuerzel = a;
 	}
-	
-	
-
 
 }
-

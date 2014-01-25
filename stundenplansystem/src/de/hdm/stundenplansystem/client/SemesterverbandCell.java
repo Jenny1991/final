@@ -14,27 +14,23 @@ import de.hdm.stundenplansystem.shared.bo.*;
 
 /**
  * @author C. Rathke, V. Hofmann
- *
+ * 
  */
-public class SemesterverbandCell extends AbstractCell<Semesterverband> {
-	
-	public void render(Context context, final Semesterverband value, final SafeHtmlBuilder sb) {
-	      // Value can be null, so do a null check..
-	      if (value == null) {
-	        return;
-	      }
-	      
-		    sb.appendHtmlConstant("<div>");     
-			sb.appendEscapedLines(value.getKuerzel());
-			sb.appendHtmlConstant(", Semester: ");
-		    sb.append(value.getSemester());
-		    sb.appendHtmlConstant("</div>");     
-				      				
+public class SemesterverbandCell extends
+		AbstractCell<Semesterverband> {
+
+	public void render(Context context, final Semesterverband value,
+			final SafeHtmlBuilder sb) {
+		// Value can be null, so do a null check..
+		if (value == null) {
+			return;
 		}
+
+		sb.appendHtmlConstant("<div>");
+		sb.appendEscapedLines(value.getKuerzel());
+		sb.appendHtmlConstant(", Semester: ");
+		sb.append(value.getSemester());
+		sb.appendHtmlConstant("</div>");
+
+	}
 }
-		
-	
-
-
-
-

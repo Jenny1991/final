@@ -21,66 +21,75 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
  * 
  */
 
-public class CreateStudiengang extends Content{
-	
-	  /**
-	   * Jede Klasse enthï¿½t eine ï¿½berschrift, die definiert, was der User machen kann.
-		   */
-	private final HTML ueberschrift = new HTML ("<h2>Neuen Studiengang anlegen<h2>");
+public class CreateStudiengang extends Content {
 
-	  /**
-	   * Unter der ï¿½berschrift trï¿½gt der User die Daten des neuen Studiengangs ein. 
-	   */
-	  final Label lbbezeichnung = new Label ("Bezeichnung:"); 
-	  final TextBox tbbezeichnung = new TextBox ();
-	  final Button speichern = new Button ("Eingabe speichern");
-	  
-	  final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
-	  NavTreeViewModel tvm = null;
-  
-	  /**
-	  * Anordnen der Buttons und Labels auf den Panels
-	  */
-	  public void onLoad () {
+	/**
+	 * Jede Klasse enthï¿½t eine ï¿½berschrift, die definiert, was der User
+	 * machen kann.
+	 */
+	private final HTML ueberschrift = new HTML(
+			"<h2>Neuen Studiengang anlegen<h2>");
 
-		  this.add(ueberschrift);
-		  this.add(lbbezeichnung);
-		  this.add(tbbezeichnung);
-		  this.add(speichern);
-		  
-		  setTvm(tvm);
-		  	
-		  speichern.addClickHandler(new ClickHandler() {
-			  public void onClick(ClickEvent event) {
+	/**
+	 * Unter der ï¿½berschrift trï¿½gt der User die Daten des neuen Studiengangs
+	 * ein.
+	 */
+	final Label lbbezeichnung = new Label("Bezeichnung:");
+	final TextBox tbbezeichnung = new TextBox();
+	final Button speichern = new Button("Eingabe speichern");
 
-				  boolean allFilled = true;
-				  
-				  	if (tbbezeichnung.getValue().isEmpty())  
-				  	{ allFilled = false;
-					  Window.alert ("Bitte f�llen Sie alle Felder aus."); }
-				  	
-				  	if (allFilled == true){
-				  		final String bezeichnung = tbbezeichnung.getValue();
-				  
-					  verwaltungsSvc.createStudiengang(bezeichnung, new AsyncCallback<Studiengang>() {
+	final VerwaltungsklasseAsync verwaltungsSvc = GWT
+			.create(Verwaltungsklasse.class);
+	NavTreeViewModel tvm = null;
 
-						  @Override
-						  public void onFailure (Throwable caught) {
-							  Window.alert(caught.getMessage());
-						  }
+	/**
+	 * Anordnen der Buttons und Labels auf den Panels
+	 */
+	public void onLoad() {
 
-						  @Override
-						  public void onSuccess(Studiengang result) {
-							  tbbezeichnung.setText("");
-							  Window.alert ("Erfolgreich gespeichert.");
-							  tvm.addStudiengang(result);
-						  } 	
-						});
-				  }
-			  }
-		  });
-	  }
-		public void setTvm(NavTreeViewModel tvm) {
-			this.tvm = tvm;
-		}
+		this.add(ueberschrift);
+		this.add(lbbezeichnung);
+		this.add(tbbezeichnung);
+		this.add(speichern);
+
+		setTvm(tvm);
+
+		speichern.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+
+				boolean allFilled = true;
+
+				if (tbbezeichnung.getValue().isEmpty()) {
+					allFilled = false;
+					Window.alert("Bitte f�llen Sie alle Felder aus.");
+				}
+
+				if (allFilled == true) {
+					final String bezeichnung = tbbezeichnung
+							.getValue();
+
+					verwaltungsSvc.createStudiengang(bezeichnung,
+							new AsyncCallback<Studiengang>() {
+
+								@Override
+								public void onFailure(Throwable caught) {
+									Window.alert(caught.getMessage());
+								}
+
+								@Override
+								public void onSuccess(
+										Studiengang result) {
+									tbbezeichnung.setText("");
+									Window.alert("Erfolgreich gespeichert.");
+									tvm.addStudiengang(result);
+								}
+							});
+				}
+			}
+		});
+	}
+
+	public void setTvm(NavTreeViewModel tvm) {
+		this.tvm = tvm;
+	}
 }

@@ -1,20 +1,20 @@
 package de.hdm.stundenplansystem.shared.bo;
 
 public class Raum extends BusinessObjekt {
-	
+
 	private static final long serialVersionUID = 1L;
-		
+
 	/**
 	 * Bezeichnung des Raumes
 	 */
-		private String bezeichung;
-		
+	private String bezeichung;
+
 	/**
 	 * Kapazit?t des Raumes;
 	 */
-		private int kapazitaet;
-		
-	public Raum(){
+	private int kapazitaet;
+
+	public Raum() {
 	}
 
 	public String getBezeichnung() {
@@ -32,15 +32,10 @@ public class Raum extends BusinessObjekt {
 	public void setKapazitaet(int kapazitaet) {
 		this.kapazitaet = kapazitaet;
 	}
-	
-	
-	
+
 	@Override
 	public String toString() {
 		return this.bezeichung;
 	}
-	
-	
-	
-}
 
+}

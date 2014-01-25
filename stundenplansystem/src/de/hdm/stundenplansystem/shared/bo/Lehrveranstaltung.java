@@ -1,35 +1,35 @@
 package de.hdm.stundenplansystem.shared.bo;
 
-public class Lehrveranstaltung extends BusinessObjekt{
-	
+public class Lehrveranstaltung extends BusinessObjekt {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * Bezeichnung der Lehrveranstaltung
 	 */
-		private String bezeichnung;
-	
+	private String bezeichnung;
+
 	/**
-	 * Semesterstufenzugeh����rigkeit	
+	 * Semesterstufenzugeh����rigkeit
 	 */
-		private int semester;
-		
+	private int semester;
+
 	/**
 	 * ECTS-Anzahl der Lehrveranstaltung
 	 */
-		private int umfang;
-		
-	public Lehrveranstaltung(){
+	private int umfang;
+
+	public Lehrveranstaltung() {
 	}
-	
-	public void setBezeichnung(String bezeichnung){
+
+	public void setBezeichnung(String bezeichnung) {
 		this.bezeichnung = bezeichnung;
 	}
-	
-	public String getBezeichnung(){
+
+	public String getBezeichnung() {
 		return this.bezeichnung;
 	}
-	
+
 	public int getSemester() {
 		return semester;
 	}
@@ -45,9 +45,9 @@ public class Lehrveranstaltung extends BusinessObjekt{
 	public void setUmfang(int umfang) {
 		this.umfang = umfang;
 	}
-	
+
 	@Override
-	public String toString(){
+	public String toString() {
 		return this.bezeichnung;
 	}
 }

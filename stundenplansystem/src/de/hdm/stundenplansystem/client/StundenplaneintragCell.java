@@ -6,21 +6,23 @@ import de.hdm.stundenplansystem.shared.bo.*;
 
 /**
  * @author C. Rathke, J.Espich
- *
+ * 
  */
-public class StundenplaneintragCell extends AbstractCell<Stundenplaneintrag> {
+public class StundenplaneintragCell extends
+		AbstractCell<Stundenplaneintrag> {
 	@Override
-    public void render(Context context, Stundenplaneintrag value, SafeHtmlBuilder sb) {
-      // Value can be null, so do a null check..
-      if (value == null) {
-        return;
-      }
+	public void render(Context context, Stundenplaneintrag value,
+			SafeHtmlBuilder sb) {
+		// Value can be null, so do a null check..
+		if (value == null) {
+			return;
+		}
 
-      sb.appendHtmlConstant("<div>");
-//      sb.append(value.getDozentId());
-//      sb.appendHtmlConstant(", ");
-      sb.appendEscaped(value.getAbkuerzung());
-      sb.appendHtmlConstant("</div>");
-    }
+		sb.appendHtmlConstant("<div>");
+		// sb.append(value.getDozentId());
+		// sb.appendHtmlConstant(", ");
+		sb.appendEscaped(value.getAbkuerzung());
+		sb.appendHtmlConstant("</div>");
+	}
 
 }

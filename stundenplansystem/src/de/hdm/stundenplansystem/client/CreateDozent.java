@@ -23,79 +23,87 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
  */
 
 public class CreateDozent extends Content {
-	
+
 	/**
-    * Jede Klasse enthält eine Überschrift, die definiert, was der User machen kann. 
-    */
-	private final HTML ueberschrift = new HTML ("<h2>Neuen Dozenten anlegen<h2>");
+	 * Jede Klasse enthält eine Überschrift, die definiert, was der User machen
+	 * kann.
+	 */
+	private final HTML ueberschrift = new HTML(
+			"<h2>Neuen Dozenten anlegen<h2>");
 
-	  /**
-	   * Unter der Überschrift trägt der User die Daten des neuen Dozenten ein. 
-	   */
-	  Label lbvorname = new Label ("Vorname:"); 
-	  final Label lbnachname = new Label ("Nachname:");
-	  final TextBox tbvorname = new TextBox ();
-	  final TextBox tbnachname = new TextBox ();
-	  final Button speichern = new Button ("Eingaben speichern");
-	  
-	  /** Create a remote service proxy to talk to the server-side Greeting service.
-	   * 
-	   */
-		 
-	  final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
-	  NavTreeViewModel tvm = null;
-	  
-	  /**
-	  * Anordnen der Buttons und Labels auf den Panels
-	  * 
-	  * 
-	  */
-	  
-	 public void onLoad () {
+	/**
+	 * Unter der Überschrift trägt der User die Daten des neuen Dozenten ein.
+	 */
+	Label lbvorname = new Label("Vorname:");
+	final Label lbnachname = new Label("Nachname:");
+	final TextBox tbvorname = new TextBox();
+	final TextBox tbnachname = new TextBox();
+	final Button speichern = new Button("Eingaben speichern");
 
-		  this.add(ueberschrift);
-		  this.add(lbvorname);
-		  this.add(tbvorname);
-		  this.add(lbnachname);
-		  this.add(tbnachname);
-		  this.add(speichern);	  
-		  
-		  setTvm(tvm);
-			  
-				  speichern.addClickHandler(new ClickHandler() {
-					public void onClick(ClickEvent event) {
+	/**
+	 * Create a remote service proxy to talk to the server-side Greeting
+	 * service.
+	 * 
+	 */
 
-					  boolean allFilled = true;
-				  
-					  if (tbnachname.getValue().isEmpty() 
-							  ||tbvorname.getValue().isEmpty()) {	
-						  allFilled = false;
-					  Window.alert ("Bitte f�llen Sie alle Felder aus."); } 
-					  
-					  if (allFilled == true) {	
-						  String vorname = tbvorname.getValue().trim();
-						  String nachname = tbnachname.getValue().trim();
-				
-						 verwaltungsSvc.createDozent(vorname, nachname, new AsyncCallback<Dozent>() {
-							 
-							  @Override
-							  public void onFailure (Throwable caught) {
-								  Window.alert(caught.getMessage());
-							  }
+	final VerwaltungsklasseAsync verwaltungsSvc = GWT
+			.create(Verwaltungsklasse.class);
+	NavTreeViewModel tvm = null;
 
-							  @Override
-							  public void onSuccess(Dozent result) {
-								  tbvorname.setText("");
-								  tbnachname.setText("");
-								  Window.alert ("Erfolgreich gespeichert.");
-								  tvm.addDozent(result);
-							  } 	
+	/**
+	 * Anordnen der Buttons und Labels auf den Panels
+	 * 
+	 * 
+	 */
+
+	public void onLoad() {
+
+		this.add(ueberschrift);
+		this.add(lbvorname);
+		this.add(tbvorname);
+		this.add(lbnachname);
+		this.add(tbnachname);
+		this.add(speichern);
+
+		setTvm(tvm);
+
+		speichern.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+
+				boolean allFilled = true;
+
+				if (tbnachname.getValue().isEmpty()
+						|| tbvorname.getValue().isEmpty()) {
+					allFilled = false;
+					Window.alert("Bitte f�llen Sie alle Felder aus.");
+				}
+
+				if (allFilled == true) {
+					String vorname = tbvorname.getValue().trim();
+					String nachname = tbnachname.getValue().trim();
+
+					verwaltungsSvc.createDozent(vorname, nachname,
+							new AsyncCallback<Dozent>() {
+
+								@Override
+								public void onFailure(Throwable caught) {
+									Window.alert(caught.getMessage());
+								}
+
+								@Override
+								public void onSuccess(Dozent result) {
+									tbvorname.setText("");
+									tbnachname.setText("");
+									Window.alert("Erfolgreich gespeichert.");
+									tvm.addDozent(result);
+								}
 							});
-					  }
-				  }
-				  });
-	  }
-		public void setTvm(NavTreeViewModel tvm) {
-			this.tvm = tvm;
-		}
+				}
+			}
+		});
 	}
+
+	public void setTvm(NavTreeViewModel tvm) {
+		this.tvm = tvm;
+	}
+}

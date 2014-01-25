@@ -15,25 +15,22 @@ import de.hdm.stundenplansystem.shared.report.*;
  */
 public interface ReportGeneratorAsync {
 
+	void init(AsyncCallback<Void> callback);
 
-void init(AsyncCallback<Void> callback);
+	void createStundenplanDozentReport(int dozentId,
+			AsyncCallback<StundenplanDozentReport> callback);
 
+	void createRaumbelungsReport(int raumId,
+			AsyncCallback<RaumbelegungsReport> callback);
 
-void createStundenplanDozentReport(int dozentId,
-		AsyncCallback<StundenplanDozentReport> callback);
+	void createStundenplanSemesterverbandReport(
+			int semesterverbandId, int stundenplanId,
+			AsyncCallback<StundenplanSemesterverbandReport> callback);
 
-void createRaumbelungsReport(int raumId,
-		AsyncCallback<RaumbelegungsReport> callback);
+	void setRaum(Raum r, AsyncCallback<Void> callback);
 
-void createStundenplanSemesterverbandReport(int semesterverbandId,
-		int stundenplanId, AsyncCallback<StundenplanSemesterverbandReport> callback);
+	void setDozent(Dozent d, AsyncCallback<Void> callback);
 
-void setRaum(Raum r, AsyncCallback<Void> callback);
-
-
-void setDozent(Dozent d, AsyncCallback<Void> callback);
-
-
-void setSemesterverband(int sv, AsyncCallback<Void> callback);
+	void setSemesterverband(int sv, AsyncCallback<Void> callback);
 
 }

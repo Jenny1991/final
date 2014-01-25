@@ -8,19 +8,20 @@ import de.hdm.stundenplansystem.shared.bo.*;
 
 /**
  * @author C. Rathke, V. Hofmann
- *
+ * 
  */
 public class StudiengangCell extends AbstractCell<Studiengang> {
 	@Override
-    public void render(Context context, Studiengang value, SafeHtmlBuilder sb) {
-      // Value can be null, so do a null check..
-      if (value == null) {
-        return;
-      }
+	public void render(Context context, Studiengang value,
+			SafeHtmlBuilder sb) {
+		// Value can be null, so do a null check..
+		if (value == null) {
+			return;
+		}
 
-      sb.appendHtmlConstant("<div>");
-      sb.appendEscaped(value.getBezeichnung());
-      sb.appendHtmlConstant("</div>");
-    }
+		sb.appendHtmlConstant("<div>");
+		sb.appendEscaped(value.getBezeichnung());
+		sb.appendHtmlConstant("</div>");
+	}
 
 }

@@ -12,246 +12,247 @@ import java.util.Vector;
  */
 public class HTMLReportWriter extends ReportWriter {
 
-  /**
-   * Diese Variable wird mit dem Ergebnis einer Umwandlung (vgl.
-   * <code>process...</code>-Methoden) belegt. Format: HTML-Text
-   */
-  private String reportText = "";
+	/**
+	 * Diese Variable wird mit dem Ergebnis einer Umwandlung (vgl.
+	 * <code>process...</code>-Methoden) belegt. Format: HTML-Text
+	 */
+	private String reportText = "";
 
-  /**
-   * ZurÃ¼cksetzen der Variable <code>reportText</code>.
-   */
-  public void resetReportText() {
-    this.reportText = "";
-  }
+	/**
+	 * ZurÃ¼cksetzen der Variable <code>reportText</code>.
+	 */
+	public void resetReportText() {
+		this.reportText = "";
+	}
 
-  /**
-   * Umwandeln eines <code>Paragraph</code>-Objekts in HTML.
-   * 
-   * @param p der Paragraph
-   * @return HTML-Text
-   */
-  public String paragraph2HTML(Paragraph p) {
-    if (p instanceof CompositeParagraph) {
-      return this.paragraph2HTML((CompositeParagraph) p);
-    }
-    else {
-      return this.paragraph2HTML((SimpleParagraph) p);
-    }
-  }
+	/**
+	 * Umwandeln eines <code>Paragraph</code>-Objekts in HTML.
+	 * 
+	 * @param p
+	 *            der Paragraph
+	 * @return HTML-Text
+	 */
+	public String paragraph2HTML(Paragraph p) {
+		if (p instanceof CompositeParagraph) {
+			return this.paragraph2HTML((CompositeParagraph) p);
+		} else {
+			return this.paragraph2HTML((SimpleParagraph) p);
+		}
+	}
 
-  /**
-   * Umwandeln eines <code>CompositeParagraph</code>-Objekts in HTML.
-   * 
-   * @param p der CompositeParagraph
-   * @return HTML-Text
-   */
-  public String paragraph2HTML(CompositeParagraph p) {
-    StringBuffer result = new StringBuffer();
+	/**
+	 * Umwandeln eines <code>CompositeParagraph</code>-Objekts in HTML.
+	 * 
+	 * @param p
+	 *            der CompositeParagraph
+	 * @return HTML-Text
+	 */
+	public String paragraph2HTML(CompositeParagraph p) {
+		StringBuffer result = new StringBuffer();
 
-    for (int i = 0; i < p.getNumParagraphs(); i++) {
-      result.append("<p>" + p.getParagraphAt(i) + "</p>");
-    }
+		for (int i = 0; i < p.getNumParagraphs(); i++) {
+			result.append("<p>" + p.getParagraphAt(i) + "</p>");
+		}
 
-    return result.toString();
-  }
+		return result.toString();
+	}
 
-  /**
-   * Umwandeln eines <code>SimpleParagraph</code>-Objekts in HTML.
-   * 
-   * @param p der SimpleParagraph
-   * @return HTML-Text
-   */
-  public String paragraph2HTML(SimpleParagraph p) {
-    return "<p>" + p.toString() + "</p>";
-  }
+	/**
+	 * Umwandeln eines <code>SimpleParagraph</code>-Objekts in HTML.
+	 * 
+	 * @param p
+	 *            der SimpleParagraph
+	 * @return HTML-Text
+	 */
+	public String paragraph2HTML(SimpleParagraph p) {
+		return "<p>" + p.toString() + "</p>";
+	}
 
-  /**
-   * HTML-Header-Text produzieren.
-   * 
-   * @return HTML-Text
-   */
-  public String getHeader() {
-    StringBuffer result = new StringBuffer();
+	/**
+	 * HTML-Header-Text produzieren.
+	 * 
+	 * @return HTML-Text
+	 */
+	public String getHeader() {
+		StringBuffer result = new StringBuffer();
 
-    result.append("<html><head><title></title></head><body>");
-    return result.toString();
-  }
+		result.append("<html><head><title></title></head><body>");
+		return result.toString();
+	}
 
-  /**
-   * HTML-Trailer-Text produzieren.
-   * 
-   * @return HTML-Text
-   */
-  public String getTrailer() {
-    return "</body></html>";
-  }
+	/**
+	 * HTML-Trailer-Text produzieren.
+	 * 
+	 * @return HTML-Text
+	 */
+	public String getTrailer() {
+		return "</body></html>";
+	}
 
-  /**
-   * Prozessieren des übergebenen Reports und Ablage im Zielformat. Ein Auslesen
-   * des Ergebnisses kann später mittels <code>getReportText()</code> erfolgen.
-   * 
-   * @param r der zu prozessierende Report
-   */
-  public void process(StundenplanDozentReport r) {
-    // Zunächst löschen wir das Ergebnis vorhergehender Prozessierungen.
-    this.resetReportText();
+	/**
+	 * Prozessieren des ï¿½bergebenen Reports und Ablage im Zielformat. Ein
+	 * Auslesen des Ergebnisses kann spï¿½ter mittels <code>getReportText()</code>
+	 * erfolgen.
+	 * 
+	 * @param r
+	 *            der zu prozessierende Report
+	 */
+	public void process(StundenplanDozentReport r) {
+		// Zunï¿½chst lï¿½schen wir das Ergebnis vorhergehender Prozessierungen.
+		this.resetReportText();
 
-    /*
-     * In diesen Buffer schreiben wir während der Prozessierung sukzessive
-     * unsere Ergebnisse.
-     */
-    StringBuffer result = new StringBuffer();
+		/*
+		 * In diesen Buffer schreiben wir wï¿½hrend der Prozessierung sukzessive
+		 * unsere Ergebnisse.
+		 */
+		StringBuffer result = new StringBuffer();
 
-    /*
-     * Nun werden Schritt fï¿½ï¿½ï¿½ï¿½r Schritt die einzelnen Bestandteile des Reports
-     * ausgelesen und in HTML-Form ï¿½ï¿½ï¿½ï¿½bersetzt.
-     */
-    result.append("<H1>" + r.getTitle() + "</H1>");
-    result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
-    result.append("<td valign=\"top\"><b>" + paragraph2HTML(r.getHeaderData())
-        + "</b></td>");
-    result.append("<td valign=\"top\">" + paragraph2HTML(r.getImprint())
-        + "</td>");
-    result.append("</tr><tr><td></td><td>" + r.getCreated().toString()
-        + "</td></tr></table>");
+		/*
+		 * Nun werden Schritt fï¿½ï¿½ï¿½ï¿½r Schritt die einzelnen Bestandteile des
+		 * Reports ausgelesen und in HTML-Form ï¿½ï¿½ï¿½ï¿½bersetzt.
+		 */
+		result.append("<H1>" + r.getTitle() + "</H1>");
+		result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
+		result.append("<td valign=\"top\"><b>"
+				+ paragraph2HTML(r.getHeaderData()) + "</b></td>");
+		result.append("<td valign=\"top\">"
+				+ paragraph2HTML(r.getImprint()) + "</td>");
+		result.append("</tr><tr><td></td><td>"
+				+ r.getCreated().toString() + "</td></tr></table>");
 
-    Vector<Row> rows = r.getRows();
-    result.append("<table style=\"width:400px\">");
+		Vector<Row> rows = r.getRows();
+		result.append("<table style=\"width:400px\">");
 
-    for (int i = 0; i < rows.size(); i++) {
-      Row row = rows.elementAt(i);
-      result.append("<tr>");
-      for (int k = 0; k < row.getNumColumns(); k++) {
-        if (i == 0) {
-          result.append("<td style=\"background:silver;font-weight:bold\">" + row.getColumnAt(k)
-              + "</td>");
-        }
-        else {
-          if (i > 1) {
-            result.append("<td style=\"border-top:1px solid silver\">"
-                + row.getColumnAt(k) + "</td>");
-          }
-          else {
-            result.append("<td valign=\"top\">" + row.getColumnAt(k) + "</td>");
-          }
-        }
-      }
-      result.append("</tr>");
-    }
+		for (int i = 0; i < rows.size(); i++) {
+			Row row = rows.elementAt(i);
+			result.append("<tr>");
+			for (int k = 0; k < row.getNumColumns(); k++) {
+				if (i == 0) {
+					result.append("<td style=\"background:silver;font-weight:bold\">"
+							+ row.getColumnAt(k) + "</td>");
+				} else {
+					if (i > 1) {
+						result.append("<td style=\"border-top:1px solid silver\">"
+								+ row.getColumnAt(k) + "</td>");
+					} else {
+						result.append("<td valign=\"top\">"
+								+ row.getColumnAt(k) + "</td>");
+					}
+				}
+			}
+			result.append("</tr>");
+		}
 
-    result.append("</table>");
+		result.append("</table>");
 
-    /*
-     * Zum Schluss wird unser Arbeits-Buffer in einen String umgewandelt und der
-     * reportText-Variable zugewiesen. Dadurch wird es mï¿½ï¿½ï¿½ï¿½glich, anschlieï¿½ï¿½ï¿½ï¿½end das
-     * Ergebnis mittels getReportText() auszulesen.
-     */
-    this.reportText = result.toString();
-  }
-  
-  /**
-   * Das selbe nochmal wie oben, nur fÃ¼r StundenplanSemesterverbandReport
-   */
-  
-  public void process(StundenplanSemesterverbandReport r) {
-	   
-	    this.resetReportText();
-	    
-	    StringBuffer result = new StringBuffer();
+		/*
+		 * Zum Schluss wird unser Arbeits-Buffer in einen String umgewandelt und
+		 * der reportText-Variable zugewiesen. Dadurch wird es mï¿½ï¿½ï¿½ï¿½glich,
+		 * anschlieï¿½ï¿½ï¿½ï¿½end das Ergebnis mittels getReportText() auszulesen.
+		 */
+		this.reportText = result.toString();
+	}
 
-	    result.append("<H1>" + r.getTitle() + "</H1>");
-	    result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
-	    result.append("<td valign=\"top\"><b>" + paragraph2HTML(r.getHeaderData())
-	        + "</b></td>");
-	    result.append("<td valign=\"top\">" + paragraph2HTML(r.getImprint())
-	        + "</td>");
-	    result.append("</tr><tr><td></td><td>" + r.getCreated().toString()
-	        + "</td></tr></table>");
+	/**
+	 * Das selbe nochmal wie oben, nur fÃ¼r StundenplanSemesterverbandReport
+	 */
 
-	    Vector<Row> rows = r.getRows();
-	    result.append("<table style=\"width:400px\">");
+	public void process(StundenplanSemesterverbandReport r) {
 
-	    for (int i = 0; i < rows.size(); i++) {
-	      Row row = rows.elementAt(i);
-	      result.append("<tr>");
-	      for (int k = 0; k < row.getNumColumns(); k++) {
-	        if (i == 0) {
-	          result.append("<td style=\"background:silver;font-weight:bold\">" + row.getColumnAt(k)
-	              + "</td>");
-	        }
-	        else {
-	          if (i > 1) {
-	            result.append("<td style=\"border-top:1px solid silver\">"
-	                + row.getColumnAt(k) + "</td>");
-	          }
-	          else {
-	            result.append("<td valign=\"top\">" + row.getColumnAt(k) + "</td>");
-	          }
-	        }
-	      }
-	      result.append("</tr>");
-	    }
+		this.resetReportText();
 
-	    result.append("</table>");
+		StringBuffer result = new StringBuffer();
 
-	    this.reportText = result.toString();
-	  }
-  
-  /**
-   * Das selbe nochmal wie oben, nur fÃ¼r RaumbelegungsReport
-   */
-  
-  public void process(RaumbelegungsReport r) {
-	    
-	    this.resetReportText();
+		result.append("<H1>" + r.getTitle() + "</H1>");
+		result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
+		result.append("<td valign=\"top\"><b>"
+				+ paragraph2HTML(r.getHeaderData()) + "</b></td>");
+		result.append("<td valign=\"top\">"
+				+ paragraph2HTML(r.getImprint()) + "</td>");
+		result.append("</tr><tr><td></td><td>"
+				+ r.getCreated().toString() + "</td></tr></table>");
 
-	    StringBuffer result = new StringBuffer();
+		Vector<Row> rows = r.getRows();
+		result.append("<table style=\"width:400px\">");
 
-	    result.append("<H1>" + r.getTitle() + "</H1>");
-	    result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
-	    result.append("<td valign=\"top\"><b>" + paragraph2HTML(r.getHeaderData())
-	        + "</b></td>");
-	    result.append("<td valign=\"top\">" + paragraph2HTML(r.getImprint())
-	        + "</td>");
-	    result.append("</tr><tr><td></td><td>" + r.getCreated().toString()
-	        + "</td></tr></table>");
+		for (int i = 0; i < rows.size(); i++) {
+			Row row = rows.elementAt(i);
+			result.append("<tr>");
+			for (int k = 0; k < row.getNumColumns(); k++) {
+				if (i == 0) {
+					result.append("<td style=\"background:silver;font-weight:bold\">"
+							+ row.getColumnAt(k) + "</td>");
+				} else {
+					if (i > 1) {
+						result.append("<td style=\"border-top:1px solid silver\">"
+								+ row.getColumnAt(k) + "</td>");
+					} else {
+						result.append("<td valign=\"top\">"
+								+ row.getColumnAt(k) + "</td>");
+					}
+				}
+			}
+			result.append("</tr>");
+		}
 
-	    Vector<Row> rows = r.getRows();
-	    result.append("<table style=\"width:400px\">");
+		result.append("</table>");
 
-	    for (int i = 0; i < rows.size(); i++) {
-	      Row row = rows.elementAt(i);
-	      result.append("<tr>");
-	      for (int k = 0; k < row.getNumColumns(); k++) {
-	        if (i == 0) {
-	          result.append("<td style=\"background:silver;font-weight:bold\">" + row.getColumnAt(k)
-	              + "</td>");
-	        }
-	        else {
-	          if (i > 1) {
-	            result.append("<td style=\"border-top:1px solid silver\">"
-	                + row.getColumnAt(k) + "</td>");
-	          }
-	          else {
-	            result.append("<td valign=\"top\">" + row.getColumnAt(k) + "</td>");
-	          }
-	        }
-	      }
-	      result.append("</tr>");
-	    }
+		this.reportText = result.toString();
+	}
 
-	    result.append("</table>");
+	/**
+	 * Das selbe nochmal wie oben, nur fÃ¼r RaumbelegungsReport
+	 */
 
-	    this.reportText = result.toString();
-	  }
+	public void process(RaumbelegungsReport r) {
 
-  /**
-   * Auslesen des Ergebnisses der zuletzt aufgerufenen Prozessierungsmethode.
-   * 
-   * @return ein String im HTML-Format
-   */
-  public String getReportText() {
-    return this.getHeader() + this.reportText + this.getTrailer();
-  }
+		this.resetReportText();
+
+		StringBuffer result = new StringBuffer();
+
+		result.append("<H1>" + r.getTitle() + "</H1>");
+		result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
+		result.append("<td valign=\"top\"><b>"
+				+ paragraph2HTML(r.getHeaderData()) + "</b></td>");
+		result.append("<td valign=\"top\">"
+				+ paragraph2HTML(r.getImprint()) + "</td>");
+		result.append("</tr><tr><td></td><td>"
+				+ r.getCreated().toString() + "</td></tr></table>");
+
+		Vector<Row> rows = r.getRows();
+		result.append("<table style=\"width:400px\">");
+
+		for (int i = 0; i < rows.size(); i++) {
+			Row row = rows.elementAt(i);
+			result.append("<tr>");
+			for (int k = 0; k < row.getNumColumns(); k++) {
+				if (i == 0) {
+					result.append("<td style=\"background:silver;font-weight:bold\">"
+							+ row.getColumnAt(k) + "</td>");
+				} else {
+					if (i > 1) {
+						result.append("<td style=\"border-top:1px solid silver\">"
+								+ row.getColumnAt(k) + "</td>");
+					} else {
+						result.append("<td valign=\"top\">"
+								+ row.getColumnAt(k) + "</td>");
+					}
+				}
+			}
+			result.append("</tr>");
+		}
+
+		result.append("</table>");
+
+		this.reportText = result.toString();
+	}
+
+	/**
+	 * Auslesen des Ergebnisses der zuletzt aufgerufenen Prozessierungsmethode.
+	 * 
+	 * @return ein String im HTML-Format
+	 */
+	public String getReportText() {
+		return this.getHeader() + this.reportText + this.getTrailer();
+	}
 }

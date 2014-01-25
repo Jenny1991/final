@@ -14,82 +14,90 @@ import de.hdm.stundenplansystem.shared.*;
 import de.hdm.stundenplansystem.shared.bo.Raum;
 import de.hdm.stundenplansystem.client.NavTreeViewModel;
 
+/**
+ * Hier wird ein neuer Raum angelegt.
+ * 
+ * @author Thies, Espich
+ * 
+ */
+
+public class CreateRaum extends Content {
+
 	/**
-	 * Hier wird ein neuer Raum angelegt.
-	 * 
-	 * @author Thies, Espich
-	 * 
+	 * Jede Klasse enthï¿½t eine ï¿½berschrift, die definiert, was der User
+	 * machen kann.
 	 */
+	private final HTML ueberschrift = new HTML(
+			"<h2>Neuen Raum anlegen<h2>");
 
-	public class CreateRaum extends Content {
-		
-		  /**
-		   * Jede Klasse enthï¿½t eine ï¿½berschrift, die definiert, was der User machen kann.
-		   */
-		private final HTML ueberschrift = new HTML ("<h2>Neuen Raum anlegen<h2>");
+	/**
+	 * Unter der ï¿½berschrift tragt der User die Daten des neuen Raums ein.
+	 */
+	final Label lbbezeichnung = new Label("Bezeichnung:");
+	final Label lbkapazitaet = new Label("Kapazit�t des Raums:");
+	final TextBox tbbezeichnung = new TextBox();
+	final TextBox tbkapazitaet = new TextBox();
+	final Button speichern = new Button("Eingaben speichern");
 
-		  /**
-		   * Unter der ï¿½berschrift tragt der User die Daten des neuen Raums ein. 
-		   */
-		  final Label lbbezeichnung = new Label ("Bezeichnung:"); 
-		  final Label lbkapazitaet = new Label ("Kapazit�t des Raums:");
-		  final TextBox tbbezeichnung = new TextBox ();
-		  final TextBox tbkapazitaet = new TextBox ();
-		  final Button speichern = new Button ("Eingaben speichern");
-		  
-		  final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
-		  NavTreeViewModel tvm = null;
+	final VerwaltungsklasseAsync verwaltungsSvc = GWT
+			.create(Verwaltungsklasse.class);
+	NavTreeViewModel tvm = null;
 
-		  /**
-		  * Anordnen der Buttons und Labels auf den Panels
-		  */
-		  public void onLoad () {
-			  
-			  this.add(ueberschrift);
-			  
-				  this.add(lbbezeichnung);
-				  this.add(tbbezeichnung);
-				  this.add(lbkapazitaet);
-				  this.add(tbkapazitaet);
-				  this.add(speichern);
-				  
-				  setTvm(tvm);
-					  
-				  speichern.addClickHandler(new ClickHandler() {
-					  public void onClick(ClickEvent event) {
+	/**
+	 * Anordnen der Buttons und Labels auf den Panels
+	 */
+	public void onLoad() {
 
-						  boolean allFilled = true;
-						  
-						  if (tbbezeichnung.getValue().isEmpty() 
-								  || tbkapazitaet.getValue().isEmpty())
-						  {	allFilled = false;
-						  Window.alert ("Bitte f�llen Sie alle Felder aus."); }
-						  
-						  if (allFilled == true) { 
-							  final String bezeichnung = tbbezeichnung.getValue().trim();
-							  final int kapazitaet = Integer.valueOf(tbkapazitaet.getValue());
+		this.add(ueberschrift);
 
-							  verwaltungsSvc.createRaum(bezeichnung, kapazitaet, new AsyncCallback<Raum>() {
+		this.add(lbbezeichnung);
+		this.add(tbbezeichnung);
+		this.add(lbkapazitaet);
+		this.add(tbkapazitaet);
+		this.add(speichern);
 
-								  @Override
-								  public void onFailure (Throwable caught) {
-									  Window.alert("Der Raum konnte nicht angelegt werden.");
-								  }
+		setTvm(tvm);
 
-								  @Override
-								  public void onSuccess(Raum result) {
-									  tbbezeichnung.setText("");
-									  tbkapazitaet.setText("");
-									  Window.alert ("Erfolgreich gespeichert.");
-									  tvm.addRaum(result);
-								  } 	
-								});
-						  }
-					  }
-					  });
-		  }
-			public void setTvm(NavTreeViewModel tvm) {
-				this.tvm = tvm;
+		speichern.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+
+				boolean allFilled = true;
+
+				if (tbbezeichnung.getValue().isEmpty()
+						|| tbkapazitaet.getValue().isEmpty()) {
+					allFilled = false;
+					Window.alert("Bitte f�llen Sie alle Felder aus.");
+				}
+
+				if (allFilled == true) {
+					final String bezeichnung = tbbezeichnung
+							.getValue().trim();
+					final int kapazitaet = Integer
+							.valueOf(tbkapazitaet.getValue());
+
+					verwaltungsSvc.createRaum(bezeichnung,
+							kapazitaet, new AsyncCallback<Raum>() {
+
+								@Override
+								public void onFailure(Throwable caught) {
+									Window.alert("Der Raum konnte nicht angelegt werden.");
+								}
+
+								@Override
+								public void onSuccess(Raum result) {
+									tbbezeichnung.setText("");
+									tbkapazitaet.setText("");
+									Window.alert("Erfolgreich gespeichert.");
+									tvm.addRaum(result);
+								}
+							});
+				}
 			}
+		});
+	}
+
+	public void setTvm(NavTreeViewModel tvm) {
+		this.tvm = tvm;
+	}
 
 }

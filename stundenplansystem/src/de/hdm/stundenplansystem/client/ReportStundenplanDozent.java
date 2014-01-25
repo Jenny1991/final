@@ -24,64 +24,73 @@ import de.hdm.stundenplansystem.shared.report.PlainTextReportWriter;
 import de.hdm.stundenplansystem.shared.report.StundenplanDozentReport;
 import de.hdm.stundenplansystem.shared.report.StundenplanSemesterverbandReport;
 
+public class ReportStundenplanDozent extends Content {
 
-public class ReportStundenplanDozent extends Content  {
-	
-	final HTML ueberschrift = new HTML ("<h2>Stundenplan für Dozenten</h2>");
+	final HTML ueberschrift = new HTML(
+			"<h2>Stundenplan für Dozenten</h2>");
 
 	final ListBox libDozent = new ListBox();
-	final VerwaltungsklasseAsync verwaltungsSvc = GWT.create(Verwaltungsklasse.class);
-	final ReportGeneratorAsync reportSvc = GWT.create(ReportGenerator.class);
+	final VerwaltungsklasseAsync verwaltungsSvc = GWT
+			.create(Verwaltungsklasse.class);
+	final ReportGeneratorAsync reportSvc = GWT
+			.create(ReportGenerator.class);
 	final Button anzeigen = new Button("Stundenplan anzeigen");
-	final VerticalPanel neuesPanel = new VerticalPanel(); 
-	HTML feld = new HTML ();
-	
+	final VerticalPanel neuesPanel = new VerticalPanel();
+	HTML feld = new HTML();
+
 	Vector<Dozent> dContainer = null;
 	private NavTreeViewModel tvm;
 	String test;
-	
-	public void onLoad(){
+
+	public void onLoad() {
 		this.add(ueberschrift);
 		this.add(libDozent);
 		this.add(anzeigen);
 		setTvm(tvm);
-	
-	  libDozent.clear();
-	  verwaltungsSvc.getAllDozenten(new AsyncCallback<Vector<Dozent>>() {
-		  public void onFailure(Throwable T){
-		  }
-		  
-		  public void onSuccess(Vector<Dozent> dozent){
-			dContainer = dozent;
-		  	for (Dozent d : dozent){
-		  		libDozent.addItem(d.getNachname() +", " + d.getVorname(), String.valueOf(d.getId()));
-		  	}
-		  }
-	  });
-		  
-		  	anzeigen.addClickHandler(new ClickHandler() {			  
-				  public void onClick(ClickEvent event) {	
-					  
-					  reportSvc.createStundenplanDozentReport(dContainer.elementAt(libDozent.getSelectedIndex()).getId(), new AsyncCallback<StundenplanDozentReport>() {
-			
-						  public void onSuccess(StundenplanDozentReport result){
-							  
-						      HTMLReportWriter writer = new HTMLReportWriter();
-						      writer.process(result);
-						      test = writer.getReportText();
-					          neuesPanel.add(new HTML(test));							  
-						  }
-				
-						  @Override
-						  public void onFailure (Throwable caught) {
-							  caught.getMessage();
-						  }
-					  });
-				  }
-			  });
-		  }
-	
-		public void setTvm(NavTreeViewModel tvm) {
-			this.tvm = tvm;
-		}		
+
+		libDozent.clear();
+		verwaltungsSvc
+				.getAllDozenten(new AsyncCallback<Vector<Dozent>>() {
+					public void onFailure(Throwable T) {
+					}
+
+					public void onSuccess(Vector<Dozent> dozent) {
+						dContainer = dozent;
+						for (Dozent d : dozent) {
+							libDozent.addItem(d.getNachname() + ", "
+									+ d.getVorname(),
+									String.valueOf(d.getId()));
+						}
+					}
+				});
+
+		anzeigen.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+
+				reportSvc.createStundenplanDozentReport(dContainer
+						.elementAt(libDozent.getSelectedIndex())
+						.getId(),
+						new AsyncCallback<StundenplanDozentReport>() {
+
+							public void onSuccess(
+									StundenplanDozentReport result) {
+
+								HTMLReportWriter writer = new HTMLReportWriter();
+								writer.process(result);
+								test = writer.getReportText();
+								neuesPanel.add(new HTML(test));
+							}
+
+							@Override
+							public void onFailure(Throwable caught) {
+								caught.getMessage();
+							}
+						});
+			}
+		});
+	}
+
+	public void setTvm(NavTreeViewModel tvm) {
+		this.tvm = tvm;
+	}
 }

@@ -3,7 +3,7 @@ package de.hdm.stundenplansystem.shared.bo;
 public class Stundenplaneintrag extends BusinessObjekt {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * jeweilige Businessobjekte der Stundenplaneintraege
 	 */
@@ -14,8 +14,8 @@ public class Stundenplaneintrag extends BusinessObjekt {
 	private int semesterverbandId;
 	private int stundenplanId;
 	private String abkuerzung;
-	
-	public Stundenplaneintrag(){
+
+	public Stundenplaneintrag() {
 	}
 
 	public int getDozentId() {
@@ -73,6 +73,5 @@ public class Stundenplaneintrag extends BusinessObjekt {
 	public void setAbkuerzung(String abkuerzung) {
 		this.abkuerzung = abkuerzung;
 	}
-
 
 }

@@ -54,6 +54,7 @@ public class ReportStundenplan extends Content {
 	
 	public void onLoad() {
 		
+		this.add(neuesPanel);
 		this.add(ueberschrift);
 		this.add(lbstudiengang);
 		this.add(libstudiengang);
@@ -62,7 +63,6 @@ public class ReportStundenplan extends Content {
 		this.add(lbstundenplan);
 		this.add(libstundenplan);
 		this.add(anzeigen);
-		this.add(neuesPanel);
 		setTvm(tvm);
 		
 		

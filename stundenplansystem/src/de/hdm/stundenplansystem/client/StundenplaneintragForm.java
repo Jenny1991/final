@@ -254,7 +254,7 @@ public class StundenplaneintragForm extends Content {
 
 					@Override
 					public void onSuccess(Semesterverband result) {
-						libSemesterverband.addItem(result.getJahrgang()
+						libSemesterverband.addItem(result.getKuerzel()
 								+ ", Semester: "
 								+ String.valueOf(result.getSemester()));
 						getNextListSg();

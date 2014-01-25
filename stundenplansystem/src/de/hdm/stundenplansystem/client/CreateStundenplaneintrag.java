@@ -182,7 +182,7 @@ public class CreateStundenplaneintrag extends Content {
 							Vector<Semesterverband> semesterverband) {
 						svContainer = semesterverband;
 						for (Semesterverband sv : semesterverband) {
-							listSemesterverband.addItem(sv.getJahrgang()
+							listSemesterverband.addItem(sv.getKuerzel()
 									+ ", Semester: "
 									+ String.valueOf(sv.getSemester()));
 						}

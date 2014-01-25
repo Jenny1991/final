@@ -1017,6 +1017,17 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 					+ "Stundenplaneintrag ausgewählt werden.");
 			
 		} else {
+			
+			int semesterverbandId = this
+					.getSemesterverbandByStundenplanId(s.getStundenplanId()).getId();
+			String bezeichnung = this
+					.getStudiengangBySemesterverbandId(
+							semesterverbandId).getBezeichnung();
+			String abkuerzung = bezeichnung.substring(0, 2)
+					+ " , "
+					+ this.getLehrveranstaltungById(s.getLehrveranstaltungId())
+							.getBezeichnung();
+			s.setAbkuerzung(abkuerzung);
 		this.stundenplaneintragMapper.update(s);
 	}
 	}

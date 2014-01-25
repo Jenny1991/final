@@ -14,7 +14,11 @@ import de.hdm.stundenplansystem.shared.bo.*;
 
 /**
  * @author C. Rathke, V. Hofmann
- * 
+ * Diese Klasse SemesterverbandCell definiert die in den Knoten dargestellte
+ * Informationen.
+ * Die Methode <code>render</code> übersetzt die Cell als HTML in einen
+ * SafeHtmlBuilder, der das Erstellen von XSS (safe HTML) aus Textteilen
+ * erleichtert.
  */
 public class SemesterverbandCell extends
 		AbstractCell<Semesterverband> {

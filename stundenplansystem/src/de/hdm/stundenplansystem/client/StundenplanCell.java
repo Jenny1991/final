@@ -6,6 +6,14 @@ import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 
 import de.hdm.stundenplansystem.shared.bo.Stundenplan;
 
+/**
+ * @author C. Rathke, V. Hofmann
+ * Diese Klasse StundenplanCell definiert die in den Knoten dargestellte
+ * Informationen.
+ * Die Methode <code>render</code> übersetzt die Cell als HTML in einen
+ * SafeHtmlBuilder, der das Erstellen von XSS (safe HTML) aus Textteilen
+ * erleichtert.
+ */
 public class StundenplanCell extends AbstractCell<Stundenplan> {
 	@Override
 	public void render(Context context, Stundenplan value,

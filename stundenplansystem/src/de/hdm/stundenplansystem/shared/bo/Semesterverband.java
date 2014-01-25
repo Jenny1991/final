@@ -9,7 +9,6 @@ public class Semesterverband extends BusinessObjekt {
 	 */
 
 	private int StudiengangId;
-	private int StundenplanId;
 
 	/**
 	 * Semesterstufe
@@ -63,13 +62,6 @@ public class Semesterverband extends BusinessObjekt {
 		this.StudiengangId = studiengangId;
 	}
 
-	public int getStundenplanId() {
-		return StundenplanId;
-	}
-
-	public void setStundenplanId(int stundenplanId) {
-		StundenplanId = stundenplanId;
-	}
 
 	public String getKuerzel() {
 		return kuerzel;

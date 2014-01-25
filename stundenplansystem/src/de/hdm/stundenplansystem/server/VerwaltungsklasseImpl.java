@@ -20,56 +20,56 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * <p>
  * Implementierungsklasse des Interface <code>Verwaltungsklasse</code>. Diese
  * Klasse ist <em>die</em> Klasse, die neben {@link ReportGeneratorImpl}
- * sÃ¤mtliche Applikationslogik (oder engl. Business Logic) aggregiert. Sie ist
- * wie eine Spinne, die sÃ¤mtliche ZusammenhÃ¤nge in ihrem Netz (in unserem Fall
- * die Daten der Applikation) Ã¼berblickt und fÃ¼r einen geordneten Ablauf und
- * dauerhafte Konsistenz der Daten und AblÃ¤ufe sorgt.
+ * sämtliche Applikationslogik (oder engl. Business Logic) aggregiert. Sie ist
+ * wie eine Spinne, die sämtliche Zusammenhänge in ihrem Netz (in unserem Fall
+ * die Daten der Applikation) überblickt und für einen geordneten Ablauf und
+ * dauerhafte Konsistenz der Daten und Abläufe sorgt.
  * </p>
  * <p>
  * Die Applikationslogik findet sich in den Methoden dieser Klasse. Jede dieser
  * Methoden kann als <em>Transaction Script</em> bezeichnet werden. Dieser Name
- * lÃ¤sst schon vermuten, dass hier analog zu Datenbanktransaktion pro
- * Transaktion gleiche mehrere Teilaktionen durchgefÃ¼hrt werden, die das System
+ * lässt schon vermuten, dass hier analog zu Datenbanktransaktion pro
+ * Transaktion gleiche mehrere Teilaktionen durchgeführt werden, die das System
  * von einem konsistenten Zustand in einen anderen, auch wieder konsistenten
- * Zustand Ã¼berfÃ¼hren. Wenn dies zwischenzeitig scheitern sollte, dann ist das
- * jeweilige Transaction Script dafÃ¼r verwantwortlich, eine Fehlerbehandlung
- * durchzufÃ¼hren.
+ * Zustand überführen. Wenn dies zwischenzeitig scheitern sollte, dann ist das
+ * jeweilige Transaction Script dafür verwantwortlich, eine Fehlerbehandlung
+ * durchzuführen.
  * </p>
  * <p>
  * Diese Klasse steht mit einer Reihe weiterer Datentypen in Verbindung. Dies
  * sind:
  * <ol>
  * <li>{@link Verwaltungsklasse}: Dies ist das <em>lokale</em> - also
- * Server-seitige - Interface, das die im System zur VerfÃ¼gung gestellten
+ * Server-seitige - Interface, das die im System zur Verfügung gestellten
  * Funktionen deklariert.</li>
  * <li>{@link VerwaltungsklasseAsync}: <code>VerwaltungsklasseImpl</code> und
  * <code>Verwaltunsklasse</code> bilden nur die Server-seitige Sicht der
- * Applikationslogik ab. Diese basiert vollstÃ¤ndig auf synchronen
- * Funktionsaufrufen. Wir mÃ¼ssen jedoch in der Lage sein, Client-seitige
+ * Applikationslogik ab. Diese basiert vollständig auf synchronen
+ * Funktionsaufrufen. Wir müssen jedoch in der Lage sein, Client-seitige
  * asynchrone Aufrufe zu bedienen. Dies bedingt ein weiteres Interface, das in
  * der Regel genauso benannt wird, wie das synchrone Interface, jedoch mit dem
- * zusÃ¤tzlichen Suffix "Async". Es steht nur mittelbar mit dieser Klasse in
+ * zusätzlichen Suffix "Async". Es steht nur mittelbar mit dieser Klasse in
  * Verbindung. Die Erstellung und Pflege der Async Interfaces wird durch das
- * Google Plugin semiautomatisch unterstÃ¼tzt. Weitere Informationen unter
+ * Google Plugin semiautomatisch unterstützt. Weitere Informationen unter
  * {@link VerwaltungsklasseAsync}.</li>
  * <li> {@link RemoteServiceServlet}: Jede Server-seitig instantiierbare und
- * Client-seitig Ã¼ber GWT RPC nutzbare Klasse muss die Klasse
+ * Client-seitig über GWT RPC nutzbare Klasse muss die Klasse
  * <code>RemoteServiceServlet</code> implementieren. Sie legt die funktionale
- * Basis fÃ¼r die Anbindung von <code>VerwaltungsklasseImpl</code> an die Runtime
+ * Basis für die Anbindung von <code>VerwaltungsklasseImpl</code> an die Runtime
  * des GWT RPC-Mechanismus.</li>
  * </ol>
  * </p>
  * <p>
  * <b>Wichtiger Hinweis:</b> Diese Klasse bedient sich sogenannter
- * Mapper-Klassen. Sie gehÃ¶ren der Datenbank-Schicht an und bilden die
+ * Mapper-Klassen. Sie gehören der Datenbank-Schicht an und bilden die
  * objektorientierte Sicht der Applikationslogik auf die relationale
  * organisierte Datenbank ab.
  * </p>
  * <p>
- * Beachten Sie, dass sÃ¤mtliche Methoden, die mittels GWT RPC aufgerufen werden
- * kÃ¶nnen ein <code>throws IllegalArgumentException</code> in der
- * Methodendeklaration aufweisen. Diese Methoden dÃ¼rfen also Instanzen von
- * {@link IllegalArgumentException} auswerfen. Mit diesen Exceptions kÃ¶nnen z.B.
+ * Beachten Sie, dass sämtliche Methoden, die mittels GWT RPC aufgerufen werden
+ * können ein <code>throws IllegalArgumentException</code> in der
+ * Methodendeklaration aufweisen. Diese Methoden dürfen also Instanzen von
+ * {@link IllegalArgumentException} auswerfen. Mit diesen Exceptions können z.B.
  * Probleme auf der Server-Seite in einfacher Weise auf die Client-Seite
  * transportiert und dort systematisch in einem Catch-Block abgearbeitet werden.
  * </p>
@@ -90,7 +90,7 @@ implements Verwaltungsklasse {
 	private static final long serialVersionUID = 7027992284251455305L;
 	
 	/**
-	 * Referenz auf das zugehÃ¶rige BusinessObjekt-Objekt.
+	 * Referenz auf das zugehörige BusinessObjekt-Objekt.
 	 */
 	private Dozent dozent = null;
 	private Raum raum = null;
@@ -115,10 +115,10 @@ implements Verwaltungsklasse {
 	private StudiengangMapper studiengangMapper = null;
 
 	  /*
-	   * Da diese Klasse ein gewisse GrÃ¶ÃŸe besitzt - dies ist eigentlich ein
+	   * Da diese Klasse ein gewisse Größe besitzt - dies ist eigentlich ein
 	   * Hinweise, dass hier eine weitere Gliederung sinnvoll ist - haben wir zur
-	   * besseren Ãœbersicht Abschnittskomentare eingefÃ¼gt. Sie leiten ein Cluster in
-	   * irgeneinerweise zusammengehÃ¶riger Methoden ein. Ein entsprechender
+	   * besseren Übersicht Abschnittskomentare eingefügt. Sie leiten ein Cluster in
+	   * irgeneinerweise zusammengehöriger Methoden ein. Ein entsprechender
 	   * Kommentar steht am Ende eines solchen Clusters.
 	   */
 
@@ -134,7 +134,7 @@ implements Verwaltungsklasse {
 	   * ist ein solcher No-Argument-Konstruktor anzulegen. Ein Aufruf eines anderen
 	   * Konstruktors ist durch die Client-seitige Instantiierung durch
 	   * <code>GWT.create(Klassenname.class)</code> nach derzeitigem Stand nicht
-	   * mÃ¶glich.
+	   * möglich.
 	   * </p>
 	   * <p>
 	   * Es bietet sich also an, eine separate Instanzenmethode zu erstellen, die
@@ -153,14 +153,14 @@ implements Verwaltungsklasse {
 	
 	 /**
 	   * Initialsierungsmethode. Siehe dazu Anmerkungen zum No-Argument-Konstruktor
-	   * {@link #ReportGeneratorImpl()}. Diese Methode muss fÃ¼r jede Instanz von
+	   * {@link #ReportGeneratorImpl()}. Diese Methode muss für jede Instanz von
 	   * <code>VerwaltungsklasseImpl</code> aufgerufen werden.
 	   * 
 	   * @see #ReportGeneratorImpl()
 	   */
 	public void init() throws IllegalArgumentException {
 		 /*
-	     * Ganz wesentlich ist, dass die BankAdministration einen vollstÃ¤ndigen Satz
+	     * Ganz wesentlich ist, dass die BankAdministration einen vollständigen Satz
 	     * von Mappern besitzt, mit deren Hilfe sie dann mit der Datenbank
 	     * kommunizieren kann.
 	     */
@@ -312,10 +312,10 @@ implements Verwaltungsklasse {
 	 */
 	
 	/**
-	   * Auslesen der StundenplaneintrÃ¤ge der jeweiligen BO's
+	   * Auslesen der Stundenplaneinträge der jeweiligen BusinessObjekts
 	   * 
-	   * @param id des jeweiligen BO's
-	   * @return Vector aller Stundenplaneintrag-Instanzen des BO's
+	   * @param id des jeweiligen BusinessObjekts
+	   * @return Vector aller Stundenplaneintrag-Instanzen des BusniessObjekts
 	   * @throws IllegalArgumentException
 	   */
 	
@@ -342,10 +342,10 @@ implements Verwaltungsklasse {
 	 */	
 
 	/**
-	   * Auslesen der jeweiligen BO's Ã¼ber ihre ID
+	   * Auslesen der jeweiligen BusniessObjekts über ihre ID
 	   * 
-	   * @param id des jeweiligen BO's
-	   * @return das jeweilige BO-Objekt
+	   * @param id des jeweiligen BusniessObjekts
+	   * @return das jeweilige BusniessObjekt-Objekt
 	   * @throws IllegalArgumentException
 	   */
 	
@@ -388,11 +388,11 @@ implements Verwaltungsklasse {
 	 */	
 		
 	/**
-	   * Auslesen eines Stundenplaneintrag-Objekt Ã¼ber die ID des zugehÃ¶rigen Raumes und Zeitslot.
+	   * Auslesen eines Stundenplaneintrag-Objekt über die ID des zugehörigen Raumes und Zeitslot.
 	   * Ermittlung ob ein Raum zur gegebenen Zeit besetzt ist.
 	   * 
 	   * @param id des jeweiligen Raumes und Zeitslot
-	   * @return Stundenplaneintrag-Objekten
+	   * @return das jeweilige Stundenplaneintrag-Objekten
 	   * @throws IllegalArgumentException
 	   */
 	
@@ -400,11 +400,11 @@ implements Verwaltungsklasse {
 		return this.stundenplaneintragMapper.findByRaumAndZeitslot(raumId, zeitslotId);	
 	}
 	/**
-	   * Auslesen eines Stundenplaneintrag-Objekt Ã¼ber die ID des zugehÃ¶rigen Semesterverbands, Zeitslot und Stundenplanes
+	   * Auslesen eines Stundenplaneintrag-Objekt über die ID des zugehörigen Semesterverbands, Zeitslot und Stundenplanes
 	   * Ermittlung ob ein Semesterverband zur gegebenen Zeit besetzt ist.
 	   * 
 	   * @param id des jeweiligen Semesterverbands, Zeitslot und Stundenplanes
-	   * @return Stundenplaneintrag-Objekten
+	   * @return das jeweilige  Stundenplaneintrag-Objekten
 	   * @throws IllegalArgumentException
 	   */
 	
@@ -414,11 +414,11 @@ implements Verwaltungsklasse {
 	}
 	
 	/**
-	   * Auslesen eines Stundenplaneintrag-Objekt Ã¼ber die ID des zugehÃ¶rigen Dozenten und Zeitslots
+	   * Auslesen eines Stundenplaneintrag-Objekt über die ID des zugehörigen Dozenten und Zeitslots
 	   * Ermittlung ob ein Dozent zur gegebenen Zeit besetzt ist.
 	   * 
 	   * @param id des jeweiligen Dozenten und Zeitslots
-	   * @return Stundenplaneintrag-Objekten
+	   * @return das jeweilige Stundenplaneintrag-Objekten
 	   * @throws IllegalArgumentException
 	   */
 	
@@ -429,10 +429,10 @@ implements Verwaltungsklasse {
 	}
 	
 	/**
-	   * Auslesen eines Semesterverband-Objekt Ã¼ber die ID des zugehÃ¶rigen Stundenplans
+	   * Auslesen eines Semesterverband-Objekt über die ID des zugehörigen Stundenplans
 	   * 
 	   * @param id des jeweiligen Stundenplans
-	   * @return das Semesterverband-Objekt
+	   * @return das jeweilige Semesterverband-Objekt
 	   * @throws IllegalArgumentException
 	   */
 	
@@ -441,7 +441,7 @@ implements Verwaltungsklasse {
 	}
 	
 	/**
-	   * Auslesen eines Vectors aus Semesterverband-Objekten Ã¼ber die ID des zugehÃ¶rigen Studienganges
+	   * Auslesen eines Vectors aus Semesterverband-Objekten über die ID des zugehörigen Studienganges
 	   * 
 	   * @param id des jeweiligen Studienganges
 	   * @return Vector aus den Semesterverbands-Objekten
@@ -453,7 +453,7 @@ implements Verwaltungsklasse {
 	}
 	
 	/**
-	   * Auslesen eines Vectors aus Stundenplan-Objekten Ã¼ber die ID des zugehÃ¶rigen Semesterverbands
+	   * Auslesen eines Vectors aus Stundenplan-Objekten über die ID des zugehörigen Semesterverbands
 	   * 
 	   * @param id des jeweiligen Semesterverbands
 	   * @return Vector aus den Stundenplan-Objekten
@@ -465,10 +465,10 @@ implements Verwaltungsklasse {
 	}
 	
 	/**
-	   * Auslesen eines Stundiengang-Objekts Ã¼ber die ID des zugehÃ¶rigen Semesterverbands
+	   * Auslesen eines Stundiengang-Objekts über die ID des zugehörigen Semesterverbands
 	   * 
 	   * @param id des jeweiligen Semesterverbands
-	   * @return Stundenplaneintrag-Objekten
+	   * @return Das je weiligeStundenplaneintrag-Objekt
 	   * @throws IllegalArgumentException
 	   */
 	
@@ -476,6 +476,14 @@ implements Verwaltungsklasse {
 		return this.studiengangMapper.findBySemesterverbandId(semesterverbandId);
 	}
 	
+	/**
+	   * Auslesen freier Zeitslot-Objekts für einen Stundenplaneintrag im Bezug zur RaumID , DozentID und StundenplanID
+	   * @param id des jeweiligen Raumes
+	   * @param id des jeweiligen Dozenten
+	   * @param id des jeweiligen Semesterverbandes
+	   * @return Vector aus den Zeitslot-Objekten
+	   * @throws IllegalArgumentException
+	   */
 	
 	public Vector<Zeitslot> getFreieZeitslot(int raumId, int dozentId, int stundenplanId){
 		return this.zeitslotMapper.findFreeZeitslots(raumId, dozentId, stundenplanId);
@@ -488,7 +496,7 @@ implements Verwaltungsklasse {
 	
 	/**
 	   * create-Methoden zum Anlegen eines Dozenten
-	   * Anschliessende ÃœberprÃ¼fung auf ungÃ¼ltige Eingabe 
+	   * Anschliessende Überprüfung auf ungültige Eingabe 
 	   * 
 	   * @param Vorname und Nachname des jeweiligen Dozenten
 	   * @return Das jeweilige Dozenten-Objekt
@@ -500,7 +508,7 @@ implements Verwaltungsklasse {
 		
 	if (vorname.matches("[0-9]+" ) || nachname.matches("[0-9]+")){
 		
-		throw new IllegalArgumentException("ungÃ¼ltige Eingabe!");
+		throw new IllegalArgumentException("ungültige Eingabe! Bitte verwenden Sie keine Ziffern für den Vor- und Nachnamen.");
 		}
 	else {		
 			
@@ -538,7 +546,7 @@ implements Verwaltungsklasse {
 	/**
 	   * create-Methoden zum Anlegen eines Raumes
 	   * 
-	   * @param Bezeichnung und KapazitÃ¤t des Raumes
+	   * @param Bezeichnung und Kapazität des Raumes
 	   * @return Das jeweilige Raum-Objekt
 	   * @throws IllegalArgumentException
 	   */
@@ -556,7 +564,7 @@ implements Verwaltungsklasse {
 	
 	/**
 	   * create-Methoden zum Anlegen eines Studienganges
-	   * Anschliessende PrÃ¼fung auf gÃ¼ltige Eingabe
+	   * Anschliessende Prüfung auf gültige Eingabe
 	   * 
 	   * @param Bezeichnung des Studienganges
 	   * @return Das jeweilige Raum-Objekt
@@ -568,7 +576,7 @@ implements Verwaltungsklasse {
 		
 		if (bezeichnung.matches("[0-9]+")){
 			
-			throw new IllegalArgumentException("ungÃ¼ltige Eingabe!");
+			throw new IllegalArgumentException("ungültige Eingabe!");
 		}
 		else {	
 			Studiengang s = new Studiengang();
@@ -584,10 +592,10 @@ implements Verwaltungsklasse {
 	
 	/**
 	   * create-Methoden zum Anlegen eines Stundenplaneintrages
-	   * Anschliessende PrÃ¼fung ob die ausgewÃ¤hlten BO's in der Datenbank vorhanden sind 
-	   * und somit verwendet werden kÃ¶nnen.
+	   * Anschliessende Prüfung ob die ausgewählten BusniessObjekts in der Datenbank vorhanden sind 
+	   * und somit verwendet werden können.
 	   * 
-	   * @param die jeweiligen FremdschlÃ¼ssel der BO's
+	   * @param die jeweiligen Fremdschlüssel der BusniessObjekts
 	   * @return Das jeweilige Stundenplaneintrag-Objekt
 	   * @throws IllegalArgumentException
 	   */
@@ -604,8 +612,8 @@ implements Verwaltungsklasse {
 		
 	if( dozent == null || lehrveranstaltung == null || raum == null || zeitslot == null || stundenplan == null){
 		
-		throw new IllegalArgumentException("Eines der ausgewÃ¤hlten Objekte existiert nicht mehr+"
-				+ "und kann somit nicht fÃ¼r ein Stundenplaneintrag ausgewÃ¤hlt werden.");
+		throw new IllegalArgumentException("Eines der ausgewählten Objekte existiert nicht mehr+"
+				+ "und kann somit nicht für ein Stundenplaneintrag ausgewählt werden.");
 		
 	} 
 	else {
@@ -631,9 +639,9 @@ implements Verwaltungsklasse {
 	
 	/**
 	   * create-Methoden zum Anlegen eines Semesterverbands
-	   * Anschliessende PrÃ¼fung auf gÃ¼ltige Eingabe (Entweder: SS 2014 Oder: WS 2014/2015)
+	   * Anschliessende Prüfung auf gültige Eingabe (Entweder: SS 2014 Oder: WS 2014/2015)
 	   * 
-	   * @param Semester, Jahrgang und StudierendenAnzahl und der FremdschlÃ¼ssel des Studienganges
+	   * @param Semester, Jahrgang und StudierendenAnzahl und der Fremdschlüssel des Studienganges
 	   * @return Das jeweilige Semesterverband-Objekt
 	   * @throws IllegalArgumentException
 	   */
@@ -661,16 +669,16 @@ implements Verwaltungsklasse {
 		
 		} else {
 			
-			throw new IllegalArgumentException("ungÃ¼ltige Eingabe des jahrgangs!");
+			throw new IllegalArgumentException("ungültige Eingabe des Jahrgangs!");
 		}
 		
 	}
 	
 	/**
 	   * create-Methoden zum Anlegen eines Stundenplans
-	   * Anschliessende PrÃ¼fung auf gÃ¼ltige Eingabe (Entweder: SS 2014 Oder: WS 2014/2015)
+	   * Anschliessende Prüfung auf gültige Eingabe (Entweder: SS 2014 Oder: WS 2014/2015)
 	   * 
-	   * @param Studienhalbjahr und der FremdschlÃ¼ssel des Semesterverbands
+	   * @param Studienhalbjahr und der Fremdschlüssel des Semesterverbands
 	   * @return Das jeweilige Stundenplan-Objekt
 	   * @throws IllegalArgumentException
 	   */
@@ -691,7 +699,7 @@ implements Verwaltungsklasse {
 		
 	} else {
 		
-		throw new IllegalArgumentException("ungÃ¼ltige Eingabe!");
+		throw new IllegalArgumentException("ungültige Eingabe im Studienhalbjahr!");
 	}
 	}
 	
@@ -702,10 +710,10 @@ implements Verwaltungsklasse {
 	 */	
 	
 	/**
-	   * delete-Methoden zum LÃ¶schen eines BO's
-	   * Anschliessende PrÃ¼fung, ob fÃ¼r den jeweiligen BO's noch StundenplaneintrÃ¤ge vorhanden sind
+	   * delete-Methoden zum Löschen eines BusniessObjekts
+	   * Anschliessende Prüfung, ob für den jeweiligen BO's noch Stundenplaneinträge vorhanden sind
 	   * 
-	   * @param das jeweilige BO-Objekt
+	   * @param das jeweilige BusniessObjekt-Objekt
 	   * @return boolean
 	   * @throws IllegalArgumentException
 	   */
@@ -785,10 +793,10 @@ implements Verwaltungsklasse {
 	 */	
 	
 	/**
-	   * change-Methoden zum Ã„ndern eines BO's
-	   * Anschliessende PrÃ¼fung auf gÃ¼ltige Eingabe 
+	   * change-Methoden zum Ändern eines BusniessObjekts
+	   * Anschliessende Prüfung auf gültige Eingabe 
 	   * 
-	   * @param das jeweilige BO-Objekt
+	   * @param das jeweilige BusniessObjekt-Objekt
 	   * @return void
 	   * @throws IllegalArgumentException
 	   */
@@ -796,7 +804,7 @@ implements Verwaltungsklasse {
 		
 		if (d.getVorname().matches("[0-9]+" ) || d.getNachname().matches("[0-9]+")){
 			
-			throw new IllegalArgumentException("ungÃ¼ltige Eingabe!");
+			throw new IllegalArgumentException("ungültige Eingabe! Bitte verwenden Sie keine Ziffern für den Vor- und Nachnamen.");
 			}
 		else {		
 				
@@ -814,7 +822,7 @@ implements Verwaltungsklasse {
 			
 			} else {
 				
-				throw new IllegalArgumentException("ungÃ¼ltige Eingabe des jahrgangs!");
+				throw new IllegalArgumentException("ungültige Eingabe des Jahrgangs!");
 			}
 		
 	}
@@ -824,7 +832,7 @@ implements Verwaltungsklasse {
 		
 		if (s.getBezeichnung().matches("[0-9]+")){
 			
-			throw new IllegalArgumentException("ungÃ¼ltige Eingabe!");
+			throw new IllegalArgumentException("ungültige Eingabe! Bitte verwenden Sie keine Ziffern für die Bezeichnung.");
 		}
 		else {	
 		
@@ -840,7 +848,7 @@ implements Verwaltungsklasse {
 			
 		} else {
 			
-			throw new IllegalArgumentException("ungÃ¼ltige Eingabe!");
+			throw new IllegalArgumentException("ungültige Eingabe des Studienhalbjahrs!");
 		}
 		
 	}

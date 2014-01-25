@@ -163,24 +163,24 @@ public interface Verwaltungsklasse extends RemoteService {
 			int semester, int studierendenAnzahl, String jahrgang)
 			throws IllegalArgumentException;
 
-	public boolean deleteStundenplan(Stundenplan sp)
+	public void deleteStundenplan(Stundenplan sp)
 			throws IllegalArgumentException;
 
-	public boolean deleteStudiengang(Studiengang sg)
+	public void deleteStudiengang(Studiengang sg)
 			throws IllegalArgumentException;
 
-	public boolean deleteStundenplaneintrag(Stundenplaneintrag s)
+	public void deleteStundenplaneintrag(Stundenplaneintrag s)
 			throws IllegalArgumentException;
 
-	public boolean deleteDozent(Dozent d)
+	public void deleteDozent(Dozent d)
 			throws IllegalArgumentException;
 
-	public boolean deleteLehrveranstaltung(Lehrveranstaltung l)
+	public void deleteLehrveranstaltung(Lehrveranstaltung l)
 			throws IllegalArgumentException;
 
-	public boolean deleteRaum(Raum r) throws IllegalArgumentException;
+	public void deleteRaum(Raum r) throws IllegalArgumentException;
 
-	public boolean deleteSemesterverband(Semesterverband sv)
+	public void deleteSemesterverband(Semesterverband sv)
 			throws IllegalArgumentException;
 
 	public void changeStudiengang(Studiengang s)

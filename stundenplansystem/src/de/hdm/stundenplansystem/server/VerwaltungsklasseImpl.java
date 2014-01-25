@@ -554,8 +554,8 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	}
 
 	/**
-	 * Auslesen freier Zeitslot-Objekts f�r einen Stundenplaneintrag im Bezug
-	 * zur RaumID , DozentID und StundenplanID
+	 * Auslesen freier Zeitslot-Objekts f�r einen Stundenplaneintrag 
+	 * im Bezug zur RaumID , DozentID und StundenplanID
 	 * 
 	 * @param id
 	 *            des jeweiligen Raumes
@@ -574,16 +574,14 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	}
 
 	/*
-	 * ********************************************************************************************************************
+	 * **************************************************************
 	 * ABSCHNITT, Beginn: create-Methoden
-	 * ****************************************
-	 * **********************************
-	 * ******************************************
+	 * **************************************************************
 	 */
 
 	/**
-	 * create-Methoden zum Anlegen eines Dozenten Anschliessende �berpr�fung auf
-	 * ung�ltige Eingabe
+	 * create-Methoden zum Anlegen eines Dozenten 
+	 * Anschliessende Überprüfung auf ungültige Eingabe
 	 * 
 	 * @param Vorname
 	 *            und Nachname des jeweiligen Dozenten
@@ -594,10 +592,12 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	public Dozent createDozent(String vorname, String nachname)
 			throws IllegalArgumentException {
 
-		if (vorname.matches("[0-9]+") || nachname.matches("[0-9]+")) {
+		if (vorname.matches("[0-9]+") || nachname.matches("[0-9]+")) 
+		{
 
 			throw new IllegalArgumentException(
-					"ung�ltige Eingabe! Bitte verwenden Sie keine Ziffern f�r den Vor- und Nachnamen.");
+					"ung�ltige Eingabe! Bitte verwenden Sie keine "
+					+ "Ziffern f�r den Vor- und Nachnamen.");
 		} else {
 
 			Dozent a = new Dozent();
@@ -635,8 +635,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	/**
 	 * create-Methoden zum Anlegen eines Raumes
 	 * 
-	 * @param Bezeichnung
-	 *            und Kapazit�t des Raumes
+	 * @param Bezeichnung und Kapazität des Raumes
 	 * @return Das jeweilige Raum-Objekt
 	 * @throws IllegalArgumentException
 	 */
@@ -653,8 +652,8 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	}
 
 	/**
-	 * create-Methoden zum Anlegen eines Studienganges Anschliessende Pr�fung
-	 * auf g�ltige Eingabe
+	 * create-Methoden zum Anlegen eines Studienganges 
+	 * Anschliessende Prüfung auf gültige Eingabe
 	 * 
 	 * @param Bezeichnung
 	 *            des Studienganges
@@ -681,12 +680,12 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	}
 
 	/**
-	 * create-Methoden zum Anlegen eines Stundenplaneintrages Anschliessende
-	 * Pr�fung ob die ausgew�hlten BusniessObjekts in der Datenbank vorhanden
-	 * sind und somit verwendet werden k�nnen.
+	 * create-Methoden zum Anlegen eines Stundenplaneintrages 
+	 * Anschliessende Prüfung ob die ausgewählten BusniessObjekts 
+	 * in der Datenbank vorhanden sind und somit verwendet werden 
+	 * können.
 	 * 
-	 * @param die
-	 *            jeweiligen Fremdschl�ssel der BusniessObjekts
+	 * @param die jeweiligen Fremdschlüssel der BusniessObjekts
 	 * @return Das jeweilige Stundenplaneintrag-Objekt
 	 * @throws IllegalArgumentException
 	 */
@@ -706,8 +705,9 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 				|| stundenplan == null) {
 
 			throw new IllegalArgumentException(
-					"Eines der ausgew�hlten Objekte existiert nicht mehr+"
-							+ "und kann somit nicht f�r ein Stundenplaneintrag ausgew�hlt werden.");
+					"Eines der ausgew�hlten Objekte existiert "
+					+ "nicht mehr und kann somit nicht f�r ein "
+					+ "Stundenplaneintrag ausgew�hlt werden.");
 
 		} else {
 
@@ -737,12 +737,12 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	}
 
 	/**
-	 * create-Methoden zum Anlegen eines Semesterverbands Anschliessende Pr�fung
-	 * auf g�ltige Eingabe (Entweder: SS 2014 Oder: WS 2014/2015)
+	 * create-Methoden zum Anlegen eines Semesterverbands 
+	 * Anschliessende Prüfung auf gültige Eingabe 
+	 * (Entweder: SS 2014 Oder: WS 2014/2015)
 	 * 
-	 * @param Semester
-	 *            , Jahrgang und StudierendenAnzahl und der Fremdschl�ssel des
-	 *            Studienganges
+	 * @param Semester, Jahrgang und StudierendenAnzahl 
+	 * und der Fremdschlüssel des Studienganges
 	 * @return Das jeweilige Semesterverband-Objekt
 	 * @throws IllegalArgumentException
 	 */
@@ -779,8 +779,9 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	}
 
 	/**
-	 * create-Methoden zum Anlegen eines Stundenplans Anschliessende Pr�fung auf
-	 * g�ltige Eingabe (Entweder: SS 2014 Oder: WS 2014/2015)
+	 * create-Methoden zum Anlegen eines Stundenplans 
+	 * Anschliessende Prüfung auf gültige Eingabe 
+	 * (Entweder: SS 2014 Oder: WS 2014/2015)
 	 * 
 	 * @param Studienhalbjahr
 	 *            und der Fremdschl�ssel des Semesterverbands
@@ -812,37 +813,39 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	}
 
 	/*
-	 * ****************************************************************************************************
+	 * **************************************************************
 	 * ABSCHNITT, Beginn: Delete-Methoden
 	 * ****************************************
-	 * ************************************************************
+	 * **************************************************************
 	 */
 
 	/**
-	 * delete-Methoden zum L�schen eines BusniessObjekts Anschliessende Pr�fung,
-	 * ob f�r den jeweiligen BO's noch Stundenplaneintr�ge vorhanden sind
+	 * delete-Methoden zum L�schen eines BusniessObjekts 
+	 * Anschliessende Pr�fung, ob f�r den jeweiligen 
+	 * BO's noch Stundenplaneintr�ge vorhanden sind
 	 * 
-	 * @param das
-	 *            jeweilige BusniessObjekt-Objekt
-	 * @return boolean
+	 * @param das jeweilige BusniessObjekt-Objekt
+	 * @return void
 	 * @throws IllegalArgumentException
 	 */
 
-	public boolean deleteDozent(Dozent d)
+	public void deleteDozent(Dozent d)
 			throws IllegalArgumentException {
 
 		Vector<Stundenplaneintrag> dozenten = this
 				.getAllStundenplaneintraegeByDozent(d.getId());
 
 		if (dozenten != null) {
-			return false;
+			throw new IllegalArgumentException(
+					"Der von Ihnen ausgewählte Dozent kann nicht "
+					+ "gelöscht werden, da er noch in einem "
+					+ "Stundenplaneintrag verwendet wird!");
 		} else {
 			this.dozentMapper.delete(d);
-			return true;
 		}
 	}
 
-	public boolean deleteLehrveranstaltung(Lehrveranstaltung a)
+	public void deleteLehrveranstaltung(Lehrveranstaltung a)
 			throws IllegalArgumentException {
 
 		Vector<Stundenplaneintrag> lvs = this
@@ -850,69 +853,72 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 						.getId());
 
 		if (lvs != null) {
-			return false;
+			throw new IllegalArgumentException(
+					"Die von Ihnen ausgewählte Lehrveranstaltung "
+					+ "kann nicht gelöscht werden, da er noch in "
+					+ "einem Stundenplaneintrag verwendet wird!");
 		} else {
 			this.lehrveranstaltungMapper.delete(a);
-			return true;
 		}
 	}
 
-	public boolean deleteStundenplan(Stundenplan sp)
+	public void deleteStundenplan(Stundenplan sp)
 			throws IllegalArgumentException {
 		Vector<Stundenplaneintrag> sps = this
 				.getAllStundenplaneintraegeByStundenplan(sp.getId());
 
 		if (sps != null) {
-			return false;
+			throw new IllegalArgumentException(
+					"Der von Ihnen ausgewählte Studienhalbjahr "
+					+ "kann nicht gelöscht werden, da er noch in "
+					+ "einem Stundenplaneintrag verwendet wird!");
 		} else {
 			this.stundenplanMapper.delete(sp);
-			return true;
 		}
 	}
 
-	public boolean deleteRaum(Raum a) throws IllegalArgumentException {
+	public void deleteRaum(Raum a) throws IllegalArgumentException {
 		Vector<Stundenplaneintrag> r = this
 				.getAllStundenplaneintraegeByRaum(a.getId());
 
 		if (r != null) {
-			return false;
+			throw new IllegalArgumentException(
+					"Der von Ihnen ausgewählte Raum "
+					+ "kann nicht gelöscht werden, da er noch in "
+					+ "einem Stundenplaneintrag verwendet wird!");
 		} else {
 			this.raumMapper.delete(a);
-			return true;
 		}
 	}
 
-	public boolean deleteStudiengang(Studiengang studiengang)
+	public void deleteStudiengang(Studiengang studiengang)
 			throws IllegalArgumentException {
 
 		this.studiengangMapper.delete(studiengang);
-		return true;
 	}
 
-	public boolean deleteStundenplaneintrag(Stundenplaneintrag s)
+	public void deleteStundenplaneintrag(Stundenplaneintrag s)
 			throws IllegalArgumentException {
 
 		this.stundenplaneintragMapper.delete(s);
-		return true;
 	}
 
-	public boolean deleteSemesterverband(Semesterverband a)
+	public void deleteSemesterverband(Semesterverband a)
 			throws IllegalArgumentException {
 
 		this.semesterverbandMapper.delete(a);
-		return true;
 	}
 
 	/*
-	 * ****************************************************************************************************
+	 * **************************************************************
 	 * ABSCHNITT, Beginn: Change-Methoden
 	 * ****************************************
-	 * ************************************************************
+	 * **************************************************************
 	 */
 
 	/**
-	 * change-Methoden zum �ndern eines BusniessObjekts Anschliessende Pr�fung
-	 * auf g�ltige Eingabe
+	 * change-Methoden zum ändern eines BusniessObjekts 
+	 * Anschliessende Prüfung auf gültige Eingabe
 	 * 
 	 * @param das
 	 *            jeweilige BusniessObjekt-Objekt
@@ -926,7 +932,8 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 				|| d.getNachname().matches("[0-9]+")) {
 
 			throw new IllegalArgumentException(
-					"ung�ltige Eingabe! Bitte verwenden Sie keine Ziffern f�r den Vor- und Nachnamen.");
+					"ung�ltige Eingabe! Bitte verwenden Sie keine"
+					+ " Ziffern f�r den Vor- und Nachnamen.");
 		} else {
 
 			this.dozentMapper.update(d);
@@ -938,7 +945,8 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 
 		if (sv.getJahrgang().matches("[A-Z]+" + " " + "[0-9]+")
 				|| sv.getJahrgang().matches(
-						"[A-Z]+" + " " + "[0-9]+" + "/" + "[0-9]+")) {
+						"[A-Z]+" + " " + "[0-9]+" + "/" + "[0-9]+"))
+		{
 
 			this.semesterverbandMapper.update(sv);
 
@@ -956,7 +964,8 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 		if (s.getBezeichnung().matches("[0-9]+")) {
 
 			throw new IllegalArgumentException(
-					"ung�ltige Eingabe! Bitte verwenden Sie keine Ziffern f�r die Bezeichnung.");
+					"ung�ltige Eingabe! Bitte verwenden Sie keine "
+					+ "Ziffern f�r die Bezeichnung.");
 		} else {
 
 			this.studiengangMapper.update(s);

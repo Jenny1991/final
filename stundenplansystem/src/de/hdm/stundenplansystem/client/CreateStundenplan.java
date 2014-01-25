@@ -67,7 +67,7 @@ public class CreateStundenplan extends Content {
 
 		setTvm(tvm);
 
-		libstudiengang.clear();
+		//libstudiengang.clear();
 		verwaltungsSvc
 				.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
 					public void onFailure(Throwable T) {
@@ -94,21 +94,7 @@ public class CreateStundenplan extends Content {
 			}
 		});
 
-		verwaltungsSvc
-				.getAllSemesterverbaende(new AsyncCallback<Vector<Semesterverband>>() {
-					@Override
-					public void onFailure(Throwable caught) {
-					}
-
-					@Override
-					public void onSuccess(Vector<Semesterverband> s) {
-						svContainer = s;
-						for (Semesterverband sv : s) {
-							libsemverband.addItem(sv.getJahrgang(),
-									String.valueOf(sv.getId()));
-						}
-					}
-				});
+		
 
 		speichern.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -156,6 +142,10 @@ public class CreateStundenplan extends Content {
 
 	public void getSemverband() {
 		libsemverband.clear();
+		System.out.println("Index: " + sgContainer.elementAt(
+				libstudiengang.getSelectedIndex()));
+		System.out.println("Id: " + sgContainer.elementAt(
+				libstudiengang.getSelectedIndex()).getId());
 		verwaltungsSvc.getSemsterverbaendeByStudiengang(
 				sgContainer.elementAt(
 						libstudiengang.getSelectedIndex()).getId(),
@@ -172,7 +162,9 @@ public class CreateStundenplan extends Content {
 									+ ", Semester: "
 									+ String.valueOf(sv.getSemester()));
 						}
+
 					}
 				});
 	}
+	
 }

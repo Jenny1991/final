@@ -31,13 +31,16 @@ import de.hdm.stundenplansystem.shared.bo.Stundenplaneintrag;
 
 /**
  * 
- * Die NavTreeViewModel Klasse
+ * Die NavTreeViewModel Klasse definiert den flexiblen Baum für die Navigation durch unser System.
  * 
  */
 
 public class NavTreeViewModel extends Content implements
 		TreeViewModel {
 
+	/**
+	 * Hier instantiieren wir alle Klassen, auf die der Baum zugreift.
+	 */
 	private DozentForm df;
 	private LehrveranstaltungForm lf;
 	private RaumForm rf;
@@ -57,6 +60,9 @@ public class NavTreeViewModel extends Content implements
 	private CreateStundenplaneintrag cspe;
 	private CreateStundenplan csp;
 
+	/**
+	 * Referenz auf das ausgewählte BusinessObjekt-Objekt.
+	 */
 	private Dozent selectedDozent = null;
 	private Lehrveranstaltung selectedLv = null;
 	private Raum selectedRaum = null;
@@ -65,21 +71,52 @@ public class NavTreeViewModel extends Content implements
 	private Stundenplaneintrag selectedSpe = null;
 	private Stundenplan selectedSp = null;
 
+
+	/**
+	 * Hier wird ein remote service proxy erstellt, welches uns erlaubt 
+	 * mit dem serverseitigen Verwaltungsservice zu kommunizieren.
+	 */
 	private VerwaltungsklasseAsync verwaltungsSvc = GWT
 			.create(Verwaltungsklasse.class);
+	
+	/**
+	 * @param <Dozent>, 
+	 * @param <Lehrveranstaltung>, 
+	 * @param <Raum>,
+	 * @param <Semesterverband>,
+	 * @param <Studiengang>,
+	 * @param <Stundenplaneintrag>, 
+	 * @param <Stundenplan>,
+	 * @param <String>
+	 * definieren den Datentyp der Liste.
+	 */
 	private ListDataProvider<Dozent> dozentDataProvider;
 	private ListDataProvider<Lehrveranstaltung> lvDataProvider;
 	private ListDataProvider<Raum> raumDataProvider;
 	private ListDataProvider<Semesterverband> svDataProvider;
 	private ListDataProvider<Studiengang> sgDataProvider;
-
-	private ListDataProvider<String> stringDataProvider;
 	private ListDataProvider<Stundenplaneintrag> speDataProvider;
 	private ListDataProvider<Stundenplan> spDataProvider;
+	private ListDataProvider<String> stringDataProvider;
 
+	/**
+	 * Hier wird die EntryPoint Klasse instantiiert. 
+	 */
 	private Stundenplansystem sps;
 
+	
+	/**
+	 * Hier wird das Selektionsverhalten definiert.
+	 * Die Andwendung des {@link ProvidesKey} stellt den Key für die ListItems
+	 * bereit, so dass Items, welche als eindeutige Items behandelt werden, eindeutige
+	 * Key besitzen.
+	 */
 	private ProvidesKey<Object> boKeyProvider = new ProvidesKey<Object>() {
+		/**
+		 * Die Methode <code>getKey</code> erhält den Key von einem ListItem.
+		 * @param object als ListItem
+		 * @return den Key, welches das Item repräsentiert.
+		 */
 		public Integer getKey(Object object) {
 
 			if (object == null) {
@@ -126,9 +163,51 @@ public class NavTreeViewModel extends Content implements
 
 	};
 
+	/**
+	 * Instantiiert das SingleSelectionModel.
+	 */
 	private SingleSelectionModel<Object> selectionModel = new SingleSelectionModel<Object>(
 			boKeyProvider);
+	
 
+	/**
+	 * Aufbau der Baumdarstellung
+	 * @param cd Klasse {@link CreateDozent} wird übergeben und dem Baum 
+	 * hinzugefügt
+	 * @param cl Klasse {@link CreateLehrveranstaltung} wird übergeben
+	 * und dem Baum hinzugefügt
+	 * @param cr Klasse {@link CreateRaum} wird übergeben und dem Baum 
+	 * hinzugefügt
+	 * @param csg Klasse {@link CreateStudiengang} wird übergeben und dem 
+	 * Baum hinzugefügt
+	 * @param csv Klasse {@link CreateSemesterverband} wird übergeben und 
+	 * dem Baum hinzugefügt
+	 * @param cspe Klasse {@link CreateStundenplaneintrag} wird übergeben 
+	 * und dem Baum hinzugefügt
+	 * @param csp Klasse {@link CreateStundenplan} wird übergeben und dem 
+	 * Baum hinzugefügt
+	 * @param df Klasse {@link DozentForm} wird übergeben und dem Baum 
+	 * hinzugefügt
+	 * @param lf Klasse {@link LehrveranstaltungForm} wird übergeben und 
+	 * dem Baum hinzugefügt
+	 * @param rf Klasse {@link RaumForm} wird übergeben und dem Baum 
+	 * hinzugefügt
+	 * @param sgf Klasse {@link StudiengangForm} wird übergeben und dem 
+	 * Baum hinzugefügt
+	 * @param svf Klasse {@link SemesterverbandForm} wird übergeben und 
+	 * dem Baum hinzugefügt
+	 * @param spef Klasse {@link StundenplaneintragForm} wird übergeben 
+	 * und dem Baum hinzugefügt
+	 * @param spf Klasse {@link StundenplanForm} wird übergeben und dem 
+	 * Baum hinzugefügt
+	 * @param rr Klasse {@link ReportRaum} wird übergeben und dem Baum 
+	 * hinzugefügt
+	 * @param rs Klasse {@link ReportStundenplan} wird übergeben und dem 
+	 * Baum hinzugefügt
+	 * @param rsd Klasse {@link ReportStundenplanDozent} wird übergeben 
+	 * und dem Baum hinzugefügt
+	 * @param sps Klasse {@link Stundenplansystem} wird übergeben
+	 */
 	public NavTreeViewModel(CreateDozent cd,
 			CreateLehrveranstaltung cl, CreateRaum cr,
 			CreateStudiengang csg, CreateSemesterverband csv,
@@ -139,6 +218,9 @@ public class NavTreeViewModel extends Content implements
 			ReportRaum rr, ReportStundenplan rs,
 			ReportStundenplanDozent rsd, Stundenplansystem sps) {
 
+		/**
+		 * Zuweisung zur Baumdarstellung.
+		 */
 		this.cd = cd;
 		cd.setTvm(this);
 		this.cl = cl;
@@ -178,12 +260,28 @@ public class NavTreeViewModel extends Content implements
 
 		this.sps = sps;
 
+		
+		/**
+		 * Durch die Methode <code>addSelectionChangeHandler</code> wird dem 
+		 * @param selectionModel ein ChangeHandlers zugewiesen. 
+		 */
 		selectionModel
 				.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 
+					/**
+					 * Die Methode <code>onSelectionChange</code> definiert das
+					 * auszuführende Event, beim Klicken des Items.
+					 * @param selection
+					 */
 					@Override
 					public void onSelectionChange(
 							SelectionChangeEvent event) {
+						/**
+						 * Die Methode <code>getSelectedObject</code> selektiert das
+						 * ausgewählte Item und überprüft im nachfolgenden Verlauf
+						 * welches Item ausgewählt wurde und welches Event dafür
+						 * ausgeführt werden soll.
+						 */
 						Object selection = selectionModel
 								.getSelectedObject();
 
@@ -304,144 +402,309 @@ public class NavTreeViewModel extends Content implements
 				});
 	}
 
+	/**
+	 * Liest den gewählten Dozenten aus.
+	 * @return selectedDozent den ausgewählten Dozent
+	 */
 	Dozent getSelectedDozent() {
 		return selectedDozent;
 	}
 
+	/**
+	 * Ruft die in der EntryPoint Klasse definierte Methode 
+	 * <code>createDozentForm</code> auf 
+	 * {@link Stundenplansystem}
+	 */
 	void setCreateDozent() {
 		sps.createDozentForm();
 	}
 
+	/**
+	 * Übergibt der Klasse DozentForm {@link DozentForm} den ausgewählten 
+	 * Dozenten und ruft die in der Klasse {@link Stundenplansystem} definierte
+	 * Methode <code>showDozentForm</code> auf.
+	 * @param d
+	 */
 	void setSelectedDozent(Dozent d) {
 		selectedDozent = d;
 		df.setSelected(d);
 		sps.showDozentForm();
 	}
 
+	/**
+	 * Liest die gewählte Lehrveranstaltung aus.
+	 * @return selectedLv die ausgewählte Lehrveranstaltung
+	 */
 	Lehrveranstaltung getSelectedLv() {
 		return selectedLv;
 	}
-
+	
+	/**
+	 * Ruft die in der EntryPoint Klasse definierte Methode 
+	 * <code>createLvForm</code> auf 
+	 * {@link Stundenplansystem}
+	 */
 	void setCreateLehrveranstaltung() {
 		sps.createLvForm();
 	}
 
+	/**
+	 * Übergibt der Klasse LehrveranstaltungForm {@link LehrveranstaltungForm} die ausgewählte 
+	 * Lehrveranstaltung und ruft die in der Klasse {@link Stundenplansystem} definierte
+	 * Methode <code>showLehrveranstaltungForm</code> auf.
+	 * @param lv
+	 */
 	void setSelectedLv(Lehrveranstaltung lv) {
 		selectedLv = lv;
 		lf.setSelected(lv);
 		sps.showLehrveranstaltungForm();
 	}
 
+	/**
+	 * Liest den gewählten Raum aus.
+	 * @return selectedRaum den ausgewählten Raum
+	 */
 	Raum getSelectedRaum() {
 		return selectedRaum;
 	}
 
+	/**
+	 * Ruft die in der EntryPoint Klasse definierte Methode 
+	 * <code>createRaumForm</code> auf 
+	 * {@link Stundenplansystem}
+	 */
 	void setCreateRaum() {
 		sps.createRaumForm();
 	}
 
+	/**
+	 * Übergibt der Klasse RaumForm {@link RaumForm} den ausgewählten 
+	 * Raum und ruft die in der Klasse {@link Stundenplansystem} definierte
+	 * Methode <code>showRaumForm</code> auf.
+	 * @param r
+	 */
 	void setSelectedRaum(Raum r) {
 		selectedRaum = r;
 		rf.setSelected(r);
 		sps.showRaumForm();
 	}
 
+	/**
+	 * Liest den gewählten Studiengang aus.
+	 * @return selectedSg den ausgewählten Studiengang
+	 */
 	Studiengang getSelectedSg() {
 		return selectedSg;
 	}
 
+	/**
+	 * Ruft die in der EntryPoint Klasse definierte Methode 
+	 * <code>createSgForm</code> auf 
+	 * {@link Stundenplansystem}
+	 */
 	void setCreateStudiengang() {
 		sps.createSgForm();
 	}
 
+	/**
+	 * Übergibt der Klasse StudiengangForm {@link StudiengangForm} 
+	 * den ausgewählten Studiengang und ruft die in der Klasse 
+	 * {@link Stundenplansystem} definierte Methode 
+	 * <code>showStudiengangForm</code> auf.
+	 * @param sg
+	 */
 	void setSelectedSg(Studiengang sg) {
 		selectedSg = sg;
 		sgf.setSelected(sg);
 		sps.showStudiengangForm();
 	}
 
+	/**
+	 * Liest den gewählten Semesterverband aus.
+	 * @return selectedSv den ausgewählten Semesterverband
+	 */
 	Semesterverband getSelectedSv() {
 		return selectedSv;
 	}
 
+	/**
+	 * Ruft die in der EntryPoint Klasse definierte Methode 
+	 * <code>createSvForm</code> auf 
+	 * {@link Stundenplansystem}
+	 */
 	void setCreateSemesterverband() {
 		sps.createSvForm();
 	}
 
+	/**
+	 * Übergibt der Klasse SemesterverbandForm {@link SemesterverbandForm} 
+	 * den ausgewählten Semesterverband und ruft die in der Klasse 
+	 * {@link Stundenplansystem} definierte Methode 
+	 * <code>showSemesterverbandForm</code> auf.
+	 * @param sv
+	 */
 	void setSelectedSv(Semesterverband sv) {
 		selectedSv = sv;
 		svf.setSelected(sv);
 		sps.showSemesterverbandForm();
 	}
 
+	/**
+	 * Liest den gewählten Stundenplaneintrag aus.
+	 * @return selectedSpe den ausgewählten Stundenplaneintrag
+	 */
 	Stundenplaneintrag getSelectedStundenplaneintrag() {
 		return selectedSpe;
 	}
 
+	/**
+	 * Ruft die in der EntryPoint Klasse definierte Methode 
+	 * <code>createSpeForm</code> auf 
+	 * {@link Stundenplansystem}
+	 */
 	void setCreateStundenplaneintrag() {
 		sps.createSpeForm();
 	}
 
+	/**
+	 * Übergibt der Klasse StundenplaneintragForm {@link StundenplaneintragForm} 
+	 * den ausgewählten Stundenplaneintrag und ruft die in der Klasse 
+	 * {@link Stundenplansystem} definierte Methode 
+	 * <code>showSpeForm</code> auf.
+	 * @param spe
+	 */
 	void setSelectedStundenplaneintrag(Stundenplaneintrag spe) {
 		selectedSpe = spe;
 		spef.setSelected(spe);
 		sps.showSpeForm();
 	}
 
+	/**
+	 * Liest den gewählten Stundenplan aus.
+	 * @return selectedSp den ausgewählten Stundenplan
+	 */
 	Stundenplan getSelectedStudienhalbjahr() {
 		return selectedSp;
 	}
 
+	/**
+	 * Ruft die in der EntryPoint Klasse definierte Methode 
+	 * <code>createStundenplanForm</code> auf 
+	 * {@link Stundenplansystem}
+	 */
 	void setCreateStudienhalbjahr() {
 		sps.createStundenplanForm();
 	}
-
-	void setReportRaum() {
-		sps.showReportRaum();
-	}
-
-	void setReportStundenplan() {
-		sps.showReportStundenplan();
-	}
-
-	void setReportStundenplanDozent() {
-		sps.showReportStundenplanDozent();
-	}
-
+	
+	/**
+	 * Übergibt der Klasse StundenplanForm {@link StundenplanForm} 
+	 * den ausgewählten Stundenplan und ruft die in der Klasse 
+	 * {@link Stundenplansystem} definierte Methode 
+	 * <code>showStundenplanForm</code> auf.
+	 * @param sp
+	 */
 	void setSelectedStudienhalbjahr(Stundenplan sp) {
 		selectedSp = sp;
 		spf.setSelected(sp);
 		sps.showStundenplanForm();
 	}
 
+	/**
+	 * Ruft die in der EntryPoint Klasse definierte Methode 
+	 * <code>showReportRaum</code> auf 
+	 * {@link Stundenplansystem}
+	 */
+	void setReportRaum() {
+		sps.showReportRaum();
+	}
+
+	/**
+	 * Ruft die in der EntryPoint Klasse definierte Methode 
+	 * <code>showReportStundenplan</code> auf 
+	 * {@link Stundenplansystem}
+	 */
+	void setReportStundenplan() {
+		sps.showReportStundenplan();
+	}
+
+	/**
+	 * Ruft die in der EntryPoint Klasse definierte Methode 
+	 * <code>showReportStundenplanDozent</code> auf 
+	 * {@link Stundenplansystem}
+	 */
+	void setReportStundenplanDozent() {
+		sps.showReportStundenplanDozent();
+	}
+
+	/**
+	 * Fügt dem Baum den in der Klasse {@link CreateDozent} erstellten
+	 * Dozent hinzu.
+	 * @param dozent erstellter Dozent wird der Liste hinzugefügt
+	 */
 	void addDozent(Dozent dozent) {
 		dozentDataProvider.getList().add(dozent);
 	}
 
+	/**
+	 * Fügt dem Baum den in der Klasse {@link CreateRaum} erstellten
+	 * Raum hinzu.
+	 * @param raum erstellter Raum wird der Liste hinzugefügt
+	 */
 	void addRaum(Raum raum) {
 		raumDataProvider.getList().add(raum);
 	}
 
+	/**
+	 * Fügt dem Baum den in der Klasse {@link CreateStudiengang} erstellten
+	 * Studiengang hinzu.
+	 * @param studiengang erstellter Studiengang wird der Liste hinzugefügt
+	 */
 	void addStudiengang(Studiengang studiengang) {
 		sgDataProvider.getList().add(studiengang);
 	}
 
+	/**
+	 * Fügt dem Baum den in der Klasse {@link CreateSemesterverband} erstellten
+	 * Semesterverband hinzu.
+	 * @param semesterverband erstellter Semesterverband wird der Liste hinzugefügt
+	 */
 	void addSemesterverband(Semesterverband semesterverband) {
 		svDataProvider.getList().add(semesterverband);
 	}
 
+	/**
+	 * Fügt dem Baum den in der Klasse {@link CreateLehrveranstaltung} erstellten
+	 * Lehrveranstaltung hinzu.
+	 * @param lehrveranstaltung erstellter Lehrveranstaltung wird der Liste hinzugefügt
+	 */
 	void addLehrveranstaltung(Lehrveranstaltung lehrveranstaltung) {
 		lvDataProvider.getList().add(lehrveranstaltung);
 	}
 
+	/**
+	 * Fügt dem Baum den in der Klasse {@link CreateStundenplaneintrag} erstellten
+	 * Stundenplaneintrag hinzu.
+	 * @param stundenplaneintrag erstellter Stundenplaneintrag wird der Liste hinzugefügt
+	 */
 	void addStundenplaneintrag(Stundenplaneintrag stundenplaneintrag) {
 		speDataProvider.getList().add(stundenplaneintrag);
 	}
 
+	/**
+	 * Fügt dem Baum den in der Klasse {@link CreateStundenplan} erstellten
+	 * Stundenplan hinzu.
+	 * @param stundenplan erstellter Stundenplan wird der Liste hinzugefügt
+	 */
 	void addStundenplan(Stundenplan stundenplan) {
 		spDataProvider.getList().add(stundenplan);
 	}
 
+	/**
+	 * Aktualisiert im Baum den in der Klasse {@link DozentForm} bearbeiteten
+	 * Dozenten. Die Methode <code>refresh</code> sorgt dafür, dass der Baum
+	 * sofort aktualisiert wird.
+	 * @param dozent bearbeiteter Dozent wird in der Liste aktualisiert
+	 */
 	void updateDozent(Dozent dozent) {
 		List<Dozent> dozentList = dozentDataProvider.getList();
 		int i = 0;
@@ -456,6 +719,12 @@ public class NavTreeViewModel extends Content implements
 		dozentDataProvider.refresh();
 	}
 
+	/**
+	 * Aktualisiert im Baum den in der Klasse {@link RaumForm} bearbeiteten
+	 * Raum. Die Methode <code>refresh</code> sorgt dafür, dass der Baum
+	 * sofort aktualisiert wird.
+	 * @param raum bearbeiteter Raum wird in der Liste aktualisiert
+	 */
 	void updateRaum(Raum raum) {
 		List<Raum> raumList = raumDataProvider.getList();
 		int i = 0;
@@ -470,6 +739,14 @@ public class NavTreeViewModel extends Content implements
 		raumDataProvider.refresh();
 	}
 
+	/**
+	 * Aktualisiert im Baum die in der Klasse {@link LehrveranstaltungForm} 
+	 * bearbeitete Lehrveranstaltung. 
+	 * Die Methode <code>refresh</code> sorgt dafür, dass der Baum sofort 
+	 * aktualisiert wird.
+	 * @param lehrveranstaltung bearbeitete Lehrveranstaltung wird in der 
+	 * Liste aktualisiert
+	 */
 	void updateLehrveranstaltung(Lehrveranstaltung lehrveranstaltung) {
 		List<Lehrveranstaltung> lvList = lvDataProvider.getList();
 		int i = 0;
@@ -484,6 +761,14 @@ public class NavTreeViewModel extends Content implements
 		lvDataProvider.refresh();
 	}
 
+	/**
+	 * Aktualisiert im Baum den in der Klasse {@link StudiengangForm} 
+	 * bearbeiteten Studiengang. 
+	 * Die Methode <code>refresh</code> sorgt dafür, dass der Baum sofort 
+	 * aktualisiert wird.
+	 * @param studiengang bearbeiteter Studiengang wird in der 
+	 * Liste aktualisiert
+	 */
 	void updateStudiengang(Studiengang studiengang) {
 		List<Studiengang> sgList = sgDataProvider.getList();
 		int i = 0;
@@ -498,6 +783,14 @@ public class NavTreeViewModel extends Content implements
 		sgDataProvider.refresh();
 	}
 
+	/**
+	 * Aktualisiert im Baum den in der Klasse {@link SemesterverbandForm} 
+	 * bearbeiteten Semesterverband. 
+	 * Die Methode <code>refresh</code> sorgt dafür, dass der Baum sofort 
+	 * aktualisiert wird.
+	 * @param semesterverband bearbeiteter Semesterverband wird in der 
+	 * Liste aktualisiert
+	 */
 	void updateSemesterverband(Semesterverband semesterverband) {
 		List<Semesterverband> svList = svDataProvider.getList();
 		int i = 0;
@@ -512,6 +805,14 @@ public class NavTreeViewModel extends Content implements
 		svDataProvider.refresh();
 	}
 
+	/**
+	 * Aktualisiert im Baum den in der Klasse {@link StundenplaneintragForm} 
+	 * bearbeiteten Stundenplaneintrag. 
+	 * Die Methode <code>refresh</code> sorgt dafür, dass der Baum sofort 
+	 * aktualisiert wird.
+	 * @param stundenplaneintrag bearbeiteter Stundenplaneintrag wird in der 
+	 * Liste aktualisiert
+	 */
 	void updateSpe(Stundenplaneintrag stundenplaneintrag) {
 		List<Stundenplaneintrag> speList = speDataProvider.getList();
 		int i = 0;
@@ -526,6 +827,14 @@ public class NavTreeViewModel extends Content implements
 		speDataProvider.refresh();
 	}
 
+	/**
+	 * Aktualisiert im Baum den in der Klasse {@link StundenplanForm} 
+	 * bearbeiteten Stundenplan. 
+	 * Die Methode <code>refresh</code> sorgt dafür, dass der Baum sofort 
+	 * aktualisiert wird.
+	 * @param studienhalbjahr bearbeiteter Stundenplan wird in der 
+	 * Liste aktualisiert
+	 */
 	void updateStudienhalbjahr(Stundenplan studienhalbjahr) {
 		List<Stundenplan> studienhalbjahrList = spDataProvider
 				.getList();
@@ -541,37 +850,84 @@ public class NavTreeViewModel extends Content implements
 		spDataProvider.refresh();
 	}
 
+	/**
+	 * Die Methode <code>remove</code> sorgt direkt für das Löschen
+	 * des ausgewählten Dozenten.
+	 * @param dozent wird aus dem Baum gelöscht
+	 */
 	void deleteDozent(Dozent dozent) {
 		dozentDataProvider.getList().remove(dozent);
 	}
 
+	/**
+	 * Die Methode <code>remove</code> sorgt direkt für das Löschen
+	 * des ausgewählten Raums.
+	 * @param raum wird aus dem Baum gelöscht
+	 */
 	void deleteRaum(Raum raum) {
 		raumDataProvider.getList().remove(raum);
 	}
 
+	/**
+	 * Die Methode <code>remove</code> sorgt direkt für das Löschen
+	 * der ausgewählten Lehrveranstaltung.
+	 * @param sehrveranstaltung wird aus dem Baum gelöscht
+	 */
 	void deleteLehrveranstaltung(Lehrveranstaltung lehrveranstaltung) {
 		lvDataProvider.getList().remove(lehrveranstaltung);
 	}
 
+	/**
+	 * Die Methode <code>remove</code> sorgt direkt für das Löschen
+	 * des ausgewählten Studiengangs.
+	 * @param studiengang wird aus dem Baum gelöscht
+	 */
 	void deleteStudiengang(Studiengang studiengang) {
 		sgDataProvider.getList().remove(studiengang);
 	}
 
+	/**
+	 * Die Methode <code>remove</code> sorgt direkt für das Löschen
+	 * des ausgewählten Semesterverbands.
+	 * @param semesterverband wird aus dem Baum gelöscht
+	 */
 	void deleteSemesterverband(Semesterverband semesterverband) {
 		svDataProvider.getList().remove(semesterverband);
 	}
 
+	/**
+	 * Die Methode <code>remove</code> sorgt direkt für das Löschen
+	 * des ausgewählten Stundenplaneintrag.
+	 * @param stundenplaneintrag wird aus dem Baum gelöscht
+	 */
 	void deleteSpe(Stundenplaneintrag stundenplaneintrag) {
 		speDataProvider.getList().remove(stundenplaneintrag);
 	}
 
+	/**
+	 * Die Methode <code>remove</code> sorgt direkt für das Löschen
+	 * des ausgewählten Stundenplans.
+	 * @param studienhalbjahr wird aus dem Baum gelöscht
+	 */
 	void deleteStudienhalbjahr(Stundenplan studienhalbjahr) {
 		spDataProvider.getList().remove(studienhalbjahr);
 	}
 
+	/**
+	 * Die Methode <code>getNodeInfo</code> definiert die Kinder eines
+	 * Baumknotens, wobei 
+	 * @param value der Wert im Elternknoten
+	 */
 	@Override
 	public <T> NodeInfo<?> getNodeInfo(T value) {
 
+		/**
+		 * Hier werden der Wurzel des Baumes die drei obersten Elternknoten 
+		 * zugewiesen. 
+		 * Die Instantiierung der Klasse {@link StringCell} führt zur Definition
+		 * der in den Knoten dargestellten Informationen.
+		 * @return DefaultNodeInfo<String> Default implementation of NodeInfo
+		 */
 		if (value instanceof String && (String) value == "Root") {
 
 			stringDataProvider = new ListDataProvider<String>();
@@ -585,6 +941,13 @@ public class NavTreeViewModel extends Content implements
 
 		}
 
+		/**
+		 * Hier werden dem ersten Elternknoten Stammdaten des Baumes die Kinderknoten  
+		 * zugewiesen. 
+		 * Die Instantiierung der Klasse {@link StringCell} führt zur Definition
+		 * der in den Knoten dargestellten Informationen.
+		 * @return DefaultNodeInfo<String> Default implementation of NodeInfo
+		 */
 		if (value instanceof String && (String) value == "Stammdaten") {
 
 			stringDataProvider = new ListDataProvider<String>();
@@ -601,6 +964,13 @@ public class NavTreeViewModel extends Content implements
 
 		}
 
+		/**
+		 * Hier werden dem zweiten Elternknoten Bewegungsdaten des Baumes die 
+		 * Kinderknoten zugewiesen. 
+		 * Die Instantiierung der Klasse {@link StringCell} führt zur Definition
+		 * der in den Knoten dargestellten Informationen.
+		 * @return DefaultNodeInfo<String> Default implementation of NodeInfo
+		 */
 		if (value instanceof String
 				&& (String) value == "Bewegungsdaten") {
 
@@ -613,6 +983,13 @@ public class NavTreeViewModel extends Content implements
 
 		}
 
+		/**
+		 * Hier werden dem dritten Elternknoten Report des Baumes die 
+		 * Kinderknoten zugewiesen. 
+		 * Die Instantiierung der Klasse {@link StringCell} führt zur Definition
+		 * der in den Knoten dargestellten Informationen.
+		 * @return DefaultNodeInfo<String> Default implementation of NodeInfo
+		 */
 		if (value instanceof String && (String) value == "Report") {
 
 			stringDataProvider = new ListDataProvider<String>();
@@ -628,6 +1005,13 @@ public class NavTreeViewModel extends Content implements
 
 		}
 
+		/**
+		 * Hier werden dem Kinderknoten Dozent des Baumes dessen 
+		 * Kinderknoten anlegen und verwalten zugewiesen. 
+		 * Die Instantiierung der Klasse {@link StringCell} führt zur Definition
+		 * der in den Knoten dargestellten Informationen.
+		 * @return DefaultNodeInfo<String> Default implementation of NodeInfo
+		 */
 		if (value instanceof String && (String) value == "Dozent") {
 
 			stringDataProvider = new ListDataProvider<String>();
@@ -639,6 +1023,13 @@ public class NavTreeViewModel extends Content implements
 					new StringCell(), selectionModel, null);
 		}
 
+		/**
+		 * Hier werden dem Kinderknoten Lehrveranstaltung des Baumes dessen 
+		 * Kinderknoten anlegen und verwalten zugewiesen. 
+		 * Die Instantiierung der Klasse {@link StringCell} führt zur Definition
+		 * der in den Knoten dargestellten Informationen.
+		 * @return DefaultNodeInfo<String> Default implementation of NodeInfo
+		 */
 		if (value instanceof String
 				&& (String) value == "Lehrveranstaltung") {
 
@@ -653,6 +1044,13 @@ public class NavTreeViewModel extends Content implements
 					new StringCell(), selectionModel, null);
 		}
 
+		/**
+		 * Hier werden dem Kinderknoten Semesterverband des Baumes dessen 
+		 * Kinderknoten anlegen und verwalten zugewiesen. 
+		 * Die Instantiierung der Klasse {@link StringCell} führt zur Definition
+		 * der in den Knoten dargestellten Informationen.
+		 * @return DefaultNodeInfo<String> Default implementation of NodeInfo
+		 */
 		if (value instanceof String
 				&& (String) value == "Semesterverband") {
 
@@ -667,6 +1065,13 @@ public class NavTreeViewModel extends Content implements
 					new StringCell(), selectionModel, null);
 		}
 
+		/**
+		 * Hier werden dem Kinderknoten Studiengang des Baumes dessen 
+		 * Kinderknoten anlegen und verwalten zugewiesen. 
+		 * Die Instantiierung der Klasse {@link StringCell} führt zur Definition
+		 * der in den Knoten dargestellten Informationen.
+		 * @return DefaultNodeInfo<String> Default implementation of NodeInfo
+		 */
 		if (value instanceof String
 				&& (String) value == "Studiengang") {
 
@@ -679,6 +1084,13 @@ public class NavTreeViewModel extends Content implements
 					new StringCell(), selectionModel, null);
 		}
 
+		/**
+		 * Hier werden dem Kinderknoten Raum des Baumes dessen 
+		 * Kinderknoten anlegen und verwalten zugewiesen. 
+		 * Die Instantiierung der Klasse {@link StringCell} führt zur Definition
+		 * der in den Knoten dargestellten Informationen.
+		 * @return DefaultNodeInfo<String> Default implementation of NodeInfo
+		 */
 		if (value instanceof String && (String) value == "Raum") {
 
 			stringDataProvider = new ListDataProvider<String>();
@@ -689,7 +1101,14 @@ public class NavTreeViewModel extends Content implements
 			return new DefaultNodeInfo<String>(stringDataProvider,
 					new StringCell(), selectionModel, null);
 		}
-
+		
+		/**
+		 * Hier werden dem Kinderknoten Stundenplan des Baumes dessen 
+		 * Kinderknoten anlegen und verwalten zugewiesen. 
+		 * Die Instantiierung der Klasse {@link StringCell} führt zur Definition
+		 * der in den Knoten dargestellten Informationen.
+		 * @return DefaultNodeInfo<String> Default implementation of NodeInfo
+		 */
 		if (value instanceof String
 				&& (String) value == "Stundenplan") {
 
@@ -702,6 +1121,13 @@ public class NavTreeViewModel extends Content implements
 					new StringCell(), selectionModel, null);
 		}
 
+		/**
+		 * Hier werden dem Kinderknoten Stundenplaneintrag des Baumes dessen 
+		 * Kinderknoten anlegen und verwalten zugewiesen. 
+		 * Die Instantiierung der Klasse {@link StringCell} führt zur Definition
+		 * der in den Knoten dargestellten Informationen.
+		 * @return DefaultNodeInfo<String> Default implementation of NodeInfo
+		 */
 		if (value instanceof String
 				&& (String) value == "Stundenplaneintrag") {
 
@@ -716,6 +1142,16 @@ public class NavTreeViewModel extends Content implements
 					new StringCell(), selectionModel, null);
 		}
 
+		/**
+		 * Hier werden dem Kinderknoten Dozent verwalten des Baumes die erstellten
+		 * Objekte hinzugefügt.
+		 * Durch den Aufruf des @param verwaltungsSvc mit der Methode 
+		 * <code>getAllDozenten</code> werden die in der Datenbank gespeicherten 
+		 * Dozenten dem Baum hinzugefügt. 
+		 * Die Instantiierung der Klasse {@link DozentCell} führt zur Definition
+		 * der in den Knoten dargestellten Informationen.
+		 * @return DefaultNodeInfo<Dozent> Default implementation of NodeInfo
+		 */
 		if (value instanceof String
 				&& (String) value == "Dozent verwalten") {
 			dozentDataProvider = new ListDataProvider<Dozent>();
@@ -736,6 +1172,16 @@ public class NavTreeViewModel extends Content implements
 					new DozentCell(), selectionModel, null);
 		}
 
+		/**
+		 * Hier werden dem Kinderknoten Lehrveranstaltung verwalten des Baumes 
+		 * die erstellten Objekte hinzugefügt.
+		 * Durch den Aufruf des @param verwaltungsSvc mit der Methode 
+		 * <code>getAllLehrveranstaltung</code> werden die in der Datenbank 
+		 * gespeicherten Lehrveranstaltungen dem Baum hinzugefügt. 
+		 * Die Instantiierung der Klasse {@link LehrveranstaltungCell} führt zur 
+		 * Definition der in den Knoten dargestellten Informationen.
+		 * @return DefaultNodeInfo<Lehrveranstaltung> Default implementation of NodeInfo
+		 */
 		if (value instanceof String
 				&& (String) value == "Lehrveranstaltung verwalten") {
 			lvDataProvider = new ListDataProvider<Lehrveranstaltung>();
@@ -758,6 +1204,16 @@ public class NavTreeViewModel extends Content implements
 					selectionModel, null);
 		}
 
+		/**
+		 * Hier werden dem Kinderknoten Raum verwalten des Baumes die erstellten 
+		 * Objekte hinzugefügt.
+		 * Durch den Aufruf des @param verwaltungsSvc mit der Methode 
+		 * <code>getAllRaeume</code> werden die in der Datenbank 
+		 * gespeicherten Räume dem Baum hinzugefügt. 
+		 * Die Instantiierung der Klasse {@link RaumCell} führt zur Definition der 
+		 * in den Knoten dargestellten Informationen.
+		 * @return DefaultNodeInfo<Raum> Default implementation of NodeInfo
+		 */
 		if (value instanceof String
 				&& (String) value == "Raum verwalten") {
 			raumDataProvider = new ListDataProvider<Raum>();
@@ -778,6 +1234,17 @@ public class NavTreeViewModel extends Content implements
 					new RaumCell(), selectionModel, null);
 		}
 
+		/**
+		 * Hier werden dem Kinderknoten Semesterverband verwalten des Baumes 
+		 * die erstellten Objekte hinzugefügt.
+		 * Durch den Aufruf des @param verwaltungsSvc mit der Methode 
+		 * <code>getAllSemesterverbaende</code> werden die in der Datenbank 
+		 * gespeicherten Semesterverbände dem Baum hinzugefügt. 
+		 * Die Instantiierung der Klasse {@link SemesterverbandCell} führt zur 
+		 * Definition der in den Knoten dargestellten Informationen.
+		 * @return DefaultNodeInfo<Semesterverband> Default implementation of 
+		 * NodeInfo
+		 */
 		if (value instanceof String
 				&& (String) value == "Semesterverband verwalten") {
 			svDataProvider = new ListDataProvider<Semesterverband>();
@@ -800,6 +1267,17 @@ public class NavTreeViewModel extends Content implements
 					selectionModel, null);
 		}
 
+		/**
+		 * Hier werden dem Kinderknoten Studiengang verwalten des Baumes die 
+		 * erstellten Objekte hinzugefügt.
+		 * Durch den Aufruf des @param verwaltungsSvc mit der Methode 
+		 * <code>getAllStudiengaenge</code> werden die in der Datenbank 
+		 * gespeicherten Studiengänge dem Baum hinzugefügt. 
+		 * Die Instantiierung der Klasse {@link StudiengangCell} führt zur 
+		 * Definition der in den Knoten dargestellten Informationen.
+		 * @return DefaultNodeInfo<Studiengang> Default implementation of 
+		 * NodeInfo
+		 */
 		if (value instanceof String
 				&& (String) value == "Studiengang verwalten") {
 			sgDataProvider = new ListDataProvider<Studiengang>();
@@ -821,6 +1299,17 @@ public class NavTreeViewModel extends Content implements
 					new StudiengangCell(), selectionModel, null);
 		}
 
+		/**
+		 * Hier werden dem Kinderknoten Stundenplan verwalten des Baumes die 
+		 * erstellten Objekte hinzugefügt.
+		 * Durch den Aufruf des @param verwaltungsSvc mit der Methode 
+		 * <code>getAllStundenplaene</code> werden die in der Datenbank 
+		 * gespeicherten Stundenpläne dem Baum hinzugefügt. 
+		 * Die Instantiierung der Klasse {@link StundenplanCell} führt zur 
+		 * Definition der in den Knoten dargestellten Informationen.
+		 * @return DefaultNodeInfo<Stundenplan> Default implementation of 
+		 * NodeInfo
+		 */
 		if (value instanceof String
 				&& (String) value == "Stundenplan verwalten") {
 			spDataProvider = new ListDataProvider<Stundenplan>();
@@ -842,6 +1331,17 @@ public class NavTreeViewModel extends Content implements
 					new StundenplanCell(), selectionModel, null);
 		}
 
+		/**
+		 * Hier werden dem Kinderknoten Stundenplaneintrag verwalten des 
+		 * Baumes die erstellten Objekte hinzugefügt.
+		 * Durch den Aufruf des @param verwaltungsSvc mit der Methode 
+		 * <code>getAllStundenplaneintraege</code> werden die in der 
+		 * Datenbank gespeicherten Stundenplaneinträge dem Baum hinzugefügt. 
+		 * Die Instantiierung der Klasse {@link StundenplaneintragCell} führt 
+		 * zur Definition der in den Knoten dargestellten Informationen.
+		 * @return DefaultNodeInfo<Stundenplaneintrag> Default implementation 
+		 * of NodeInfo
+		 */
 		if (value instanceof String
 				&& (String) value == "Stundenplaneintrag verwalten") {
 			speDataProvider = new ListDataProvider<Stundenplaneintrag>();
@@ -866,6 +1366,10 @@ public class NavTreeViewModel extends Content implements
 		return null;
 	}
 
+	/**
+	 * Check if the value is known to be a leaf node.
+	 * @return false
+	 */
 	@Override
 	public boolean isLeaf(Object value) {
 		return false;

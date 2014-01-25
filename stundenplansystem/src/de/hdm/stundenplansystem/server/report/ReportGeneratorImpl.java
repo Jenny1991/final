@@ -79,8 +79,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
 	 * diese Tatigkeiten redundant auszuführen hatte. Stattdessen rufen die
 	 * <code>create...</code>-Methoden diese Methode auf.
 	 * 
-	 * @param r
-	 *            der um das Impressum zu erweiternde Report.
+	 * @param r der um das Impressum zu erweiternde Report.
 	 */
 	protected void addImprint(Report r) {
 		/*
@@ -100,9 +99,8 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
 	/**
 	 * Erstellen von <code>StundenplanDozentReport</code>-Objekten.
 	 * 
-	 * @param d
-	 *            das Dozentenobjekt bzgl. dessen der Report erstellt werden
-	 *            soll.
+	 * @param d das Dozentenobjekt bzgl. dessen der Report erstellt 
+	 * werden soll.
 	 * @return der fertige Report
 	 */
 	public StundenplanDozentReport createStundenplanDozentReport(
@@ -187,7 +185,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
 		/*
 		 * Nun werden sämtliche Stundenplaneintraege des Dozenten ausgelesen und
 		 * in die Tabelle eingetragen. Dabei läuft die For-Schleife die Anzahl
-		 * der Zeitslot durch und überprüft auf vorhandene Daten.
+		 * der Zeitslot durch und Überprüft auf vorhandene Daten.
 		 */
 
 		for (int i = 1; i < 37; i++) {
@@ -280,7 +278,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
 
 		// Bezeichnung und Kapazität des Raumes aufnehmen
 		header.addSubParagraph(new SimpleParagraph(r.getBezeichnung()
-				+ ", Kapatitüt: " + r.getKapazitaet()));
+				+ ", Kapazität: " + r.getKapazitaet()));
 
 		// Hinzufügen der zusammengestellten Kopfdaten zu dem Report
 		result.setHeaderData(header);
@@ -384,9 +382,8 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
 	/**
 	 * Erstellen von <code>StundenplanSemesterverbandReport</code>-Objekten.
 	 * 
-	 * @param sv
-	 *            das Semesterverbandobjekt bzgl. dessen der Report erstellt
-	 *            werden soll.
+	 * @param sv das Semesterverbandobjekt bzgl. dessen der Report erstellt
+	 *        werden soll.
 	 * @return der fertige Report
 	 */
 
@@ -406,7 +403,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
 		 */
 		StundenplanSemesterverbandReport result = new StundenplanSemesterverbandReport();
 
-		// Jeder Report hat einen Titel (Bezeichnung / Überschrift).
+		// Jeder Report hat einen Titel (Bezeichnung / Ãœberschrift).
 		result.setTitle("Stundenplan des Semesterverbandes");
 
 		// Imressum hinzufügen

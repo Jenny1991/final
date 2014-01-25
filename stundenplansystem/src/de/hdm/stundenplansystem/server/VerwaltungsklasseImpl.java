@@ -44,7 +44,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * <li>{@link VerwaltungsklasseAsync}: <code>VerwaltungsklasseImpl</code> und
  * <code>Verwaltunsklasse</code> bilden nur die Server-seitige Sicht der
  * Applikationslogik ab. Diese basiert vollständig auf synchronen
- * Funktionsaufrufen. Wir ü�ssen jedoch in der Lage sein, Client-seitige
+ * Funktionsaufrufen. Wir müssen jedoch in der Lage sein, Client-seitige
  * asynchrone Aufrufe zu bedienen. Dies bedingt ein weiteres Interface, das in
  * der Regel genauso benannt wird, wie das synchrone Interface, jedoch mit dem
  * zusätzlichen Suffix "Async". Es steht nur mittelbar mit dieser Klasse in
@@ -54,7 +54,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * <li> {@link RemoteServiceServlet}: Jede Server-seitig instantiierbare und
  * Client-seitig über GWT RPC nutzbare Klasse muss die Klasse
  * <code>RemoteServiceServlet</code> implementieren. Sie legt die funktionale
- * Basis f�r die Anbindung von <code>VerwaltungsklasseImpl</code> an die Runtime
+ * Basis für die Anbindung von <code>VerwaltungsklasseImpl</code> an die Runtime
  * des GWT RPC-Mechanismus.</li>
  * </ol>
  * </p>
@@ -116,7 +116,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	/*
 	 * Da diese Klasse ein gewisse Größe besitzt - dies ist eigentlich ein
 	 * Hinweise, dass hier eine weitere Gliederung sinnvoll ist - haben wir zur
-	 * besseren Übersicht Abschnittskomentare eingef�gt. Sie leiten ein Cluster
+	 * besseren Übersicht Abschnittskomentare eingefügt. Sie leiten ein Cluster
 	 * in irgeneinerweise zusammengehöriger Methoden ein. Ein entsprechender
 	 * Kommentar steht am Ende eines solchen Clusters.
 	 */
@@ -440,8 +440,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 * Raumes und Zeitslot. Ermittlung ob ein Raum zur gegebenen Zeit besetzt
 	 * ist.
 	 * 
-	 * @param id
-	 *            des jeweiligen Raumes und Zeitslot
+	 * @param id des jeweiligen Raumes und Zeitslot
 	 * @return das jeweilige Stundenplaneintrag-Objekten
 	 * @throws IllegalArgumentException
 	 */
@@ -457,8 +456,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 * Semesterverbands, Zeitslot und Stundenplanes Ermittlung ob ein
 	 * Semesterverband zur gegebenen Zeit besetzt ist.
 	 * 
-	 * @param id
-	 *            des jeweiligen Semesterverbands, Zeitslot und Stundenplanes
+	 * @param id des jeweiligen Semesterverbands, Zeitslot und Stundenplanes
 	 * @return das jeweilige Stundenplaneintrag-Objekten
 	 * @throws IllegalArgumentException
 	 */
@@ -475,8 +473,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 * Dozenten und Zeitslots Ermittlung ob ein Dozent zur gegebenen Zeit
 	 * besetzt ist.
 	 * 
-	 * @param id
-	 *            des jeweiligen Dozenten und Zeitslots
+	 * @param id des jeweiligen Dozenten und Zeitslots
 	 * @return das jeweilige Stundenplaneintrag-Objekten
 	 * @throws IllegalArgumentException
 	 */
@@ -493,8 +490,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 * Auslesen eines Semesterverband-Objekt über die ID des zugehörigen
 	 * Stundenplans
 	 * 
-	 * @param id
-	 *            des jeweiligen Stundenplans
+	 * @param id des jeweiligen Stundenplans
 	 * @return das jeweilige Semesterverband-Objekt
 	 * @throws IllegalArgumentException
 	 */
@@ -508,8 +504,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 * Auslesen eines Vectors aus Semesterverband-Objekten über die ID des
 	 * zugehörigen Studienganges
 	 * 
-	 * @param id
-	 *            des jeweiligen Studienganges
+	 * @param id des jeweiligen Studienganges
 	 * @return Vector aus den Semesterverbands-Objekten
 	 * @throws IllegalArgumentException
 	 */
@@ -524,8 +519,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 * Auslesen eines Vectors aus Stundenplan-Objekten über die ID des
 	 * zugehörigen Semesterverbands
 	 * 
-	 * @param id
-	 *            des jeweiligen Semesterverbands
+	 * @param id des jeweiligen Semesterverbands
 	 * @return Vector aus den Stundenplan-Objekten
 	 * @throws IllegalArgumentException
 	 */
@@ -540,8 +534,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 * Auslesen eines Stundiengang-Objekts über die ID des zugehörigen
 	 * Semesterverbands
 	 * 
-	 * @param id
-	 *            des jeweiligen Semesterverbands
+	 * @param id des jeweiligen Semesterverbands
 	 * @return Das je weiligeStundenplaneintrag-Objekt
 	 * @throws IllegalArgumentException
 	 */
@@ -556,12 +549,9 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 * Auslesen freier Zeitslot-Objekts für einen Stundenplaneintrag 
 	 * im Bezug zur RaumID , DozentID und StundenplanID
 	 * 
-	 * @param id
-	 *            des jeweiligen Raumes
-	 * @param id
-	 *            des jeweiligen Dozenten
-	 * @param id
-	 *            des jeweiligen Semesterverbandes
+	 * @param id des jeweiligen Raumes
+	 * @param id des jeweiligen Dozenten
+	 * @param id des jeweiligen Semesterverbandes
 	 * @return Vector aus den Zeitslot-Objekten
 	 * @throws IllegalArgumentException
 	 */
@@ -582,8 +572,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 * create-Methoden zum Anlegen eines Dozenten 
 	 * Anschliessende Überprüfung auf ungültige Eingabe
 	 * 
-	 * @param Vorname
-	 *            und Nachname des jeweiligen Dozenten
+	 * @param Vorname und Nachname des jeweiligen Dozenten
 	 * @return Das jeweilige Dozenten-Objekt
 	 * @throws IllegalArgumentException
 	 */
@@ -596,7 +585,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 
 			throw new IllegalArgumentException(
 					"ungültige Eingabe! Bitte verwenden Sie keine "
-					+ "Ziffern f�r den Vor- und Nachnamen.");
+					+ "Ziffern für den Vor- und Nachnamen.");
 		} else {
 
 			Dozent a = new Dozent();
@@ -707,7 +696,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 
 			throw new IllegalArgumentException(
 					"Eines der ausgewählten Objekte existiert "
-					+ "nicht mehr und kann somit nicht f�r ein "
+					+ "nicht mehr und kann somit nicht für ein "
 					+ "Stundenplaneintrag ausgewählt werden.");
 			
 		} else {

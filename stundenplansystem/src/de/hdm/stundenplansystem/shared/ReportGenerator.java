@@ -39,9 +39,8 @@ public interface ReportGenerator extends RemoteService {
 	 * Erstellen eines <code>RaumbelegungsReport</code>-Reports. Dieser
 	 * Report-Typ stellt sämtliche Raume und ihre Belegungen dar.
 	 * 
-	 * @param r
-	 *            eine Referenz auf das Raumobjekt bzgl. dessen der Report
-	 *            erstellt werden soll.
+	 * @param r eine Referenz auf das Raumobjekt bzgl. dessen der Report
+	 *        erstellt werden soll.
 	 * @return das fertige Reportobjekt
 	 * @throws IllegalArgumentException
 	 * @see RaumbelegungsReport
@@ -54,8 +53,7 @@ public interface ReportGenerator extends RemoteService {
 	 * Erstellen eines <code>StundenplanDozentReport</code>-Reports. Dieser
 	 * Report-Typ stellt den Stundenplan eines Dozenten dar.
 	 * 
-	 * @param d
-	 *            eine Referenz auf das Dozentenobjekt bzgl. dessen der Report
+	 * @param d eine Referenz auf das Dozentenobjekt bzgl. dessen der Report
 	 *            erstellt werden soll.
 	 * @return das fertige Reportobjekt
 	 * @throws IllegalArgumentException
@@ -68,12 +66,10 @@ public interface ReportGenerator extends RemoteService {
 	 * Erstellen eines <code>StundenplanSemesterverbandReport</code>-Reports.
 	 * Dieser Report-Typ stellt den Stundenplan eine dar.
 	 * 
-	 * @param semesterverbandId
-	 *            die Id der Referenz auf das Semesterverbandobjekt bzgl. dessen
-	 *            der Report erstellt werden soll.
-	 * @param stundenplanId
-	 *            die Id der Referenz auf das Stundenplanobjekt bzgl. dessen der
-	 *            Report erstellt werden soll.
+	 * @param semesterverbandId die Id der Referenz auf das Semesterverbandobjekt 
+	 * 		  bzgl. dessen der Report erstellt werden soll.
+	 * @param stundenplanId die Id der Referenz auf das Stundenplanobjekt 
+	 * 		  bzgl. dessen der Report erstellt werden soll.
 	 * @return das fertige Reportobjekt
 	 * @throws IllegalArgumentException
 	 * @see StundenplanSemesterverbandReport

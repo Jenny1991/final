@@ -150,6 +150,8 @@ public class Stundenplansystem implements EntryPoint {
 		stundenplaneintragButton.setStylePrimaryName("BaumButton");
 		stundenplanButton.setStylePrimaryName("BaumButton");
 		raumplanButton.setStylePrimaryName("BaumButton");
+		navigation.addStyleName("navigation");
+		tvm.addStyleName("nav");
 	}
 
 	/**

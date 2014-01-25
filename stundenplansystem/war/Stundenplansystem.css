@@ -10,6 +10,15 @@ h1 {
   text-align: center;
 }
 
+h2 {
+	margin: 25px 25px 0px;
+}
+
+.navigation {
+	background-color: silver;
+}
+
+
 .sendButton {
   display: block;
   font-size: 16pt;

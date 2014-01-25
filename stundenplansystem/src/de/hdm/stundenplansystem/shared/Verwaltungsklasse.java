@@ -200,6 +200,6 @@ public interface Verwaltungsklasse extends RemoteService {
 
 	public void changeRaum(Raum r) throws IllegalArgumentException;
 
-	public void changeSemsterverband(Semesterverband sv)
+	public void changeSemesterverband(Semesterverband sv)
 			throws IllegalArgumentException;
 }

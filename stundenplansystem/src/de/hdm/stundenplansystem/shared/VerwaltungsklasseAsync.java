@@ -72,7 +72,7 @@ public interface VerwaltungsklasseAsync {
 
 	void changeStudiengang(Studiengang s, AsyncCallback<Void> callback);
 
-	void changeSemsterverband(Semesterverband sv,
+	void changeSemesterverband(Semesterverband sv,
 			AsyncCallback<Void> callback);
 
 	void changeStundenplan(Stundenplan sp,

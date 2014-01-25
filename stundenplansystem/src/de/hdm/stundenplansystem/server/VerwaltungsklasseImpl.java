@@ -19,40 +19,40 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * <p>
  * Implementierungsklasse des Interface <code>Verwaltungsklasse</code>. Diese
  * Klasse ist <em>die</em> Klasse, die neben {@link ReportGeneratorImpl}
- * s�mtliche Applikationslogik (oder engl. Business Logic) aggregiert. Sie ist
- * wie eine Spinne, die s�mtliche Zusammenh�nge in ihrem Netz (in unserem Fall
- * die Daten der Applikation) �berblickt und f�r einen geordneten Ablauf und
- * dauerhafte Konsistenz der Daten und Abl�ufe sorgt.
+ * sämtliche Applikationslogik (oder engl. Business Logic) aggregiert. Sie ist
+ * wie eine Spinne, die sämtliche Zusammenhänge in ihrem Netz (in unserem Fall
+ * die Daten der Applikation) Überblickt und für einen geordneten Ablauf und
+ * dauerhafte Konsistenz der Daten und Abläufe sorgt.
  * </p>
  * <p>
  * Die Applikationslogik findet sich in den Methoden dieser Klasse. Jede dieser
  * Methoden kann als <em>Transaction Script</em> bezeichnet werden. Dieser Name
- * l�sst schon vermuten, dass hier analog zu Datenbanktransaktion pro
- * Transaktion gleiche mehrere Teilaktionen durchgef�hrt werden, die das System
+ * lässt schon vermuten, dass hier analog zu Datenbanktransaktion pro
+ * Transaktion gleiche mehrere Teilaktionen durchgeführt werden, die das System
  * von einem konsistenten Zustand in einen anderen, auch wieder konsistenten
- * Zustand �berf�hren. Wenn dies zwischenzeitig scheitern sollte, dann ist das
- * jeweilige Transaction Script daf�r verwantwortlich, eine Fehlerbehandlung
- * durchzuf�hren.
+ * Zustand überführen. Wenn dies zwischenzeitig scheitern sollte, dann ist das
+ * jeweilige Transaction Script dafür verwantwortlich, eine Fehlerbehandlung
+ * durchzuführen.
  * </p>
  * <p>
  * Diese Klasse steht mit einer Reihe weiterer Datentypen in Verbindung. Dies
  * sind:
  * <ol>
  * <li>{@link Verwaltungsklasse}: Dies ist das <em>lokale</em> - also
- * Server-seitige - Interface, das die im System zur Verf�gung gestellten
+ * Server-seitige - Interface, das die im System zur Verfügung gestellten
  * Funktionen deklariert.</li>
  * <li>{@link VerwaltungsklasseAsync}: <code>VerwaltungsklasseImpl</code> und
  * <code>Verwaltunsklasse</code> bilden nur die Server-seitige Sicht der
- * Applikationslogik ab. Diese basiert vollst�ndig auf synchronen
- * Funktionsaufrufen. Wir m�ssen jedoch in der Lage sein, Client-seitige
+ * Applikationslogik ab. Diese basiert vollständig auf synchronen
+ * Funktionsaufrufen. Wir ü�ssen jedoch in der Lage sein, Client-seitige
  * asynchrone Aufrufe zu bedienen. Dies bedingt ein weiteres Interface, das in
  * der Regel genauso benannt wird, wie das synchrone Interface, jedoch mit dem
- * zus�tzlichen Suffix "Async". Es steht nur mittelbar mit dieser Klasse in
+ * zusätzlichen Suffix "Async". Es steht nur mittelbar mit dieser Klasse in
  * Verbindung. Die Erstellung und Pflege der Async Interfaces wird durch das
- * Google Plugin semiautomatisch unterst�tzt. Weitere Informationen unter
+ * Google Plugin semiautomatisch unterstützt. Weitere Informationen unter
  * {@link VerwaltungsklasseAsync}.</li>
  * <li> {@link RemoteServiceServlet}: Jede Server-seitig instantiierbare und
- * Client-seitig �ber GWT RPC nutzbare Klasse muss die Klasse
+ * Client-seitig über GWT RPC nutzbare Klasse muss die Klasse
  * <code>RemoteServiceServlet</code> implementieren. Sie legt die funktionale
  * Basis f�r die Anbindung von <code>VerwaltungsklasseImpl</code> an die Runtime
  * des GWT RPC-Mechanismus.</li>
@@ -60,15 +60,15 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * </p>
  * <p>
  * <b>Wichtiger Hinweis:</b> Diese Klasse bedient sich sogenannter
- * Mapper-Klassen. Sie geh�ren der Datenbank-Schicht an und bilden die
+ * Mapper-Klassen. Sie gehören der Datenbank-Schicht an und bilden die
  * objektorientierte Sicht der Applikationslogik auf die relationale
  * organisierte Datenbank ab.
  * </p>
  * <p>
- * Beachten Sie, dass s�mtliche Methoden, die mittels GWT RPC aufgerufen werden
- * k�nnen ein <code>throws IllegalArgumentException</code> in der
- * Methodendeklaration aufweisen. Diese Methoden d�rfen also Instanzen von
- * {@link IllegalArgumentException} auswerfen. Mit diesen Exceptions k�nnen z.B.
+ * Beachten Sie, dass sämtliche Methoden, die mittels GWT RPC aufgerufen werden
+ * können ein <code>throws IllegalArgumentException</code> in der
+ * Methodendeklaration aufweisen. Diese Methoden dürfen also Instanzen von
+ * {@link IllegalArgumentException} auswerfen. Mit diesen Exceptions können z.B.
  * Probleme auf der Server-Seite in einfacher Weise auf die Client-Seite
  * transportiert und dort systematisch in einem Catch-Block abgearbeitet werden.
  * </p>
@@ -89,7 +89,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	private static final long serialVersionUID = 7027992284251455305L;
 
 	/**
-	 * Referenz auf das zugeh�rige BusinessObjekt-Objekt.
+	 * Referenz auf das zugehörige BusinessObjekt-Objekt.
 	 */
 	private Dozent dozent = null;
 	private Raum raum = null;
@@ -114,10 +114,10 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	private StudiengangMapper studiengangMapper = null;
 
 	/*
-	 * Da diese Klasse ein gewisse Gr��e besitzt - dies ist eigentlich ein
+	 * Da diese Klasse ein gewisse Größe besitzt - dies ist eigentlich ein
 	 * Hinweise, dass hier eine weitere Gliederung sinnvoll ist - haben wir zur
-	 * besseren �bersicht Abschnittskomentare eingef�gt. Sie leiten ein Cluster
-	 * in irgeneinerweise zusammengeh�riger Methoden ein. Ein entsprechender
+	 * besseren Übersicht Abschnittskomentare eingef�gt. Sie leiten ein Cluster
+	 * in irgeneinerweise zusammengehöriger Methoden ein. Ein entsprechender
 	 * Kommentar steht am Ende eines solchen Clusters.
 	 */
 
@@ -134,7 +134,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 * ist ein solcher No-Argument-Konstruktor anzulegen. Ein Aufruf eines
 	 * anderen Konstruktors ist durch die Client-seitige Instantiierung durch
 	 * <code>GWT.create(Klassenname.class)</code> nach derzeitigem Stand nicht
-	 * m�glich.
+	 * möglich.
 	 * </p>
 	 * <p>
 	 * Es bietet sich also an, eine separate Instanzenmethode zu erstellen, die
@@ -155,14 +155,14 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	/**
 	 * Initialsierungsmethode. Siehe dazu Anmerkungen zum
 	 * No-Argument-Konstruktor {@link #ReportGeneratorImpl()}. Diese Methode
-	 * muss f�r jede Instanz von <code>VerwaltungsklasseImpl</code> aufgerufen
+	 * muss für jede Instanz von <code>VerwaltungsklasseImpl</code> aufgerufen
 	 * werden.
 	 * 
 	 * @see #ReportGeneratorImpl()
 	 */
 	public void init() throws IllegalArgumentException {
 		/*
-		 * Ganz wesentlich ist, dass die BankAdministration einen vollst�ndigen
+		 * Ganz wesentlich ist, dass die BankAdministration einen vollständigen
 		 * Satz von Mappern besitzt, mit deren Hilfe sie dann mit der Datenbank
 		 * kommunizieren kann.
 		 */
@@ -191,6 +191,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 
 	/**
 	 * Auslesen eines BusinessObjekt-Objekts
+	 * 
 	 * 
 	 * @return das jeweilige BusinessObjekt-Objekt
 	 * @throws IllegalArgumentException
@@ -236,6 +237,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	/**
 	 * Setzen des BusinessObjekt-Objekts
 	 * 
+	 * @param Referenz des jeweiligen BusinessObjekts
 	 * @return void
 	 * @throws IllegalArgumentException
 	 */
@@ -290,7 +292,6 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 
 	/**
 	 * Auslesen aller jeweiligen BusinessObjekte
-	 * 
 	 * @return Vector aus allen jeweiligen BusinessObjekten
 	 * @throws IllegalArgumentException
 	 */
@@ -343,10 +344,9 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 */
 
 	/**
-	 * Auslesen der Stundenplaneintr�ge der jeweiligen BusinessObjekts
+	 * Auslesen der Stundenplaneinträge der jeweiligen BusinessObjekts
 	 * 
-	 * @param id
-	 *            des jeweiligen BusinessObjekts
+	 * @param id des jeweiligen BusinessObjekts
 	 * @return Vector aller Stundenplaneintrag-Instanzen des BusniessObjekts
 	 * @throws IllegalArgumentException
 	 */
@@ -375,16 +375,15 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 
 	/*
 	 * *********************************************************************************
-	 * ABSCHNITT, Beginn: getBoById-Methoden
+	 * ABSCHNITT, Beginn: getBusinessObjectById-Methoden
 	 * *************************************
 	 * ********************************************
 	 */
 
 	/**
-	 * Auslesen der jeweiligen BusniessObjekts �ber ihre ID
+	 * Auslesen der jeweiligen BusniessObjekts über ihre ID
 	 * 
-	 * @param id
-	 *            des jeweiligen BusniessObjekts
+	 * @param id des jeweiligen BusniessObjekts
 	 * @return das jeweilige BusniessObjekt-Objekt
 	 * @throws IllegalArgumentException
 	 */
@@ -437,7 +436,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 */
 
 	/**
-	 * Auslesen eines Stundenplaneintrag-Objekt �ber die ID des zugeh�rigen
+	 * Auslesen eines Stundenplaneintrag-Objekt über die ID des zugehörigen
 	 * Raumes und Zeitslot. Ermittlung ob ein Raum zur gegebenen Zeit besetzt
 	 * ist.
 	 * 
@@ -454,7 +453,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	}
 
 	/**
-	 * Auslesen eines Stundenplaneintrag-Objekt �ber die ID des zugeh�rigen
+	 * Auslesen eines Stundenplaneintrag-Objekt über die ID des zugehörigen
 	 * Semesterverbands, Zeitslot und Stundenplanes Ermittlung ob ein
 	 * Semesterverband zur gegebenen Zeit besetzt ist.
 	 * 
@@ -472,7 +471,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	}
 
 	/**
-	 * Auslesen eines Stundenplaneintrag-Objekt �ber die ID des zugeh�rigen
+	 * Auslesen eines Stundenplaneintrag-Objekt über die ID des zugehörigen
 	 * Dozenten und Zeitslots Ermittlung ob ein Dozent zur gegebenen Zeit
 	 * besetzt ist.
 	 * 
@@ -491,7 +490,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	}
 
 	/**
-	 * Auslesen eines Semesterverband-Objekt �ber die ID des zugeh�rigen
+	 * Auslesen eines Semesterverband-Objekt über die ID des zugehörigen
 	 * Stundenplans
 	 * 
 	 * @param id
@@ -506,8 +505,8 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	}
 
 	/**
-	 * Auslesen eines Vectors aus Semesterverband-Objekten �ber die ID des
-	 * zugeh�rigen Studienganges
+	 * Auslesen eines Vectors aus Semesterverband-Objekten über die ID des
+	 * zugehörigen Studienganges
 	 * 
 	 * @param id
 	 *            des jeweiligen Studienganges
@@ -522,8 +521,8 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	}
 
 	/**
-	 * Auslesen eines Vectors aus Stundenplan-Objekten �ber die ID des
-	 * zugeh�rigen Semesterverbands
+	 * Auslesen eines Vectors aus Stundenplan-Objekten über die ID des
+	 * zugehörigen Semesterverbands
 	 * 
 	 * @param id
 	 *            des jeweiligen Semesterverbands
@@ -538,7 +537,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	}
 
 	/**
-	 * Auslesen eines Stundiengang-Objekts �ber die ID des zugeh�rigen
+	 * Auslesen eines Stundiengang-Objekts über die ID des zugehörigen
 	 * Semesterverbands
 	 * 
 	 * @param id
@@ -554,7 +553,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	}
 
 	/**
-	 * Auslesen freier Zeitslot-Objekts f�r einen Stundenplaneintrag 
+	 * Auslesen freier Zeitslot-Objekts für einen Stundenplaneintrag 
 	 * im Bezug zur RaumID , DozentID und StundenplanID
 	 * 
 	 * @param id
@@ -596,7 +595,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 		{
 
 			throw new IllegalArgumentException(
-					"ung�ltige Eingabe! Bitte verwenden Sie keine "
+					"ungültige Eingabe! Bitte verwenden Sie keine "
 					+ "Ziffern f�r den Vor- und Nachnamen.");
 		} else {
 
@@ -668,7 +667,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 
 		if (bezeichnung.matches("[0-9]+")) {
 
-			throw new IllegalArgumentException("ung�ltige Eingabe!");
+			throw new IllegalArgumentException("ungültige Eingabe!");
 		} else {
 			Studiengang s = new Studiengang();
 
@@ -707,9 +706,9 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 				|| stundenplan == null) {
 
 			throw new IllegalArgumentException(
-					"Eines der ausgew�hlten Objekte existiert "
+					"Eines der ausgewählten Objekte existiert "
 					+ "nicht mehr und kann somit nicht f�r ein "
-					+ "Stundenplaneintrag ausgew�hlt werden.");
+					+ "Stundenplaneintrag ausgewählt werden.");
 			
 		} else {
 
@@ -775,7 +774,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 		} else {
 
 			throw new IllegalArgumentException(
-					"ung�ltige Eingabe des Jahrgangs!");
+					"ungültige Eingabe des Jahrgangs!");
 		}
 
 	}
@@ -786,7 +785,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 * (Entweder: SS 2014 Oder: WS 2014/2015)
 	 * 
 	 * @param Studienhalbjahr
-	 *            und der Fremdschl�ssel des Semesterverbands
+	 *            und der Fremdschlüssel des Semesterverbands
 	 * @return Das jeweilige Stundenplan-Objekt
 	 * @throws IllegalArgumentException
 	 */
@@ -810,7 +809,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 		} else {
 
 			throw new IllegalArgumentException(
-					"ung�ltige Eingabe im Studienhalbjahr!");
+					"ungültige Eingabe im Studienhalbjahr!");
 		}
 	}
 
@@ -822,9 +821,9 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 */
 
 	/**
-	 * delete-Methoden zum L�schen eines BusniessObjekts 
-	 * Anschliessende Pr�fung, ob f�r den jeweiligen 
-	 * BO's noch Stundenplaneintr�ge vorhanden sind
+	 * delete-Methoden zum Löschen eines BusniessObjekts 
+	 * Anschliessende Prüfung, ob für den jeweiligen 
+	 * BO's noch Stundenplaneinträge vorhanden sind
 	 * 
 	 * @param das jeweilige BusniessObjekt-Objekt
 	 * @return void
@@ -946,15 +945,15 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 				|| d.getNachname().matches("[0-9]+")) {
 
 			throw new IllegalArgumentException(
-					"ung�ltige Eingabe! Bitte verwenden Sie keine"
-					+ " Ziffern f�r den Vor- und Nachnamen.");
+					"ungültige Eingabe! Bitte verwenden Sie keine"
+					+ " Ziffern für den Vor- und Nachnamen.");
 		} else {
 
 			this.dozentMapper.update(d);
 		}
 	}
 
-	public void changeSemsterverband(Semesterverband sv)
+	public void changeSemesterverband(Semesterverband sv)
 			throws IllegalArgumentException {
 
 		if (sv.getJahrgang().matches("[A-Z]+" + " " + "[0-9]+")
@@ -967,7 +966,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 		} else {
 
 			throw new IllegalArgumentException(
-					"ung�ltige Eingabe des Jahrgangs!");
+					"ungültige Eingabe des Jahrgangs!");
 		}
 
 	}
@@ -978,8 +977,8 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 		if (s.getBezeichnung().matches("[0-9]+")) {
 
 			throw new IllegalArgumentException(
-					"ung�ltige Eingabe! Bitte verwenden Sie keine "
-					+ "Ziffern f�r die Bezeichnung.");
+					"ungültige Eingabe! Bitte verwenden Sie keine "
+					+ "Ziffern für die Bezeichnung.");
 		} else {
 
 			this.studiengangMapper.update(s);
@@ -999,7 +998,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 		} else {
 
 			throw new IllegalArgumentException(
-					"ung�ltige Eingabe des Studienhalbjahrs!");
+					"ungültige Eingabe des Studienhalbjahrs!");
 		}
 
 	}

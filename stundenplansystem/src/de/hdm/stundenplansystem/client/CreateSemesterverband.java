@@ -75,23 +75,9 @@ public class CreateSemesterverband extends Content {
 		setTvm(tvm);
 
 		libstudiengang.clear();
-		verwaltungsSvc
-				.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
-					public void onFailure(Throwable T) {
-
-					}
-
-					public void onSuccess(
-							Vector<Studiengang> studiengaenge) {
-						sgContainer = studiengaenge;
-						for (Studiengang sg : studiengaenge) {
-							libstudiengang.addItem(
-									sg.getBezeichnung(),
-									String.valueOf(sg.getId()));
-						}
-					}
-				});
-
+		
+		getStudiengaenge();
+		
 		speichern.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 
@@ -134,7 +120,9 @@ public class CreateSemesterverband extends Content {
 									tbanzahl.setText("");
 									Window.alert("Erfolgreich gespeichert.");
 									tvm.addSemesterverband(result);
+									getStudiengaenge();
 								}
+								
 							});
 				}
 			}
@@ -143,5 +131,25 @@ public class CreateSemesterverband extends Content {
 
 	public void setTvm(NavTreeViewModel tvm) {
 		this.tvm = tvm;
+	}
+	
+	public void getStudiengaenge(){{
+		verwaltungsSvc
+		.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
+			public void onFailure(Throwable T) {
+
+			}
+
+			public void onSuccess(
+					Vector<Studiengang> studiengaenge) {
+				sgContainer = studiengaenge;
+				for (Studiengang sg : studiengaenge) {
+					libstudiengang.addItem(
+							sg.getBezeichnung(),
+							String.valueOf(sg.getId()));
+				}
+			}
+		});	
+	}
 	}
 }

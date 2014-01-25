@@ -710,7 +710,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 					"Eines der ausgew�hlten Objekte existiert "
 					+ "nicht mehr und kann somit nicht f�r ein "
 					+ "Stundenplaneintrag ausgew�hlt werden.");
-
+			
 		} else {
 
 			Stundenplaneintrag s = new Stundenplaneintrag();
@@ -837,13 +837,16 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 		Vector<Stundenplaneintrag> dozenten = this
 				.getAllStundenplaneintraegeByDozent(d.getId());
 
-		if (dozenten != null) {
+		if (dozenten.isEmpty()) {
+			
+			this.dozentMapper.delete(d);	
+		} 
+		else {
+			
 			throw new IllegalArgumentException(
 					"Der von Ihnen ausgewählte Dozent kann nicht "
 					+ "gelöscht werden, da er noch in einem "
 					+ "Stundenplaneintrag verwendet wird!");
-		} else {
-			this.dozentMapper.delete(d);
 		}
 	}
 
@@ -854,13 +857,16 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 				.getAllStundenplaneintraegeByLehrveranstaltung(a
 						.getId());
 
-		if (lvs != null) {
+		if (lvs.isEmpty()) {
+			
+			this.lehrveranstaltungMapper.delete(a);
+			
+		} else {
+			
 			throw new IllegalArgumentException(
 					"Die von Ihnen ausgewählte Lehrveranstaltung "
 					+ "kann nicht gelöscht werden, da er noch in "
 					+ "einem Stundenplaneintrag verwendet wird!");
-		} else {
-			this.lehrveranstaltungMapper.delete(a);
 		}
 	}
 
@@ -869,13 +875,16 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 		Vector<Stundenplaneintrag> sps = this
 				.getAllStundenplaneintraegeByStundenplan(sp.getId());
 
-		if (sps != null) {
+		if (sps.isEmpty()) {
+			
+			this.stundenplanMapper.delete(sp);
+		} 
+		else {
+			
 			throw new IllegalArgumentException(
 					"Der von Ihnen ausgewählte Studienhalbjahr "
 					+ "kann nicht gelöscht werden, da er noch in "
 					+ "einem Stundenplaneintrag verwendet wird!");
-		} else {
-			this.stundenplanMapper.delete(sp);
 		}
 	}
 
@@ -883,13 +892,16 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 		Vector<Stundenplaneintrag> r = this
 				.getAllStundenplaneintraegeByRaum(a.getId());
 
-		if (r != null) {
+		if (r.isEmpty()) {
+			
+			this.raumMapper.delete(a);
+		} 
+		else {
+			
 			throw new IllegalArgumentException(
 					"Der von Ihnen ausgewählte Raum "
 					+ "kann nicht gelöscht werden, da er noch in "
 					+ "einem Stundenplaneintrag verwendet wird!");
-		} else {
-			this.raumMapper.delete(a);
 		}
 	}
 

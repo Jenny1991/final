@@ -106,7 +106,7 @@ public class RaumForm extends Content {
 
 						@Override
 						public void onFailure(Throwable caught) {
-							Window.alert(caught.getMessage());
+							Window.alert("Der Raum konnte nicht bearbeitet werden.");
 						}
 
 						@Override

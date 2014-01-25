@@ -80,7 +80,7 @@ public class CreateRaum extends Content {
 
 								@Override
 								public void onFailure(Throwable caught) {
-									Window.alert(caught.getMessage());
+									Window.alert("Der Raum konnte nicht angelegt werden.");
 								}
 
 								@Override

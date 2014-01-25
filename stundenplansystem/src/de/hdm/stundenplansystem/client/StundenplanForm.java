@@ -222,7 +222,7 @@ public class StundenplanForm extends Content {
 		verwaltungsSvc.deleteStundenplan(shownSp,
 				new AsyncCallback<Void>() {
 					public void onFailure(Throwable caught) {
-						Window.alert(caught.getMessage());
+						Window.alert("Der Stundenplan konnte nicht gelöscht werden.");
 					}
 
 					public void onSuccess(Void result) {

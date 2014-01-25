@@ -166,7 +166,7 @@ public class SemesterverbandForm extends Content {
 				new AsyncCallback<Void>() {
 					@Override
 					public void onFailure(Throwable caught) {
-						Window.alert(caught.getMessage());
+						Window.alert("Der Semesterverband konnt nicht gelöscht werden.");
 					}
 
 					@Override

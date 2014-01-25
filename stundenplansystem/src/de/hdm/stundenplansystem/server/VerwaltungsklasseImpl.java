@@ -949,6 +949,11 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 				|| sv.getJahrgang().matches(
 						"[A-Z]+" + " " + "[0-9]+" + "/" + "[0-9]+"))
 		{
+			
+			String bezeichnung = this.getStudiengangById(
+					sv.getStudiengangId()).getBezeichnung();
+			String kuerzel = bezeichnung.substring(0, 2);
+			sv.setKuerzel(kuerzel);
 
 			this.semesterverbandMapper.update(sv);
 

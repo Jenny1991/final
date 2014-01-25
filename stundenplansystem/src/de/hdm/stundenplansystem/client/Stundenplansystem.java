@@ -23,7 +23,7 @@ import com.google.gwt.user.client.ui.DockLayoutPanel;
 	public class Stundenplansystem implements EntryPoint {
 		
 		final ScrollPanel navigation = new ScrollPanel();
-	    public VerticalPanel detailsPanel = new VerticalPanel(); 
+	    public ScrollPanel detailsPanel = new ScrollPanel(); 
 		
 		/**
 		* Jede Klasse enthält eine Überschrift, die definiert, was der User machen kann. 

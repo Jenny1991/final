@@ -149,45 +149,72 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
      */
     Row headline = new Row();
 
-    /*
-     * Erzeugen einer StundenplanTabelle mit 6 Spalten für jeden Wochentag.
-     */
-    headline.addColumn(new Column("Montag"));
-    headline.addColumn(new Column("Dienstag"));
-    headline.addColumn(new Column("Mittwoch"));
-    headline.addColumn(new Column("Donnerstag"));
-    headline.addColumn(new Column("Freitag"));
-    headline.addColumn(new Column("Samstag"));
+	  /*
+	   * Erzeugen einer StundenplanTabelle mit 7 Spalten, eine Leere, unter diese die jeweiligen Zeiten kommen, 
+	   * und eine für jeden Wochentag.
+	   */
+	  headline.addColumn(new Column("      "));
+	  headline.addColumn(new Column("Montag"));
+	  headline.addColumn(new Column("Dienstag"));
+	  headline.addColumn(new Column("Mittwoch"));
+	  headline.addColumn(new Column("Donnerstag"));
+	  headline.addColumn(new Column("Freitag"));
+	  headline.addColumn(new Column("Samstag"));
 
-    // Hinzufügen der Kopfzeile
-    result.addRow(headline);
-    
-    Row accountRow = new Row();
-    
-    /*
-     * Nun werden sämtliche Stundenplaneintraege des Dozenten ausgelesen und in die Tabelle eingetragen.
-     */ 
-    for(int i = 1; i < 37; i++){
+	  // Hinzufügen der Kopfzeile
+	  result.addRow(headline);
+	  
+	  Row accountRow = new Row();
+	  
+	  /*
+	   * hilfsvariable für den Zeitslot
+	   * mit ihrer Hilfe kann an jedem Zeilenanfang die richtige Uhrzeit geschrieben werden.
+	   */
+	  
+	  int hilfsZeitslotId = 1;
+
+	  accountRow.addColumn(new Column(verwaltung.getZeitslotById(hilfsZeitslotId).toString()));
+	  
+	  hilfsZeitslotId = hilfsZeitslotId + 6;
+
+	  /*
+	  * Nun werden sämtliche Stundenplaneintraege des Dozenten ausgelesen und in die Tabelle eingetragen.
+	  * Dabei läuft die For-Schleife die Anzahl der Zeitslot durch und überprüft auf vorhandene Daten.
+	  */ 
+
+	  for(int i = 1; i < 37; i++){
     	
     	Stundenplaneintrag aktuell = this.verwaltung.getStundenplaneintragByDozentAndZeitslot(d.getId(), i);
     	
-    	if(aktuell != null){
-    		accountRow.addColumn(new Column(verwaltung.getZeitslotById(aktuell.getZeitslotId()).toString()+ "/n"+
-    		verwaltung.getLehrveranstaltungById(aktuell.getLehrveranstaltungId()).toString()+ "/n"+ 
-    		verwaltung.getRaumById(aktuell.getRaumId()).toString()));
-    	} else {
-			accountRow.addColumn(new Column("----"));
-		}
-    	
-    	if (i == 6 | i == 12 | i == 18 | i == 24 | i == 30)
-    		result.addRow(accountRow);
-    		accountRow = new Row();
-    }
-    /*
-     * Zum Schluss müssen wir noch den fertigen Report zurückgeben.
-     */
-    return result;
-  }
+    	 if(aktuell != null){
+			  accountRow.addColumn(new Column(
+
+					  verwaltung.getLehrveranstaltungById(aktuell.getLehrveranstaltungId()).toString()+"/n"+ 
+					  verwaltung.getRaumById(aktuell.getRaumId()).toString()));
+
+		  } 
+		  else {
+			  		accountRow.addColumn(new Column("----"));
+		  }
+    	 
+    	 /*
+    	  * Folgend wird am Ende der Zeile, die Reihe dem Gesamten hinzugefügt und eine neue Reihe erzeugt,
+    	  * welche mit der jeweiligen Uhrzeit beginnt 
+    	  */
+
+		  if (i == 6 | i == 12 | i == 18 | i == 24 | i == 30){
+			  
+			  result.addRow(accountRow);
+			  accountRow = new Row();
+			  accountRow.addColumn(new Column(verwaltung.getZeitslotById(hilfsZeitslotId).toString()));
+			  hilfsZeitslotId = hilfsZeitslotId + 6;
+			  }
+		  }
+	  /*
+	   * Zum Schluss müssen wir noch den fertigen Report zurückgeben.
+	   */  
+	 return result;
+	 }
 
 public void setRaum(Raum r) throws IllegalArgumentException {
 	this.verwaltung.setRaum(r);
@@ -249,8 +276,10 @@ public RaumbelegungsReport createRaumbelungsReport(int raumId)
   Row headline = new Row();
 
   /*
-   * Erzeugen einer StundenplanTabelle mit 6 Spalten für jeden Wochentag.
+   * Erzeugen einer StundenplanTabelle mit 7 Spalten, eine Leere, unter diese die jeweiligen Zeiten kommen, 
+   * und eine für jeden Wochentag.
    */
+  headline.addColumn(new Column("      "));
   headline.addColumn(new Column("Montag"));
   headline.addColumn(new Column("Dienstag"));
   headline.addColumn(new Column("Mittwoch"));
@@ -264,28 +293,53 @@ public RaumbelegungsReport createRaumbelungsReport(int raumId)
   Row accountRow = new Row();
   
   /*
+   * hilfsvariable für den Zeitslot
+   * mit ihrer Hilfe kann an jedem Zeilenanfang die richtige Uhrzeit geschrieben werden.
+   */
+  
+  int hilfsZeitslotId = 1;
+
+  accountRow.addColumn(new Column(verwaltung.getZeitslotById(hilfsZeitslotId).toString()));
+  
+  hilfsZeitslotId = hilfsZeitslotId + 6;
+
+  /*
    * Nun werden sämtliche Stundenplaneintraege des Raumes ausgelesen und in die Tabelle eingetragen.
+   * Dabei läuft die For-Schleife die Anzahl der Zeitslot durch und überprüft auf vorhandene Daten.
    */ 
+  
   for(int i = 1; i < 37; i++){
   	
   	Stundenplaneintrag aktuell = this.verwaltung.getStundenplaneintragByRaumAndZeitslot(r.getId(), i);
   	
-  	if(aktuell != null){
-  		accountRow.addColumn(new Column(verwaltung.getZeitslotById(aktuell.getZeitslotId()).toString()+ "/n"+
-  		verwaltung.getLehrveranstaltungById(aktuell.getLehrveranstaltungId()).toString()+ "/n"+ 
-  		verwaltung.getRaumById(aktuell.getRaumId()).toString()));
-  	} else {
-			accountRow.addColumn(new Column("----"));
-		}
-  	
-  	if (i == 6 | i == 12 | i == 18 | i == 24 | i == 30)
-  		result.addRow(accountRow);
-  		accountRow = new Row();
-  }
-  /*
-   * Zum Schluss müssen wir noch den fertigen Report zurückgeben.
-   */
-  return result;
+  	 if(aktuell != null){
+		  accountRow.addColumn(new Column(
+
+				  verwaltung.getLehrveranstaltungById(aktuell.getLehrveranstaltungId()).toString()+"/n"+ 
+				  verwaltung.getRaumById(aktuell.getRaumId()).toString()));
+
+	  } 
+	  else {
+		  		accountRow.addColumn(new Column("----"));
+	  }
+  	 
+  	 /*
+	  * Folgend wird am Ende der Zeile, die Reihe dem Gesamten hinzugefügt und eine neue Reihe erzeugt,
+	  * welche mit der jeweiligen Uhrzeit beginnt 
+	  */
+
+	  if (i == 6 | i == 12 | i == 18 | i == 24 | i == 30){
+		  
+		  result.addRow(accountRow);
+		  accountRow = new Row();
+		  accountRow.addColumn(new Column(verwaltung.getZeitslotById(hilfsZeitslotId).toString()));
+		  hilfsZeitslotId = hilfsZeitslotId + 6;
+		  }
+	  }
+ /*
+  * Zum Schluss müssen wir noch den fertigen Report zurückgeben.
+  */  
+return result;
 }
 
 
@@ -352,7 +406,8 @@ public StundenplanSemesterverbandReport createStundenplanSemesterverbandReport(
 	  Row headline = new Row();
 
 	  /*
-	   * Erzeugen einer StundenplanTabelle mit 6 Spalten für jeden Wochentag.
+	   * Erzeugen einer StundenplanTabelle mit 7 Spalten, eine Leere, unter diese die jeweiligen Zeiten kommen, 
+	   * und eine für jeden Wochentag.
 	   */
 	  headline.addColumn(new Column("      "));
 	  headline.addColumn(new Column("Montag"));
@@ -366,15 +421,23 @@ public StundenplanSemesterverbandReport createStundenplanSemesterverbandReport(
 	  result.addRow(headline);
 	  
 	  Row accountRow = new Row();
-
-	  accountRow.addColumn(new Column(verwaltung.getZeitslotById(1).toString()));
-
+	  
 	  /*
-	  * Nun werden sämtliche Stundenplaneintraege des Semsterverbandes ausgelesen und in die Tabelle eingetragen.
-	  */ 
+	   * hilfsvariable für den Zeitslot
+	   * mit ihrer Hilfe kann an jedem Zeilenanfang die richtige Uhrzeit geschrieben werden.
+	   */
 	  
 	  int hilfsZeitslotId = 1;
 
+	  accountRow.addColumn(new Column(verwaltung.getZeitslotById(hilfsZeitslotId).toString()));
+	  
+	  hilfsZeitslotId = hilfsZeitslotId + 6;
+
+	  /*
+	   * Nun werden sämtliche Stundenplaneintraege des Semesterverbandes ausgelesen und in die Tabelle eingetragen.
+	   * Dabei läuft die For-Schleife die Anzahl der Zeitslot durch und überprüft auf vorhandene Daten.
+	   */ 
+	  
 	  for(int i = 1; i < 37; i++){
 
 		  Stundenplaneintrag aktuell = this.verwaltung.getStundenplaneintragBySemesterverbandAndZeitslot(sv.getId(), i, sp.getId());
@@ -389,6 +452,11 @@ public StundenplanSemesterverbandReport createStundenplanSemesterverbandReport(
 		  else {
 			  		accountRow.addColumn(new Column("----"));
 		  }
+		  
+		  /*
+	    	  * Folgend wird am Ende der Zeile, die Reihe dem Gesamten hinzugefügt und eine neue Reihe erzeugt,
+	    	  * welche mit der jeweiligen Uhrzeit beginnt 
+	    	  */
 
 		  if (i == 6 | i == 12 | i == 18 | i == 24 | i == 30){
 			  

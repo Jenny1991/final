@@ -1005,9 +1005,27 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 
 	public void changeStundenplaneintrag(Stundenplaneintrag s)
 			throws IllegalArgumentException {
+		
+		Dozent dozent = this.getDozentById(s.getDozentId());
+		Lehrveranstaltung lehrveranstaltung = this
+				.getLehrveranstaltungById(s.getLehrveranstaltungId());
+		Raum raum = this.getRaumById(s.getRaumId());
+		Zeitslot zeitslot = this.getZeitslotById(s.getZeitslotId());
+		Stundenplan stundenplan = this.getStundenplanById(s.getStundenplanId());
+
+		if (dozent == null || lehrveranstaltung == null
+				|| raum == null || zeitslot == null
+				|| stundenplan == null) {
+
+			throw new IllegalArgumentException(
+					"Eines der ausgewählten Objekte existiert "
+					+ "nicht mehr und kann somit nicht für ein "
+					+ "Stundenplaneintrag ausgewählt werden.");
+			
+		} else {
 		this.stundenplaneintragMapper.update(s);
 	}
-
+	}
 	public void changeLehrveranstaltung(Lehrveranstaltung l)
 			throws IllegalArgumentException {
 		this.lehrveranstaltungMapper.update(l);

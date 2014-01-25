@@ -76,7 +76,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * @see Verwaltungsklasse
  * @see VerwaltungsklasseAsync
  * @see RemoteServiceServlet
- * @author Thies & L.Hofmann & Holz
+ * @author thies & l.hofmann & holz
  */
 
 @SuppressWarnings("serial")

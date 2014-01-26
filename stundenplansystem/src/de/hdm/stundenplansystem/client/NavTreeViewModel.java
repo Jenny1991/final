@@ -27,7 +27,7 @@ import de.hdm.stundenplansystem.shared.bo.Stundenplaneintrag;
  * unter GWT entsprechend anordnen.
  * Des Weiteren implementiert sie das Interface {@link TreeViewModel}
  * 
- * @author Thies, Espich, V. Hofmann
+ * @author Thies, V. Hofmann
  * @version 1.0
  */
 public class NavTreeViewModel extends Content implements

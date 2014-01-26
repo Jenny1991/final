@@ -201,7 +201,7 @@ public class ZeitslotMapper {
 							+ " INNER JOIN stundenplaneintrag"
 							+ " ON stundenplaneintrag.zeitslotid = zeitslot.id"
 							+ " WHERE stundenplaneintrag.stundenplanid = " + stundenplanid + ")"
-							+ " ORDER BY find_in_set(zeitslot.wochentag,'Montag,Dienstag,Mittwoch,Donnerstag,Freitag,Samstag') AND zeitslot.anfangszeit");
+							+ " ORDER BY find_in_set(zeitslot.wochentag,'Montag,Dienstag,Mittwoch,Donnerstag,Freitag,Samstag'), zeitslot.anfangszeit");
 			
 			
 			

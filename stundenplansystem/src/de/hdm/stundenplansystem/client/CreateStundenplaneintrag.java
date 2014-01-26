@@ -61,9 +61,6 @@ public class CreateStundenplaneintrag extends Content {
 	final ListBox listLehrveranstaltung = new ListBox();
 	final ListBox listStudiengang = new ListBox();
 	final Button speichern = new Button("speichern");
-	
-	final VerwaltungsklasseAsync verwaltungsSvc = GWT
-			.create(Verwaltungsklasse.class);
 
 	Vector<Dozent> dozentenContainer = null;
 	Vector<Zeitslot> zeitslotContainer = null;
@@ -72,6 +69,9 @@ public class CreateStundenplaneintrag extends Content {
 	Vector<Semesterverband> svContainer = null;
 	Vector<Lehrveranstaltung> lvContainer = null;
 	Vector<Studiengang> sgContainer = null;
+
+	final VerwaltungsklasseAsync verwaltungsSvc = GWT
+			.create(Verwaltungsklasse.class);
 	NavTreeViewModel tvm = null;
 
 	/**
@@ -167,6 +167,21 @@ public class CreateStundenplaneintrag extends Content {
 				ladeAlleZeitslots();
 			}
 		});
+		
+		listDozent.addChangeHandler(new ChangeHandler() {
+			@Override
+			public void onChange(ChangeEvent event) {
+				ladeAlleZeitslots();
+			}
+		});
+		
+		listStudienhj.addChangeHandler(new ChangeHandler() {
+			@Override
+			public void onChange(ChangeEvent event) {
+				ladeAlleZeitslots();
+			}
+		});
+		
 	}
 
 	public void getSemesterverband() {
@@ -194,7 +209,7 @@ public class CreateStundenplaneintrag extends Content {
 	public void getStundenplan() {
 		listStudienhj.clear();
 		verwaltungsSvc.getStundenplaeneBySemesterverband(svContainer
-				.elementAt(listStudiengang.getSelectedIndex())
+				.elementAt(listSemesterverband.getSelectedIndex())
 				.getId(), new AsyncCallback<Vector<Stundenplan>>() {
 			public void onFailure(Throwable caught) {
 			}
@@ -253,6 +268,7 @@ public class CreateStundenplaneintrag extends Content {
 				});
 	}
 
+	
 	public void ladeAlleRaeume() {
 		listRaum.clear();
 		verwaltungsSvc

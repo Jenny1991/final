@@ -1,6 +1,3 @@
-/**
- * 
- */
 package de.hdm.stundenplansystem.client;
 
 import java.util.List;
@@ -25,15 +22,14 @@ import de.hdm.stundenplansystem.shared.bo.Stundenplan;
 import de.hdm.stundenplansystem.shared.bo.Stundenplaneintrag;
 
 /** 
-/**
- * @author C. Rathke, V. Hofmann, J. Espich
- *
- */
-
-/**
  * Die NavTreeViewModel Klasse definiert den flexiblen Baum für die Navigation durch unser System.
+ * Diese Klasse erbt von der Klasse Content und lässt sich somit 
+ * unter GWT entsprechend anordnen.
+ * Des Weiteren implementiert sie das Interface {@link TreeViewModel}
+ * 
+ * @author Thies, Espich, V. Hofmann
+ * @version 1.0
  */
-
 public class NavTreeViewModel extends Content implements
 		TreeViewModel {
 
@@ -72,7 +68,7 @@ public class NavTreeViewModel extends Content implements
 
 
 	/**
-	 * Hier wird ein remote service proxy erstellt, welches uns erlaubt 
+	 * Hier wird ein Remote Service Proxy erstellt, welches uns erlaubt 
 	 * mit dem serverseitigen Verwaltungsservice zu kommunizieren.
 	 */
 	private VerwaltungsklasseAsync verwaltungsSvc = GWT
@@ -103,16 +99,17 @@ public class NavTreeViewModel extends Content implements
 	 */
 	private Stundenplansystem sps;
 
-	
 	/**
 	 * Hier wird das Selektionsverhalten definiert.
-	 * Die Andwendung des {@link ProvidesKey} stellt den Key für die ListItems
+	 * Die Anwendung des {@link ProvidesKey} stellt den Key für die ListItems
 	 * bereit, so dass Items, welche als eindeutige Items behandelt werden, eindeutige
 	 * Key besitzen.
 	 */
 	private ProvidesKey<Object> boKeyProvider = new ProvidesKey<Object>() {
+		
 		/**
-		 * Die Methode <code>getKey</code> erhält den Key von einem ListItem.
+		 * Die Methode <code>getKey()</code> erhält den Key von einem ListItem.
+		 * 
 		 * @param object als ListItem
 		 * @return den Key, welches das Item repräsentiert.
 		 */
@@ -167,7 +164,6 @@ public class NavTreeViewModel extends Content implements
 	 */
 	private SingleSelectionModel<Object> selectionModel = new SingleSelectionModel<Object>(
 			boKeyProvider);
-	
 
 	/**
 	 * Aufbau der Baumdarstellung
@@ -258,25 +254,27 @@ public class NavTreeViewModel extends Content implements
 		rsd.setTvm(this);
 
 		this.sps = sps;
-
 		
 		/**
-		 * Durch die Methode <code>addSelectionChangeHandler</code> wird dem 
+		 * Durch die Methode <code>addSelectionChangeHandler()</code> wird dem 
+		 * 
 		 * @param selectionModel ein ChangeHandlers zugewiesen. 
 		 */
 		selectionModel
 				.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 
 					/**
-					 * Die Methode <code>onSelectionChange</code> definiert das
+					 * Die Methode <code>onSelectionChange()</code> definiert das
 					 * auszuführende Event, beim Klicken des Items.
+					 * 
 					 * @param selection
 					 */
 					@Override
 					public void onSelectionChange(
 							SelectionChangeEvent event) {
+						
 						/**
-						 * Die Methode <code>getSelectedObject</code> selektiert das
+						 * Die Methode <code>getSelectedObject()</code> selektiert das
 						 * ausgewählte Item und überprüft im nachfolgenden Verlauf
 						 * welches Item ausgewählt wurde und welches Event dafür
 						 * ausgeführt werden soll.
@@ -403,6 +401,7 @@ public class NavTreeViewModel extends Content implements
 
 	/**
 	 * Liest den gewählten Dozenten aus.
+	 * 
 	 * @return selectedDozent den ausgewählten Dozent
 	 */
 	Dozent getSelectedDozent() {
@@ -411,7 +410,7 @@ public class NavTreeViewModel extends Content implements
 
 	/**
 	 * Ruft die in der EntryPoint Klasse definierte Methode 
-	 * <code>createDozentForm</code> auf 
+	 * <code>createDozentForm()</code> auf 
 	 * {@link Stundenplansystem}
 	 */
 	void setCreateDozent() {
@@ -421,7 +420,8 @@ public class NavTreeViewModel extends Content implements
 	/**
 	 * Übergibt der Klasse DozentForm {@link DozentForm} den ausgewählten 
 	 * Dozenten und ruft die in der Klasse {@link Stundenplansystem} definierte
-	 * Methode <code>showDozentForm</code> auf.
+	 * Methode <code>showDozentForm()</code> auf.
+	 * 
 	 * @param d
 	 */
 	void setSelectedDozent(Dozent d) {
@@ -432,6 +432,7 @@ public class NavTreeViewModel extends Content implements
 
 	/**
 	 * Liest die gewählte Lehrveranstaltung aus.
+	 * 
 	 * @return selectedLv die ausgewählte Lehrveranstaltung
 	 */
 	Lehrveranstaltung getSelectedLv() {
@@ -440,7 +441,7 @@ public class NavTreeViewModel extends Content implements
 	
 	/**
 	 * Ruft die in der EntryPoint Klasse definierte Methode 
-	 * <code>createLvForm</code> auf 
+	 * <code>createLvForm()</code> auf 
 	 * {@link Stundenplansystem}
 	 */
 	void setCreateLehrveranstaltung() {
@@ -450,7 +451,8 @@ public class NavTreeViewModel extends Content implements
 	/**
 	 * Übergibt der Klasse LehrveranstaltungForm {@link LehrveranstaltungForm} die ausgewählte 
 	 * Lehrveranstaltung und ruft die in der Klasse {@link Stundenplansystem} definierte
-	 * Methode <code>showLehrveranstaltungForm</code> auf.
+	 * Methode <code>showLehrveranstaltungForm()</code> auf.
+	 * 
 	 * @param lv
 	 */
 	void setSelectedLv(Lehrveranstaltung lv) {
@@ -461,6 +463,7 @@ public class NavTreeViewModel extends Content implements
 
 	/**
 	 * Liest den gewählten Raum aus.
+	 * 
 	 * @return selectedRaum den ausgewählten Raum
 	 */
 	Raum getSelectedRaum() {
@@ -469,7 +472,7 @@ public class NavTreeViewModel extends Content implements
 
 	/**
 	 * Ruft die in der EntryPoint Klasse definierte Methode 
-	 * <code>createRaumForm</code> auf 
+	 * <code>createRaumForm()</code> auf 
 	 * {@link Stundenplansystem}
 	 */
 	void setCreateRaum() {
@@ -479,7 +482,8 @@ public class NavTreeViewModel extends Content implements
 	/**
 	 * Übergibt der Klasse RaumForm {@link RaumForm} den ausgewählten 
 	 * Raum und ruft die in der Klasse {@link Stundenplansystem} definierte
-	 * Methode <code>showRaumForm</code> auf.
+	 * Methode <code>showRaumForm()</code> auf.
+	 * 
 	 * @param r
 	 */
 	void setSelectedRaum(Raum r) {
@@ -490,6 +494,7 @@ public class NavTreeViewModel extends Content implements
 
 	/**
 	 * Liest den gewählten Studiengang aus.
+	 * 
 	 * @return selectedSg den ausgewählten Studiengang
 	 */
 	Studiengang getSelectedSg() {
@@ -498,7 +503,7 @@ public class NavTreeViewModel extends Content implements
 
 	/**
 	 * Ruft die in der EntryPoint Klasse definierte Methode 
-	 * <code>createSgForm</code> auf 
+	 * <code>createSgForm()</code> auf 
 	 * {@link Stundenplansystem}
 	 */
 	void setCreateStudiengang() {
@@ -509,7 +514,8 @@ public class NavTreeViewModel extends Content implements
 	 * Übergibt der Klasse StudiengangForm {@link StudiengangForm} 
 	 * den ausgewählten Studiengang und ruft die in der Klasse 
 	 * {@link Stundenplansystem} definierte Methode 
-	 * <code>showStudiengangForm</code> auf.
+	 * <code>showStudiengangForm()</code> auf.
+	 * 
 	 * @param sg
 	 */
 	void setSelectedSg(Studiengang sg) {
@@ -520,6 +526,7 @@ public class NavTreeViewModel extends Content implements
 
 	/**
 	 * Liest den gewählten Semesterverband aus.
+	 * 
 	 * @return selectedSv den ausgewählten Semesterverband
 	 */
 	Semesterverband getSelectedSv() {
@@ -528,7 +535,7 @@ public class NavTreeViewModel extends Content implements
 
 	/**
 	 * Ruft die in der EntryPoint Klasse definierte Methode 
-	 * <code>createSvForm</code> auf 
+	 * <code>createSvForm()</code> auf 
 	 * {@link Stundenplansystem}
 	 */
 	void setCreateSemesterverband() {
@@ -539,7 +546,8 @@ public class NavTreeViewModel extends Content implements
 	 * Übergibt der Klasse SemesterverbandForm {@link SemesterverbandForm} 
 	 * den ausgewählten Semesterverband und ruft die in der Klasse 
 	 * {@link Stundenplansystem} definierte Methode 
-	 * <code>showSemesterverbandForm</code> auf.
+	 * <code>showSemesterverbandForm()</code> auf.
+	 * 
 	 * @param sv
 	 */
 	void setSelectedSv(Semesterverband sv) {
@@ -550,6 +558,7 @@ public class NavTreeViewModel extends Content implements
 
 	/**
 	 * Liest den gewählten Stundenplaneintrag aus.
+	 * 
 	 * @return selectedSpe den ausgewählten Stundenplaneintrag
 	 */
 	Stundenplaneintrag getSelectedStundenplaneintrag() {
@@ -558,7 +567,7 @@ public class NavTreeViewModel extends Content implements
 
 	/**
 	 * Ruft die in der EntryPoint Klasse definierte Methode 
-	 * <code>createSpeForm</code> auf 
+	 * <code>createSpeForm()</code> auf 
 	 * {@link Stundenplansystem}
 	 */
 	void setCreateStundenplaneintrag() {
@@ -569,7 +578,8 @@ public class NavTreeViewModel extends Content implements
 	 * Übergibt der Klasse StundenplaneintragForm {@link StundenplaneintragForm} 
 	 * den ausgewählten Stundenplaneintrag und ruft die in der Klasse 
 	 * {@link Stundenplansystem} definierte Methode 
-	 * <code>showSpeForm</code> auf.
+	 * <code>showSpeForm()</code> auf.
+	 * 
 	 * @param spe
 	 */
 	void setSelectedStundenplaneintrag(Stundenplaneintrag spe) {
@@ -580,6 +590,7 @@ public class NavTreeViewModel extends Content implements
 
 	/**
 	 * Liest den gewählten Stundenplan aus.
+	 * 
 	 * @return selectedSp den ausgewählten Stundenplan
 	 */
 	Stundenplan getSelectedStudienhalbjahr() {
@@ -588,7 +599,7 @@ public class NavTreeViewModel extends Content implements
 
 	/**
 	 * Ruft die in der EntryPoint Klasse definierte Methode 
-	 * <code>createStundenplanForm</code> auf 
+	 * <code>createStundenplanForm()</code> auf 
 	 * {@link Stundenplansystem}
 	 */
 	void setCreateStudienhalbjahr() {
@@ -599,7 +610,8 @@ public class NavTreeViewModel extends Content implements
 	 * Übergibt der Klasse StundenplanForm {@link StundenplanForm} 
 	 * den ausgewählten Stundenplan und ruft die in der Klasse 
 	 * {@link Stundenplansystem} definierte Methode 
-	 * <code>showStundenplanForm</code> auf.
+	 * <code>showStundenplanForm()</code> auf.
+	 * 
 	 * @param sp
 	 */
 	void setSelectedStudienhalbjahr(Stundenplan sp) {
@@ -610,7 +622,7 @@ public class NavTreeViewModel extends Content implements
 
 	/**
 	 * Ruft die in der EntryPoint Klasse definierte Methode 
-	 * <code>showReportRaum</code> auf 
+	 * <code>showReportRaum()</code> auf 
 	 * {@link Stundenplansystem}
 	 */
 	void setReportRaum() {
@@ -619,7 +631,7 @@ public class NavTreeViewModel extends Content implements
 
 	/**
 	 * Ruft die in der EntryPoint Klasse definierte Methode 
-	 * <code>showReportStundenplan</code> auf 
+	 * <code>showReportStundenplan()</code> auf 
 	 * {@link Stundenplansystem}
 	 */
 	void setReportStundenplan() {
@@ -628,7 +640,7 @@ public class NavTreeViewModel extends Content implements
 
 	/**
 	 * Ruft die in der EntryPoint Klasse definierte Methode 
-	 * <code>showReportStundenplanDozent</code> auf 
+	 * <code>showReportStundenplanDozent()</code> auf 
 	 * {@link Stundenplansystem}
 	 */
 	void setReportStundenplanDozent() {
@@ -638,6 +650,7 @@ public class NavTreeViewModel extends Content implements
 	/**
 	 * Fügt dem Baum den in der Klasse {@link CreateDozent} erstellten
 	 * Dozent hinzu.
+	 * 
 	 * @param dozent erstellter Dozent wird der Liste hinzugefügt
 	 */
 	void addDozent(Dozent dozent) {
@@ -647,6 +660,7 @@ public class NavTreeViewModel extends Content implements
 	/**
 	 * Fügt dem Baum den in der Klasse {@link CreateRaum} erstellten
 	 * Raum hinzu.
+	 * 
 	 * @param raum erstellter Raum wird der Liste hinzugefügt
 	 */
 	void addRaum(Raum raum) {
@@ -656,6 +670,7 @@ public class NavTreeViewModel extends Content implements
 	/**
 	 * Fügt dem Baum den in der Klasse {@link CreateStudiengang} erstellten
 	 * Studiengang hinzu.
+	 * 
 	 * @param studiengang erstellter Studiengang wird der Liste hinzugefügt
 	 */
 	void addStudiengang(Studiengang studiengang) {
@@ -665,6 +680,7 @@ public class NavTreeViewModel extends Content implements
 	/**
 	 * Fügt dem Baum den in der Klasse {@link CreateSemesterverband} erstellten
 	 * Semesterverband hinzu.
+	 * 
 	 * @param semesterverband erstellter Semesterverband wird der Liste hinzugefügt
 	 */
 	void addSemesterverband(Semesterverband semesterverband) {
@@ -674,6 +690,7 @@ public class NavTreeViewModel extends Content implements
 	/**
 	 * Fügt dem Baum den in der Klasse {@link CreateLehrveranstaltung} erstellten
 	 * Lehrveranstaltung hinzu.
+	 * 
 	 * @param lehrveranstaltung erstellter Lehrveranstaltung wird der Liste hinzugefügt
 	 */
 	void addLehrveranstaltung(Lehrveranstaltung lehrveranstaltung) {
@@ -683,6 +700,7 @@ public class NavTreeViewModel extends Content implements
 	/**
 	 * Fügt dem Baum den in der Klasse {@link CreateStundenplaneintrag} erstellten
 	 * Stundenplaneintrag hinzu.
+	 * 
 	 * @param stundenplaneintrag erstellter Stundenplaneintrag wird der Liste hinzugefügt
 	 */
 	void addStundenplaneintrag(Stundenplaneintrag stundenplaneintrag) {
@@ -692,6 +710,7 @@ public class NavTreeViewModel extends Content implements
 	/**
 	 * Fügt dem Baum den in der Klasse {@link CreateStundenplan} erstellten
 	 * Stundenplan hinzu.
+	 * 
 	 * @param stundenplan erstellter Stundenplan wird der Liste hinzugefügt
 	 */
 	void addStundenplan(Stundenplan stundenplan) {
@@ -700,8 +719,9 @@ public class NavTreeViewModel extends Content implements
 
 	/**
 	 * Aktualisiert im Baum den in der Klasse {@link DozentForm} bearbeiteten
-	 * Dozenten. Die Methode <code>refresh</code> sorgt dafür, dass der Baum
+	 * Dozenten. Die Methode <code>refresh()</code> sorgt dafür, dass der Baum
 	 * sofort aktualisiert wird.
+	 * 
 	 * @param dozent bearbeiteter Dozent wird in der Liste aktualisiert
 	 */
 	void updateDozent(Dozent dozent) {
@@ -720,8 +740,9 @@ public class NavTreeViewModel extends Content implements
 
 	/**
 	 * Aktualisiert im Baum den in der Klasse {@link RaumForm} bearbeiteten
-	 * Raum. Die Methode <code>refresh</code> sorgt dafür, dass der Baum
+	 * Raum. Die Methode <code>refresh()</code> sorgt dafür, dass der Baum
 	 * sofort aktualisiert wird.
+	 * 
 	 * @param raum bearbeiteter Raum wird in der Liste aktualisiert
 	 */
 	void updateRaum(Raum raum) {
@@ -741,8 +762,9 @@ public class NavTreeViewModel extends Content implements
 	/**
 	 * Aktualisiert im Baum die in der Klasse {@link LehrveranstaltungForm} 
 	 * bearbeitete Lehrveranstaltung. 
-	 * Die Methode <code>refresh</code> sorgt dafür, dass der Baum sofort 
+	 * Die Methode <code>refresh()</code> sorgt dafür, dass der Baum sofort 
 	 * aktualisiert wird.
+	 * 
 	 * @param lehrveranstaltung bearbeitete Lehrveranstaltung wird in der 
 	 * Liste aktualisiert
 	 */
@@ -763,8 +785,9 @@ public class NavTreeViewModel extends Content implements
 	/**
 	 * Aktualisiert im Baum den in der Klasse {@link StudiengangForm} 
 	 * bearbeiteten Studiengang. 
-	 * Die Methode <code>refresh</code> sorgt dafür, dass der Baum sofort 
+	 * Die Methode <code>refresh()</code> sorgt dafür, dass der Baum sofort 
 	 * aktualisiert wird.
+	 * 
 	 * @param studiengang bearbeiteter Studiengang wird in der 
 	 * Liste aktualisiert
 	 */
@@ -785,8 +808,9 @@ public class NavTreeViewModel extends Content implements
 	/**
 	 * Aktualisiert im Baum den in der Klasse {@link SemesterverbandForm} 
 	 * bearbeiteten Semesterverband. 
-	 * Die Methode <code>refresh</code> sorgt dafür, dass der Baum sofort 
+	 * Die Methode <code>refresh()</code> sorgt dafür, dass der Baum sofort 
 	 * aktualisiert wird.
+	 * 
 	 * @param semesterverband bearbeiteter Semesterverband wird in der 
 	 * Liste aktualisiert
 	 */
@@ -807,8 +831,9 @@ public class NavTreeViewModel extends Content implements
 	/**
 	 * Aktualisiert im Baum den in der Klasse {@link StundenplaneintragForm} 
 	 * bearbeiteten Stundenplaneintrag. 
-	 * Die Methode <code>refresh</code> sorgt dafür, dass der Baum sofort 
+	 * Die Methode <code>refresh()</code> sorgt dafür, dass der Baum sofort 
 	 * aktualisiert wird.
+	 * 
 	 * @param stundenplaneintrag bearbeiteter Stundenplaneintrag wird in der 
 	 * Liste aktualisiert
 	 */
@@ -829,8 +854,9 @@ public class NavTreeViewModel extends Content implements
 	/**
 	 * Aktualisiert im Baum den in der Klasse {@link StundenplanForm} 
 	 * bearbeiteten Stundenplan. 
-	 * Die Methode <code>refresh</code> sorgt dafür, dass der Baum sofort 
+	 * Die Methode <code>refresh()</code> sorgt dafür, dass der Baum sofort 
 	 * aktualisiert wird.
+	 * 
 	 * @param studienhalbjahr bearbeiteter Stundenplan wird in der 
 	 * Liste aktualisiert
 	 */
@@ -850,8 +876,9 @@ public class NavTreeViewModel extends Content implements
 	}
 
 	/**
-	 * Die Methode <code>remove</code> sorgt direkt für das Löschen
+	 * Die Methode <code>remove()</code> sorgt direkt für das Löschen
 	 * des ausgewählten Dozenten.
+	 * 
 	 * @param dozent wird aus dem Baum gelöscht
 	 */
 	void deleteDozent(Dozent dozent) {
@@ -859,8 +886,9 @@ public class NavTreeViewModel extends Content implements
 	}
 
 	/**
-	 * Die Methode <code>remove</code> sorgt direkt für das Löschen
+	 * Die Methode <code>remove()</code> sorgt direkt für das Löschen
 	 * des ausgewählten Raums.
+	 * 
 	 * @param raum wird aus dem Baum gelöscht
 	 */
 	void deleteRaum(Raum raum) {
@@ -868,8 +896,9 @@ public class NavTreeViewModel extends Content implements
 	}
 
 	/**
-	 * Die Methode <code>remove</code> sorgt direkt für das Löschen
+	 * Die Methode <code>remove()</code> sorgt direkt für das Löschen
 	 * der ausgewählten Lehrveranstaltung.
+	 * 
 	 * @param sehrveranstaltung wird aus dem Baum gelöscht
 	 */
 	void deleteLehrveranstaltung(Lehrveranstaltung lehrveranstaltung) {
@@ -886,8 +915,9 @@ public class NavTreeViewModel extends Content implements
 	}
 
 	/**
-	 * Die Methode <code>remove</code> sorgt direkt für das Löschen
+	 * Die Methode <code>remove()</code> sorgt direkt für das Löschen
 	 * des ausgewählten Semesterverbands.
+	 * 
 	 * @param semesterverband wird aus dem Baum gelöscht
 	 */
 	void deleteSemesterverband(Semesterverband semesterverband) {
@@ -895,8 +925,9 @@ public class NavTreeViewModel extends Content implements
 	}
 
 	/**
-	 * Die Methode <code>remove</code> sorgt direkt für das Löschen
+	 * Die Methode <code>remove()</code> sorgt direkt für das Löschen
 	 * des ausgewählten Stundenplaneintrag.
+	 * 
 	 * @param stundenplaneintrag wird aus dem Baum gelöscht
 	 */
 	void deleteSpe(Stundenplaneintrag stundenplaneintrag) {
@@ -904,8 +935,9 @@ public class NavTreeViewModel extends Content implements
 	}
 
 	/**
-	 * Die Methode <code>remove</code> sorgt direkt für das Löschen
+	 * Die Methode <code>remove()</code> sorgt direkt für das Löschen
 	 * des ausgewählten Stundenplans.
+	 * 
 	 * @param studienhalbjahr wird aus dem Baum gelöscht
 	 */
 	void deleteStudienhalbjahr(Stundenplan studienhalbjahr) {
@@ -913,8 +945,9 @@ public class NavTreeViewModel extends Content implements
 	}
 
 	/**
-	 * Die Methode <code>getNodeInfo</code> definiert die Kinder eines
+	 * Die Methode <code>getNodeInfo()</code> definiert die Kinder eines
 	 * Baumknotens, wobei 
+	 * 
 	 * @param value der Wert im Elternknoten
 	 */
 	@Override
@@ -925,6 +958,7 @@ public class NavTreeViewModel extends Content implements
 		 * zugewiesen. 
 		 * Die Instantiierung der Klasse {@link StringCell} führt zur Definition
 		 * der in den Knoten dargestellten Informationen.
+		 * 
 		 * @return DefaultNodeInfo<String> Default implementation of NodeInfo
 		 */
 		if (value instanceof String && (String) value == "Root") {
@@ -937,7 +971,6 @@ public class NavTreeViewModel extends Content implements
 
 			return new DefaultNodeInfo<String>(stringDataProvider,
 					new StringCell(), selectionModel, null);
-
 		}
 
 		/**
@@ -945,6 +978,7 @@ public class NavTreeViewModel extends Content implements
 		 * zugewiesen. 
 		 * Die Instantiierung der Klasse {@link StringCell} führt zur Definition
 		 * der in den Knoten dargestellten Informationen.
+		 * 
 		 * @return DefaultNodeInfo<String> Default implementation of NodeInfo
 		 */
 		if (value instanceof String && (String) value == "Stammdaten") {
@@ -960,7 +994,6 @@ public class NavTreeViewModel extends Content implements
 
 			return new DefaultNodeInfo<String>(stringDataProvider,
 					new StringCell(), selectionModel, null);
-
 		}
 
 		/**
@@ -968,6 +1001,7 @@ public class NavTreeViewModel extends Content implements
 		 * Kinderknoten zugewiesen. 
 		 * Die Instantiierung der Klasse {@link StringCell} führt zur Definition
 		 * der in den Knoten dargestellten Informationen.
+		 * 
 		 * @return DefaultNodeInfo<String> Default implementation of NodeInfo
 		 */
 		if (value instanceof String
@@ -979,14 +1013,14 @@ public class NavTreeViewModel extends Content implements
 
 			return new DefaultNodeInfo<String>(stringDataProvider,
 					new StringCell(), selectionModel, null);
-
-		}
+			}
 
 		/**
 		 * Hier werden dem dritten Elternknoten Report des Baumes die 
 		 * Kinderknoten zugewiesen. 
 		 * Die Instantiierung der Klasse {@link StringCell} führt zur Definition
 		 * der in den Knoten dargestellten Informationen.
+		 * 
 		 * @return DefaultNodeInfo<String> Default implementation of NodeInfo
 		 */
 		if (value instanceof String && (String) value == "Report") {
@@ -1001,7 +1035,6 @@ public class NavTreeViewModel extends Content implements
 
 			return new DefaultNodeInfo<String>(stringDataProvider,
 					new StringCell(), selectionModel, null);
-
 		}
 
 		/**
@@ -1009,6 +1042,7 @@ public class NavTreeViewModel extends Content implements
 		 * Kinderknoten anlegen und verwalten zugewiesen. 
 		 * Die Instantiierung der Klasse {@link StringCell} führt zur Definition
 		 * der in den Knoten dargestellten Informationen.
+		 * 
 		 * @return DefaultNodeInfo<String> Default implementation of NodeInfo
 		 */
 		if (value instanceof String && (String) value == "Dozent") {
@@ -1027,6 +1061,7 @@ public class NavTreeViewModel extends Content implements
 		 * Kinderknoten anlegen und verwalten zugewiesen. 
 		 * Die Instantiierung der Klasse {@link StringCell} führt zur Definition
 		 * der in den Knoten dargestellten Informationen.
+		 * 
 		 * @return DefaultNodeInfo<String> Default implementation of NodeInfo
 		 */
 		if (value instanceof String
@@ -1048,6 +1083,7 @@ public class NavTreeViewModel extends Content implements
 		 * Kinderknoten anlegen und verwalten zugewiesen. 
 		 * Die Instantiierung der Klasse {@link StringCell} führt zur Definition
 		 * der in den Knoten dargestellten Informationen.
+		 * 
 		 * @return DefaultNodeInfo<String> Default implementation of NodeInfo
 		 */
 		if (value instanceof String
@@ -1069,6 +1105,7 @@ public class NavTreeViewModel extends Content implements
 		 * Kinderknoten anlegen und verwalten zugewiesen. 
 		 * Die Instantiierung der Klasse {@link StringCell} führt zur Definition
 		 * der in den Knoten dargestellten Informationen.
+		 * 
 		 * @return DefaultNodeInfo<String> Default implementation of NodeInfo
 		 */
 		if (value instanceof String
@@ -1088,6 +1125,7 @@ public class NavTreeViewModel extends Content implements
 		 * Kinderknoten anlegen und verwalten zugewiesen. 
 		 * Die Instantiierung der Klasse {@link StringCell} führt zur Definition
 		 * der in den Knoten dargestellten Informationen.
+		 * 
 		 * @return DefaultNodeInfo<String> Default implementation of NodeInfo
 		 */
 		if (value instanceof String && (String) value == "Raum") {
@@ -1106,6 +1144,7 @@ public class NavTreeViewModel extends Content implements
 		 * Kinderknoten anlegen und verwalten zugewiesen. 
 		 * Die Instantiierung der Klasse {@link StringCell} führt zur Definition
 		 * der in den Knoten dargestellten Informationen.
+		 * 
 		 * @return DefaultNodeInfo<String> Default implementation of NodeInfo
 		 */
 		if (value instanceof String
@@ -1125,6 +1164,7 @@ public class NavTreeViewModel extends Content implements
 		 * Kinderknoten anlegen und verwalten zugewiesen. 
 		 * Die Instantiierung der Klasse {@link StringCell} führt zur Definition
 		 * der in den Knoten dargestellten Informationen.
+		 * 
 		 * @return DefaultNodeInfo<String> Default implementation of NodeInfo
 		 */
 		if (value instanceof String
@@ -1144,11 +1184,14 @@ public class NavTreeViewModel extends Content implements
 		/**
 		 * Hier werden dem Kinderknoten Dozent verwalten des Baumes die erstellten
 		 * Objekte hinzugefügt.
-		 * Durch den Aufruf des @param verwaltungsSvc mit der Methode 
-		 * <code>getAllDozenten</code> werden die in der Datenbank gespeicherten 
-		 * Dozenten dem Baum hinzugefügt. 
+		 * Durch den Aufruf des 
+		 * 
+		 * @param verwaltungsSvc mit der Methode <code>getAllDozenten()</code> 
+		 * 				werden die in der Datenbank gespeicherten Dozenten dem Baum hinzugefügt. 
+		 * 
 		 * Die Instantiierung der Klasse {@link DozentCell} führt zur Definition
 		 * der in den Knoten dargestellten Informationen.
+		 * 
 		 * @return DefaultNodeInfo<Dozent> Default implementation of NodeInfo
 		 */
 		if (value instanceof String
@@ -1175,10 +1218,11 @@ public class NavTreeViewModel extends Content implements
 		 * Hier werden dem Kinderknoten Lehrveranstaltung verwalten des Baumes 
 		 * die erstellten Objekte hinzugefügt.
 		 * Durch den Aufruf des @param verwaltungsSvc mit der Methode 
-		 * <code>getAllLehrveranstaltung</code> werden die in der Datenbank 
+		 * <code>getAllLehrveranstaltung()</code> werden die in der Datenbank 
 		 * gespeicherten Lehrveranstaltungen dem Baum hinzugefügt. 
 		 * Die Instantiierung der Klasse {@link LehrveranstaltungCell} führt zur 
 		 * Definition der in den Knoten dargestellten Informationen.
+		 * 
 		 * @return DefaultNodeInfo<Lehrveranstaltung> Default implementation of NodeInfo
 		 */
 		if (value instanceof String
@@ -1207,10 +1251,11 @@ public class NavTreeViewModel extends Content implements
 		 * Hier werden dem Kinderknoten Raum verwalten des Baumes die erstellten 
 		 * Objekte hinzugefügt.
 		 * Durch den Aufruf des @param verwaltungsSvc mit der Methode 
-		 * <code>getAllRaeume</code> werden die in der Datenbank 
+		 * <code>getAllRaeume()</code> werden die in der Datenbank 
 		 * gespeicherten Räume dem Baum hinzugefügt. 
 		 * Die Instantiierung der Klasse {@link RaumCell} führt zur Definition der 
 		 * in den Knoten dargestellten Informationen.
+		 * 
 		 * @return DefaultNodeInfo<Raum> Default implementation of NodeInfo
 		 */
 		if (value instanceof String
@@ -1237,10 +1282,11 @@ public class NavTreeViewModel extends Content implements
 		 * Hier werden dem Kinderknoten Semesterverband verwalten des Baumes 
 		 * die erstellten Objekte hinzugefügt.
 		 * Durch den Aufruf des @param verwaltungsSvc mit der Methode 
-		 * <code>getAllSemesterverbaende</code> werden die in der Datenbank 
+		 * <code>getAllSemesterverbaende()</code> werden die in der Datenbank 
 		 * gespeicherten Semesterverbände dem Baum hinzugefügt. 
 		 * Die Instantiierung der Klasse {@link SemesterverbandCell} führt zur 
 		 * Definition der in den Knoten dargestellten Informationen.
+		 * 
 		 * @return DefaultNodeInfo<Semesterverband> Default implementation of 
 		 * NodeInfo
 		 */
@@ -1270,10 +1316,11 @@ public class NavTreeViewModel extends Content implements
 		 * Hier werden dem Kinderknoten Studiengang verwalten des Baumes die 
 		 * erstellten Objekte hinzugefügt.
 		 * Durch den Aufruf des @param verwaltungsSvc mit der Methode 
-		 * <code>getAllStudiengaenge</code> werden die in der Datenbank 
+		 * <code>getAllStudiengaenge()</code> werden die in der Datenbank 
 		 * gespeicherten Studiengänge dem Baum hinzugefügt. 
 		 * Die Instantiierung der Klasse {@link StudiengangCell} führt zur 
 		 * Definition der in den Knoten dargestellten Informationen.
+		 * 
 		 * @return DefaultNodeInfo<Studiengang> Default implementation of 
 		 * NodeInfo
 		 */
@@ -1302,10 +1349,11 @@ public class NavTreeViewModel extends Content implements
 		 * Hier werden dem Kinderknoten Stundenplan verwalten des Baumes die 
 		 * erstellten Objekte hinzugefügt.
 		 * Durch den Aufruf des @param verwaltungsSvc mit der Methode 
-		 * <code>getAllStundenplaene</code> werden die in der Datenbank 
+		 * <code>getAllStundenplaene()</code> werden die in der Datenbank 
 		 * gespeicherten Stundenpläne dem Baum hinzugefügt. 
 		 * Die Instantiierung der Klasse {@link StundenplanCell} führt zur 
 		 * Definition der in den Knoten dargestellten Informationen.
+		 * 
 		 * @return DefaultNodeInfo<Stundenplan> Default implementation of 
 		 * NodeInfo
 		 */
@@ -1334,10 +1382,11 @@ public class NavTreeViewModel extends Content implements
 		 * Hier werden dem Kinderknoten Stundenplaneintrag verwalten des 
 		 * Baumes die erstellten Objekte hinzugefügt.
 		 * Durch den Aufruf des @param verwaltungsSvc mit der Methode 
-		 * <code>getAllStundenplaneintraege</code> werden die in der 
+		 * <code>getAllStundenplaneintraege()</code> werden die in der 
 		 * Datenbank gespeicherten Stundenplaneinträge dem Baum hinzugefügt. 
 		 * Die Instantiierung der Klasse {@link StundenplaneintragCell} führt 
 		 * zur Definition der in den Knoten dargestellten Informationen.
+		 * 
 		 * @return DefaultNodeInfo<Stundenplaneintrag> Default implementation 
 		 * of NodeInfo
 		 */

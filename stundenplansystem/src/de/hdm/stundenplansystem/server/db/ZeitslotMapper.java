@@ -214,7 +214,8 @@ public class ZeitslotMapper {
 							+ " AND stundenplaneintrag.raumid = " + raumid + ")"
 							+ " OR (stundenplaneintrag.zeitslotid = zeitslot.id "
 							+ " AND stundenplaneintrag.stundenplanid = " + stundenplanid
-							+ " AND stundenplaneintrag.dozentid = " + dozentid + "))");			
+							+ " AND stundenplaneintrag.dozentid = " + dozentid + "))"
+						    + " ORDER BY find_in_set(zeitslot.wochentag,'Montag,Dienstag,Mittwoch,Donnerstag,Freitag,Samstag'), zeitslot.anfangszeit");			
 
 			// Für jeden Eintrag im Suchergebnis wird nun ein Zeitslot-Objekt
 			// erstellt.

@@ -85,7 +85,7 @@ public class CreateStundenplaneintrag extends Content {
 
 	/**
 	   * Jedes GWT Widget muss die Methode <code>onLoad()</code> implementieren. 
-	   * Sie gibt an, sas geschehen soll, 
+	   * Sie gibt an, was geschehen soll, 
 	   * wenn eine Widget-Instanz zur Anzeige gebracht wird.
 	   * Durch die Methode <code>add()</code> werden die Widgets dem Panel hinzugefügt.
 	   * 

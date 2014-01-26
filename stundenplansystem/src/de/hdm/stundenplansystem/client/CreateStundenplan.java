@@ -70,7 +70,7 @@ public class CreateStundenplan extends Content {
 
 	/**
 	   * Jedes GWT Widget muss die Methode <code>onLoad()</code> implementieren. 
-	   * Sie gibt an, sas geschehen soll, 
+	   * Sie gibt an, was geschehen soll, 
 	   * wenn eine Widget-Instanz zur Anzeige gebracht wird.
 	   * Durch die Methode <code>add()</code> werden die Widgets dem Panel hinzugefügt.
 	   * 
@@ -113,7 +113,7 @@ public class CreateStundenplan extends Content {
 					public void onSuccess(
 							Vector<Studiengang> studiengang) {
 						sgContainer = studiengang;
-						for(Studiengang sg : studiengang) {
+						for (Studiengang sg : studiengang) {
 							libstudiengang.addItem(
 									sg.getBezeichnung(),
 									String.valueOf(sg.getId()));
@@ -156,12 +156,12 @@ public class CreateStundenplan extends Content {
 
 				boolean allFilled = true;
 
-				if(tbhalbjahr.getValue().isEmpty()) {
+				if (tbhalbjahr.getValue().isEmpty()) {
 					allFilled = false;
 					Window.alert("Bitte füllen Sie alle Felder aus.");
 				}
 
-				if(allFilled == true) {
+				if (allFilled == true) {
 					final String studienhalbjahr = tbhalbjahr
 							.getValue().trim();
 					int semesterverbandId = svContainer.elementAt(
@@ -250,7 +250,7 @@ public class CreateStundenplan extends Content {
 					public void onSuccess(
 							Vector<Semesterverband> semesterverband) {
 						svContainer = semesterverband;
-						for(Semesterverband sv : semesterverband) {
+						for (Semesterverband sv : semesterverband) {
 							libsemverband.addItem(sv.getJahrgang()
 									+ ", Semester: "
 									+ String.valueOf(sv.getSemester()));

@@ -67,7 +67,7 @@ public class CreateSemesterverband extends Content {
 
 	/**
 	   * Jedes GWT Widget muss die Methode <code>onLoad()</code> implementieren. 
-	   * Sie gibt an, sas geschehen soll, 
+	   * Sie gibt an, was geschehen soll, 
 	   * wenn eine Widget-Instanz zur Anzeige gebracht wird.
 	   * Durch die Methode <code>add()</code> werden die Widgets dem Panel hinzugefügt.
 	   * 
@@ -113,7 +113,7 @@ public class CreateSemesterverband extends Content {
 			public void onSuccess(
 					Vector<Studiengang> studiengaenge) {
 				sgContainer = studiengaenge;
-				for(Studiengang sg : studiengaenge) {
+				for (Studiengang sg : studiengaenge) {
 					libstudiengang.addItem(
 							sg.getBezeichnung(),
 							String.valueOf(sg.getId()));
@@ -137,14 +137,14 @@ public class CreateSemesterverband extends Content {
 
 				boolean allFilled = true;
 
-				if(tbjahrgang.getText().isEmpty()
+				if (tbjahrgang.getText().isEmpty()
 						|| tbanzahl.getText().isEmpty()
 						|| tbsemester.getText().isEmpty()) {
 					allFilled = false;
 					Window.alert("Bitte füllen Sie alle Felder aus.");
 				}
 
-				if(allFilled == true) {
+				if (allFilled == true) {
 					final String jahrgang = tbjahrgang.getText()
 							.trim();
 					final int studiengangId = sgContainer.elementAt(

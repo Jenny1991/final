@@ -50,7 +50,7 @@ public class CreateStudiengang extends Content {
 
 	/**
 	   * Jedes GWT Widget muss die Methode <code>onLoad()</code> implementieren. 
-	   * Sie gibt an, sas geschehen soll, 
+	   * Sie gibt an, was geschehen soll, 
 	   * wenn eine Widget-Instanz zur Anzeige gebracht wird.
 	   * Durch die Methode <code>add()</code> werden die Widgets dem Panel hinzugefügt.
 	   * 
@@ -83,12 +83,12 @@ public class CreateStudiengang extends Content {
 
 				boolean allFilled = true;
 
-				if(tbbezeichnung.getValue().isEmpty()) {
+				if (tbbezeichnung.getValue().isEmpty()) {
 					allFilled = false;
 					Window.alert("Bitte füllen Sie alle Felder aus.");
 				}
 
-				if(allFilled == true) {
+				if (allFilled == true) {
 					final String bezeichnung = tbbezeichnung
 							.getValue();
 

@@ -214,7 +214,7 @@ public class ZeitslotMapper {
 							+ " AND stundenplaneintrag.raumid = " + raumid + ")"
 							+ " OR (stundenplaneintrag.zeitslotid = zeitslot.id "
 							+ " AND stundenplaneintrag.stundenplanid = " + stundenplanid
-							+ " AND stundenplaneintrag.dozentid = " + dozentid + ")");			
+							+ " AND stundenplaneintrag.dozentid = " + dozentid + "))");			
 
 			// Für jeden Eintrag im Suchergebnis wird nun ein Zeitslot-Objekt
 			// erstellt.

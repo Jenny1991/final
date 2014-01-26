@@ -199,7 +199,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
 
 				verwaltung.getLehrveranstaltungById(
 						aktuell.getLehrveranstaltungId()).toString()
-						+ "/n"
+						+ "\n"
 						+ verwaltung.getRaumById(aktuell.getRaumId())
 								.toString()));
 
@@ -340,7 +340,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
 
 				verwaltung.getLehrveranstaltungById(
 						aktuell.getLehrveranstaltungId()).toString()
-						+ "/n"
+						+ "\n"
 						+ verwaltung.getRaumById(aktuell.getRaumId())
 								.toString()));
 
@@ -487,7 +487,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
 
 				verwaltung.getLehrveranstaltungById(
 						aktuell.getLehrveranstaltungId()).toString()
-						+ "/n"
+						+ "\n"
 						+ verwaltung.getRaumById(aktuell.getRaumId())
 								.toString()));
 

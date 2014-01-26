@@ -763,7 +763,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 		} else {
 
 			throw new IllegalArgumentException(
-					"ungültige Eingabe des Jahrgangs!");
+					"ungültige Eingabe des Beginn des Studiengangs!");
 		}
 
 	}

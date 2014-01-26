@@ -43,7 +43,7 @@ public class StundenplanForm extends Content {
 	Vector<Semesterverband> svContainer = null;
 	Vector<Studiengang> sgContainer = null;
 
-	Integer id;
+//	Integer id;
 	Stundenplan shownSp = null;
 	NavTreeViewModel tvm = null;
 
@@ -82,7 +82,7 @@ public class StundenplanForm extends Content {
 	}
 
 	public void onLoad() {
-		verwaltungsSvc.getStundenplanById(id,
+		verwaltungsSvc.getStundenplanById(shownSp.getId(),
 				new AsyncCallback<Stundenplan>() {
 					@Override
 					public void onFailure(Throwable caught) {

@@ -186,22 +186,22 @@ public class ZeitslotMapper {
 							+ " FROM zeitslot"
 							+ " INNER JOIN stundenplaneintrag"
 							+ " ON stundenplaneintrag.zeitslotid = zeitslot.id"
-							+ " WHERE stundenplaneintrag.raumid = )" + raumid
+							+ " WHERE stundenplaneintrag.raumid = " + raumid + ")"
 							+ " AND stundenplaneintrag.dozentid <> " + dozentid
 							+ " AND NOT EXISTS"
 							+ " (SELECT zeitslot.id"
 							+ " FROM zeitslot"
 							+ " INNER JOIN stundenplaneintrag"
 							+ " ON stundenplaneintrag.zeitslotid = zeitslot.id"
-							+ " WHERE stundenplaneintrag.dozentid = )" + dozentid
+							+ " WHERE stundenplaneintrag.dozentid = " + dozentid + ")"
 							+ " AND stundenplaneintrag.stundenplanid <> " + stundenplanid
 							+ " AND NOT EXISTS"
 							+ " (SELECT zeitslot.id"
 							+ " FROM zeitslot"
 							+ " INNER JOIN stundenplaneintrag"
 							+ " ON stundenplaneintrag.zeitslotid = zeitslot.id"
-							+ " WHERE stundenplaneintrag.stundenplanid = )" + stundenplanid
-							+ " ORDER BY find_in_set(zeitslot.wochentag,'Montag,Dienstag,Mittwoch,Donnerstag,Freitag,Samstag')");
+							+ " WHERE stundenplaneintrag.stundenplanid = " + stundenplanid + ")"
+							+ " ORDER BY find_in_set(zeitslot.wochentag,'Montag,Dienstag,Mittwoch,Donnerstag,Freitag,Samstag'), zeitslot.anfangszeit");
 			
 			
 			

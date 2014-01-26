@@ -259,7 +259,7 @@ public class SemesterverbandForm extends Content {
 			 		 */
 					@Override
 					public void onFailure(Throwable caught) {
-						Window.alert("Der Semesterverband konnt nicht gelöscht werden.");
+						Window.alert(caught.getMessage());
 					}
 					
 					/**

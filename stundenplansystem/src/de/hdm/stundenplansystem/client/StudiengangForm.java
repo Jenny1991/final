@@ -205,7 +205,7 @@ public class StudiengangForm extends Content {
 			 		 */
 					@Override
 					public void onFailure(Throwable caught) {
-						Window.alert("Der Studiengang konnte nicht gelöscht werden.");
+						Window.alert(caught.getMessage());
 					}
 
 					/**

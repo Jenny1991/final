@@ -30,9 +30,7 @@ import de.hdm.stundenplansystem.shared.bo.Stundenplaneintrag;
  */
 
 /**
- * 
  * Die NavTreeViewModel Klasse definiert den flexiblen Baum für die Navigation durch unser System.
- * 
  */
 
 public class NavTreeViewModel extends Content implements

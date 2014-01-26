@@ -1,5 +1,6 @@
 package de.hdm.stundenplansystem.server.report;
 
+
 import de.hdm.stundenplansystem.shared.bo.*;
 import de.hdm.stundenplansystem.shared.report.*;
 import de.hdm.stundenplansystem.shared.*;

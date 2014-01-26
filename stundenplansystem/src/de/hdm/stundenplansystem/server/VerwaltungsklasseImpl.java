@@ -895,8 +895,31 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 
 	public void deleteStudiengang(Studiengang studiengang)
 			throws IllegalArgumentException {
+		
+		Vector<Semesterverband> sem = this.getAllSemesterverbaende();
+		
+		for (Semesterverband s : sem){
+			
+			int i = 0;
+			
+			if (s.getStudiengangId() == studiengang.getId()){
+				
+				i++;
+			}
+			
+			if (i == 0){
+				
+				this.studiengangMapper.delete(studiengang);
+			}
+			else {
+				throw new IllegalArgumentException("Der Studiengang "
+						+ "kann nicht gelöscht werden, da er noch "
+						+ "in mindestens einem Semesterverband "
+						+ "hinterlegt ist!");
+			}
+		}
 
-		this.studiengangMapper.delete(studiengang);
+		
 	}
 
 	public void deleteStundenplaneintrag(Stundenplaneintrag s)
@@ -907,8 +930,16 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 
 	public void deleteSemesterverband(Semesterverband a)
 			throws IllegalArgumentException {
-
-		this.semesterverbandMapper.delete(a);
+		
+		Vector<Stundenplan> stpl = this.getStundenplaeneBySemesterverband(a.getId());
+		
+		if (stpl.isEmpty()){
+			this.semesterverbandMapper.delete(a);
+		} else {
+			throw new IllegalArgumentException("Der Semesterverband "
+					+ "kann nicht gelöscht werden, da er noch in "
+					+ "einem Stundenplan hinterlegt ist!");
+		}
 	}
 
 	/*

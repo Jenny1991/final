@@ -93,29 +93,29 @@ public class Stundenplansystem implements EntryPoint {
 		 * Die Methode <code>addWest()</code> fügt im linken Teil
 		 * des Panels den Baum zur Navigation hinzu.
 		 * 
-		 * @param navigation Instanz der Klasse Scroll Panel, 
+		 * @param navigation Instanz der Klasse {@link ScrollPanel}, 
 		 * 			  welches 300 Pixel breit ist.
 		 * 
 		 * Die Methode <code>add()</code> fügt im rechten Teil
 		 * des Panels die Instanz des Scroll Panels hinzu, die den
 		 * Inhalt, einem Datenteil mit Formularen, realisiert.
 		 * 
-		 * @param detailsPanel Instanz der Klasse Vertical Panel.
+		 * @param detailsPanel Instanz der Klasse {@link VerticalPanel}.
 		 * 			  
 		 * Im linken Panel wird ein Navigationsteil mit Baumstruktur der Stamm,-
 		 * und Bewegungsdaten,sowie des Reports realisiert. 
-		 * Zunächst erstellen wir eine Instanz der Klasse NavTreeModel, 
+		 * Zunächst erstellen wir eine Instanz der Klasse {@link NavTreeViewModel}, 
 		 * das den Inhalt des Baums definiert. Anschließend erstellen wir
-		 * eine Instanz der Klasse CellTree. Diese lässt die
+		 * eine Instanz der Klasse {@link CellTree}. Diese lässt die
 		 * Hierarchie der Knoten (nodes) des Baums zu, so kann es
 		 * Leafs und Children geben.
 		 * 
-		 * @param tvm Instanz der Klasse NavTreeModel
+		 * @param tvm Instanz der Klasse {@link NavTreeViewModel}
 		 * 
 		 * @param "Root" Definiert den Wurzelknoten des Baums 
 		 * 
 		 * Wir weisen dem Scroll Panel durch die Methode 
-		 * <code>add()</code> die Instanz der Klasse CellTree zu. 
+		 * <code>add()</code> die Instanz der Klasse {@link CellTree} zu. 
 		 * Im rechten Panel wir zunächst nur die Überschrift der 
 		 * jeweiligen Seite durch die Methode <code>add()</code> zugewiesen.
 		 */
@@ -160,8 +160,9 @@ public class Stundenplansystem implements EntryPoint {
 	 * sowie die Formulare für das ausgwählte Objekt zu.
 	 * Die Methode <code>clear()</code> löscht zuvor den Inhalt des gesamten
 	 * Panels damit neue Klassen angezeigt werden.
+	 * 
+	 * @param cd Klasse {@link CreateDozent} wird dem Panel hinzugefügt
 	 */
-
 	public void createDozentForm() {
 		detailsPanel.clear();
 		detailsPanel.add(cd);

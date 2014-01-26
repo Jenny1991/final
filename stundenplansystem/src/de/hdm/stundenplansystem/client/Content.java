@@ -3,7 +3,7 @@ package de.hdm.stundenplansystem.client;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
- * Durch diese Klasse werden die Gui Klassen imVerticalPanel angeordnet
+ * Durch diese Klasse werden die GUI Klassen im VerticalPanel angeordnet
  * 
  * @author V. Hofmannn
  * @version 1.0

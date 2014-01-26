@@ -167,6 +167,21 @@ public class CreateStundenplaneintrag extends Content {
 				ladeAlleZeitslots();
 			}
 		});
+		
+		listDozent.addChangeHandler(new ChangeHandler() {
+			@Override
+			public void onChange(ChangeEvent event) {
+				ladeAlleZeitslots();
+			}
+		});
+		
+		listStudienhj.addChangeHandler(new ChangeHandler() {
+			@Override
+			public void onChange(ChangeEvent event) {
+				ladeAlleZeitslots();
+			}
+		});
+		
 	}
 
 	public void getSemesterverband() {

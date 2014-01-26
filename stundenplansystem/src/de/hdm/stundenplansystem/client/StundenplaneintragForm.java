@@ -78,6 +78,7 @@ public class StundenplaneintragForm extends Content {
 			.create(Verwaltungsklasse.class);
 
 	Integer id;
+	Semesterverband aktSv = null;
 	Stundenplaneintrag shownSpe = null;
 	NavTreeViewModel tvm = null;
 
@@ -144,6 +145,9 @@ public class StundenplaneintragForm extends Content {
 		listStudiengang.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
+				listSemesterverband.clear();
+				listStudienhj.clear();
+				listZeitslot.clear();
 				getSemesterverbaende();
 			}
 		});
@@ -151,6 +155,8 @@ public class StundenplaneintragForm extends Content {
 		listSemesterverband.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
+				listStudienhj.clear();
+				listZeitslot.clear();
 				getStundenplaene();
 			}
 		});
@@ -158,6 +164,7 @@ public class StundenplaneintragForm extends Content {
 		listRaum.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
+				listZeitslot.clear();
 				getZeitslots();
 			}
 		});
@@ -165,6 +172,7 @@ public class StundenplaneintragForm extends Content {
 		listDozent.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
+				listZeitslot.clear();
 				getZeitslots();
 			}
 		});
@@ -172,6 +180,7 @@ public class StundenplaneintragForm extends Content {
 		listStudienhj.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
+				listZeitslot.clear();
 				getZeitslots();
 			}
 		});	
@@ -290,6 +299,7 @@ public class StundenplaneintragForm extends Content {
 						listSemesterverband.addItem(result.getKuerzel()
 								+ ", Semester: "
 								+ String.valueOf(result.getSemester()));
+						aktSv = result;
 						getNextListSg();
 					}
 				});
@@ -297,7 +307,7 @@ public class StundenplaneintragForm extends Content {
 		
 	public void getNextListSg() {
 		verwaltungsSvc.getStudiengangBySemesterverbandId(
-				shownSpe.getSemesterverbandId(),
+				aktSv.getId(),
 				new AsyncCallback<Studiengang>() {
 					@Override
 					public void onFailure(Throwable caught) {
@@ -520,7 +530,12 @@ public class StundenplaneintragForm extends Content {
 
 	public void getZeitslots() {
 		verwaltungsSvc
-				.getAllZeitslots(new AsyncCallback<Vector<Zeitslot>>() {
+				.getFreieZeitslot(raumContainer.elementAt(listRaum.getSelectedIndex())
+						.getId(),
+				dozentContainer.elementAt(
+						listDozent.getSelectedIndex()).getId(),
+				spContainer.elementAt(
+						listStudienhj.getSelectedIndex()).getId(), new AsyncCallback<Vector<Zeitslot>>() {
 					@Override
 					public void onFailure(Throwable caught) {
 						caught.getMessage();

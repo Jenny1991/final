@@ -36,8 +36,8 @@ public class CreateStudiengang extends Content {
 	 * Unter der Überschrift trägt der User die Daten des neuen Dozenten 
 	 * in Text Boxen ein.
 	 */
-	final Label lbbezeichnung = new Label("Bezeichnung:");
-	final TextBox tbbezeichnung = new TextBox();
+	final Label lbBezeichnung = new Label("Bezeichnung:");
+	final TextBox tbBezeichnung = new TextBox();
 	final Button speichern = new Button("Eingabe speichern");
 
 	/**
@@ -62,8 +62,8 @@ public class CreateStudiengang extends Content {
 	public void onLoad() {
 
 		this.add(ueberschrift);
-		this.add(lbbezeichnung);
-		this.add(tbbezeichnung);
+		this.add(lbBezeichnung);
+		this.add(tbBezeichnung);
 		this.add(speichern);
 		setTvm(tvm);
 
@@ -83,13 +83,13 @@ public class CreateStudiengang extends Content {
 
 				boolean allFilled = true;
 
-				if (tbbezeichnung.getValue().isEmpty()) {
+				if (tbBezeichnung.getValue().isEmpty()) {
 					allFilled = false;
 					Window.alert("Bitte füllen Sie alle Felder aus.");
 				}
 
 				if (allFilled == true) {
-					final String bezeichnung = tbbezeichnung
+					final String bezeichnung = tbBezeichnung
 							.getValue();
 
 					/**
@@ -126,7 +126,7 @@ public class CreateStudiengang extends Content {
 								@Override
 								public void onSuccess(
 										Studiengang result) {
-									tbbezeichnung.setText("");
+									tbBezeichnung.setText("");
 									Window.alert("Erfolgreich gespeichert.");
 									tvm.addStudiengang(result);
 								}

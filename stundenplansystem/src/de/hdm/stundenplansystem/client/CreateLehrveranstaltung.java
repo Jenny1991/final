@@ -36,13 +36,13 @@ public class CreateLehrveranstaltung extends Content {
 	 * Unter der Überschrift trägt der User die Daten des neuen Dozenten 
 	 * in Text Boxen ein.
 	 */
-	final Label lbbezeichnung = new Label(
+	final Label lbBezeichnung = new Label(
 			"Bezeichnung der Lehrveranstaltung:");
-	final Label lbsemester = new Label("Semester:");
-	final Label lbumfang = new Label("Umfang (in SWS):");
-	final TextBox tbbezeichnung = new TextBox();
-	final TextBox tbsemester = new TextBox();
-	final TextBox tbumfang = new TextBox();
+	final Label lbSemester = new Label("Semester:");
+	final Label lbUmfang = new Label("Umfang (in SWS):");
+	final TextBox tbBezeichnung = new TextBox();
+	final TextBox tbSemester = new TextBox();
+	final TextBox tbUmfang = new TextBox();
 	final Button speichern = new Button("Eingaben speichern");
 	
 	/**
@@ -58,25 +58,16 @@ public class CreateLehrveranstaltung extends Content {
 	   * Sie gibt an, was geschehen soll, 
 	   * wenn eine Widget-Instanz zur Anzeige gebracht wird.
 	   * Durch die Methode <code>add()</code> werden die Widgets dem Panel hinzugefügt.
-	   * 
-	   * @param ueberschrift, 
-	   * @param lbbezeichnung, 
-	   * @param tbbezeichnung, 
-	   * @param lbsemester, 
-	   * @param tbsemester, 
-	   * @param lbumfang, 
-	   * @param tbumfang, 
-	   * @param speichern definieren den Aufbau der Widgets den Panels
 	   */
 	public void onLoad() {
 
 		this.add(ueberschrift);
-		this.add(lbbezeichnung);
-		this.add(tbbezeichnung);
-		this.add(lbsemester);
-		this.add(tbsemester);
-		this.add(lbumfang);
-		this.add(tbumfang);
+		this.add(lbBezeichnung);
+		this.add(tbBezeichnung);
+		this.add(lbSemester);
+		this.add(tbSemester);
+		this.add(lbUmfang);
+		this.add(tbUmfang);
 		this.add(speichern);
 		setTvm(tvm);
 
@@ -96,19 +87,19 @@ public class CreateLehrveranstaltung extends Content {
 
 				boolean allFilled = true;
 
-				if (tbbezeichnung.getValue().isEmpty()
-						|| tbsemester.getValue().isEmpty()
-						|| tbumfang.getValue().isEmpty()) {
+				if (tbBezeichnung.getValue().isEmpty()
+						|| tbSemester.getValue().isEmpty()
+						|| tbUmfang.getValue().isEmpty()) {
 					allFilled = false;
 					Window.alert("Bitte f�llen Sie alle Felder aus.");
 				}
 
 				if (allFilled == true) {
-					final String bezeichnung = tbbezeichnung
+					final String bezeichnung = tbBezeichnung
 							.getValue().trim();
-					final int umfang = Integer.valueOf(tbumfang
+					final int umfang = Integer.valueOf(tbUmfang
 							.getText());
-					final int semester = Integer.valueOf(tbsemester
+					final int semester = Integer.valueOf(tbSemester
 							.getText());
 
 					/**
@@ -146,9 +137,9 @@ public class CreateLehrveranstaltung extends Content {
 								@Override
 								public void onSuccess(
 										Lehrveranstaltung result) {
-									tbbezeichnung.setText("");
-									tbumfang.setText("");
-									tbsemester.setText("");
+									tbBezeichnung.setText("");
+									tbUmfang.setText("");
+									tbSemester.setText("");
 									Window.alert("Erfolgreich gespeichert.");
 									tvm.addLehrveranstaltung(result);
 								}

@@ -32,7 +32,8 @@ import de.hdm.stundenplansystem.shared.Verwaltungsklasse;
  * Diese Klasse erbt von der Klasse Content und lässt sich somit 
  * unter GWT entsprechend anordnen.
  * 
- * @author Thies, V.Hofmann, Espich
+ * @see CreateDozent
+ * @author Thies, Espich
  * @version 1.0
  */
 public class StundenplaneintragForm extends Content {
@@ -46,18 +47,21 @@ public class StundenplaneintragForm extends Content {
 	
 	/**
 	 * Unter der Überschrift wählt der User die Daten des
-	 * anzulegenden Stundenplaneintrags mit Hilfe von List Boxen.
+	 * zu bearbeitenden Stundenplaneintrags mit Hilfe von List Boxen.
 	 */
-	final ListBox libZeitslot = new ListBox();
-	final ListBox libDozent = new ListBox();
-	final ListBox libLehrveranstaltung = new ListBox();
-	final ListBox libRaum = new ListBox();
-	final ListBox libStudiengang = new ListBox();
-	final ListBox libSemesterverband = new ListBox();
-	final ListBox libStudienhj = new ListBox();
+	final ListBox listDozent = new ListBox();
+	final ListBox listZeitslot = new ListBox();
+	final ListBox listRaum = new ListBox();
+	final ListBox listStudienhj = new ListBox();
+	final ListBox listSemesterverband = new ListBox();
+	final ListBox listLehrveranstaltung = new ListBox();
+	final ListBox listStudiengang = new ListBox();
 	final Button speichern = new Button("Änderungen speichern");
 	final Button loeschen = new Button("Stundenplaneintrag löschen");
 
+	/**
+	 * Hier werden Vectoren des Business Objekte festgelegt
+	 */
 	Vector<Studiengang> sgContainer = null;
 	Vector<Semesterverband> svContainer = null;
 	Vector<Stundenplan> spContainer = null;
@@ -66,6 +70,10 @@ public class StundenplaneintragForm extends Content {
 	Vector<Raum> raumContainer = null;
 	Vector<Zeitslot> zsContainer = null;
 
+	/**
+	 * Hier wird ein Remote Service Proxy erstellt, welches uns erlaubt, 
+	 * mit dem serverseitigen Verwaltungsservice zu kommunizieren.
+	 */
 	final VerwaltungsklasseAsync verwaltungsSvc = GWT
 			.create(Verwaltungsklasse.class);
 
@@ -73,39 +81,46 @@ public class StundenplaneintragForm extends Content {
 	Stundenplaneintrag shownSpe = null;
 	NavTreeViewModel tvm = null;
 
+	  /**
+	   * Jedes Formular wird durch einen Konstruktor dargestellt. 
+	   * In diesem wird eine Instanz des GWT Widgets Grid erzeugt, dass den Aufbau
+	   * des Formulars darstellt.
+	   * Durch die Methode <code>add()</code> werden die Widgets dem Panel hinzugefügt.
+	   * Durch die Methode <code>setWidget()</code> werden die Widgets 
+	   * in den Zeilen und Spalten der Grid hinzugefügt.
+	   */
 	public StundenplaneintragForm() {
-		this.clear();
 		Grid speGrid = new Grid(9, 2);
 		this.add(ueberschriftAenderung);
 		this.add(speGrid);
 
 		Label lbStudiengang = new Label("Studiengang");
 		speGrid.setWidget(0, 0, lbStudiengang);
-		speGrid.setWidget(0, 1, libStudiengang);
+		speGrid.setWidget(0, 1, listStudiengang);
 
 		Label lbSemesterverband = new Label("Semesterverband");
 		speGrid.setWidget(1, 0, lbSemesterverband);
-		speGrid.setWidget(1, 1, libSemesterverband);
+		speGrid.setWidget(1, 1, listSemesterverband);
 
 		Label lbStundenplan = new Label("Studienhalbjahr");
 		speGrid.setWidget(2, 0, lbStundenplan);
-		speGrid.setWidget(2, 1, libStudienhj);
+		speGrid.setWidget(2, 1, listStudienhj);
 
 		Label lbLehrveranstaltung = new Label("Lehrveranstaltung");
 		speGrid.setWidget(3, 0, lbLehrveranstaltung);
-		speGrid.setWidget(3, 1, libLehrveranstaltung);
+		speGrid.setWidget(3, 1, listLehrveranstaltung);
 
 		Label lbDozent = new Label("Dozent");
 		speGrid.setWidget(4, 0, lbDozent);
-		speGrid.setWidget(4, 1, libDozent);
+		speGrid.setWidget(4, 1, listDozent);
 
 		Label lbRaum = new Label("Raum");
 		speGrid.setWidget(5, 0, lbRaum);
-		speGrid.setWidget(5, 1, libRaum);
+		speGrid.setWidget(5, 1, listRaum);
 
 		Label lbZeitslot = new Label("Zeitslot");
 		speGrid.setWidget(6, 0, lbZeitslot);
-		speGrid.setWidget(6, 1, libZeitslot);
+		speGrid.setWidget(6, 1, listZeitslot);
 
 		Label lbFunktionen = new Label("Funktionen");
 		speGrid.setWidget(7, 0, lbFunktionen);
@@ -122,78 +137,81 @@ public class StundenplaneintragForm extends Content {
 				deleteSelectedSpe();
 			}
 		});
-
 		setTvm(tvm);
-
-		this.clearFields();
-
-		libStudiengang.addChangeHandler(new ChangeHandler() {
+	}
+	
+	public void onLoad() {
+		listStudiengang.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
 				getSemesterverbaende();
 			}
 		});
 
-		libSemesterverband.addChangeHandler(new ChangeHandler() {
+		listSemesterverband.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
 				getStundenplaene();
 			}
 		});
 
-		libRaum.addChangeHandler(new ChangeHandler() {
+		listRaum.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
 				getZeitslots();
 			}
 		});
-
+		
+		listDozent.addChangeHandler(new ChangeHandler() {
+			@Override
+			public void onChange(ChangeEvent event) {
+				getZeitslots();
+			}
+		});
+		
+		listStudienhj.addChangeHandler(new ChangeHandler() {
+			@Override
+			public void onChange(ChangeEvent event) {
+				getZeitslots();
+			}
+		});	
 	}
 
-	public void getData() {
-		verwaltungsSvc.getStundenplaneintragById(id,
-				new AsyncCallback<Stundenplaneintrag>() {
-					@Override
-					public void onFailure(Throwable caught) {
-					}
-
-					@Override
-					public void onSuccess(Stundenplaneintrag result) {
-						if (result != null) {
-							setSelected(result);
-						}
-					}
-				});
-	}
-
-	public void deleteSelectedSpe() {
-		verwaltungsSvc.deleteStundenplaneintrag(shownSpe,
-				new AsyncCallback<Void>() {
-					public void onFailure(Throwable caught) {
-						Window.alert("Der Stundenplaneintrag konnte nicht gelöscht werden!");
-					}
-
-					public void onSuccess(Void result) {
-						tvm.deleteSpe(shownSpe);
-						Window.alert("Erfolgreich gelöscht.");
-					}
-				});
-		this.clearFields();
-	}
+//	public void getData() {
+//		verwaltungsSvc.getStundenplaneintragById(id,
+//				new AsyncCallback<Stundenplaneintrag>() {
+//					@Override
+//					public void onFailure(Throwable caught) {
+//					}
+//
+//					@Override
+//					public void onSuccess(Stundenplaneintrag result) {
+//						if (result != null) {
+//							setSelected(result);
+//						}
+//					}
+//				});
+//	}
 
 	public void changeSelectedSpe() {
+		if (listSemesterverband.getSelectedIndex() != 0)
 		shownSpe.setSemesterverbandId(svContainer.elementAt(
-				libSemesterverband.getSelectedIndex() - 1).getId());
+				listSemesterverband.getSelectedIndex() - 1).getId());
+		if (listStudienhj.getSelectedIndex() != 0)
 		shownSpe.setStundenplanId(spContainer.elementAt(
-				libStudienhj.getSelectedIndex() - 1).getId());
+				listStudienhj.getSelectedIndex() - 1).getId());
+		if (listLehrveranstaltung.getSelectedIndex() != 0)
 		shownSpe.setLehrveranstaltungId(lvContainer.elementAt(
-				libLehrveranstaltung.getSelectedIndex() - 1).getId());
+				listLehrveranstaltung.getSelectedIndex() - 1).getId());
+		if (listDozent.getSelectedIndex() != 0)
 		shownSpe.setDozentId(dozentContainer.elementAt(
-				libDozent.getSelectedIndex() - 1).getId());
+				listDozent.getSelectedIndex() - 1).getId());
+		if (listRaum.getSelectedIndex() != 0)
 		shownSpe.setRaumId(raumContainer.elementAt(
-				libRaum.getSelectedIndex() - 1).getId());
+				listRaum.getSelectedIndex() - 1).getId());
+		if (listZeitslot.getSelectedIndex() != 0)
 		shownSpe.setZeitslotId(zsContainer.elementAt(
-				libZeitslot.getSelectedIndex() - 1).getId());
+				listZeitslot.getSelectedIndex() - 1).getId());
 
 		verwaltungsSvc.changeStundenplaneintrag(shownSpe,
 				new AsyncCallback<Void>() {
@@ -210,6 +228,21 @@ public class StundenplaneintragForm extends Content {
 
 					}
 				});
+	}
+	
+	public void deleteSelectedSpe() {
+		verwaltungsSvc.deleteStundenplaneintrag(shownSpe,
+				new AsyncCallback<Void>() {
+					public void onFailure(Throwable caught) {
+						Window.alert("Der Stundenplaneintrag konnte nicht gelöscht werden!");
+					}
+
+					public void onSuccess(Void result) {
+						tvm.deleteSpe(shownSpe);
+						Window.alert("Erfolgreich gelöscht.");
+					}
+				});
+		this.clearFields();
 	}
 
 	public void setTvm(NavTreeViewModel tvm) {
@@ -237,7 +270,7 @@ public class StundenplaneintragForm extends Content {
 
 					@Override
 					public void onSuccess(Stundenplan result) {
-						libStudienhj.addItem(result.getStudienhalbjahr());
+						listStudienhj.addItem(result.getStudienhalbjahr());
 						getNextListSv();
 					}
 				});
@@ -254,7 +287,7 @@ public class StundenplaneintragForm extends Content {
 
 					@Override
 					public void onSuccess(Semesterverband result) {
-						libSemesterverband.addItem(result.getKuerzel()
+						listSemesterverband.addItem(result.getKuerzel()
 								+ ", Semester: "
 								+ String.valueOf(result.getSemester()));
 						getNextListSg();
@@ -273,7 +306,7 @@ public class StundenplaneintragForm extends Content {
 
 					@Override
 					public void onSuccess(Studiengang result) {
-						libStudiengang.addItem(result
+						listStudiengang.addItem(result
 								.getBezeichnung());
 						getNextListLv();
 					}
@@ -291,7 +324,7 @@ public class StundenplaneintragForm extends Content {
 
 					@Override
 					public void onSuccess(Lehrveranstaltung result) {
-						libLehrveranstaltung.addItem(result
+						listLehrveranstaltung.addItem(result
 								.getBezeichnung());
 						getNextListDozent();
 					}
@@ -308,7 +341,7 @@ public class StundenplaneintragForm extends Content {
 
 					@Override
 					public void onSuccess(Dozent result) {
-						libDozent.addItem(result.getNachname() + ", "
+						listDozent.addItem(result.getNachname() + ", "
 								+ result.getVorname());
 						getNextListRaum();
 					}
@@ -325,7 +358,7 @@ public class StundenplaneintragForm extends Content {
 
 					@Override
 					public void onSuccess(Raum result) {
-						libRaum.addItem(result.getBezeichnung());
+						listRaum.addItem(result.getBezeichnung());
 						getNextListZs();
 					}
 				});
@@ -341,7 +374,7 @@ public class StundenplaneintragForm extends Content {
 
 					@Override
 					public void onSuccess(Zeitslot result) {
-						libZeitslot.addItem(result.getWochentag()
+						listZeitslot.addItem(result.getWochentag()
 								+ ", " + result.getAnfangszeit()
 								+ ", " + result.getEndzeit());
 						getStudiengaenge();
@@ -350,13 +383,13 @@ public class StundenplaneintragForm extends Content {
 	}
 
 	public void clearFields() {
-		libZeitslot.clear();
-		libDozent.clear();
-		libLehrveranstaltung.clear();
-		libRaum.clear();
-		libStudiengang.clear();
-		libSemesterverband.clear();
-		libStudienhj.clear();
+		listZeitslot.clear();
+		listDozent.clear();
+		listLehrveranstaltung.clear();
+		listRaum.clear();
+		listStudiengang.clear();
+		listSemesterverband.clear();
+		listStudienhj.clear();
 	}
 
 	public void getStudiengaenge() {
@@ -372,7 +405,7 @@ public class StundenplaneintragForm extends Content {
 							Vector<Studiengang> studiengang) {
 						sgContainer = studiengang;
 						for (Studiengang sg : studiengang) {
-							libStudiengang.addItem(
+							listStudiengang.addItem(
 									sg.getBezeichnung(),
 									String.valueOf(sg.getId()));
 						}
@@ -394,7 +427,7 @@ public class StundenplaneintragForm extends Content {
 							Vector<Semesterverband> semesterverband) {
 						svContainer = semesterverband;
 						for (Semesterverband sv : semesterverband) {
-							libSemesterverband.addItem(sv
+							listSemesterverband.addItem(sv
 									.getKuerzel()
 									+ " "
 									+ String.valueOf(sv.getSemester()));
@@ -417,7 +450,7 @@ public class StundenplaneintragForm extends Content {
 							Vector<Stundenplan> stundenplan) {
 						spContainer = stundenplan;
 						for (Stundenplan sp : stundenplan) {
-							libStudienhj.addItem(String.valueOf(sp
+							listStudienhj.addItem(String.valueOf(sp
 									.getStudienhalbjahr()));
 						}
 						getLehrveranstaltungen();
@@ -438,7 +471,7 @@ public class StundenplaneintragForm extends Content {
 							Vector<Lehrveranstaltung> lehrveranstaltung) {
 						lvContainer = lehrveranstaltung;
 						for (Lehrveranstaltung lv : lehrveranstaltung) {
-							libLehrveranstaltung.addItem(lv
+							listLehrveranstaltung.addItem(lv
 									.getBezeichnung());
 						}
 						getDozenten();
@@ -458,7 +491,7 @@ public class StundenplaneintragForm extends Content {
 					public void onSuccess(Vector<Dozent> dozent) {
 						dozentContainer = dozent;
 						for (Dozent d : dozent) {
-							libDozent.addItem(d.getNachname() + ", "
+							listDozent.addItem(d.getNachname() + ", "
 									+ d.getVorname());
 						}
 						getRaeume();
@@ -478,7 +511,7 @@ public class StundenplaneintragForm extends Content {
 					public void onSuccess(Vector<Raum> raum) {
 						raumContainer = raum;
 						for (Raum r : raum) {
-							libRaum.addItem(r.getBezeichnung());
+							listRaum.addItem(r.getBezeichnung());
 						}
 						getZeitslots();
 					}
@@ -497,7 +530,7 @@ public class StundenplaneintragForm extends Content {
 					public void onSuccess(Vector<Zeitslot> zeitslot) {
 						zsContainer = zeitslot;
 						for (Zeitslot z : zeitslot) {
-							libZeitslot.addItem(z.getWochentag()
+							listZeitslot.addItem(z.getWochentag()
 									+ ", " + z.getAnfangszeit()
 									+ ", " + z.getEndzeit());
 						}

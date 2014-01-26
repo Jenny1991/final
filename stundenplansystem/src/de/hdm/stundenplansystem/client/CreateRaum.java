@@ -36,10 +36,10 @@ public class CreateRaum extends Content {
 	 * Unter der Überschrift trägt der User die Daten des neuen Dozenten 
 	 * in Text Boxen ein.
 	 */
-	final Label lbbezeichnung = new Label("Bezeichnung:");
-	final Label lbkapazitaet = new Label("Kapazität des Raums:");
-	final TextBox tbbezeichnung = new TextBox();
-	final TextBox tbkapazitaet = new TextBox();
+	final Label lbBezeichnung = new Label("Bezeichnung:");
+	final Label lbKapazitaet = new Label("Kapazität des Raums:");
+	final TextBox tbBezeichnung = new TextBox();
+	final TextBox tbKapazitaet = new TextBox();
 	final Button speichern = new Button("Eingaben speichern");
 
 	/**
@@ -55,21 +55,14 @@ public class CreateRaum extends Content {
 	   * Sie gibt an, was geschehen soll, 
 	   * wenn eine Widget-Instanz zur Anzeige gebracht wird.
 	   * Durch die Methode <code>add()</code> werden die Widgets dem Panel hinzugefügt.
-	   * 
-	   * @param ueberschrift, 
-	   * @param lbbezeichnung, 
-	   * @param tbbezeichnung, 
-	   * @param lbkapazitaet, 
-	   * @param tbkapazitaet, 
-	   * @param speichern definieren den Aufbau der Widgets den Panels
 	   */
 	public void onLoad() {
 
 		this.add(ueberschrift);
-		this.add(lbbezeichnung);
-		this.add(tbbezeichnung);
-		this.add(lbkapazitaet);
-		this.add(tbkapazitaet);
+		this.add(lbBezeichnung);
+		this.add(tbBezeichnung);
+		this.add(lbKapazitaet);
+		this.add(tbKapazitaet);
 		this.add(speichern);
 		setTvm(tvm);
 
@@ -89,17 +82,17 @@ public class CreateRaum extends Content {
 
 				boolean allFilled = true;
 
-				if (tbbezeichnung.getValue().isEmpty()
-						|| tbkapazitaet.getValue().isEmpty()) {
+				if (tbBezeichnung.getValue().isEmpty()
+						|| tbKapazitaet.getValue().isEmpty()) {
 					allFilled = false;
 					Window.alert("Bitte füllen Sie alle Felder aus.");
 				}
 
 				if (allFilled == true) {
-					final String bezeichnung = tbbezeichnung
+					final String bezeichnung = tbBezeichnung
 							.getValue().trim();
 					final int kapazitaet = Integer
-							.valueOf(tbkapazitaet.getValue());
+							.valueOf(tbKapazitaet.getValue());
 					
 				    /**
 			         * Wenn die Text Boxen befüllt sind, werden wir die Verwaltungsklasse durch Methode
@@ -134,8 +127,8 @@ public class CreateRaum extends Content {
 							     */
 								@Override
 								public void onSuccess(Raum result) {
-									tbbezeichnung.setText("");
-									tbkapazitaet.setText("");
+									tbBezeichnung.setText("");
+									tbKapazitaet.setText("");
 									Window.alert("Erfolgreich gespeichert.");
 									tvm.addRaum(result);
 								}

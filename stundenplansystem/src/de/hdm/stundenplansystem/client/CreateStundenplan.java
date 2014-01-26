@@ -44,13 +44,13 @@ public class CreateStundenplan extends Content {
 	 * Unter der Überschrift trägt der User die Daten des neuen Stundenplans 
 	 * in Text Boxen ein.
 	 */
-	final Label lbhalbjahr = new Label(
+	final Label lbHalbjahr = new Label(
 			"Studienhalbjahr des Stundenplans (z.B. SS 2012 oder WS 2012/2013):");
-	final TextBox tbhalbjahr = new TextBox();
-	final Label lbsemverband = new Label("Semesterverband:");
-	final ListBox libsemverband = new ListBox();
-	final Label lbstudiengang = new Label("Studiengang:");
-	final ListBox libstudiengang = new ListBox();
+	final TextBox tbHalbjahr = new TextBox();
+	final Label lbSemverband = new Label("Semesterverband:");
+	final ListBox libSemverband = new ListBox();
+	final Label lbStudiengang = new Label("Studiengang:");
+	final ListBox libStudiengang = new ListBox();
 	final Button speichern = new Button("Eingaben speichern");
 
 	/**
@@ -73,25 +73,16 @@ public class CreateStundenplan extends Content {
 	   * Sie gibt an, was geschehen soll, 
 	   * wenn eine Widget-Instanz zur Anzeige gebracht wird.
 	   * Durch die Methode <code>add()</code> werden die Widgets dem Panel hinzugefügt.
-	   * 
-	   * @param ueberschrift, 
-	   * @param lbsemverband, 
-	   * @param libsemverband, 
-	   * @param lbstudiengang, 
-	   * @param libstudiengang, 
-	   * @param lbhalbjahr, 
-	   * @param tbhalbjahr, 
-	   * @param speichern definieren den Aufbau der Widgets den Panels
 	   */
 	public void onLoad() {
 
 		this.add(ueberschrift);
-		this.add(lbstudiengang);
-		this.add(libstudiengang);
-		this.add(lbsemverband);
-		this.add(libsemverband);
-		this.add(lbhalbjahr);
-		this.add(tbhalbjahr);
+		this.add(lbStudiengang);
+		this.add(libStudiengang);
+		this.add(lbSemverband);
+		this.add(libSemverband);
+		this.add(lbHalbjahr);
+		this.add(tbHalbjahr);
 		this.add(speichern);
 		setTvm(tvm);
 
@@ -103,7 +94,7 @@ public class CreateStundenplan extends Content {
 		 * zurückzuliefern. Die Studiengänge werden durch die Methode <code>addItem()</code>
 		 * der List Box zugefügt.
 		 */
-		libstudiengang.clear();
+		libStudiengang.clear();
 		verwaltungsSvc
 				.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
 					public void onFailure(Throwable T) {
@@ -114,7 +105,7 @@ public class CreateStundenplan extends Content {
 							Vector<Studiengang> studiengang) {
 						sgContainer = studiengang;
 						for (Studiengang sg : studiengang) {
-							libstudiengang.addItem(
+							libStudiengang.addItem(
 									sg.getBezeichnung(),
 									String.valueOf(sg.getId()));
 						}
@@ -132,7 +123,7 @@ public class CreateStundenplan extends Content {
 		 * 
 		 * Anschließend wird festgelegt, was passiert wenn der das Element der ListBox sich ändert.
 		 */
-		libstudiengang.addChangeHandler(new ChangeHandler() {
+		libStudiengang.addChangeHandler(new ChangeHandler() {
 
 			@Override
 			public void onChange(ChangeEvent event) {
@@ -156,16 +147,16 @@ public class CreateStundenplan extends Content {
 
 				boolean allFilled = true;
 
-				if (tbhalbjahr.getValue().isEmpty()) {
+				if (tbHalbjahr.getValue().isEmpty()) {
 					allFilled = false;
 					Window.alert("Bitte füllen Sie alle Felder aus.");
 				}
 
 				if (allFilled == true) {
-					final String studienhalbjahr = tbhalbjahr
+					final String studienhalbjahr = tbHalbjahr
 							.getValue().trim();
 					int semesterverbandId = svContainer.elementAt(
-							libsemverband.getSelectedIndex()).getId();
+							libSemverband.getSelectedIndex()).getId();
 
 					 /**
 			         * Wenn die Text Boxen befüllt sind, werden wir die Verwaltungsklasse durch Methode
@@ -202,9 +193,9 @@ public class CreateStundenplan extends Content {
 								@Override
 								public void onSuccess(
 										Stundenplan result) {
-									libstudiengang.clear();
-									libsemverband.clear();
-									tbhalbjahr.setText("");
+									libStudiengang.clear();
+									libSemverband.clear();
+									tbHalbjahr.setText("");
 									Window.alert("Erfolgreich gespeichert.");
 									tvm.addStundenplan(result);
 								}
@@ -234,14 +225,10 @@ public class CreateStundenplan extends Content {
 	 * der List Box zugefügt.
 	 */
 	public void getSemverband() {
-		libsemverband.clear();
-//		System.out.println("Index: " + sgContainer.elementAt(
-//				libstudiengang.getSelectedIndex()));
-//		System.out.println("Id: " + sgContainer.elementAt(
-//				libstudiengang.getSelectedIndex()).getId());
+		libSemverband.clear();
 		verwaltungsSvc.getSemsterverbaendeByStudiengang(
 				sgContainer.elementAt(
-						libstudiengang.getSelectedIndex()).getId(),
+						libStudiengang.getSelectedIndex()).getId(),
 				new AsyncCallback<Vector<Semesterverband>>() {
 					public void onFailure(Throwable caught) {
 						caught.getMessage();
@@ -251,7 +238,7 @@ public class CreateStundenplan extends Content {
 							Vector<Semesterverband> semesterverband) {
 						svContainer = semesterverband;
 						for (Semesterverband sv : semesterverband) {
-							libsemverband.addItem(sv.getJahrgang()
+							libSemverband.addItem(sv.getJahrgang()
 									+ ", Semester: "
 									+ String.valueOf(sv.getSemester()));
 						}

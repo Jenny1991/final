@@ -88,23 +88,6 @@ public class CreateStundenplaneintrag extends Content {
 	   * Sie gibt an, was geschehen soll, 
 	   * wenn eine Widget-Instanz zur Anzeige gebracht wird.
 	   * Durch die Methode <code>add()</code> werden die Widgets dem Panel hinzugefügt.
-	   * 
-	   * @param ueberschrift, 
-	   * @param lbStudiengang, 
-	   * @param listStudiengang, 
-	   * @param lbSemesterverband, 
-	   * @param listSemesterverband, 
-	   * @param lbStudienhj, 
-	   * @param listStudienhj, 
-	   * @param lbLehrveranstaltung, 
-	   * @param listLehrveranstaltung, 
-	   * @param lbDozent, 
-	   * @param listDozent, 
-	   * @param lbRaum, 
-	   * @param listRaum, 
-	   * @param lbZeitslot, 
-	   * @param listZeitslot, 
-	   * @param speichern definieren den Aufbau der Widgets den Panels
 	   */
 	public void onLoad() {
 

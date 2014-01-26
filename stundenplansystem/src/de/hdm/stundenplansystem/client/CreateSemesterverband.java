@@ -40,16 +40,16 @@ public class CreateSemesterverband extends Content {
 	 * Unter der Überschrift trägt der User die Daten des neuen Dozenten 
 	 * in Text Boxen ein.
 	 */
-	final Label lbjahrgang = new Label(
+	final Label lbJahrgang = new Label(
 			"Beginn des Studiums (z.B. SS 2012 oder WS 2012/2013):");
-	final Label lbstudiengang = new Label("Studiengang:");
-	final Label lbsemester = new Label(
+	final Label lbStudiengang = new Label("Studiengang:");
+	final Label lbSemester = new Label(
 			"aktuelles Semester (z.B. 1, 2, 3, ...):");
-	final Label lbanzahl = new Label("Anzahl der Studierenden:");
-	final TextBox tbjahrgang = new TextBox();
-	final ListBox libstudiengang = new ListBox();
-	final TextBox tbsemester = new TextBox();
-	final TextBox tbanzahl = new TextBox();
+	final Label lbAnzahl = new Label("Anzahl der Studierenden:");
+	final TextBox tbJahrgang = new TextBox();
+	final ListBox libStudiengang = new ListBox();
+	final TextBox tbSemester = new TextBox();
+	final TextBox tbAnzahl = new TextBox();
 	final Button speichern = new Button("Eingaben speichern");
 
 	/**
@@ -70,29 +70,18 @@ public class CreateSemesterverband extends Content {
 	   * Sie gibt an, was geschehen soll, 
 	   * wenn eine Widget-Instanz zur Anzeige gebracht wird.
 	   * Durch die Methode <code>add()</code> werden die Widgets dem Panel hinzugefügt.
-	   * 
-	   * @param ueberschrift, 
-	   * @param lbjahrgang, 
-	   * @param tbjahrgang, 
-	   * @param lbstudiengang, 
-	   * @param libstudiengang, 
-	   * @param lbsemester, 
-	   * @param tbsemester, 
-	   * @param lbanzahl, 
-	   * @param tbanzahl, 
-	   * @param speichern definieren den Aufbau der Widgets den Panels
 	   */
 	public void onLoad() {
 
 		this.add(ueberschrift);
-		this.add(lbjahrgang);
-		this.add(tbjahrgang);
-		this.add(lbstudiengang);
-		this.add(libstudiengang);
-		this.add(lbsemester);
-		this.add(tbsemester);
-		this.add(lbanzahl);
-		this.add(tbanzahl);
+		this.add(lbJahrgang);
+		this.add(tbJahrgang);
+		this.add(lbStudiengang);
+		this.add(libStudiengang);
+		this.add(lbSemester);
+		this.add(tbSemester);
+		this.add(lbAnzahl);
+		this.add(tbAnzahl);
 		this.add(speichern);
 		setTvm(tvm);
 
@@ -104,7 +93,7 @@ public class CreateSemesterverband extends Content {
 		 * zurückzuliefern. Die Studiengänge werden durch die Methode <code>addItem()</code>
 		 * der List Box zugefügt.
 		 */
-		libstudiengang.clear();
+		libStudiengang.clear();
 		verwaltungsSvc
 		.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
 			public void onFailure(Throwable T) {
@@ -114,7 +103,7 @@ public class CreateSemesterverband extends Content {
 					Vector<Studiengang> studiengaenge) {
 				sgContainer = studiengaenge;
 				for (Studiengang sg : studiengaenge) {
-					libstudiengang.addItem(
+					libStudiengang.addItem(
 							sg.getBezeichnung(),
 							String.valueOf(sg.getId()));
 				}
@@ -137,22 +126,22 @@ public class CreateSemesterverband extends Content {
 
 				boolean allFilled = true;
 
-				if (tbjahrgang.getText().isEmpty()
-						|| tbanzahl.getText().isEmpty()
-						|| tbsemester.getText().isEmpty()) {
+				if (tbJahrgang.getText().isEmpty()
+						|| tbAnzahl.getText().isEmpty()
+						|| tbSemester.getText().isEmpty()) {
 					allFilled = false;
 					Window.alert("Bitte füllen Sie alle Felder aus.");
 				}
 
 				if (allFilled == true) {
-					final String jahrgang = tbjahrgang.getText()
+					final String jahrgang = tbJahrgang.getText()
 							.trim();
 					final int studiengangId = sgContainer.elementAt(
-							libstudiengang.getSelectedIndex())
+							libStudiengang.getSelectedIndex())
 							.getId();
 					final int studierendenAnzahl = Integer
-							.valueOf(tbanzahl.getValue());
-					final int semester = Integer.valueOf(tbsemester
+							.valueOf(tbAnzahl.getValue());
+					final int semester = Integer.valueOf(tbSemester
 							.getText().trim());
 
 					 /**
@@ -191,10 +180,10 @@ public class CreateSemesterverband extends Content {
 								@Override
 								public void onSuccess(
 										Semesterverband result) {
-									tbjahrgang.setText("");
-									libstudiengang.clear();
-									tbsemester.setText("");
-									tbanzahl.setText("");
+									tbJahrgang.setText("");
+									libStudiengang.clear();
+									tbSemester.setText("");
+									tbAnzahl.setText("");
 									Window.alert("Erfolgreich gespeichert.");
 									tvm.addSemesterverband(result);
 								}

@@ -36,9 +36,9 @@ public class CreateDozent extends Content {
 	 * in Text Boxen ein.
 	 */
 	Label lbvorname = new Label("Vorname:");
-	final Label lbnachname = new Label("Nachname:");
-	final TextBox tbvorname = new TextBox();
-	final TextBox tbnachname = new TextBox();
+	final Label lbNachname = new Label("Nachname:");
+	final TextBox tbVorname = new TextBox();
+	final TextBox tbNachname = new TextBox();
 	final Button speichern = new Button("Eingaben speichern");
 
 	/**
@@ -54,21 +54,14 @@ public class CreateDozent extends Content {
 	   * Sie gibt an, was geschehen soll, 
 	   * wenn eine Widget-Instanz zur Anzeige gebracht wird.
 	   * Durch die Methode <code>add()</code> werden die Widgets dem Panel hinzugefügt.
-	   * 
-	   * @param ueberschrift, 
-	   * @param lbvorname, 
-	   * @param tbvorname, 
-	   * @param lbnachname, 
-	   * @param tbnachname, 
-	   * @param speichern definieren den Aufbau der Widgets den Panels
 	   */
 	public void onLoad() {
 
 		this.add(ueberschrift);
 		this.add(lbvorname);
-		this.add(tbvorname);
-		this.add(lbnachname);
-		this.add(tbnachname);
+		this.add(tbVorname);
+		this.add(lbNachname);
+		this.add(tbNachname);
 		this.add(speichern);
 		setTvm(tvm);
 
@@ -88,15 +81,15 @@ public class CreateDozent extends Content {
 
 				boolean allFilled = true;
 
-				if (tbnachname.getValue().isEmpty()
-						|| tbvorname.getValue().isEmpty()) {
+				if (tbNachname.getValue().isEmpty()
+						|| tbVorname.getValue().isEmpty()) {
 					allFilled = false;
 					Window.alert("Bitte füllen Sie alle Felder aus.");
 				}
 
 				if (allFilled == true) {
-					String vorname = tbvorname.getValue().trim();
-					String nachname = tbnachname.getValue().trim();
+					String vorname = tbVorname.getValue().trim();
+					String nachname = tbNachname.getValue().trim();
 					
 				    /**
 			         * Wenn die Text Boxen befüllt sind, werden wir die Verwaltungsklasse durch Methode
@@ -131,8 +124,8 @@ public class CreateDozent extends Content {
 							     */
 								@Override
 								public void onSuccess(Dozent result) {
-									tbvorname.setText("");
-									tbnachname.setText("");
+									tbVorname.setText("");
+									tbNachname.setText("");
 									Window.alert("Erfolgreich gespeichert.");
 									tvm.addDozent(result);
 								}

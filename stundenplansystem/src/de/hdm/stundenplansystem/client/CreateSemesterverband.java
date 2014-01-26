@@ -35,10 +35,9 @@ public class CreateSemesterverband extends Content {
 	 */
 	private final HTML ueberschrift = new HTML(
 			"<h2>Neuen Semesterverband anlegen<h2>");
-
-	/**
-	 * Unter der Überschrift trägt der User die Daten des neuen Dozenten 
-	 * in Text Boxen ein.
+	
+	/** 
+	 * Hier werden die GWT Widgets instantiiert
 	 */
 	final Label lbJahrgang = new Label(
 			"Beginn des Studiums (z.B. SS 2012 oder WS 2012/2013):");

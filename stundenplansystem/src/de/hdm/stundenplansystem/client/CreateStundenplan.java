@@ -40,9 +40,8 @@ public class CreateStundenplan extends Content {
 	private final HTML ueberschrift = new HTML(
 			"<h2>Neues Studienhalbjahr anlegen<h2>");
 
-	/**
-	 * Unter der Überschrift trägt der User die Daten des neuen Stundenplans 
-	 * in Text Boxen ein.
+	/** 
+	 * Hier werden die GWT Widgets instantiiert
 	 */
 	final Label lbHalbjahr = new Label(
 			"Studienhalbjahr des Stundenplans (z.B. SS 2012 oder WS 2012/2013):");

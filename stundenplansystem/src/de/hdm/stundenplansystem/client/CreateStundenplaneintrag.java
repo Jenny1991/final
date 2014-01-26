@@ -36,9 +36,8 @@ import de.hdm.stundenplansystem.shared.bo.Zeitslot;
 
 public class CreateStundenplaneintrag extends Content {
 
-	/**
-	 * Jede Klasse enthält eine Überschrift, die definiert, was der User
-	 * machen kann.
+	/** 
+	 * Hier werden die GWT Widgets instantiiert
 	 */
 	private final HTML ueberschrift = new HTML(
 			"<h2>Neuen Stundenplaneintrag anlegen<h2>");

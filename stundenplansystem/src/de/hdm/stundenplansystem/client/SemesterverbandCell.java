@@ -1,15 +1,7 @@
 package de.hdm.stundenplansystem.client;
 
-import java.util.Vector;
-
 import com.google.gwt.cell.client.AbstractCell;
-import com.google.gwt.core.shared.GWT;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
-import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.ibm.icu.util.BytesTrie.Result;
-
-import de.hdm.stundenplansystem.shared.Verwaltungsklasse;
-import de.hdm.stundenplansystem.shared.VerwaltungsklasseAsync;
 import de.hdm.stundenplansystem.shared.bo.*;
 
 /**

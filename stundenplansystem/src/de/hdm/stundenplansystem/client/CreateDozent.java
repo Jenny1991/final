@@ -31,9 +31,8 @@ public class CreateDozent extends Content {
 	private final HTML ueberschrift = new HTML(
 			"<h2>Neuen Dozenten anlegen<h2>");
 
-	/**
-	 * Unter der Überschrift trägt der User die Daten des neuen Dozenten 
-	 * in Text Boxen ein.
+	/** 
+	 * Hier werden die GWT Widgets instantiiert
 	 */
 	Label lbvorname = new Label("Vorname:");
 	final Label lbNachname = new Label("Nachname:");

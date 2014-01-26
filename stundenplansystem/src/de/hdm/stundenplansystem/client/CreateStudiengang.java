@@ -32,9 +32,8 @@ public class CreateStudiengang extends Content {
 	private final HTML ueberschrift = new HTML(
 			"<h2>Neuen Studiengang anlegen<h2>");
 
-	/**
-	 * Unter der Überschrift trägt der User die Daten des neuen Dozenten 
-	 * in Text Boxen ein.
+	/** 
+	 * Hier werden die GWT Widgets instantiiert
 	 */
 	final Label lbBezeichnung = new Label("Bezeichnung:");
 	final TextBox tbBezeichnung = new TextBox();
@@ -53,11 +52,6 @@ public class CreateStudiengang extends Content {
 	   * Sie gibt an, was geschehen soll, 
 	   * wenn eine Widget-Instanz zur Anzeige gebracht wird.
 	   * Durch die Methode <code>add()</code> werden die Widgets dem Panel hinzugefügt.
-	   * 
-	   * @param ueberschrift, 
-	   * @param lbbezeichnung, 
-	   * @param tbbezeichnung, 
-	   * @param speichern definieren den Aufbau der Widgets den Panels
 	   */
 	public void onLoad() {
 

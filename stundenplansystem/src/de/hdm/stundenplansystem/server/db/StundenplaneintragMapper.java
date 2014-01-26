@@ -182,7 +182,7 @@ public class StundenplaneintragMapper {
 
 			ResultSet rs = stmt
 					.executeQuery("SELECT stundenplaneintrag.id, stundenplaneintrag.dozentid, stundenplaneintrag.raumid, "
-							+ "stundenplaneintrag.zeitslotid, stundenplaneintrag.lehrveranstaltungid, stundenplaneintrag.abkuerzung "
+							+ "stundenplaneintrag.zeitslotid, stundenplaneintrag.lehrveranstaltungid, stundenplaneintrag.stundenplanid, stundenplaneintrag.abkuerzung "
 							+ "FROM stundenplaneintrag "
 							+ "WHERE stundenplaneintrag.zeitslotid = "
 							+ zeitslotid
@@ -193,14 +193,14 @@ public class StundenplaneintragMapper {
 			// Stundenplaneintrag-Objekt erstellt.
 			while (rs.next()) {
 				Stundenplaneintrag s = new Stundenplaneintrag();
-				s.setId(rs.getInt("id"));
-				s.setDozentId(rs.getInt("dozentid"));
-				s.setRaumId(rs.getInt("raumid"));
-				s.setZeitslotId(rs.getInt("zeitslotid"));
+				s.setId(rs.getInt("stundenplaneintrag.id"));
+				s.setDozentId(rs.getInt("stundenplaneintrag.dozentid"));
+				s.setRaumId(rs.getInt("stundenplaneintrag.raumid"));
+				s.setZeitslotId(rs.getInt("stundenplaneintrag.zeitslotid"));
 				s.setLehrveranstaltungId(rs
-						.getInt("lehrveranstaltungid"));
-				s.setStundenplanId(rs.getInt("stundenplanid"));
-				s.setAbkuerzung(rs.getString("abkuerzung"));
+						.getInt("stundenplaneintrag.lehrveranstaltungid"));
+				s.setStundenplanId(rs.getInt("stundenplaneintrag.stundenplanid"));
+				s.setAbkuerzung(rs.getString("stundenplaneintrag.abkuerzung"));
 
 				return s;
 			}

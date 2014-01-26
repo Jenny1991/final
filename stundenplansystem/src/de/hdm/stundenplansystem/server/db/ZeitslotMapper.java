@@ -160,17 +160,50 @@ public class ZeitslotMapper {
 		try {
 			Statement stmt = con.createStatement();
 
+//			ResultSet rs = stmt
+//					.executeQuery("SELECT zeitslot.id, zeitslot.wochentag, zeitslot.anfangszeit, zeitslot.endzeit"
+//							+ " FROM zeitslot"
+//							+ " INNER JOIN stundenplaneintrag"
+//							+ " ON stundenplaneintrag.zeitslotid = zeitslot.id"
+//							+ " WHERE stundenplaneintrag.raumid <> "
+//							+ raumid
+//							+ " AND stundenplaneintrag.dozentid <> "
+//							+ dozentid
+//							+ " AND stundenplaneintrag.stundenplanid <> "
+//							+ stundenplanid + " ORDER BY id");
+			
 			ResultSet rs = stmt
-					.executeQuery("SELECT zeitslot.id, zeitslot.wochentag, zeitslot.anfangszeit, zeitslot.endzeit"
+					.executeQuery("SELECT DISTINCT zeitslot.id, zeitslot.wochentag, zeitslot.anfangszeit, zeitslot.endzeit"
+							+ " FROM zeitslot"
+							+ " LEFT JOIN stundenplaneintrag"
+							+ " ON stundenplaneintrag.zeitslotid = zeitslot.id"
+							+ " WHERE stundenplaneintrag.raumid IS NULL"
+							+ " OR stundenplaneintrag.dozentid IS NULL"
+							+ " OR stundenplaneintrag.stundenplanid IS NULL"
+							+ " AND stundenplaneintrag.raumid <> " + raumid
+							+ " AND NOT EXISTS"
+							+ " (SELECT zeitslot.id"
 							+ " FROM zeitslot"
 							+ " INNER JOIN stundenplaneintrag"
 							+ " ON stundenplaneintrag.zeitslotid = zeitslot.id"
-							+ " WHERE stundenplaneintrag.raumid <> "
-							+ raumid
-							+ " AND stundenplaneintrag.dozentid <> "
-							+ dozentid
-							+ " AND stundenplaneintrag.stundenplanid <> "
-							+ stundenplanid + " ORDER BY id");
+							+ " WHERE stundenplaneintrag.raumid = )" + raumid
+							+ " AND stundenplaneintrag.dozentid <> " + dozentid
+							+ " AND NOT EXISTS"
+							+ " (SELECT zeitslot.id"
+							+ " FROM zeitslot"
+							+ " INNER JOIN stundenplaneintrag"
+							+ " ON stundenplaneintrag.zeitslotid = zeitslot.id"
+							+ " WHERE stundenplaneintrag.dozentid = )" + dozentid
+							+ " AND stundenplaneintrag.stundenplanid <> " + stundenplanid
+							+ " AND NOT EXISTS"
+							+ " (SELECT zeitslot.id"
+							+ " FROM zeitslot"
+							+ " INNER JOIN stundenplaneintrag"
+							+ " ON stundenplaneintrag.zeitslotid = zeitslot.id"
+							+ " WHERE stundenplaneintrag.stundenplanid = )" + stundenplanid);
+			
+			
+			
 
 			// Für jeden Eintrag im Suchergebnis wird nun ein Zeitslot-Objekt
 			// erstellt.

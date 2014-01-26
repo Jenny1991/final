@@ -209,7 +209,7 @@ public class CreateStundenplaneintrag extends Content {
 	public void getStundenplan() {
 		listStudienhj.clear();
 		verwaltungsSvc.getStundenplaeneBySemesterverband(svContainer
-				.elementAt(listStudiengang.getSelectedIndex())
+				.elementAt(listSemesterverband.getSelectedIndex())
 				.getId(), new AsyncCallback<Vector<Stundenplan>>() {
 			public void onFailure(Throwable caught) {
 			}

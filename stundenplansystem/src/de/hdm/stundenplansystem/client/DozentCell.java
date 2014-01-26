@@ -10,14 +10,18 @@ import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import de.hdm.stundenplansystem.shared.bo.*;
 
 /**
- * @author C. Rathke, V. Hofmann
  * Diese Klasse DozentCell definiert die in den Knoten dargestellte
  * Informationen.
- * Die Methode <code>render</code> übersetzt die Cell als HTML in einen
- * SafeHtmlBuilder, der das Erstellen von XSS (safe HTML) aus Textteilen
- * erleichtert.
+ * 
+ * @author C. Rathke, V. Hofmann
+ * @version 1.0
  */
 public class DozentCell extends AbstractCell<Dozent> {
+	/** 
+	 * Die Methode <code>render</code> übersetzt die Cell als HTML in einen
+	 * SafeHtmlBuilder, der das Erstellen von XSS (safe HTML) aus Textteilen
+	 * erleichtert.
+	 */
 	@Override
 	public void render(Context context, Dozent value,
 			SafeHtmlBuilder sb) {

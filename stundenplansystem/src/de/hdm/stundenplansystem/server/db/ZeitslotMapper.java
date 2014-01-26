@@ -172,39 +172,49 @@ public class ZeitslotMapper {
 //							+ " AND stundenplaneintrag.stundenplanid <> "
 //							+ stundenplanid + " ORDER BY id");
 			
+//			ResultSet rs = stmt
+//					.executeQuery("SELECT DISTINCT zeitslot.id, zeitslot.wochentag, zeitslot.anfangszeit, zeitslot.endzeit"
+//							+ " FROM zeitslot"
+//							+ " LEFT JOIN stundenplaneintrag"
+//							+ " ON stundenplaneintrag.zeitslotid = zeitslot.id"
+//							+ " WHERE stundenplaneintrag.raumid IS NULL"
+//							+ " OR stundenplaneintrag.dozentid IS NULL"
+//							+ " OR stundenplaneintrag.stundenplanid IS NULL"
+//							+ " AND stundenplaneintrag.raumid <> " + raumid
+//							+ " AND NOT EXISTS"
+//							+ " (SELECT zeitslot.id"
+//							+ " FROM zeitslot"
+//							+ " INNER JOIN stundenplaneintrag"
+//							+ " ON stundenplaneintrag.zeitslotid = zeitslot.id"
+//							+ " WHERE stundenplaneintrag.raumid = " + raumid + ")"
+//							+ " AND stundenplaneintrag.dozentid <> " + dozentid
+//							+ " AND NOT EXISTS"
+//							+ " (SELECT zeitslot.id"
+//							+ " FROM zeitslot"
+//							+ " INNER JOIN stundenplaneintrag"
+//							+ " ON stundenplaneintrag.zeitslotid = zeitslot.id"
+//							+ " WHERE stundenplaneintrag.dozentid = " + dozentid + ")"
+//							+ " AND stundenplaneintrag.stundenplanid <> " + stundenplanid
+//							+ " AND NOT EXISTS"
+//							+ " (SELECT zeitslot.id"
+//							+ " FROM zeitslot"
+//							+ " INNER JOIN stundenplaneintrag"
+//							+ " ON stundenplaneintrag.zeitslotid = zeitslot.id"
+//							+ " WHERE stundenplaneintrag.stundenplanid = " + stundenplanid + ")"
+//							+ " ORDER BY find_in_set(zeitslot.wochentag,'Montag,Dienstag,Mittwoch,Donnerstag,Freitag,Samstag'), zeitslot.anfangszeit");
+			
 			ResultSet rs = stmt
-					.executeQuery("SELECT DISTINCT zeitslot.id, zeitslot.wochentag, zeitslot.anfangszeit, zeitslot.endzeit"
+					.executeQuery("SELECT zeitslot.id, zeitslot.wochentag, zeitslot.anfangszeit, zeitslot.endzeit"
 							+ " FROM zeitslot"
-							+ " LEFT JOIN stundenplaneintrag"
-							+ " ON stundenplaneintrag.zeitslotid = zeitslot.id"
-							+ " WHERE stundenplaneintrag.raumid IS NULL"
-							+ " OR stundenplaneintrag.dozentid IS NULL"
-							+ " OR stundenplaneintrag.stundenplanid IS NULL"
-							+ " AND stundenplaneintrag.raumid <> " + raumid
-							+ " AND NOT EXISTS"
+							+ " WHERE NOT EXISTS"
 							+ " (SELECT zeitslot.id"
-							+ " FROM zeitslot"
-							+ " INNER JOIN stundenplaneintrag"
-							+ " ON stundenplaneintrag.zeitslotid = zeitslot.id"
-							+ " WHERE stundenplaneintrag.raumid = " + raumid + ")"
-							+ " AND stundenplaneintrag.dozentid <> " + dozentid
-							+ " AND NOT EXISTS"
-							+ " (SELECT zeitslot.id"
-							+ " FROM zeitslot"
-							+ " INNER JOIN stundenplaneintrag"
-							+ " ON stundenplaneintrag.zeitslotid = zeitslot.id"
-							+ " WHERE stundenplaneintrag.dozentid = " + dozentid + ")"
-							+ " AND stundenplaneintrag.stundenplanid <> " + stundenplanid
-							+ " AND NOT EXISTS"
-							+ " (SELECT zeitslot.id"
-							+ " FROM zeitslot"
-							+ " INNER JOIN stundenplaneintrag"
-							+ " ON stundenplaneintrag.zeitslotid = zeitslot.id"
-							+ " WHERE stundenplaneintrag.stundenplanid = " + stundenplanid + ")"
-							+ " ORDER BY find_in_set(zeitslot.wochentag,'Montag,Dienstag,Mittwoch,Donnerstag,Freitag,Samstag'), zeitslot.anfangszeit");
-			
-			
-			
+							+ " FROM stundenplaneintrag"
+							+ " WHERE (stundenplaneintrag.zeitslotid = zeitslot.id AND "
+							+ " stundenplaneintrag.stundenplanid = " + stundenplanid
+							+ " AND stundenplaneintrag.raumid = " + raumid + ")"
+							+ " OR (stundenplaneintrag.zeitslotid = zeitslot.id "
+							+ " AND stundenplaneintrag.stundenplanid = " + stundenplanid
+							+ " AND stundenplaneintrag.dozentid = " + dozentid + ")");			
 
 			// Für jeden Eintrag im Suchergebnis wird nun ein Zeitslot-Objekt
 			// erstellt.

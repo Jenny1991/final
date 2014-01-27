@@ -144,6 +144,7 @@ public class ReportRaum extends Content {
 		         * RaumbelegungsReport anzulegen und diesen uns über einen Callback
 		         * zurückzuliefern.
 		         */
+				panel.clear();
 				reportSvc.createRaumbelungsReport(rContainer
 						.elementAt(libRaum.getSelectedIndex())
 						.getId(),

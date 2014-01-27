@@ -140,6 +140,45 @@ public class StundenplanMapper {
 		// Ergebnisvektor zurückgeben
 		return result;
 	}
+	
+	
+	/**
+	 * Auslesen aller Stundenpläne.
+	 * 
+	 * @return Ein Vektor mit Stundenplan-Objekten, die sämtliche Stundenpläne
+	 *         repräsentieren. Bei evtl. Exceptions wird ein partiell gefüllter
+	 *         oder ggf. auch leerer Vetor zurückgeliefert.
+	 */
+	public Vector<Stundenplan> findStudienhalbjahre() {
+		Connection con = DBConnection.connection();
+
+		// Ergebnisvektor vorbereiten
+		Vector<Stundenplan> result = new Vector<Stundenplan>();
+
+		try {
+			Statement stmt = con.createStatement();
+
+			ResultSet rs = stmt
+					.executeQuery("SELECT DISTINCT stundenplan.studienhalbjahr"
+							+ " FROM stundenplan " + " ORDER BY stundenplan.studienhalbjahr");
+			
+			// Für jeden Eintrag im Suchergebnis wird nun ein Stundenplan-Objekt
+			// erstellt.
+			while (rs.next()) {
+				Stundenplan s = new Stundenplan();
+				s.setStudienhalbjahr(rs.getString("studienhalbjahr"));
+
+				// Hinzufügen des neuen Objekts zum Ergebnisvektor
+				result.addElement(s);
+			}
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+
+		// Ergebnisvektor zurückgeben
+		return result;
+	}
+	
 
 	/**
 	 * Auslesen aller Stundenpläne.

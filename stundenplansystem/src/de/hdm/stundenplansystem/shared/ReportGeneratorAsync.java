@@ -18,9 +18,10 @@ public interface ReportGeneratorAsync {
 	void init(AsyncCallback<Void> callback);
 
 	void createStundenplanDozentReport(int dozentId,
+			Stundenplan stundenplan,
 			AsyncCallback<StundenplanDozentReport> callback);
 
-	void createRaumbelungsReport(int raumId,
+	void createRaumbelungsReport(int raumId, Stundenplan stundenplan,
 			AsyncCallback<RaumbelegungsReport> callback);
 
 	void createStundenplanSemesterverbandReport(

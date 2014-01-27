@@ -105,7 +105,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
 	 * @return der fertige Report
 	 */
 	public StundenplanDozentReport createStundenplanDozentReport(
-			int dozentId, String studienhalbjahr) throws IllegalArgumentException {
+			int dozentId, Stundenplan stundenplan) throws IllegalArgumentException {
 
 		Dozent d = verwaltung.getDozentById(dozentId);
 
@@ -193,7 +193,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
 
 			Stundenplaneintrag aktuell = this.verwaltung
 					.getStundenplaneintragByDozentAndZeitslot(
-							d.getId(), i, studienhalbjahr);
+							d.getId(), i, stundenplan.getStudienhalbjahr());
 
 			if (aktuell != null) {
 				accountRow.addColumn(new Column(
@@ -245,7 +245,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
 	 *            das Raumobjekt bzgl. dessen der Report erstellt werden soll.
 	 * @return der fertige Report
 	 */
-	public RaumbelegungsReport createRaumbelungsReport(int raumId, String studienhalbjahr)
+	public RaumbelegungsReport createRaumbelungsReport(int raumId, Stundenplan stundenplan)
 			throws IllegalArgumentException {
 
 		Raum r = verwaltung.getRaumById(raumId);
@@ -334,7 +334,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
 
 			Stundenplaneintrag aktuell = this.verwaltung
 					.getStundenplaneintragByRaumAndZeitslot(
-							r.getId(), i, studienhalbjahr);
+							r.getId(), i, stundenplan.getStudienhalbjahr());
 
 			if (aktuell != null) {
 				accountRow.addColumn(new Column(

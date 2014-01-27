@@ -487,7 +487,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 			int dozentId, int zeitslotId, String studienhalbjahr)
 			throws IllegalArgumentException {
 
-		return this.stundenplaneintragMapper.findByDozentAndZeitslot(
+		return this.stundenplaneintragMapper.findByDozentZeitslotAndStudienhalbjahr(
 				dozentId, zeitslotId, studienhalbjahr);
 	}
 

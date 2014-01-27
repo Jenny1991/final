@@ -75,6 +75,7 @@ public class ReportStundenplanDozent extends Content {
 	public void onLoad() {
 		
 		this.add(ueberschrift);
+		this.add(libStudienhalbjahr);
 		this.add(libDozent);
 		this.add(anzeigen);
 		this.add(panel);

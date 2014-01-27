@@ -131,9 +131,18 @@ public class StundenplanForm extends Content {
 			}
 		});
 		setTvm(tvm);
+		
+		libStudiengang.addChangeHandler(new ChangeHandler() {
+
+			@Override
+			public void onChange(ChangeEvent event) {
+				libSemverband.clear();
+				getSemverband();
+			}
+		});
 	}
 
-		public void onLoad(){
+		/*public void onLoad(){
 			
 		/**
 		 * Die Methode <code>addChangeHandler()</code> wird aufgerufen, wenn das Element der ListBox gändert wird.
@@ -144,15 +153,9 @@ public class StundenplanForm extends Content {
 		 * @param event wird abhängig vom Eventtyp {@link ChangeEvent} definiert
 		 * 
 		 * Anschließend wird festgelegt, was passiert wenn der das Element der ListBox sich ändert.
-		 */
-		libStudiengang.addChangeHandler(new ChangeHandler() {
-
-			@Override
-			public void onChange(ChangeEvent event) {
-				getSemverband();
-			}
-		});
-	}
+		 *
+		
+	}*/
 
 	public void changeSelectedHj() {
 
@@ -305,7 +308,7 @@ public class StundenplanForm extends Content {
 	}
 
 	public void getSemverband() {
-		libSemverband.clear();
+		sgContainer.clear();
 		verwaltungsSvc.getSemsterverbaendeByStudiengang(
 				sgContainer.elementAt(
 						libStudiengang.getSelectedIndex()).getId(),

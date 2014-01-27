@@ -82,6 +82,7 @@ public class ReportStundenplan extends Content {
 	   */
 	public void onLoad() {
 
+		panel.clear();	
 		this.add(ueberschrift);
 		this.add(lbStudiengang);
 		this.add(libStudiengang);
@@ -196,6 +197,7 @@ public class ReportStundenplan extends Content {
 								writer.process(result);
 								test = writer.getReportText();
 								panel.add(new HTML(test));
+								
 							}
 
 							/**
@@ -210,6 +212,7 @@ public class ReportStundenplan extends Content {
 							public void onFailure(Throwable caught) {
 								caught.getMessage();
 							}
+							
 						});
 			}
 		});

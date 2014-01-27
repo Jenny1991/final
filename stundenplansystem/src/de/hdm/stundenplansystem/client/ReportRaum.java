@@ -71,6 +71,7 @@ public class ReportRaum extends Content {
 	public void onLoad() {
 		
 		this.add(ueberschrift);
+		this.add(libStudienhalbjahr);
 		this.add(libRaum);
 		this.add(anzeigen);
 		this.add(panel);
@@ -108,8 +109,11 @@ public class ReportRaum extends Content {
 
 					@Override
 					public void onSuccess(Vector<Stundenplan> studienhalbjahr) {
-						sContainer =studienhalbjahr;
+						sContainer = studienhalbjahr;
+						int i = 0;
 						for (Stundenplan s : studienhalbjahr) {
+							sContainer.add(i, s);
+							i++;
 							libStudienhalbjahr.addItem(s.getStudienhalbjahr(),
 									String.valueOf(s.getId()));
 						}						
@@ -129,7 +133,7 @@ public class ReportRaum extends Content {
 		 */
 		anzeigen.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-
+				
 				 /**
 		         * Wir bitten den ReportGenerator durch Methode
 		         * <code>createRaumbelungsReport()</code>, einen neuen 
@@ -139,6 +143,7 @@ public class ReportRaum extends Content {
 				reportSvc.createRaumbelungsReport(rContainer
 						.elementAt(libRaum.getSelectedIndex())
 						.getId(),
+						sContainer.elementAt(libStudienhalbjahr.getSelectedIndex()),
 						new AsyncCallback<RaumbelegungsReport>() {
 
 							/**

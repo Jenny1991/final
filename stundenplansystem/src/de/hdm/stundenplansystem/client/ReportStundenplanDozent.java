@@ -18,6 +18,7 @@ import de.hdm.stundenplansystem.shared.VerwaltungsklasseAsync;
 import de.hdm.stundenplansystem.shared.bo.Dozent;
 import de.hdm.stundenplansystem.shared.bo.Stundenplan;
 import de.hdm.stundenplansystem.shared.report.HTMLReportWriter;
+import de.hdm.stundenplansystem.shared.report.RaumbelegungsReport;
 import de.hdm.stundenplansystem.shared.report.StundenplanDozentReport;
 
 /**
@@ -112,8 +113,11 @@ public class ReportStundenplanDozent extends Content {
 
 					@Override
 					public void onSuccess(Vector<Stundenplan> studienhalbjahr) {
-						sContainer =studienhalbjahr;
+						sContainer = studienhalbjahr;
+						int i = 0;
 						for (Stundenplan s : studienhalbjahr) {
+							sContainer.add(i, s);
+							i++;
 							libStudienhalbjahr.addItem(s.getStudienhalbjahr(),
 									String.valueOf(s.getId()));
 						}						
@@ -143,6 +147,7 @@ public class ReportStundenplanDozent extends Content {
 				reportSvc.createStundenplanDozentReport(dContainer
 						.elementAt(libDozent.getSelectedIndex())
 						.getId(),
+						sContainer.elementAt(libStudienhalbjahr.getSelectedIndex()),
 						new AsyncCallback<StundenplanDozentReport>() {
 
 							/**

@@ -139,16 +139,14 @@ public class StundenplaneintragForm extends Content {
 			}
 		});
 		setTvm(tvm);
-	}
-	
-	public void onLoad() {
+
 		listStudiengang.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
 				listSemesterverband.clear();
 				listStudienhj.clear();
 				listZeitslot.clear();
-				getSemesterverbaende();
+				getSemverband();
 			}
 		});
 
@@ -157,7 +155,7 @@ public class StundenplaneintragForm extends Content {
 			public void onChange(ChangeEvent event) {
 				listStudienhj.clear();
 				listZeitslot.clear();
-				getStundenplaene();
+				getStundenplan();
 			}
 		});
 
@@ -168,22 +166,6 @@ public class StundenplaneintragForm extends Content {
 				getZeitslots();
 			}
 		});
-		
-//		listDozent.addChangeHandler(new ChangeHandler() {
-//			@Override
-//			public void onChange(ChangeEvent event) {
-//				listZeitslot.clear();
-//				getZeitslots();
-//			}
-//		});
-//		
-//		listStudienhj.addChangeHandler(new ChangeHandler() {
-//			@Override
-//			public void onChange(ChangeEvent event) {
-//				listZeitslot.clear();
-//				getZeitslots();
-//			}
-//		});	
 	}
 
 //	public void getData() {
@@ -424,49 +406,50 @@ public class StundenplaneintragForm extends Content {
 									sg.getBezeichnung(),
 									String.valueOf(sg.getId()));
 						}
-						getSemesterverbaende();
+						getSemverband();
 					}
 				});
 	}
 
-	public void getSemesterverbaende() {
-		verwaltungsSvc
-				.getAllSemesterverbaende(new AsyncCallback<Vector<Semesterverband>>() {
-					@Override
-					public void onFailure(Throwable caught) {
-						caught.getMessage();
+	public void getSemverband() {
+		sgContainer.clear();
+		verwaltungsSvc.getSemsterverbaendeByStudiengang(
+				sgContainer.elementAt(
+						listStudiengang.getSelectedIndex()).getId(),
+				new AsyncCallback<Vector<Semesterverband>>() {
+					public void onFailure(Throwable T) {
+
 					}
 
-					@Override
 					public void onSuccess(
 							Vector<Semesterverband> semesterverband) {
 						svContainer = semesterverband;
 						for (Semesterverband sv : semesterverband) {
-							listSemesterverband.addItem(sv
-									.getKuerzel()
-									+ " "
+							listSemesterverband.addItem(sv.getKuerzel()
+									+ ", Semester: "
 									+ String.valueOf(sv.getSemester()));
 						}
-						getStundenplaene();
+						getStundenplan();
 					}
 				});
 	}
 
-	public void getStundenplaene() {
-		verwaltungsSvc
-				.getAllStundenplaene(new AsyncCallback<Vector<Stundenplan>>() {
-					@Override
-					public void onFailure(Throwable caught) {
-						caught.getMessage();
+	public void getStundenplan() {
+		svContainer.clear();
+		verwaltungsSvc.getStundenplaeneBySemesterverband(svContainer
+				.elementAt(listSemesterverband.getSelectedIndex()).getId(),
+				new AsyncCallback<Vector<Stundenplan>>() {
+					public void onFailure(Throwable T) {
+
 					}
 
-					@Override
 					public void onSuccess(
-							Vector<Stundenplan> stundenplan) {
-						spContainer = stundenplan;
-						for (Stundenplan sp : stundenplan) {
-							listStudienhj.addItem(String.valueOf(sp
-									.getStudienhalbjahr()));
+							Vector<Stundenplan> stundenplaene) {
+						spContainer = stundenplaene;
+						for (Stundenplan sp : stundenplaene) {
+							listStudienhj.addItem(
+									sp.getStudienhalbjahr(),
+									String.valueOf(sp.getId()));
 						}
 						getLehrveranstaltungen();
 					}
@@ -474,6 +457,7 @@ public class StundenplaneintragForm extends Content {
 	}
 
 	public void getLehrveranstaltungen() {
+		lvContainer.clear();
 		verwaltungsSvc
 				.getAllLehrveranstaltungen(new AsyncCallback<Vector<Lehrveranstaltung>>() {
 					@Override
@@ -495,6 +479,7 @@ public class StundenplaneintragForm extends Content {
 	}
 
 	public void getDozenten() {
+		dozentContainer.clear();
 		verwaltungsSvc
 				.getAllDozenten(new AsyncCallback<Vector<Dozent>>() {
 					@Override
@@ -515,6 +500,7 @@ public class StundenplaneintragForm extends Content {
 	}
 
 	public void getRaeume() {
+		raumContainer.clear();
 		verwaltungsSvc
 				.getAllRaeume(new AsyncCallback<Vector<Raum>>() {
 					@Override

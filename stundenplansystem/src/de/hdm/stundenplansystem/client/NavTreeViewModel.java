@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.ProvidesKey;
 import com.google.gwt.view.client.SelectionChangeEvent;
@@ -65,7 +66,6 @@ public class NavTreeViewModel extends Content implements
 	private Studiengang selectedSg = null;
 	private Stundenplaneintrag selectedSpe = null;
 	private Stundenplan selectedSp = null;
-
 
 	/**
 	 * Hier wird ein Remote Service Proxy erstellt, welches uns erlaubt 

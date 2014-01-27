@@ -179,8 +179,14 @@ public class ReportStundenplan extends Content {
 							 * Die Methode <code>onSuccess()</code> wird durch die GWT-RPC Runtime aufgerufen,
 							 * wenn wie erwartet das Ergebnis des Funktionsaufrufs vom Server an den
 							 * Client geliefert wird.
+							 * Zunächst wird eine Instanz der KLasse {@link HTMLReportWriter} erzeugt, 
+							 * welches daraufhin durch die Methode <code>process()</code> den Inhalt 
+							 * des generierten Stundenplanreports in eine HTML einbettet. 
+							 * Die Methode <code>getReportText()</code> wandelt diese in einen String um, 
+							 * welcher durch die Methode <code>add()</code> als neue HTML dem 
+							 * {@link ScrollPanel} hinzugefügt wird.
 							 * 
-							 *  @param result Report für einen Semesterveband
+							 *  @param result Report für einen Semesterverband 
 							 */
 							@Override
 							public void onSuccess(

@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.ScrollPanel;
 
 import de.hdm.stundenplansystem.shared.*;
 import de.hdm.stundenplansystem.shared.bo.Raum;
+import de.hdm.stundenplansystem.shared.bo.Stundenplan;
 import de.hdm.stundenplansystem.shared.report.HTMLReportWriter;
 import de.hdm.stundenplansystem.shared.report.RaumbelegungsReport;
 
@@ -38,6 +39,7 @@ public class ReportRaum extends Content {
 	 * Hier werden die GWT Widgets instantiiert
 	 */
 	final ListBox libRaum = new ListBox();
+	final ListBox libStudienhalbjahr = new ListBox();
 	final Button anzeigen = new Button("Raumbelegungen anzeigen");
 	final ScrollPanel panel = new ScrollPanel();
 	HTML feld = new HTML();
@@ -55,6 +57,7 @@ public class ReportRaum extends Content {
 	/**
 	 * Hier werden Vectoren des Raums festgelegt
 	 */
+	Vector<Stundenplan> sContainer = null;
 	Vector<Raum> rContainer = null;
 	NavTreeViewModel tvm;
 	String test;
@@ -72,7 +75,7 @@ public class ReportRaum extends Content {
 		this.add(anzeigen);
 		this.add(panel);
 		setTvm(tvm);
-
+		
 		/**
 		 * Durch die Methode <code>clear()</code> werden zunächst alle Elemente
 		 * der List Box gelöscht. 
@@ -93,6 +96,23 @@ public class ReportRaum extends Content {
 							libRaum.addItem(r.getBezeichnung(),
 									String.valueOf(r.getId()));
 						}
+					}
+				});
+		
+		libStudienhalbjahr.clear();
+		verwaltungsSvc	
+				.getAllStudienhalbjahre(new AsyncCallback<Vector<Stundenplan>>() {
+					@Override
+					public void onFailure(Throwable T) {
+					}
+
+					@Override
+					public void onSuccess(Vector<Stundenplan> studienhalbjahr) {
+						sContainer =studienhalbjahr;
+						for (Stundenplan s : studienhalbjahr) {
+							libStudienhalbjahr.addItem(s.getStudienhalbjahr(),
+									String.valueOf(s.getId()));
+						}						
 					}
 				});
 
@@ -125,9 +145,15 @@ public class ReportRaum extends Content {
 							 * Die Methode <code>onSuccess()</code> wird durch die GWT-RPC Runtime aufgerufen,
 							 * wenn wie erwartet das Ergebnis des Funktionsaufrufs vom Server an den
 							 * Client geliefert wird.
+							 * Zunächst wird eine Instanz der KLasse {@link HTMLReportWriter} erzeugt, 
+							 * welches daraufhin durch die Methode <code>process()</code> den Inhalt 
+							 * des generierten Stundenplanreports in eine HTML einbettet. 
+							 * Die Methode <code>getReportText()</code> wandelt diese in einen String um, 
+							 * welcher durch die Methode <code>add()</code> als neue HTML dem 
+							 * {@link ScrollPanel} hinzugefügt wird.
 							 * 
 							 *  @param result Report für einen Raum
-							 */
+					 		 */
 							@Override
 							public void onSuccess(
 									RaumbelegungsReport result) {

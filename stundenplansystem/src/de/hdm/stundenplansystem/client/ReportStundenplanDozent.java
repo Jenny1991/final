@@ -16,6 +16,7 @@ import de.hdm.stundenplansystem.shared.ReportGeneratorAsync;
 import de.hdm.stundenplansystem.shared.Verwaltungsklasse;
 import de.hdm.stundenplansystem.shared.VerwaltungsklasseAsync;
 import de.hdm.stundenplansystem.shared.bo.Dozent;
+import de.hdm.stundenplansystem.shared.bo.Stundenplan;
 import de.hdm.stundenplansystem.shared.report.HTMLReportWriter;
 import de.hdm.stundenplansystem.shared.report.StundenplanDozentReport;
 
@@ -41,6 +42,7 @@ public class ReportStundenplanDozent extends Content {
 	 * Hier werden die GWT Widgets instantiiert
 	 */
 	final ListBox libDozent = new ListBox();
+	final ListBox libStudienhalbjahr = new ListBox();
 	final Button anzeigen = new Button("Stundenplan anzeigen");
 	final ScrollPanel panel = new ScrollPanel();
 	HTML feld = new HTML();
@@ -58,6 +60,7 @@ public class ReportStundenplanDozent extends Content {
 	/**
 	 * Hier wird der Vector des Dozenten festgelegt
 	 */
+	Vector<Stundenplan> sContainer = null;
 	Vector<Dozent> dContainer = null;
 	NavTreeViewModel tvm;
 	String test;
@@ -99,6 +102,23 @@ public class ReportStundenplanDozent extends Content {
 						}
 					}
 				});
+		
+		libStudienhalbjahr.clear();
+		verwaltungsSvc	
+				.getAllStudienhalbjahre(new AsyncCallback<Vector<Stundenplan>>() {
+					@Override
+					public void onFailure(Throwable T) {
+					}
+
+					@Override
+					public void onSuccess(Vector<Stundenplan> studienhalbjahr) {
+						sContainer =studienhalbjahr;
+						for (Stundenplan s : studienhalbjahr) {
+							libStudienhalbjahr.addItem(s.getStudienhalbjahr(),
+									String.valueOf(s.getId()));
+						}						
+					}
+				});
 
 		/**
 		 * Beim Betätigen des Anzeige-Buttons wird die Methode <code>addClickHandler()</code> 
@@ -129,6 +149,12 @@ public class ReportStundenplanDozent extends Content {
 							 * Die Methode <code>onSuccess()</code> wird durch die GWT-RPC Runtime aufgerufen,
 							 * wenn wie erwartet das Ergebnis des Funktionsaufrufs vom Server an den
 							 * Client geliefert wird.
+							 * Zunächst wird eine Instanz der KLasse {@link HTMLReportWriter} erzeugt, 
+							 * welches daraufhin durch die Methode <code>process()</code> den Inhalt 
+							 * des generierten Stundenplanreports in eine HTML einbettet. 
+							 * Die Methode <code>getReportText()</code> wandelt diese in einen String um, 
+							 * welcher durch die Methode <code>add()</code> als neue HTML dem 
+							 * {@link ScrollPanel} hinzugefügt wird.
 							 * 
 							 *  @param result Report für einen Dozenten
 							 */

@@ -171,36 +171,37 @@ public class StundenplaneintragMapper {
 	 *         sind. Bei evtl. Exceptions wird ein partiell gef�llter oder ggf.
 	 *         auch leerer Vetor zur�ckgeliefert.
 	 */
-	public Stundenplaneintrag findByRaumAndZeitslot(int raumid,
-			int zeitslotid) {
+	public Stundenplaneintrag findByRaumZeitslotAndStudienhalbjahr(int raumid,
+			int zeitslotid, String studienhalbjahr) {
 		// DB-Verbindung holen
 		Connection con = DBConnection.connection();
 
 		try {
 			// Leeres SQL-Statement (JDBC) anlegen
 			Statement stmt = con.createStatement();
-
+			
 			ResultSet rs = stmt
-					.executeQuery("SELECT stundenplaneintrag.id, stundenplaneintrag.dozentid, stundenplaneintrag.raumid, "
-							+ "stundenplaneintrag.zeitslotid, stundenplaneintrag.lehrveranstaltungid, stundenplaneintrag.stundenplanid, stundenplaneintrag.abkuerzung "
-							+ "FROM stundenplaneintrag "
-							+ "WHERE stundenplaneintrag.zeitslotid = "
-							+ zeitslotid
-							+ " AND stundenplaneintrag.raumid = "
-							+ raumid);
+					.executeQuery("SELECT stundenplaneintrag.id, stundenplaneintrag.dozentid, stundenplaneintrag.raumid, stundenplaneintrag.zeitslotid, stundenplaneintrag.stundenplanid, stundenplaneintrag.lehrveranstaltungid, stundenplaneintrag.abkuerzung"
+							+ " FROM stundenplaneintrag"
+							+ " INNER JOIN stundenplan"
+							+ " ON stundenplaneintrag.stundenplanid = stundenplan.id"
+							+ " WHERE stundenplaneintrag.raumid = " + raumid
+							+ " AND stundenplaneintrag.zeitslotid = " + zeitslotid
+							+ " AND stundenplan.studienhalbjahr = " + studienhalbjahr
+							+ " ORDER BY id");
 
 			// Für jeden Eintrag im Suchergebnis wird nun ein
 			// Stundenplaneintrag-Objekt erstellt.
 			while (rs.next()) {
 				Stundenplaneintrag s = new Stundenplaneintrag();
-				s.setId(rs.getInt("stundenplaneintrag.id"));
-				s.setDozentId(rs.getInt("stundenplaneintrag.dozentid"));
-				s.setRaumId(rs.getInt("stundenplaneintrag.raumid"));
-				s.setZeitslotId(rs.getInt("stundenplaneintrag.zeitslotid"));
+				s.setId(rs.getInt("id"));
+				s.setDozentId(rs.getInt("dozentid"));
+				s.setRaumId(rs.getInt("raumid"));
+				s.setZeitslotId(rs.getInt("zeitslotid"));
 				s.setLehrveranstaltungId(rs
-						.getInt("stundenplaneintrag.lehrveranstaltungid"));
-				s.setStundenplanId(rs.getInt("stundenplaneintrag.stundenplanid"));
-				s.setAbkuerzung(rs.getString("stundenplaneintrag.abkuerzung"));
+						.getInt("lehrveranstaltungid"));
+				s.setStundenplanId(rs.getInt("stundenplanid"));
+				s.setAbkuerzung(rs.getString("abkuerzung"));
 
 				return s;
 			}

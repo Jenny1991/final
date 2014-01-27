@@ -178,5 +178,6 @@ public interface VerwaltungsklasseAsync {
 			int stundenplanId,
 			AsyncCallback<Vector<Zeitslot>> callback);
 
-	void getAllStudienhalbjahre(AsyncCallback<Vector<String>> callback);
+	void getAllStudienhalbjahre(
+			AsyncCallback<Vector<Stundenplan>> callback);
 }

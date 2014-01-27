@@ -110,14 +110,17 @@ public class StundenplaneintragMapper {
 	}
 
 	/**
-	 * Auslesen aller Stundenplaneinträge nach einem bestimmten Dozenten,
-	 * sortiert nach der Anfangszeit.
+	 * Auslesen eines Stundenplaneinträge nach einem bestimmten Dozenten,
+	 * Zeitslot und Studienhalbjahr, sortiert nach der id. Hierfür muss
+	 * die Tabelle stundenplan gejoined werden. Es 
+	 * handelt sich um die Datenbankabfrage für die Ausgabe des
+	 * Stundenplanes für einen Dozenten. 
 	 * 
 	 * @return Ein Vektor mit Stundenplaneintrag-Objekten, die sämtliche
-	 *         Stundenplaneinträge repräsentieren, die dem übergebenen Dozenten
-	 *         zugeordnet sind und nach der Anfangszeit im Zeitslot sortiert
-	 *         sind. Bei evtl. Exceptions wird ein partiell gefüllter oder ggf.
-	 *         auch leerer Vetor zurückgeliefert.
+	 *         Stundenplaneinträge repräsentieren, die dem übergebenen 
+	 *         Dozenten, Zeitslot und Studienhalbjahr zugeordnet sind 
+	 *         und nach der id sortiert sind. Bei evtl. Exceptions wird ein partiell 
+	 *         gefüllter oder ggf. auch leerer Vetor zurückgeliefert.
 	 */
 	public Stundenplaneintrag findByDozentZeitslotAndStudienhalbjahr(int dozentid,
 			int zeitslotid, String studienhalbjahr) {
@@ -167,13 +170,18 @@ public class StundenplaneintragMapper {
 	}
 
 	/**
-	 * Auslesen aller Stundenplaneinträge nach einem bestimmten Raum.
+	 * Auslesen eines Stundenplaneintrages nach einem bestimmten Raum,
+	 * Zeitslot und Studienhalbjahr, sortiert nach der id. Hierfür muss
+	 * die Tabelle stundenplan gejoined werden. Es 
+	 * handelt sich um die Datenbankabfrage für die Ausgabe des
+	 * Raumplanes für einen bestimmten Raum.
 	 * 
-	 * @return Ein Vektor mit Stundenplaneintrag-Objekten, die s�mtliche
-	 *         Stundenplaneintr�ge repr�sentieren, die dem �bergebenen Dozenten
-	 *         zugeordnet sind und nach der Anfangszeit im Zeitslot sortiert
-	 *         sind. Bei evtl. Exceptions wird ein partiell gef�llter oder ggf.
-	 *         auch leerer Vetor zur�ckgeliefert.
+	 * @return Ein Vektor mit Stundenplaneintrag-Objekten, die sämtliche
+	 *         Stundenplaneinträge repräsentieren, die dem übergebenen Raum, 
+	 *         Zeitslot und Studienhalbjahr zugeordnet sind 
+	 *         und nach der id sortiert sind. Bei evtl. Exceptions wird ein
+	 *         partiell gefüllter oder ggf.
+	 *         auch leerer Vetor zurückgeliefert.
 	 */
 	public Stundenplaneintrag findByRaumZeitslotAndStudienhalbjahr(int raumid,
 			int zeitslotid, String studienhalbjahr) {
@@ -217,8 +225,11 @@ public class StundenplaneintragMapper {
 	}
 
 	/**
-	 * Auslesen aller Stundenplaneinträge nach einem bestimmten Dozenten,
-	 * sortiert nach der Anfangszeit.
+	 * Auslesen eines Stundenplaneintrages nach einem bestimmten Semesterverband,
+	 * Zeitslot und Stundenplan. Hierfür müssen die Tabellen stundenplan,
+	 * semesterverband, studiengang und zeitslot gejoined werden. Es 
+	 * handelt sich um die Datenbankabfrage für die Ausgabe des
+	 * Stundenplanes für einen bestimmten Semesterverband. 
 	 * 
 	 * @return Ein Vektor mit Stundenplaneintrag-Objekten, die sämtliche
 	 *         Stundenplaneinträge repräsentieren, die dem übergebenen Dozenten

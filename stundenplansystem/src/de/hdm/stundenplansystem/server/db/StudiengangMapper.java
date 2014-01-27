@@ -6,7 +6,7 @@ import java.util.Vector;
 import de.hdm.stundenplansystem.shared.bo.*;
 
 /**
- * Mapper-Klasse, die <code>Stundenplan</code>-Objekte auf eine relationale
+ * Mapper-Klasse, die <code>Studiengang</code>-Objekte auf eine relationale
  * Datenbank abbildet. Hierzu wird eine Reihe von Methoden zur Verfügung
  * gestellt, mit deren Hilfe z.B. Objekte gesucht, erzeugt, modifiziert und
  * gelöscht werden können. Das Mapping ist bidirektional. D.h., Objekte können

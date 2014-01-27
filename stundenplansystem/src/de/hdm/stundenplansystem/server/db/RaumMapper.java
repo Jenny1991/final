@@ -7,9 +7,9 @@ import de.hdm.stundenplansystem.shared.bo.*;
 
 /**
  * Mapper-Klasse, die <code>Raum</code>-Objekte auf eine relationale Datenbank
- * abbildet. Hierzu wird eine Reihe von Methoden zur VerfÃ¼gung gestellt, mit
- * deren Hilfe z.B. Objekte gesucht, erzeugt, modifiziert und gelÃ¶scht werden
- * kÃ¶nnen. Das Mapping ist bidirektional. D.h., Objekte kÃ¶nnen in
+ * abbildet. Hierzu wird eine Reihe von Methoden zur Verfügung gestellt, mit
+ * deren Hilfe z.B. Objekte gesucht, erzeugt, modifiziert und gelöscht werden
+ * können. Das Mapping ist bidirektional. D.h., Objekte können in
  * DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
  * 
  * @see DozentMapper, LehrveranstaltungMapper, SemesterverbandMapper,
@@ -24,7 +24,7 @@ public class RaumMapper {
 	 * von einem sogenannten <b>Singleton</b>.
 	 * <p>
 	 * Diese Variable ist durch den Bezeichner <code>static</code> nur einmal
-	 * fÃ¼r sÃ¤mtliche eventuellen Instanzen dieser Klasse vorhanden. Sie
+	 * für sämtliche eventuellen Instanzen dieser Klasse vorhanden. Sie
 	 * speichert die einzige Instanz dieser Klasse.
 	 * 
 	 * @see raumMapper()
@@ -32,7 +32,7 @@ public class RaumMapper {
 	private static RaumMapper raumMapper = null;
 
 	/**
-	 * GeschÃ¼tzter Konstruktor - verhindert die MÃ¶glichkeit, mit
+	 * Geschützter Konstruktor - verhindert die Möglichkeit, mit
 	 * <code>new</code> neue Instanzen dieser Klasse zu erzeugen.
 	 */
 	protected RaumMapper() {
@@ -41,7 +41,7 @@ public class RaumMapper {
 	/**
 	 * Diese statische Methode kann aufgrufen werden durch
 	 * <code>RaumMapper.raumMapper()</code>. Sie stellt die
-	 * Singleton-Eigenschaft sicher, indem Sie dafÃ¼r sorgt, dass nur eine
+	 * Singleton-Eigenschaft sicher, indem Sie dafür sorgt, dass nur eine
 	 * einzige Instanz von <code>RaumMapper</code> existiert.
 	 * <p>
 	 * 
@@ -62,11 +62,11 @@ public class RaumMapper {
 
 	/**
 	 * Suchen eines Raumes mit vorgegebener id. Da diese eindeutig ist, wird
-	 * genau ein Objekt zurÃ¼ckgegeben.
+	 * genau ein Objekt zurückgegeben.
 	 * 
 	 * @param id
-	 *            PrimÃ¤rschlÃ¼sselattribut (->DB)
-	 * @return Raum-Objekt, das dem Ã¼bergebenen SchlÃ¼ssel entspricht, null bei
+	 *            Primärschlüsselattribut (->DB)
+	 * @return Raum-Objekt, das dem übergebenen Schlüssel entspricht, null bei
 	 *         nicht vorhandenem DB-Tupel.
 	 */
 	public Raum findByKey(int id) {
@@ -77,14 +77,14 @@ public class RaumMapper {
 			// Leeres SQL-Statement (JDBC) anlegen
 			Statement stmt = con.createStatement();
 
-			// Statement ausfÃ¼llen und als Query an die DB schicken
+			// Statement ausfüllen und als Query an die DB schicken
 			ResultSet rs = stmt
 					.executeQuery("SELECT id, kapazitaet, bezeichnung FROM raum "
 							+ "WHERE id=" + id);
 
 			/*
-			 * Da id PrimÃ¤rschlÃ¼ssel ist, kann max. nur ein Tupel
-			 * zurÃ¼ckgegeben werden. PrÃ¼fe, ob ein Ergebnis vorliegt.
+			 * Da id Primärschlüssel ist, kann max. nur ein Tupel
+			 * zurückgegeben werden. Prüfe, ob ein Ergebnis vorliegt.
 			 */
 			if (rs.next()) {
 				// Ergebnis-Tupel in Objekt umwandeln
@@ -104,11 +104,11 @@ public class RaumMapper {
 	}
 
 	/**
-	 * Auslesen aller RÃ¤ume.
+	 * Auslesen aller Räume.
 	 * 
-	 * @return Ein Vektor mit Raum-Objekten, die sÃ¤mtliche RÃ¤ume
-	 *         reprÃ¤sentieren. Bei evtl. Exceptions wird ein partiell
-	 *         gefÃ¼llter oder ggf. auch leerer Vetor zurÃ¼ckgeliefert.
+	 * @return Ein Vektor mit Raum-Objekten, die sämtliche Räume
+	 *         repräsentieren. Bei evtl. Exceptions wird ein partiell
+	 *         gefüllter oder ggf. auch leerer Vetor zurückgeliefert.
 	 */
 	public Vector<Raum> findAll() {
 		Connection con = DBConnection.connection();
@@ -123,7 +123,7 @@ public class RaumMapper {
 					.executeQuery("SELECT id, bezeichnung, kapazitaet FROM raum "
 							+ " ORDER BY id");
 
-			// FÃ¼r jeden Eintrag im Suchergebnis wird nun ein Raum-Objekt
+			// Für jeden Eintrag im Suchergebnis wird nun ein Raum-Objekt
 			// erstellt.
 			while (rs.next()) {
 				Raum r = new Raum();
@@ -131,25 +131,25 @@ public class RaumMapper {
 				r.setBezeichnung(rs.getString("bezeichnung"));
 				r.setKapazitaet(rs.getInt("kapazitaet"));
 
-				// HinzufÃ¼gen des neuen Objekts zum Ergebnisvektor
+				// Hinzufügen des neuen Objekts zum Ergebnisvektor
 				result.addElement(r);
 			}
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
 
-		// Ergebnisvektor zurÃ¼ckgeben
+		// Ergebnisvektor zurückgeben
 		return result;
 	}
 
 	/**
-	 * EinfÃ¼gen eines <code>Raum</code>-Objekts in die Datenbank. Dabei wird
-	 * auch der PrimÃ¤rschlÃ¼ssel des Ã¼bergebenen Objekts geprÃ¼ft und ggf.
+	 * Einfügen eines <code>Raum</code>-Objekts in die Datenbank. Dabei wird
+	 * auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
 	 * berichtigt.
 	 * 
 	 * @param r
 	 *            das zu speichernde Objekt
-	 * @return das bereits Ã¼bergebene Objekt, jedoch mit ggf. korrigierter
+	 * @return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
 	 *         <code>id</code>.
 	 */
 	public Raum insert(Raum r) {
@@ -159,24 +159,24 @@ public class RaumMapper {
 			Statement stmt = con.createStatement();
 
 			/*
-			 * ZunÃ¤chst schauen wir nach, welches der momentan hÃ¶chste
-			 * PrimÃ¤rschlÃ¼sselwert ist.
+			 * Zunächst schauen wir nach, welches der momentan höchste
+			 * Primärschlüsselwert ist.
 			 */
 			ResultSet rs = stmt
 					.executeQuery("SELECT MAX(id) AS maxid "
 							+ "FROM raum ");
 
-			// Wenn wir etwas zurÃ¼ckerhalten, kann dies nur einzeilig sein
+			// Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
 			if (rs.next()) {
 				/*
-				 * r erhÃ¤lt den bisher maximalen, nun um 1 inkrementierten
-				 * PrimÃ¤rschlÃ¼ssel.
+				 * r erhält den bisher maximalen, nun um 1 inkrementierten
+				 * Primärschlüssel.
 				 */
 				r.setId(rs.getInt("maxid") + 1);
 
 				stmt = con.createStatement();
 
-				// Jetzt erst erfolgt die tatsÃ¤chliche EinfÃ¼geoperation
+				// Jetzt erst erfolgt die tatsächliche Einfügeoperation
 				stmt.executeUpdate("INSERT INTO raum (id, bezeichnung, kapazitaet) "
 						+ "VALUES ("
 						+ r.getId()
@@ -190,14 +190,14 @@ public class RaumMapper {
 		}
 
 		/*
-		 * RÃ¼ckgabe, des evtl. korrigierten Raumes.
+		 * Rückgabe, des evtl. korrigierten Raumes.
 		 * 
 		 * HINWEIS: Da in Java nur Referenzen auf Objekte und keine physischen
-		 * Objekte Ã¼bergeben werden, wÃ¤re die Anpassung des Raum-Objekts auch
-		 * ohne diese explizite RÃ¼ckgabe auÃŸerhalb dieser Methode sichtbar.
-		 * Die explizite RÃ¼ckgabe von r ist eher ein Stilmittel, um zu
+		 * Objekte übergeben werden, wäre die Anpassung des Raum-Objekts auch
+		 * ohne diese explizite Rückgabe außerhalb dieser Methode sichtbar.
+		 * Die explizite Rückgabe von r ist eher ein Stilmittel, um zu
 		 * signalisieren, dass sich das Objekt evtl. im Laufe der Methode
-		 * verÃ¤ndert hat.
+		 * verändert hat.
 		 */
 		return r;
 	}
@@ -207,7 +207,7 @@ public class RaumMapper {
 	 * 
 	 * @param r
 	 *            das Objekt, das in die DB geschrieben werden soll
-	 * @return das als Parameter Ã¼bergebene Objekt
+	 * @return das als Parameter übergebene Objekt
 	 */
 	public Raum update(Raum r) {
 		Connection con = DBConnection.connection();
@@ -224,15 +224,15 @@ public class RaumMapper {
 			e2.printStackTrace();
 		}
 
-		// Um Analogie zu insert(Raum r) zu wahren, geben wir r zurÃ¼ck
+		// Um Analogie zu insert(Raum r) zu wahren, geben wir r zurück
 		return r;
 	}
 
 	/**
-	 * LÃ¶schen der Daten eines <code>Raum</code>-Objekts aus der Datenbank.
+	 * Löschen der Daten eines <code>Raum</code>-Objekts aus der Datenbank.
 	 * 
 	 * @param r
-	 *            das aus der DB zu lÃ¶schende "Objekt"
+	 *            das aus der DB zu löschende "Objekt"
 	 */
 	public void delete(Raum r) {
 		Connection con = DBConnection.connection();

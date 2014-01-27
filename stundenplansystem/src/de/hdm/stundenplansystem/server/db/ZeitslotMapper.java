@@ -144,14 +144,19 @@ public class ZeitslotMapper {
 	}
 
 	/**
-	 * Auslesen aller Zeitslots.
+	 * Auslesen aller freien Zeitlosts. Zuerst werden alle Zeitlots aus 
+	 * der Tabelle Zeitslots ermittelt. Im 2. Schritt wird eine Unterabfrage
+	 * durchgeführt. Diese ermittelt aus der Tabelle Stundenplaneintrag die 
+	 * Zeitslots, welche nicht erneut belegt werden dürfen. Dies ist abhängig
+	 * von raumid, dozentid und studienhalbjahr. Das Ergebnis aus Abfrage 2 wird
+	 * mit NOT EXISTS von dem Ergebnis der ersten Abfrage abgezogen.
 	 * 
 	 * @return Ein Vektor mit Zeitslot-Objekten, die sämtliche Zeitslots
 	 *         repräsentieren. Bei evtl. Exceptions wird ein partiell gefüllter
 	 *         oder ggf. auch leerer Vetor zurückgeliefert.
 	 */
 	public Vector<Zeitslot> findFreeZeitslots(int raumid,
-			int dozentid, String studienhalbjahr) {
+			int dozentid, String studienhalbjahr, int stundenplanid) {
 		Connection con = DBConnection.connection();
 
 		// Ergebnisvektor vorbereiten
@@ -226,10 +231,12 @@ public class ZeitslotMapper {
 							+ " WHERE (stundenplaneintrag.zeitslotid = zeitslot.id "
 							+ " AND stundenplaneintrag.stundenplanid = stundenplan.id"
 							+ " AND stundenplan.studienhalbjahr = '" + studienhalbjahr + "'"
+							+ " AND stundenplan.id = " + stundenplanid
 							+ " AND stundenplaneintrag.raumid = " + raumid + ")"
 							+ " OR (stundenplaneintrag.zeitslotid = zeitslot.id "
 							+ " AND stundenplaneintrag.stundenplanid = stundenplan.id"
 							+ " AND stundenplan.studienhalbjahr = '" + studienhalbjahr + "'"
+							+ " AND stundenplan.id = " + stundenplanid
 							+ " AND stundenplaneintrag.dozentid = " + dozentid + "))"
 						    + " ORDER BY find_in_set(zeitslot.wochentag,'Montag,Dienstag,Mittwoch,Donnerstag,Freitag,Samstag'), zeitslot.anfangszeit");
 			
@@ -267,117 +274,6 @@ public class ZeitslotMapper {
 
 		// Ergebnisvektor zurückgeben
 		return result;
-	}
-
-	/**
-	 * Einfügen eines <code>Zeitslot</code>-Objekts in die Datenbank. Dabei wird
-	 * auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
-	 * berichtigt.
-	 * 
-	 * @param z
-	 *            das zu speichernde Objekt
-	 * @return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
-	 *         <code>id</code>.
-	 */
-	public Zeitslot insert(Zeitslot z) {
-		Connection con = DBConnection.connection();
-
-		try {
-			Statement stmt = con.createStatement();
-
-			/*
-			 * Zunächst schauen wir nach, welches der momentan höchste
-			 * Primärschlüsselwert ist.
-			 */
-			ResultSet rs = stmt
-					.executeQuery("SELECT MAX(id) AS maxid "
-							+ "FROM zeitslot ");
-
-			// Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
-			if (rs.next()) {
-				/*
-				 * s erhält den bisher maximalen, nun um 1 inkrementierten
-				 * Primärschlüssel.
-				 */
-				z.setId(rs.getInt("maxid") + 1);
-
-				stmt = con.createStatement();
-
-				// Jetzt erst erfolgt die tatsächliche Einfügeoperation
-				stmt.executeUpdate("INSERT INTO zeitslot (id, wochentag, anfangszeit, endzeit"
-						+ " FROM Zeitslot) "
-						+ "VALUES ("
-						+ z.getId()
-						+ ",'"
-						+ z.getWochentag()
-						+ "',"
-						+ z.getAnfangszeit()
-						+ ","
-						+ z.getEndzeit()
-						+ ")");
-			}
-		} catch (SQLException e2) {
-			e2.printStackTrace();
-		}
-
-		/*
-		 * Rückgabe, des evtl. korrigierten Zeitslotes.
-		 * 
-		 * HINWEIS: Da in Java nur Referenzen auf Objekte und keine physischen
-		 * Objekte übergeben werden, wäre die Anpassung des Zeitslot-Objekts
-		 * auch ohne diese explizite Rückgabe außerhalb dieser Methode sichtbar.
-		 * Die explizite Rückgabe von s ist eher ein Stilmittel, um zu
-		 * signalisieren, dass sich das Objekt evtl. im Laufe der Methode
-		 * verändert hat.
-		 */
-		return z;
-	}
-
-	/**
-	 * Wiederholtes Schreiben eines Objekts in die Datenbank.
-	 * 
-	 * @param s
-	 *            das Objekt, das in die DB geschrieben werden soll
-	 * @return das als Parameter übergebene Objekt
-	 */
-	public Zeitslot update(Zeitslot z) {
-		Connection con = DBConnection.connection();
-
-		try {
-			Statement stmt = con.createStatement();
-
-			stmt.executeUpdate("UPDATE zeitslot SET " + "endzeit=\""
-					+ z.getEndzeit() + "\", " + "anfangszeit=\""
-					+ z.getAnfangszeit() + "\", " + "wochentag=\""
-					+ z.getWochentag() + "\", " + "WHERE id="
-					+ z.getId());
-
-		} catch (SQLException e2) {
-			e2.printStackTrace();
-		}
-
-		// Um Analogie zu insert(Zeitslot z) zu wahren, geben wir z zurück
-		return z;
-	}
-
-	/**
-	 * Löschen der Daten eines <code>Zeitslot</code>-Objekts aus der Datenbank.
-	 * 
-	 * @param z
-	 *            das aus der DB zu löschende "Objekt"
-	 */
-	public void delete(Zeitslot z) {
-		Connection con = DBConnection.connection();
-
-		try {
-			Statement stmt = con.createStatement();
-
-			stmt.executeUpdate("DELETE FROM zeitslot " + "WHERE id="
-					+ z.getId());
-
-		} catch (SQLException e2) {
-			e2.printStackTrace();
-		}
 	}
 
 }

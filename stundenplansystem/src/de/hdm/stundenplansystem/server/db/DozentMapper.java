@@ -195,10 +195,10 @@ public class DozentMapper {
 		 * 
 		 * HINWEIS: Da in Java nur Referenzen auf Objekte und keine physischen
 		 * Objekte übergeben werden, ware die Anpassung des Dozent-Objekts auch
-		 * ohne diese explizite Rückgabe auï¿½erhalb dieser Methode sichtbar.
+		 * ohne diese explizite Rückgabe außerhalb dieser Methode sichtbar.
 		 * Die explizite Rückgabe von d ist eher ein Stilmittel, um zu
 		 * signalisieren, dass sich das Objekt evtl. im Laufe der Methode
-		 * verandert hat.
+		 * verändert hat.
 		 */
 		return d;
 	}

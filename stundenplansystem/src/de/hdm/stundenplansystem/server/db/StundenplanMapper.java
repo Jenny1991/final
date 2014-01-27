@@ -143,10 +143,12 @@ public class StundenplanMapper {
 	
 	
 	/**
-	 * Auslesen aller Stundenpläne.
+	 * Auslesen aller Studienhalbjahre. Da die Studienhalbjahre in einer 
+	 * Listbox zur Auswahl für Reports angeboten werden, dürfen diese nicht doppelt
+	 * erscheinen. Daher werden doppelte Datensätze mit DISTINCT ignoriert.
 	 * 
-	 * @return Ein Vektor mit Stundenplan-Objekten, die sämtliche Stundenpläne
-	 *         repräsentieren. Bei evtl. Exceptions wird ein partiell gefüllter
+	 * @return Ein Vektor mit Stundenplan-Objekten, die sämtliche Studienhalbjahre
+	 *         zurückgeben. Bei evtl. Exceptions wird ein partiell gefüllter
 	 *         oder ggf. auch leerer Vetor zurückgeliefert.
 	 */
 	public Vector<Stundenplan> findStudienhalbjahre() {
@@ -182,10 +184,11 @@ public class StundenplanMapper {
 	
 
 	/**
-	 * Auslesen aller Stundenpläne.
+	 * Auslesen aller Stundenpläne für einen bestimmten Semesterverband.
 	 * 
 	 * @return Ein Vektor mit Stundenplan-Objekten, die sämtliche Stundenpläne
-	 *         repräsentieren. Bei evtl. Exceptions wird ein partiell gefüllter
+	 *         eines Semesterverbandes repräsentieren. 
+	 *         Bei evtl. Exceptions wird ein partiell gefüllter
 	 *         oder ggf. auch leerer Vetor zurückgeliefert.
 	 */
 	public Vector<Stundenplan> findBySemesterverband(

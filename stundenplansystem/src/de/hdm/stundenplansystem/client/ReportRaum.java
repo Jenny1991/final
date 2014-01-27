@@ -70,6 +70,7 @@ public class ReportRaum extends Content {
 	   */
 	public void onLoad() {
 		
+		panel.clear();
 		this.add(ueberschrift);
 		this.add(libStudienhalbjahr);
 		this.add(libRaum);

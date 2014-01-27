@@ -175,7 +175,7 @@ public interface VerwaltungsklasseAsync {
 			AsyncCallback<Semesterverband> callback);
 
 	void getFreieZeitslot(int raumId, int dozentId,
-			int stundenplanId,
+			String studienhalbjahr,
 			AsyncCallback<Vector<Zeitslot>> callback);
 
 	void getAllStudienhalbjahre(

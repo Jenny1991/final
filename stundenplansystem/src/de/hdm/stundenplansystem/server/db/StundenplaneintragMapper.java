@@ -119,8 +119,8 @@ public class StundenplaneintragMapper {
 	 *         sind. Bei evtl. Exceptions wird ein partiell gefüllter oder ggf.
 	 *         auch leerer Vetor zurückgeliefert.
 	 */
-	public Stundenplaneintrag findByDozentAndZeitslot(int dozentid,
-			int zeitslotid) {
+	public Stundenplaneintrag findByDozentZeitslotAndStudienhalbjahr(int dozentid,
+			int zeitslotid, String studienhalbjahr) {
 		// DB-Verbindung holen
 		Connection con = DBConnection.connection();
 
@@ -128,13 +128,16 @@ public class StundenplaneintragMapper {
 			Statement stmt = con.createStatement();
 
 			ResultSet rs = stmt
-					.executeQuery("SELECT stundenplaneintrag.id, stundenplaneintrag.dozentid, stundenplaneintrag.stundenplanid, stundenplaneintrag.raumid, "
-							+ "stundenplaneintrag.zeitslotid, stundenplaneintrag.lehrveranstaltungid, stundenplaneintrag.abkuerzung "
-							+ "FROM stundenplaneintrag "
-							+ "WHERE stundenplaneintrag.zeitslotid = "
+					.executeQuery("SELECT stundenplaneintrag.id, stundenplaneintrag.dozentid, stundenplaneintrag.stundenplanid, stundenplaneintrag.raumid, stundenplaneintrag.zeitslotid, stundenplaneintrag.lehrveranstaltungid, stundenplaneintrag.abkuerzung"
+							+ " FROM stundenplaneintrag"
+							+ " INNER JOIN stundenplan"
+							+ " ON stundenplaneintrag.stundenplanid = stundenplan.id"
+							+ " WHERE stundenplaneintrag.zeitslotid = "
 							+ zeitslotid
 							+ " AND stundenplaneintrag.dozentid = "
-							+ dozentid);
+							+ dozentid
+							+ " AND stundenplan.studienhalbjahr = " + studienhalbjahr);
+			
 
 			// Für jeden Eintrag im Suchergebnis wird nun ein
 			// Stundenplaneintrag-Objekt erstellt.

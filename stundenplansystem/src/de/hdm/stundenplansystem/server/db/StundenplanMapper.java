@@ -160,7 +160,8 @@ public class StundenplanMapper {
 
 			ResultSet rs = stmt
 					.executeQuery("SELECT DISTINCT stundenplan.studienhalbjahr"
-							+ " FROM stundenplan " + " ORDER BY stundenplan.studienhalbjahr");
+							+ " FROM stundenplan "
+						    + " ORDER BY stundenplan.studienhalbjahr");
 			
 			// Für jeden Eintrag im Suchergebnis wird nun ein Stundenplan-Objekt
 			// erstellt.

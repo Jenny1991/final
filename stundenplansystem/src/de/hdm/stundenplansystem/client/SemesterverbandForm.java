@@ -192,6 +192,10 @@ public class SemesterverbandForm extends Content {
 		if (allFilled == true) {
 			shownSv.setJahrgang(tbjahrgang.getText().trim());
 			
+			/**
+			 * Immer abfragen, ob der Wert der ListBox ungleich 0 ist, 
+			 * da bei keiner Änderung der ListBox dieser nicht gespeichert wird. 
+			 */
 			if (libstudiengang.getSelectedIndex() != 0)
 			shownSv.setStudiengangId(sgContainer.elementAt(
 					libstudiengang.getSelectedIndex()-1).getId());

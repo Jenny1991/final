@@ -180,6 +180,10 @@ public class StundenplanForm extends Content {
 		if (allFilled == true) {
 			shownSp.setStudienhalbjahr(tbhalbjahr.getText().trim());
 			
+			/**
+			 * Immer abfragen, ob der Wert der ListBox ungleich 0 ist, 
+			 * da bei keiner Änderung der ListBox dieser nicht gespeichert wird. 
+			 */			
 			if (libsemverband.getSelectedIndex() != 0)
 			shownSp.setSemesterverbandId(svContainer.elementAt(
 					libsemverband.getSelectedIndex() - 1).getId());

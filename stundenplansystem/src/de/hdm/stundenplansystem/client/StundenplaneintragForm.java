@@ -203,6 +203,11 @@ public class StundenplaneintragForm extends Content {
 //	}
 
 	public void changeSelectedSpe() {
+		
+		/**
+		 * Immer abfragen, ob der Wert der ListBox ungleich 0 ist, 
+		 * da bei keiner Änderung der ListBox dieser nicht gespeichert wird. 
+		 */
 		if (listSemesterverband.getSelectedIndex() != 0)
 		shownSpe.setSemesterverbandId(svContainer.elementAt(
 				listSemesterverband.getSelectedIndex() - 1).getId());

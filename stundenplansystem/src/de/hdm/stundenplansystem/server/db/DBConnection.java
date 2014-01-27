@@ -40,15 +40,8 @@ public class DBConnection {
 	 * professionellen Applikation würde diese Zeichenkette aus einer
 	 * Konfigurationsdatei eingelesen oder über einen Parameter von außen
 	 * mitgegeben, um bei einer Veränderung dieser URL nicht die gesamte
-	 * Software neu komilieren zu müssen. url =
-	 * "jdbc:google:mysql://your-project-id:your-instance-name/guestbook?user=root"
-	 * ;
+	 * Software neu komilieren zu müssen. 
 	 */
-
-	// private static String url =
-	// "jdbc:mysql://173.194.109.58:3306/itprojekt?user=root";
-	// private static String url =
-	// "jdbc:google:mysql://stundenplansystem:sql/itprojekt?user=root";
 
 	/**
 	 * Diese statische Methode kann aufgrufen werden durch
@@ -71,6 +64,15 @@ public class DBConnection {
 	 * eine neue Verbindung aufzubauen. Dies würde allerdings ebenfalls den
 	 * Rahmen dieses Projekts sprengen.
 	 * 
+	 * 
+	 * Die URL, mit deren Hilfe die Datenbank angesprochen wird, wird im Parameter
+	 * als String eingetragen. In einer
+	 * professionellen Applikation würde diese Zeichenkette aus einer
+	 * Konfigurationsdatei eingelesen oder über einen Parameter von außen
+	 * mitgegeben, um bei einer Veränderung dieser URL nicht die gesamte
+	 * Software neu komilieren zu müssen. 
+	 *
+	 * 
 	 * @return DAS <code>DBConncetion</code>-Objekt.
 	 * @see con
 	 */
@@ -83,8 +85,7 @@ public class DBConnection {
 
 				/*
 				 * Dann erst kann uns der DriverManager eine Verbindung mit den
-				 * oben in der Variable url angegebenen Verbindungsinformationen
-				 * aufbauen.
+				 * angegebenen Verbindungsinformationen aufbauen.
 				 * 
 				 * Diese Verbindung wird dann in der statischen Variable con
 				 * abgespeichert und fortan verwendet.

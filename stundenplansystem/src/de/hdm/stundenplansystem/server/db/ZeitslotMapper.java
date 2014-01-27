@@ -225,11 +225,11 @@ public class ZeitslotMapper {
 							+ " FROM stundenplaneintrag, stundenplan"
 							+ " WHERE (stundenplaneintrag.zeitslotid = zeitslot.id AND "
 							+ " AND stundenplaneintrag.stundenplanid = stundenplan.id"
-							+ " AND stundenplan.studienhalbjahr = " + studienhalbjahr
+							+ " AND stundenplan.studienhalbjahr = '" + studienhalbjahr + "'"
 							+ " AND stundenplaneintrag.raumid = " + raumid + ")"
 							+ " OR (stundenplaneintrag.zeitslotid = zeitslot.id "
 							+ " AND stundenplaneintrag.stundenplanid = stundenplan.id"
-							+ " AND stundenplan.studienhalbjahr = " + studienhalbjahr
+							+ " AND stundenplan.studienhalbjahr = '" + studienhalbjahr + "'"
 							+ " AND stundenplaneintrag.dozentid = " + dozentid + "))"
 						    + " ORDER BY find_in_set(zeitslot.wochentag,'Montag,Dienstag,Mittwoch,Donnerstag,Freitag,Samstag'), zeitslot.anfangszeit");
 			

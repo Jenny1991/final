@@ -126,7 +126,8 @@ public interface VerwaltungsklasseAsync {
 	void getZeitslotById(int id, AsyncCallback<Zeitslot> callback);
 
 	void getStundenplaneintragByDozentAndZeitslot(int dozentId,
-			int zeitslotId, AsyncCallback<Stundenplaneintrag> callback);
+			int zeitslotId, String studienhalbjahr,
+			AsyncCallback<Stundenplaneintrag> callback);
 
 	void getAllStundenplaneintraege(
 			AsyncCallback<Vector<Stundenplaneintrag>> callback);
@@ -145,7 +146,8 @@ public interface VerwaltungsklasseAsync {
 			AsyncCallback<Stundenplaneintrag> callback);
 
 	void getStundenplaneintragByRaumAndZeitslot(int raumId,
-			int zeitslotId, AsyncCallback<Stundenplaneintrag> callback);
+			int zeitslotId, String studienhalbjahr,
+			AsyncCallback<Stundenplaneintrag> callback);
 
 	void getSemsterverbaendeByStudiengang(int studiengangId,
 			AsyncCallback<Vector<Semesterverband>> callback);
@@ -153,7 +155,7 @@ public interface VerwaltungsklasseAsync {
 	void getStundenplaeneBySemesterverband(int studiengangId,
 			AsyncCallback<Vector<Stundenplan>> callback);
 
-	void getStudiengangBySemesterverbandId(int SemesterverbandId,
+	void getStudiengangBySemesterverbandId(int semesterverbandId,
 			AsyncCallback<Studiengang> callback);
 
 	void getAllStundenplaneintraegeByStundenplan(int stundenplanId,
@@ -175,4 +177,6 @@ public interface VerwaltungsklasseAsync {
 	void getFreieZeitslot(int raumId, int dozentId,
 			int stundenplanId,
 			AsyncCallback<Vector<Zeitslot>> callback);
+
+	void getAllStudienhalbjahre(AsyncCallback<Vector<String>> callback);
 }

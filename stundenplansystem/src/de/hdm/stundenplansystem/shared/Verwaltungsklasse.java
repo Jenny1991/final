@@ -70,6 +70,9 @@ public interface Verwaltungsklasse extends RemoteService {
 
 	public Vector<Zeitslot> getAllZeitslots()
 			throws IllegalArgumentException;
+	
+	public Vector<String> getAllStudienhalbjahre()
+			throws IllegalArgumentException;
 
 	public Vector<Stundenplan> getAllStundenplaene()
 			throws IllegalArgumentException;
@@ -123,11 +126,11 @@ public interface Verwaltungsklasse extends RemoteService {
 			throws IllegalArgumentException;
 
 	public Stundenplaneintrag getStundenplaneintragByDozentAndZeitslot(
-			int dozentId, int zeitslotId)
+			int dozentId, int zeitslotId, String studienhalbjahr)
 			throws IllegalArgumentException;
 
 	public Stundenplaneintrag getStundenplaneintragByRaumAndZeitslot(
-			int raumId, int zeitslotId)
+			int raumId, int zeitslotId, String studienhalbjahr)
 			throws IllegalArgumentException;
 
 	public Stundenplaneintrag getStundenplaneintragBySemesterverbandAndZeitslot(
@@ -135,7 +138,7 @@ public interface Verwaltungsklasse extends RemoteService {
 			throws IllegalArgumentException;
 
 	public Studiengang getStudiengangBySemesterverbandId(
-			int SemesterverbandId) throws IllegalArgumentException;
+			int semesterverbandId) throws IllegalArgumentException;
 
 	public Vector<Semesterverband> getSemsterverbaendeByStudiengang(
 			int studiengangId) throws IllegalArgumentException;

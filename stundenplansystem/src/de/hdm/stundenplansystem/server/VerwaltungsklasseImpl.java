@@ -324,6 +324,10 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 			throws IllegalArgumentException {
 		return this.stundenplanMapper.findAll();
 	}
+	
+	public Vector<String> getAllStudienhalbjahre()
+	throws IllegalArgumentException {
+		return this.stundenplanMapper.findStundienhalbjahr();
 
 	public Vector<Stundenplaneintrag> getAllStundenplaneintraege()
 			throws IllegalArgumentException {
@@ -446,9 +450,9 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 */
 
 	public Stundenplaneintrag getStundenplaneintragByRaumAndZeitslot(
-			int raumId, int zeitslotId) {
+			int raumId, int zeitslotId, String studienhalbjahr) {
 		return this.stundenplaneintragMapper.findByRaumAndZeitslot(
-				raumId, zeitslotId);
+				raumId, zeitslotId, studienhalbjahr);
 	}
 
 	/**
@@ -479,11 +483,11 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 */
 
 	public Stundenplaneintrag getStundenplaneintragByDozentAndZeitslot(
-			int dozentId, int zeitslotId)
+			int dozentId, int zeitslotId, String studienhalbjahr)
 			throws IllegalArgumentException {
 
 		return this.stundenplaneintragMapper.findByDozentAndZeitslot(
-				dozentId, zeitslotId);
+				dozentId, zeitslotId, studienhalbjahr);
 	}
 
 	/**

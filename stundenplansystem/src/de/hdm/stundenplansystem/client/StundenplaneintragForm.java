@@ -142,9 +142,9 @@ public class StundenplaneintragForm extends Content {
 		listStudiengang.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
-				listSemesterverband.clear();
-				listStudienhj.clear();
-				listZeitslot.clear();
+//				listSemesterverband.clear();
+//				listStudienhj.clear();
+//				listZeitslot.clear();
 				getSemverband();
 			}
 		});
@@ -152,8 +152,8 @@ public class StundenplaneintragForm extends Content {
 		listSemesterverband.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
-				listStudienhj.clear();
-				listZeitslot.clear();
+//				listStudienhj.clear();
+//				listZeitslot.clear();
 				getStundenplan();
 			}
 		});
@@ -161,7 +161,7 @@ public class StundenplaneintragForm extends Content {
 		listRaum.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
-				listZeitslot.clear();
+//				listZeitslot.clear();
 				getZeitslots();
 			}
 		});
@@ -383,6 +383,7 @@ public class StundenplaneintragForm extends Content {
 					@Override
 					public void onSuccess(
 							Vector<Studiengang> studiengang) {
+//						sgContainer.clear();
 						sgContainer = studiengang;
 						for (Studiengang sg : studiengang) {
 							listStudiengang.addItem(
@@ -395,7 +396,6 @@ public class StundenplaneintragForm extends Content {
 	}
 
 	public void getSemverband() {
-		sgContainer.clear();
 		verwaltungsSvc.getSemsterverbaendeByStudiengang(
 				sgContainer.elementAt(
 						listStudiengang.getSelectedIndex()).getId(),
@@ -418,7 +418,7 @@ public class StundenplaneintragForm extends Content {
 	}
 
 	public void getStundenplan() {
-		svContainer.clear();
+//		svContainer.clear();
 		verwaltungsSvc.getStundenplaeneBySemesterverband(svContainer
 				.elementAt(listSemesterverband.getSelectedIndex()).getId(),
 				new AsyncCallback<Vector<Stundenplan>>() {
@@ -440,7 +440,7 @@ public class StundenplaneintragForm extends Content {
 	}
 
 	public void getLehrveranstaltungen() {
-		lvContainer.clear();
+//		lvContainer.clear();
 		verwaltungsSvc
 				.getAllLehrveranstaltungen(new AsyncCallback<Vector<Lehrveranstaltung>>() {
 					@Override
@@ -462,7 +462,7 @@ public class StundenplaneintragForm extends Content {
 	}
 
 	public void getDozenten() {
-		dozentContainer.clear();
+//		dozentContainer.clear();
 		verwaltungsSvc
 				.getAllDozenten(new AsyncCallback<Vector<Dozent>>() {
 					@Override
@@ -483,7 +483,7 @@ public class StundenplaneintragForm extends Content {
 	}
 
 	public void getRaeume() {
-		raumContainer.clear();
+//		raumContainer.clear();
 		verwaltungsSvc
 				.getAllRaeume(new AsyncCallback<Vector<Raum>>() {
 					@Override

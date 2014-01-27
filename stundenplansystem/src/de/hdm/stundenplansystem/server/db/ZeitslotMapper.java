@@ -223,7 +223,7 @@ public class ZeitslotMapper {
 							+ " WHERE NOT EXISTS"
 							+ " (SELECT zeitslot.id"
 							+ " FROM stundenplaneintrag, stundenplan"
-							+ " WHERE (stundenplaneintrag.zeitslotid = zeitslot.id AND "
+							+ " WHERE (stundenplaneintrag.zeitslotid = zeitslot.id "
 							+ " AND stundenplaneintrag.stundenplanid = stundenplan.id"
 							+ " AND stundenplan.studienhalbjahr = '" + studienhalbjahr + "'"
 							+ " AND stundenplaneintrag.raumid = " + raumid + ")"

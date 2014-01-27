@@ -23,8 +23,8 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 
 /**
  * Formular, in der ein bereits bestehender Stundenplan angezeigt, 
- * gelöscht und bearbeitet wird.
- * Diese Klasse erbt von der Klasse Content und lässt sich somit 
+ * gelÃ¶scht und bearbeitet wird.
+ * Diese Klasse erbt von der Klasse Content und lÃ¤sst sich somit 
  * unter GWT entsprechend anordnen.
  * 
  * @see CreateDozent
@@ -34,7 +34,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
 public class StundenplanForm extends Content {
 
 	/**
-	 * Jede Klasse enthält eine Überschrift, die definiert, was der User machen
+	 * Jede Klasse enthÃ¤lt eine Ãœberschrift, die definiert, was der User machen
 	 * kann.
 	 */
 	private final HTML ueberschrift = new HTML(
@@ -71,9 +71,9 @@ public class StundenplanForm extends Content {
 	   * Jedes Formular wird durch einen Konstruktor dargestellt. 
 	   * In diesem wird eine Instanz des GWT Widgets Grid erzeugt, dass den Aufbau
 	   * des Formulars darstellt.
-	   * Durch die Methode <code>add()</code> werden die Widgets dem Panel hinzugefügt.
+	   * Durch die Methode <code>add()</code> werden die Widgets dem Panel hinzugefÃ¼gt.
 	   * Durch die Methode <code>setWidget()</code> werden die Widgets 
-	   * in den Zeilen und Spalten der Grid hinzugefügt.
+	   * in den Zeilen und Spalten der Grid hinzugefÃ¼gt.
 	   */
 	public StundenplanForm() {
 		Grid stGrid = new Grid(5, 2);
@@ -97,15 +97,15 @@ public class StundenplanForm extends Content {
 		stGrid.setWidget(3, 1, speichern);
 
 		/**
-		 * Beim Betätigen des Speicher-Buttons wird die Methode <code>addClickHandler()</code> 
+		 * Beim BetÃ¤tigen des Speicher-Buttons wird die Methode <code>addClickHandler()</code> 
 		 * aufgerufen. Dabei wird ein Interface {@link ClickHandler} erzeugt, 
 		 * das durch eine anonyme Klasse implementiert und durch new instantiiert wird. 
 		 * Dieses Interface verlangt genau eine Methode <code>onClick()</code>, die 
 		 * ein Objekt vom Typ ClickEvent {@link ClickEvent} erzeugt.
 		 * 
-		 * @param event wird abhängig vom Eventtyp {@link ClickEvent} definiert
+		 * @param event wird abhÃ¤ngig vom Eventtyp {@link ClickEvent} definiert
 		 * 
-		 * Anschließend wird festgelegt, was passiert wenn der Speicher-Button gedrückt wurde.
+		 * AnschlieÃŸend wird festgelegt, was passiert wenn der Speicher-Button gedrÃ¼ckt wurde.
 		 */
 		speichern.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -115,15 +115,15 @@ public class StundenplanForm extends Content {
 		stGrid.setWidget(4, 1, loeschen);
 		
 		/**
-		 * Beim Betätigen des Lösch-Buttons wird die Methode <code>addClickHandler()</code> 
+		 * Beim BetÃ¤tigen des LÃ¶sch-Buttons wird die Methode <code>addClickHandler()</code> 
 		 * aufgerufen. Dabei wird ein Interface {@link ClickHandler} erzeugt, 
 		 * das durch eine anonyme Klasse implementiert und durch new instantiiert wird. 
 		 * Dieses Interface verlangt genau eine Methode <code>onClick()</code>, die 
 		 * ein Objekt vom Typ ClickEvent {@link ClickEvent} erzeugt.
 		 * 
-		 * @param event wird abhängig vom Eventtyp {@link ClickEvent} definiert
+		 * @param event wird abhÃ¤ngig vom Eventtyp {@link ClickEvent} definiert
 		 * 
-		 * Anschließend wird festgelegt, was passiert wenn der Lösch-Button gedrückt wurde.
+		 * AnschlieÃŸend wird festgelegt, was passiert wenn der LÃ¶sch-Button gedrÃ¼ckt wurde.
 		 */
 		loeschen.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -145,14 +145,14 @@ public class StundenplanForm extends Content {
 		/*public void onLoad(){
 			
 		/**
-		 * Die Methode <code>addChangeHandler()</code> wird aufgerufen, wenn das Element der ListBox gändert wird.
+		 * Die Methode <code>addChangeHandler()</code> wird aufgerufen, wenn das Element der ListBox gÃ¤ndert wird.
 		 * Dabei wird ein Interface {@link ChangeHandler} erzeugt, das durch eine anonyme Klasse implementiert und durch
 		 * new instantiiert wird. Dieses Interface verlangt genau eine Methode <code>onChange()</code>, die 
 		 * ein Objekt vom Typ ChangeEvent {@link ChangeEvent} erzeugt.
 		 * 
-		 * @param event wird abhängig vom Eventtyp {@link ChangeEvent} definiert
+		 * @param event wird abhÃ¤ngig vom Eventtyp {@link ChangeEvent} definiert
 		 * 
-		 * Anschließend wird festgelegt, was passiert wenn der das Element der ListBox sich ändert.
+		 * AnschlieÃŸend wird festgelegt, was passiert wenn der das Element der ListBox sich Ã¤ndert.
 		 *
 		
 	}*/
@@ -163,7 +163,7 @@ public class StundenplanForm extends Content {
 
 		if (tbHalbjahr.getValue().isEmpty()) {
 			allFilled = false;
-			Window.alert("Bitte füllen Sie alle Felder aus.");
+			Window.alert("Bitte fÃ¼llen Sie alle Felder aus.");
 		}
 
 		if (allFilled == true) {
@@ -171,7 +171,7 @@ public class StundenplanForm extends Content {
 			
 			/**
 			 * Immer abfragen, ob der Wert der ListBox ungleich 0 ist, 
-			 * da bei keiner Änderung der ListBox dieser nicht gespeichert wird. 
+			 * da bei keiner Ã„nderung der ListBox dieser nicht gespeichert wird. 
 			 */			
 			if (libSemverband.getSelectedIndex() != 0)
 			shownSp.setSemesterverbandId(svContainer.elementAt(
@@ -201,19 +201,19 @@ public class StundenplanForm extends Content {
 				new AsyncCallback<Void>() {
 			
 					public void onFailure(Throwable caught) {
-						Window.alert("Der Stundenplan konnte nicht gelöscht werden.");
+						Window.alert("Der Stundenplan konnte nicht gelÃ¶scht werden.");
 					}
 
 					public void onSuccess(Void result) {
 						tvm.deleteStudienhalbjahr(shownSp);
-						Window.alert("Erfolgreich gelöscht.");
+						Window.alert("Erfolgreich gelÃ¶scht.");
 					}
 				});
 		this.clearFields();
 	}
 
 	/**
-	 * Die Methode <code>setTvm()</code> sorgt dafür, 
+	 * Die Methode <code>setTvm()</code> sorgt dafÃ¼r, 
 	 * dass die Klasse {@link NavTreeViewModel} auf diese Klasse zugreifen kann
 	 * 
 	 * @param tvm Instanz der Klasse {@link NavTreeViewModel}
@@ -224,9 +224,9 @@ public class StundenplanForm extends Content {
 
 	/**
 	 * Bevor wir das Objekt bearbeiten fragen wir, 
-	 * ob wir einen brauchbaren Wert zurückerhalten haben, 
+	 * ob wir einen brauchbaren Wert zurÃ¼ckerhalten haben, 
 	 * bevor wir diesen benutzen.
-	 * Anschließend definierten wir, was als nächstes zu tun ist.
+	 * AnschlieÃŸend definierten wir, was als nÃ¤chstes zu tun ist.
 	 * 
 	 * @param sp der Stundenplan der bearbeitet werden soll
 	 */
@@ -240,11 +240,11 @@ public class StundenplanForm extends Content {
 	}
 
 	/**
-	 * Ab hier befüllen wir die Widgets mit den Daten des gewählten Stundenplans
-	 * Zunächst wird die List Box des Semesterverbands befüllt.
-	 * Anschließend holen wir uns den Studiengang der zu diesem Semesterverband 
-	 * gehört. Danach werden beide List Boxen wieder mit allen Elementen des Semesterverbandes
-	 * sowie des Studiengangs befüllt
+	 * Ab hier befÃ¼llen wir die Widgets mit den Daten des gewÃ¤hlten Stundenplans
+	 * ZunÃ¤chst wird die List Box des Semesterverbands befÃ¼llt.
+	 * AnschlieÃŸend holen wir uns den Studiengang der zu diesem Semesterverband 
+	 * gehÃ¶rt. Danach werden beide List Boxen wieder mit allen Elementen des Semesterverbandes
+	 * sowie des Studiengangs befÃ¼llt
 	 */
 	public void setFields() {
 		this.clearFields();
@@ -308,10 +308,10 @@ public class StundenplanForm extends Content {
 	}
 
 	public void getSemverband() {
-		sgContainer.clear();
+//		sgContainer.clear();
 		verwaltungsSvc.getSemsterverbaendeByStudiengang(
 				sgContainer.elementAt(
-						libStudiengang.getSelectedIndex()).getId(),
+						libStudiengang.getSelectedIndex()-1).getId(),
 				new AsyncCallback<Vector<Semesterverband>>() {
 					public void onFailure(Throwable T) {
 
@@ -330,7 +330,7 @@ public class StundenplanForm extends Content {
 	}
 	
 	/**
-	 * Hier löschen wir den Inhalt der Widgets
+	 * Hier lÃ¶schen wir den Inhalt der Widgets
 	 */
 	public void clearFields() {
 		libStudiengang.clear();

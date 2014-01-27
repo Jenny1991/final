@@ -297,9 +297,9 @@ public class StundenplanMapper {
 			Statement stmt = con.createStatement();
 
 			stmt.executeUpdate("UPDATE stundenplan SET "
-					+ "studienhalbjahr='" + s.getStudienhalbjahr()
-					+ "' " + "semesterverbandid="
-					+ s.getSemesterverbandId() + "WHERE id="
+					+ "studienhalbjahr = '" + s.getStudienhalbjahr()
+					+ "', " + " semesterverbandid = "
+					+ s.getSemesterverbandId() + " WHERE id = "
 					+ s.getId());
 
 		} catch (SQLException e2) {

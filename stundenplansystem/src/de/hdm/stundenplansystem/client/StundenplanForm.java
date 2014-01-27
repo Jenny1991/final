@@ -63,6 +63,7 @@ public class StundenplanForm extends Content {
 	Vector<Semesterverband> svContainer = null;
 	Vector<Studiengang> sgContainer = null;
 
+	Semesterverband aktSv = null;
 	Stundenplan shownSp = null;
 	NavTreeViewModel tvm = null;
 
@@ -130,7 +131,10 @@ public class StundenplanForm extends Content {
 			}
 		});
 		setTvm(tvm);
+	}
 
+		public void onLoad(){
+			
 		/**
 		 * Die Methode <code>addChangeHandler()</code> wird aufgerufen, wenn das Element der ListBox gändert wird.
 		 * Dabei wird ein Interface {@link ChangeHandler} erzeugt, das durch eine anonyme Klasse implementiert und durch
@@ -148,7 +152,6 @@ public class StundenplanForm extends Content {
 				getSemverband();
 			}
 		});
-
 	}
 
 	public void changeSelectedHj() {
@@ -253,17 +256,19 @@ public class StundenplanForm extends Content {
 
 					@Override
 					public void onSuccess(Semesterverband result) {
-						libSemverband.addItem(result.getJahrgang()
+						libSemverband.addItem(result.getKuerzel()
 								+ ", Semester: "
 								+ String.valueOf(result.getSemester()));
-						getNextListSg();
-					}
-				});
+						aktSv = result;
+					getNextListSg();
+				}
+			});
 	}
+
 
 	public void getNextListSg() {
 		verwaltungsSvc.getStudiengangBySemesterverbandId(
-				shownSp.getSemesterverbandId(),
+				aktSv.getId(),
 				new AsyncCallback<Studiengang>() {
 					@Override
 					public void onFailure(Throwable caught) {
@@ -282,12 +287,10 @@ public class StundenplanForm extends Content {
 	public void getStudiengaenge() {
 		verwaltungsSvc
 				.getAllStudiengaenge(new AsyncCallback<Vector<Studiengang>>() {
-					@Override
-					public void onFailure(Throwable caught) {
-						caught.getMessage();
+					public void onFailure(Throwable T) {
+
 					}
 
-					@Override
 					public void onSuccess(
 							Vector<Studiengang> studiengang) {
 						sgContainer = studiengang;
@@ -302,7 +305,7 @@ public class StundenplanForm extends Content {
 	}
 
 	public void getSemverband() {
-		sgContainer.clear();
+		libSemverband.clear();
 		verwaltungsSvc.getSemsterverbaendeByStudiengang(
 				sgContainer.elementAt(
 						libStudiengang.getSelectedIndex()).getId(),

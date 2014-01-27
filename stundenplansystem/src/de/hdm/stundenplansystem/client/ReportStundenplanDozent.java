@@ -148,7 +148,7 @@ public class ReportStundenplanDozent extends Content {
 				reportSvc.createStundenplanDozentReport(dContainer
 						.elementAt(libDozent.getSelectedIndex())
 						.getId(),
-						sContainer.elementAt(libStudienhalbjahr.getSelectedIndex()),
+						sContainer.elementAt(libStudienhalbjahr.getSelectedIndex()).getStudienhalbjahr(),
 						new AsyncCallback<StundenplanDozentReport>() {
 
 							/**

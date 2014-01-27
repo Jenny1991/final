@@ -169,21 +169,21 @@ public class StundenplaneintragForm extends Content {
 			}
 		});
 		
-		listDozent.addChangeHandler(new ChangeHandler() {
-			@Override
-			public void onChange(ChangeEvent event) {
-				listZeitslot.clear();
-				getZeitslots();
-			}
-		});
-		
-		listStudienhj.addChangeHandler(new ChangeHandler() {
-			@Override
-			public void onChange(ChangeEvent event) {
-				listZeitslot.clear();
-				getZeitslots();
-			}
-		});	
+//		listDozent.addChangeHandler(new ChangeHandler() {
+//			@Override
+//			public void onChange(ChangeEvent event) {
+//				listZeitslot.clear();
+//				getZeitslots();
+//			}
+//		});
+//		
+//		listStudienhj.addChangeHandler(new ChangeHandler() {
+//			@Override
+//			public void onChange(ChangeEvent event) {
+//				listZeitslot.clear();
+//				getZeitslots();
+//			}
+//		});	
 	}
 
 //	public void getData() {
@@ -396,8 +396,8 @@ public class StundenplaneintragForm extends Content {
 		listZeitslot.clear();
 		listDozent.clear();
 		listLehrveranstaltung.clear();
-		listRaum.clear();
 		listStudiengang.clear();
+		listRaum.clear();
 		listSemesterverband.clear();
 		listStudienhj.clear();
 	}

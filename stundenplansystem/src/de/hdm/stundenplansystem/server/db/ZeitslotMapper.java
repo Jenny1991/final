@@ -151,7 +151,7 @@ public class ZeitslotMapper {
 	 *         oder ggf. auch leerer Vetor zurückgeliefert.
 	 */
 	public Vector<Zeitslot> findFreeZeitslots(int raumid,
-			int dozentid, int stundenplanid) {
+			int dozentid, String studienhalbjahr) {
 		Connection con = DBConnection.connection();
 
 		// Ergebnisvektor vorbereiten
@@ -203,20 +203,52 @@ public class ZeitslotMapper {
 //							+ " WHERE stundenplaneintrag.stundenplanid = " + stundenplanid + ")"
 //							+ " ORDER BY find_in_set(zeitslot.wochentag,'Montag,Dienstag,Mittwoch,Donnerstag,Freitag,Samstag'), zeitslot.anfangszeit");
 			
+//			ResultSet rs = stmt
+//					.executeQuery("SELECT zeitslot.id, zeitslot.wochentag, zeitslot.anfangszeit, zeitslot.endzeit"
+//							+ " FROM zeitslot"
+//							+ " WHERE NOT EXISTS"
+//							+ " (SELECT zeitslot.id"
+//							+ " FROM stundenplaneintrag"
+//							+ " WHERE (stundenplaneintrag.zeitslotid = zeitslot.id AND "
+//							+ " stundenplaneintrag.stundenplanid = " + stundenplanid
+//							+ " AND stundenplaneintrag.raumid = " + raumid + ")"
+//							+ " OR (stundenplaneintrag.zeitslotid = zeitslot.id "
+//							+ " AND stundenplaneintrag.stundenplanid = " + stundenplanid
+//							+ " AND stundenplaneintrag.dozentid = " + dozentid + "))"
+//						    + " ORDER BY find_in_set(zeitslot.wochentag,'Montag,Dienstag,Mittwoch,Donnerstag,Freitag,Samstag'), zeitslot.anfangszeit");			
+			
 			ResultSet rs = stmt
 					.executeQuery("SELECT zeitslot.id, zeitslot.wochentag, zeitslot.anfangszeit, zeitslot.endzeit"
 							+ " FROM zeitslot"
 							+ " WHERE NOT EXISTS"
 							+ " (SELECT zeitslot.id"
-							+ " FROM stundenplaneintrag"
+							+ " FROM stundenplaneintrag, stundenplan"
 							+ " WHERE (stundenplaneintrag.zeitslotid = zeitslot.id AND "
-							+ " stundenplaneintrag.stundenplanid = " + stundenplanid
+							+ " AND stundenplaneintrag.stundenplanid = stundenplan.id"
+							+ " AND stundenplan.studienhalbjahr = " + studienhalbjahr
 							+ " AND stundenplaneintrag.raumid = " + raumid + ")"
 							+ " OR (stundenplaneintrag.zeitslotid = zeitslot.id "
-							+ " AND stundenplaneintrag.stundenplanid = " + stundenplanid
+							+ " AND stundenplaneintrag.stundenplanid = stundenplan.id"
+							+ " AND stundenplan.studienhalbjahr = " + studienhalbjahr
 							+ " AND stundenplaneintrag.dozentid = " + dozentid + "))"
-						    + " ORDER BY find_in_set(zeitslot.wochentag,'Montag,Dienstag,Mittwoch,Donnerstag,Freitag,Samstag'), zeitslot.anfangszeit");			
-
+						    + " ORDER BY find_in_set(zeitslot.wochentag,'Montag,Dienstag,Mittwoch,Donnerstag,Freitag,Samstag'), zeitslot.anfangszeit");
+			
+//Vorlage:
+//			SELECT zeitslot.id, zeitslot.wochentag, zeitslot.anfangszeit, zeitslot.endzeit
+//			FROM zeitslot
+//			WHERE NOT EXISTS
+//			(SELECT zeitslot.id
+//			FROM stundenplaneintrag, stundenplan
+//			WHERE (stundenplaneintrag.zeitslotid = zeitslot.id
+//			AND stundenplaneintrag.stundenplanid = stundenplan.id
+//			AND stundenplan.studienhalbjahr = 'SS 2014'
+//			AND stundenplaneintrag.raumid = 3)
+//			OR (stundenplaneintrag.zeitslotid = zeitslot.id
+//			AND stundenplaneintrag.stundenplanid = stundenplan.id
+//			AND stundenplan.studienhalbjahr = 'SS 2014'
+//			AND stundenplaneintrag.dozentid = 4))
+//			ORDER BY id
+			
 			// Für jeden Eintrag im Suchergebnis wird nun ein Zeitslot-Objekt
 			// erstellt.
 			while (rs.next()) {

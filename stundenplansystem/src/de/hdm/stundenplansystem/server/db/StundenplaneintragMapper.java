@@ -136,7 +136,8 @@ public class StundenplaneintragMapper {
 							+ zeitslotid
 							+ " AND stundenplaneintrag.dozentid = "
 							+ dozentid
-							+ " AND stundenplan.studienhalbjahr = " + studienhalbjahr);
+							+ " AND stundenplan.studienhalbjahr = '" + studienhalbjahr + "'"
+							+ " ORDER BY id");
 			
 
 			// Für jeden Eintrag im Suchergebnis wird nun ein

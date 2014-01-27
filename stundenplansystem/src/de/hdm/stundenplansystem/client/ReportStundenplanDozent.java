@@ -116,10 +116,10 @@ public class ReportStundenplanDozent extends Content {
 					@Override
 					public void onSuccess(Vector<Stundenplan> studienhalbjahr) {
 						sContainer = studienhalbjahr;
-						int i = 0;
+//						int i = 0;
 						for (Stundenplan s : studienhalbjahr) {
-							sContainer.add(i, s);
-							i++;
+//							sContainer.add(i, s);
+//							i++;
 							libStudienhalbjahr.addItem(s.getStudienhalbjahr(),
 									String.valueOf(s.getId()));
 						}						

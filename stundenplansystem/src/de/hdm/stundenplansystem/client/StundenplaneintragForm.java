@@ -526,7 +526,7 @@ public class StundenplaneintragForm extends Content {
 				dozentContainer.elementAt(
 						listDozent.getSelectedIndex()).getId(),
 				spContainer.elementAt(
-						listStudienhj.getSelectedIndex()).getId(), new AsyncCallback<Vector<Zeitslot>>() {
+						listStudienhj.getSelectedIndex()).getStudienhalbjahr(), new AsyncCallback<Vector<Zeitslot>>() {
 					@Override
 					public void onFailure(Throwable caught) {
 						caught.getMessage();

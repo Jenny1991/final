@@ -110,12 +110,15 @@ public class ReportRaum extends Content {
 					@Override
 					public void onSuccess(Vector<Stundenplan> studienhalbjahr) {
 						sContainer = studienhalbjahr;
-						int i = 0;
+//						int i = 0;
 						for (Stundenplan s : studienhalbjahr) {
-							sContainer.add(i, s);
-							i++;
+//							sContainer.add(i, s);
+//							sContainer.set(i, s.setId(i));
+//							s.setId(i);
+//							sContainer.addElement(s);
 							libStudienhalbjahr.addItem(s.getStudienhalbjahr(),
 									String.valueOf(s.getId()));
+//							i++;
 						}						
 					}
 				});
@@ -143,7 +146,7 @@ public class ReportRaum extends Content {
 				reportSvc.createRaumbelungsReport(rContainer
 						.elementAt(libRaum.getSelectedIndex())
 						.getId(),
-						sContainer.elementAt(libStudienhalbjahr.getSelectedIndex()),
+						sContainer.elementAt(libStudienhalbjahr.getSelectedIndex()).getStudienhalbjahr(),
 						new AsyncCallback<RaumbelegungsReport>() {
 
 							/**

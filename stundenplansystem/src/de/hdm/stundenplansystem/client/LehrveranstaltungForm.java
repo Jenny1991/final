@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import de.hdm.stundenplansystem.client.NavTreeViewModel;
 import de.hdm.stundenplansystem.shared.*;
@@ -36,7 +37,7 @@ public class LehrveranstaltungForm extends Content {
 	/** 
 	 * Hier werden die GWT Widgets instantiiert
 	 */
-	final TextBox tbbezeichnung = new TextBox();
+	final TextArea tbbezeichnung = new TextArea();
 	final TextBox tbsemester = new TextBox();
 	final TextBox tbumfang = new TextBox();
 	final Button loeschen = new Button("Lehrveranstaltung löschen");
@@ -74,7 +75,7 @@ public class LehrveranstaltungForm extends Content {
 		lehrGrid.setWidget(1, 0, lbsemester);
 		lehrGrid.setWidget(1, 1, tbsemester);
 
-		Label lbumfang = new Label("Umfang (SWS)");
+		Label lbumfang = new Label("Umfang (in ECTS)");
 		lehrGrid.setWidget(2, 0, lbumfang);
 		lehrGrid.setWidget(2, 1, tbumfang);
 

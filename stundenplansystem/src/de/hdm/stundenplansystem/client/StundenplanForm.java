@@ -43,9 +43,9 @@ public class StundenplanForm extends Content {
 	/** 
 	 * Hier werden die GWT Widgets instantiiert
 	 */
-	final TextBox tbhalbjahr = new TextBox();
-	final ListBox libsemverband = new ListBox();
-	final ListBox libstudiengang = new ListBox();
+	final TextBox tbHalbjahr = new TextBox();
+	final ListBox libSemverband = new ListBox();
+	final ListBox libStudiengang = new ListBox();
 	final Button loeschen = new Button("Studienhalbjahr löschen");
 	final Button speichern = new Button("Änderungen speichern");
 	
@@ -63,7 +63,6 @@ public class StundenplanForm extends Content {
 	Vector<Semesterverband> svContainer = null;
 	Vector<Studiengang> sgContainer = null;
 
-//	Integer id;
 	Stundenplan shownSp = null;
 	NavTreeViewModel tvm = null;
 
@@ -82,15 +81,15 @@ public class StundenplanForm extends Content {
 
 		Label lbstudiengang = new Label("Studiengang:");
 		stGrid.setWidget(0, 0, lbstudiengang);
-		stGrid.setWidget(0, 1, libstudiengang);
+		stGrid.setWidget(0, 1, libStudiengang);
 
 		Label lbsemverband = new Label("Semesterverband:");
 		stGrid.setWidget(1, 0, lbsemverband);
-		stGrid.setWidget(1, 1, libsemverband);
+		stGrid.setWidget(1, 1, libSemverband);
 
 		Label lbhalbjahr = new Label("Studienhalbjahr:");
 		stGrid.setWidget(2, 0, lbhalbjahr);
-		stGrid.setWidget(2, 1, tbhalbjahr);
+		stGrid.setWidget(2, 1, tbHalbjahr);
 
 		Label lbfunktionen = new Label("Funktionen:");
 		stGrid.setWidget(3, 0, lbfunktionen);
@@ -131,22 +130,6 @@ public class StundenplanForm extends Content {
 			}
 		});
 		setTvm(tvm);
-	}
-
-	public void onLoad() {
-//		verwaltungsSvc.getStundenplanById(shownSp.getId(),
-//				new AsyncCallback<Stundenplan>() {
-//					@Override
-//					public void onFailure(Throwable caught) {
-//					}
-//
-//					@Override
-//					public void onSuccess(Stundenplan sp) {
-//						if (sp != null) {
-//							setSelected(sp);
-//						}
-//					};
-//				});
 
 		/**
 		 * Die Methode <code>addChangeHandler()</code> wird aufgerufen, wenn das Element der ListBox gändert wird.
@@ -158,7 +141,7 @@ public class StundenplanForm extends Content {
 		 * 
 		 * Anschließend wird festgelegt, was passiert wenn der das Element der ListBox sich ändert.
 		 */
-		libstudiengang.addChangeHandler(new ChangeHandler() {
+		libStudiengang.addChangeHandler(new ChangeHandler() {
 
 			@Override
 			public void onChange(ChangeEvent event) {
@@ -172,21 +155,21 @@ public class StundenplanForm extends Content {
 
 		boolean allFilled = true;
 
-		if (tbhalbjahr.getValue().isEmpty()) {
+		if (tbHalbjahr.getValue().isEmpty()) {
 			allFilled = false;
 			Window.alert("Bitte füllen Sie alle Felder aus.");
 		}
 
 		if (allFilled == true) {
-			shownSp.setStudienhalbjahr(tbhalbjahr.getText().trim());
+			shownSp.setStudienhalbjahr(tbHalbjahr.getText().trim());
 			
 			/**
 			 * Immer abfragen, ob der Wert der ListBox ungleich 0 ist, 
 			 * da bei keiner Änderung der ListBox dieser nicht gespeichert wird. 
 			 */			
-			if (libsemverband.getSelectedIndex() != 0)
+			if (libSemverband.getSelectedIndex() != 0)
 			shownSp.setSemesterverbandId(svContainer.elementAt(
-					libsemverband.getSelectedIndex() - 1).getId());
+					libSemverband.getSelectedIndex() - 1).getId());
 
 			verwaltungsSvc.changeStundenplan(shownSp,
 					new AsyncCallback<Void>() {
@@ -259,7 +242,7 @@ public class StundenplanForm extends Content {
 	 */
 	public void setFields() {
 		this.clearFields();
-		tbhalbjahr.setText(shownSp.getStudienhalbjahr());
+		tbHalbjahr.setText(shownSp.getStudienhalbjahr());
 		verwaltungsSvc.getSemesterverbandById(
 				shownSp.getSemesterverbandId(),
 				new AsyncCallback<Semesterverband>() {
@@ -270,7 +253,7 @@ public class StundenplanForm extends Content {
 
 					@Override
 					public void onSuccess(Semesterverband result) {
-						libsemverband.addItem(result.getJahrgang()
+						libSemverband.addItem(result.getJahrgang()
 								+ ", Semester: "
 								+ String.valueOf(result.getSemester()));
 						getNextListSg();
@@ -289,7 +272,7 @@ public class StundenplanForm extends Content {
 
 					@Override
 					public void onSuccess(Studiengang result) {
-						libstudiengang.addItem(result
+						libStudiengang.addItem(result
 								.getBezeichnung());
 						getStudiengaenge();
 					}
@@ -309,7 +292,7 @@ public class StundenplanForm extends Content {
 							Vector<Studiengang> studiengang) {
 						sgContainer = studiengang;
 						for (Studiengang sg : studiengang) {
-							libstudiengang.addItem(
+							libStudiengang.addItem(
 									sg.getBezeichnung(),
 									String.valueOf(sg.getId()));
 						}
@@ -319,17 +302,20 @@ public class StundenplanForm extends Content {
 	}
 
 	public void getSemverband() {
-		verwaltungsSvc
-				.getAllSemesterverbaende(new AsyncCallback<Vector<Semesterverband>>() {
-					public void onFailure(Throwable caught) {
-						caught.getMessage();
+		sgContainer.clear();
+		verwaltungsSvc.getSemsterverbaendeByStudiengang(
+				sgContainer.elementAt(
+						libStudiengang.getSelectedIndex()).getId(),
+				new AsyncCallback<Vector<Semesterverband>>() {
+					public void onFailure(Throwable T) {
+
 					}
 
 					public void onSuccess(
 							Vector<Semesterverband> semesterverband) {
 						svContainer = semesterverband;
 						for (Semesterverband sv : semesterverband) {
-							libsemverband.addItem(sv.getJahrgang()
+							libSemverband.addItem(sv.getKuerzel()
 									+ ", Semester: "
 									+ String.valueOf(sv.getSemester()));
 						}
@@ -341,8 +327,8 @@ public class StundenplanForm extends Content {
 	 * Hier löschen wir den Inhalt der Widgets
 	 */
 	public void clearFields() {
-		libstudiengang.clear();
-		libsemverband.clear();
-		tbhalbjahr.setText("");
+		libStudiengang.clear();
+		libSemverband.clear();
+		tbHalbjahr.setText("");
 	}
 }

@@ -7,7 +7,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.Button;
 
 import de.hdm.stundenplansystem.shared.*;
@@ -36,7 +36,7 @@ public class CreateStudiengang extends Content {
 	 * Hier werden die GWT Widgets instantiiert
 	 */
 	final Label lbBezeichnung = new Label("Bezeichnung:");
-	final TextBox tbBezeichnung = new TextBox();
+	final TextArea tbBezeichnung = new TextArea();
 	final Button speichern = new Button("Eingabe speichern");
 
 	/**

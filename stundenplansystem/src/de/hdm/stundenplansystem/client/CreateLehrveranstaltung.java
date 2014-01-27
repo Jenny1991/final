@@ -7,6 +7,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Button;
 
@@ -38,8 +39,8 @@ public class CreateLehrveranstaltung extends Content {
 	final Label lbBezeichnung = new Label(
 			"Bezeichnung der Lehrveranstaltung:");
 	final Label lbSemester = new Label("Semester:");
-	final Label lbUmfang = new Label("Umfang (in SWS):");
-	final TextBox tbBezeichnung = new TextBox();
+	final Label lbUmfang = new Label("Umfang (in ECTS):");
+	final TextArea tbBezeichnung = new TextArea();
 	final TextBox tbSemester = new TextBox();
 	final TextBox tbUmfang = new TextBox();
 	final Button speichern = new Button("Eingaben speichern");

@@ -9,7 +9,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.TextArea;
 import de.hdm.stundenplansystem.shared.*;
 import de.hdm.stundenplansystem.shared.bo.Studiengang;
 import de.hdm.stundenplansystem.client.NavTreeViewModel;
@@ -36,7 +36,7 @@ public class StudiengangForm extends Content {
 	/** 
 	 * Hier werden die GWT Widgets instantiiert
 	 */
-	final TextBox tbbezeichnung = new TextBox();
+	final TextArea tbbezeichnung = new TextArea();
 	final Button loeschen = new Button("Studiengang löschen");
 	final Button speichern = new Button("Änderungen speichern");
 	

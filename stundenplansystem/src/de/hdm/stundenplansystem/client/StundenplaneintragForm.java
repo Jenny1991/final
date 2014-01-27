@@ -77,7 +77,6 @@ public class StundenplaneintragForm extends Content {
 	final VerwaltungsklasseAsync verwaltungsSvc = GWT
 			.create(Verwaltungsklasse.class);
 
-	Integer id;
 	Semesterverband aktSv = null;
 	Stundenplaneintrag shownSpe = null;
 	NavTreeViewModel tvm = null;
@@ -167,22 +166,6 @@ public class StundenplaneintragForm extends Content {
 			}
 		});
 	}
-
-//	public void getData() {
-//		verwaltungsSvc.getStundenplaneintragById(id,
-//				new AsyncCallback<Stundenplaneintrag>() {
-//					@Override
-//					public void onFailure(Throwable caught) {
-//					}
-//
-//					@Override
-//					public void onSuccess(Stundenplaneintrag result) {
-//						if (result != null) {
-//							setSelected(result);
-//						}
-//					}
-//				});
-//	}
 
 	public void changeSelectedSpe() {
 		

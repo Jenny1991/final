@@ -190,7 +190,7 @@ public class StundenplaneintragMapper {
 							+ " ON stundenplaneintrag.stundenplanid = stundenplan.id"
 							+ " WHERE stundenplaneintrag.raumid = " + raumid
 							+ " AND stundenplaneintrag.zeitslotid = " + zeitslotid
-							+ " AND stundenplan.studienhalbjahr = " + studienhalbjahr
+							+ " AND stundenplan.studienhalbjahr = '" + studienhalbjahr + "'"
 							+ " ORDER BY id");
 
 			// Für jeden Eintrag im Suchergebnis wird nun ein

@@ -1185,9 +1185,11 @@ public class NavTreeViewModel extends Content implements
 		 * Hier werden dem Kinderknoten Dozent verwalten des Baumes die erstellten
 		 * Objekte hinzugefügt.
 		 * Durch den Aufruf des 
-		 * 
-		 * @param verwaltungsSvc mit der Methode <code>getAllDozenten()</code> 
-		 * 				werden die in der Datenbank gespeicherten Dozenten dem Baum hinzugefügt. 
+		 *
+		 * Durch den Aufruf der Methode <code>getAllDozenten()</code> rufen wir die 
+		 * VerwaltungsklasseAsync auf, welche uns alle Dozenten der Datenbank über
+		 * einen Callback zurückliefert. Diese Dozenten werden dann dem Baum durch 
+		 * die Methode <code>add()</code> hinzugefügt.
 		 * 
 		 * Die Instantiierung der Klasse {@link DozentCell} führt zur Definition
 		 * der in den Knoten dargestellten Informationen.
@@ -1217,9 +1219,11 @@ public class NavTreeViewModel extends Content implements
 		/**
 		 * Hier werden dem Kinderknoten Lehrveranstaltung verwalten des Baumes 
 		 * die erstellten Objekte hinzugefügt.
-		 * Durch den Aufruf des @param verwaltungsSvc mit der Methode 
-		 * <code>getAllLehrveranstaltung()</code> werden die in der Datenbank 
-		 * gespeicherten Lehrveranstaltungen dem Baum hinzugefügt. 
+		 * Durch den Aufruf der Methode <code>getAllLehrveranstaltungen()</code> 
+		 * rufen wir die VerwaltungsklasseAsync auf, welche uns alle Lehrveranstaltungen
+		 * der Datenbank über einen Callback zurückliefert. Diese Lehrveranstaltungen werden 
+		 * dann dem Baum durch die Methode <code>add()</code> hinzugefügt.
+		 * 
 		 * Die Instantiierung der Klasse {@link LehrveranstaltungCell} führt zur 
 		 * Definition der in den Knoten dargestellten Informationen.
 		 * 
@@ -1250,9 +1254,11 @@ public class NavTreeViewModel extends Content implements
 		/**
 		 * Hier werden dem Kinderknoten Raum verwalten des Baumes die erstellten 
 		 * Objekte hinzugefügt.
-		 * Durch den Aufruf des @param verwaltungsSvc mit der Methode 
-		 * <code>getAllRaeume()</code> werden die in der Datenbank 
-		 * gespeicherten Räume dem Baum hinzugefügt. 
+		 * Durch den Aufruf der Methode <code>getAllRaeume()</code> 
+		 * rufen wir die VerwaltungsklasseAsync auf, welche uns alle Räume
+		 * der Datenbank über einen Callback zurückliefert. Diese Räume werden 
+		 * dann dem Baum durch die Methode <code>add()</code> hinzugefügt.
+		 * 
 		 * Die Instantiierung der Klasse {@link RaumCell} führt zur Definition der 
 		 * in den Knoten dargestellten Informationen.
 		 * 
@@ -1281,9 +1287,11 @@ public class NavTreeViewModel extends Content implements
 		/**
 		 * Hier werden dem Kinderknoten Semesterverband verwalten des Baumes 
 		 * die erstellten Objekte hinzugefügt.
-		 * Durch den Aufruf des @param verwaltungsSvc mit der Methode 
-		 * <code>getAllSemesterverbaende()</code> werden die in der Datenbank 
-		 * gespeicherten Semesterverbände dem Baum hinzugefügt. 
+		 * Durch den Aufruf der Methode <code>getAllSemesterverbaende()</code> 
+		 * rufen wir die VerwaltungsklasseAsync auf, welche uns alle Semesterverbände
+		 * der Datenbank über einen Callback zurückliefert. Diese Semesterverbände 
+		 * werden dann dem Baum durch die Methode <code>add()</code> hinzugefügt. 
+		 * 
 		 * Die Instantiierung der Klasse {@link SemesterverbandCell} führt zur 
 		 * Definition der in den Knoten dargestellten Informationen.
 		 * 
@@ -1315,9 +1323,11 @@ public class NavTreeViewModel extends Content implements
 		/**
 		 * Hier werden dem Kinderknoten Studiengang verwalten des Baumes die 
 		 * erstellten Objekte hinzugefügt.
-		 * Durch den Aufruf des @param verwaltungsSvc mit der Methode 
-		 * <code>getAllStudiengaenge()</code> werden die in der Datenbank 
-		 * gespeicherten Studiengänge dem Baum hinzugefügt. 
+		 * Durch den Aufruf der Methode <code>getAllStudiengaenge()</code> 
+		 * rufen wir die VerwaltungsklasseAsync auf, welche uns alle Studiengänge
+		 * der Datenbank über einen Callback zurückliefert. Diese Studiengänge 
+		 * werden dann dem Baum durch die Methode <code>add()</code> hinzugefügt.
+		 * 
 		 * Die Instantiierung der Klasse {@link StudiengangCell} führt zur 
 		 * Definition der in den Knoten dargestellten Informationen.
 		 * 
@@ -1348,9 +1358,11 @@ public class NavTreeViewModel extends Content implements
 		/**
 		 * Hier werden dem Kinderknoten Stundenplan verwalten des Baumes die 
 		 * erstellten Objekte hinzugefügt.
-		 * Durch den Aufruf des @param verwaltungsSvc mit der Methode 
-		 * <code>getAllStundenplaene()</code> werden die in der Datenbank 
-		 * gespeicherten Stundenpläne dem Baum hinzugefügt. 
+		 * Durch den Aufruf der Methode <code>getAllStundenplaene()</code> 
+		 * rufen wir die VerwaltungsklasseAsync auf, welche uns alle Stundenpläne
+		 * der Datenbank über einen Callback zurückliefert. Diese Stundenpläne 
+		 * werden dann dem Baum durch die Methode <code>add()</code> hinzugefügt.
+		 * 
 		 * Die Instantiierung der Klasse {@link StundenplanCell} führt zur 
 		 * Definition der in den Knoten dargestellten Informationen.
 		 * 
@@ -1381,9 +1393,11 @@ public class NavTreeViewModel extends Content implements
 		/**
 		 * Hier werden dem Kinderknoten Stundenplaneintrag verwalten des 
 		 * Baumes die erstellten Objekte hinzugefügt.
-		 * Durch den Aufruf des @param verwaltungsSvc mit der Methode 
-		 * <code>getAllStundenplaneintraege()</code> werden die in der 
-		 * Datenbank gespeicherten Stundenplaneinträge dem Baum hinzugefügt. 
+		 * Durch den Aufruf der Methode <code>getAllStundenplaneintraege()</code> 
+		 * rufen wir die VerwaltungsklasseAsync auf, welche uns alle Stundenplaneinträge
+		 * der Datenbank über einen Callback zurückliefert. Diese Stundenplaneinträge 
+		 * werden dann dem Baum durch die Methode <code>add()</code> hinzugefügt.
+		 * 
 		 * Die Instantiierung der Klasse {@link StundenplaneintragCell} führt 
 		 * zur Definition der in den Knoten dargestellten Informationen.
 		 * 

@@ -139,32 +139,7 @@ public class StundenplaneintragForm extends Content {
 		});
 		setTvm(tvm);
 
-		listStudiengang.addChangeHandler(new ChangeHandler() {
-			@Override
-			public void onChange(ChangeEvent event) {
-				listSemesterverband.clear();
-				listStudienhj.clear();
-				listZeitslot.clear();
-				getSemverband();
-			}
-		});
-
-		listSemesterverband.addChangeHandler(new ChangeHandler() {
-			@Override
-			public void onChange(ChangeEvent event) {
-				listStudienhj.clear();
-				listZeitslot.clear();
-				getStundenplan();
-			}
-		});
-
-		listRaum.addChangeHandler(new ChangeHandler() {
-			@Override
-			public void onChange(ChangeEvent event) {
-				listZeitslot.clear();
-				getZeitslots();
-			}
-		});
+		
 	}
 
 	public void changeSelectedSpe() {
@@ -408,6 +383,33 @@ public class StundenplaneintragForm extends Content {
 						getSemverband();
 					}
 				});
+		
+		listStudiengang.addChangeHandler(new ChangeHandler() {
+			@Override
+			public void onChange(ChangeEvent event) {
+				listSemesterverband.clear();
+				listStudienhj.clear();
+				listZeitslot.clear();
+				getSemverband();
+			}
+		});
+
+		listSemesterverband.addChangeHandler(new ChangeHandler() {
+			@Override
+			public void onChange(ChangeEvent event) {
+				listStudienhj.clear();
+				listZeitslot.clear();
+				getStundenplan();
+			}
+		});
+
+		listRaum.addChangeHandler(new ChangeHandler() {
+			@Override
+			public void onChange(ChangeEvent event) {
+				listZeitslot.clear();
+				getZeitslots();
+			}
+		});
 	}
 
 	public void getSemverband() {
@@ -427,13 +429,14 @@ public class StundenplaneintragForm extends Content {
 									+ ", Semester: "
 									+ String.valueOf(sv.getSemester()));
 						}
+						getStundenplan();
 					}
 				});
 	}
 
 	public void getStundenplan() {
 		verwaltungsSvc.getStundenplaeneBySemesterverband(svContainer
-				.elementAt(listSemesterverband.getSelectedIndex()).getId(),
+				.elementAt(listSemesterverband.getSelectedIndex()-1).getId(),
 				new AsyncCallback<Vector<Stundenplan>>() {
 					public void onFailure(Throwable T) {
 

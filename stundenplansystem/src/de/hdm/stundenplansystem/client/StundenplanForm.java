@@ -131,6 +131,29 @@ public class StundenplanForm extends Content {
 			}
 		});
 		setTvm(tvm);
+		
+		/**
+		 * Die Methode <code>addChangeHandler()</code> wird aufgerufen,
+		 * wenn das Element der ListBox geändert wird.
+		 * Dabei wird ein Interface {@link ChangeHandler} erzeugt, 
+		 * das durch eine anonyme Klasse implementiert und durch
+		 * new instantiiert wird. Dieses Interface verlangt genau eine Methode 
+		 * <code>onChange()</code>, die 
+		 * ein Objekt vom Typ ChangeEvent {@link ChangeEvent} erzeugt.
+		 * 
+		 * @param event wird abhängig vom Eventtyp {@link ChangeEvent} definiert
+		 * 
+		 * Anschließend wird festgelegt, was passiert wenn der das Element der ListBox
+		 * sich ändert.
+		 */
+		libStudiengang.addChangeHandler(new ChangeHandler() {
+
+		@Override
+		public void onChange(ChangeEvent event) {
+			libSemverband.clear();
+				getSemverband();
+				}
+			});
 	}
 
 	public void changeSelectedHj() {
@@ -278,33 +301,13 @@ public class StundenplanForm extends Content {
 									sg.getBezeichnung(),
 									String.valueOf(sg.getId()));
 						}
-						
-		/**
-		 * Die Methode <code>addChangeHandler()</code> wird aufgerufen, wenn das Element der ListBox geändert wird.
-		 * Dabei wird ein Interface {@link ChangeHandler} erzeugt, das durch eine anonyme Klasse implementiert und durch
-		 * new instantiiert wird. Dieses Interface verlangt genau eine Methode <code>onChange()</code>, die 
-		 * ein Objekt vom Typ ChangeEvent {@link ChangeEvent} erzeugt.
-		 * 
-		 * @param event wird abhängig vom Eventtyp {@link ChangeEvent} definiert
-		 * 
-		 * Anschließend wird festgelegt, was passiert wenn der das Element der ListBox sich ändert.
-		 */
-		libStudiengang.addChangeHandler(new ChangeHandler() {
-
-		@Override
-		public void onChange(ChangeEvent event) {
-			libSemverband.clear();
-				getSemverband();
-				}
-			});
 			}
-		});
+		});	
 	}
 
 	public void getSemverband() {
 		verwaltungsSvc.getSemsterverbaendeByStudiengang(
-				sgContainer.elementAt(
-						libStudiengang.getSelectedIndex()).getId(),
+				sgContainer.elementAt(libStudiengang.getSelectedIndex()).getId(),
 				new AsyncCallback<Vector<Semesterverband>>() {
 					public void onFailure(Throwable T) {
 

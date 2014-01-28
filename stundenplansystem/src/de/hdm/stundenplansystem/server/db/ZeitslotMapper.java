@@ -231,13 +231,15 @@ public class ZeitslotMapper {
 							+ " WHERE (stundenplaneintrag.zeitslotid = zeitslot.id "
 							+ " AND stundenplaneintrag.stundenplanid = stundenplan.id"
 							+ " AND stundenplan.studienhalbjahr = '" + studienhalbjahr + "'"
-							+ " AND stundenplan.id = " + stundenplanid
 							+ " AND stundenplaneintrag.raumid = " + raumid + ")"
 							+ " OR (stundenplaneintrag.zeitslotid = zeitslot.id "
 							+ " AND stundenplaneintrag.stundenplanid = stundenplan.id"
 							+ " AND stundenplan.studienhalbjahr = '" + studienhalbjahr + "'"
-							+ " AND stundenplan.id = " + stundenplanid
-							+ " AND stundenplaneintrag.dozentid = " + dozentid + "))"
+							+ " AND stundenplaneintrag.dozentid = " + dozentid + ")"
+							+ " OR (stundenplaneintrag.zeitslotid = zeitslot.id "
+							+ " AND stundenplaneintrag.stundenplanid = stundenplan.id"
+							+ " AND stundenplan.studienhalbjahr = '" + studienhalbjahr + "'"
+							+ " AND stundenplan.id = " + stundenplanid + "))"
 						    + " ORDER BY find_in_set(zeitslot.wochentag,'Montag,Dienstag,Mittwoch,Donnerstag,Freitag,Samstag'), zeitslot.anfangszeit");
 			
 //Vorlage:

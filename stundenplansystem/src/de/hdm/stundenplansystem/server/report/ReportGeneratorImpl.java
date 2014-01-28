@@ -139,6 +139,9 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
 		// Name und Vorname des Dozenten aufnehmen
 		header.addSubParagraph(new SimpleParagraph(d.getVorname()
 				+ ", " + d.getNachname()));
+		
+		// Studienhalbjahr aufnehmen
+		header.addSubParagraph(new SimpleParagraph(studienhalbjahr));
 
 		// Hinzufügen der zusammengestellten Kopfdaten zu dem Report
 		result.setHeaderData(header);
@@ -280,6 +283,9 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
 		// Bezeichnung und Kapazität des Raumes aufnehmen
 		header.addSubParagraph(new SimpleParagraph(r.getBezeichnung()
 				+ ", Kapazität: " + r.getKapazitaet()));
+		
+		// Studienhalbjahr aufnehmnen
+		header.addSubParagraph(new SimpleParagraph(studienhalbjahr));
 
 		// Hinzufügen der zusammengestellten Kopfdaten zu dem Report
 		result.setHeaderData(header);
@@ -425,7 +431,10 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
 
 		// Bezeichnung des Semesterverbandes aufnehmen
 		header.addSubParagraph(new SimpleParagraph(sv.getKuerzel()
-				+ ", " + sv.getSemester()));
+				+ ", " + sv.getSemester()+". Semester"));
+
+		//Studienhalbjahr aufnehmen
+		header.addSubParagraph(new SimpleParagraph(sp.toString()));
 
 		// Hinzufügen der zusammengestellten Kopfdaten zu dem Report
 		result.setHeaderData(header);

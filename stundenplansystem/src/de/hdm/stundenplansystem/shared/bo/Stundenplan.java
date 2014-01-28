@@ -61,5 +61,9 @@ public class Stundenplan extends BusinessObjekt {
 	public void setSemesterverbandId(int semesterverbandId) {
 		this.semesterverbandId = semesterverbandId;
 	}
+	
+	public String toString(){
+		return this.studienhalbjahr;
+	}
 
 }

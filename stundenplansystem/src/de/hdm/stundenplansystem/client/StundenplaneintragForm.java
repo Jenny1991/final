@@ -81,7 +81,6 @@ public class StundenplaneintragForm extends Content {
 	Studiengang aktSg = null;
 	Stundenplaneintrag shownSpe = null;
 	NavTreeViewModel tvm = null;
-	
 
 	  /**
 	   * Jedes Formular wird durch einen Konstruktor dargestellt. 
@@ -164,7 +163,7 @@ public class StundenplaneintragForm extends Content {
 			@Override
 			public void onChange(ChangeEvent event) {
 				listZeitslot.clear();
-				getZeitslots();
+				test();
 			}
 		});
 		
@@ -545,7 +544,7 @@ public class StundenplaneintragForm extends Content {
 						for (Raum r : raum) {
 							listRaum.addItem(r.getBezeichnung());
 						}
-						getZeitslots();
+						neuerTest();
 					}
 				});
 	}
@@ -578,7 +577,61 @@ public class StundenplaneintragForm extends Content {
 				});
 	}
 	
+	public void test() {
+		verwaltungsSvc
+				.getFreieZeitslot(raumContainer.elementAt(listRaum.getSelectedIndex()-1)
+						.getId(),
+				dozentContainer.elementAt(
+								listDozent.getSelectedIndex()-1).getId(),
+				spContainer.elementAt(
+						listStudienhj.getSelectedIndex()).getStudienhalbjahr(), 
+				spContainer.elementAt(
+						listStudienhj.getSelectedIndex()).getId(), 
+						new AsyncCallback<Vector<Zeitslot>>() {
+					@Override
+					public void onFailure(Throwable caught) {
+						caught.getMessage();
+					}
+
+					@Override
+					public void onSuccess(Vector<Zeitslot> zeitslot) {
+						zsContainer = zeitslot;
+						for (Zeitslot z : zeitslot) {
+							listZeitslot.addItem(z.getWochentag()
+									+ ", " + z.getAnfangszeit()
+									+ ", " + z.getEndzeit());
+						}
+					}
+				});
+	}
 	
+	public void neuerTest() {
+		verwaltungsSvc
+				.getFreieZeitslot(raumContainer.elementAt(listRaum.getSelectedIndex()-1)
+						.getId(),
+				dozentContainer.elementAt(
+								listDozent.getSelectedIndex()).getId(),
+				spContainer.elementAt(
+						listStudienhj.getSelectedIndex()).getStudienhalbjahr(), 
+				spContainer.elementAt(
+						listStudienhj.getSelectedIndex()).getId(), 
+						new AsyncCallback<Vector<Zeitslot>>() {
+					@Override
+					public void onFailure(Throwable caught) {
+						caught.getMessage();
+					}
+
+					@Override
+					public void onSuccess(Vector<Zeitslot> zeitslot) {
+						zsContainer = zeitslot;
+						for (Zeitslot z : zeitslot) {
+							listZeitslot.addItem(z.getWochentag()
+									+ ", " + z.getAnfangszeit()
+									+ ", " + z.getEndzeit());
+						}
+					}
+				});
+	}
 	
 	/**
 	 * Diese Methode wird nur aufgerufen, wenn der ChangeHandler aktiviert wird

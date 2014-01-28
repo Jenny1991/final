@@ -69,7 +69,7 @@ public class RaumForm extends Content {
 		raumGrid.setWidget(0, 0, lbbezeichnung);
 		raumGrid.setWidget(0, 1, tbbezeichnung);
 
-		Label lbkapazitaet = new Label("Kapazit�t");
+		Label lbkapazitaet = new Label("Kapazität");
 		raumGrid.setWidget(1, 0, lbkapazitaet);
 		raumGrid.setWidget(1, 1, tbkapazitaet);
 
@@ -212,7 +212,7 @@ public class RaumForm extends Content {
 					@Override
 					public void onSuccess(Void result) {
 						tvm.deleteRaum(shownRaum);
-						Window.alert("Erfolgreich gel�scht.");
+						Window.alert("Erfolgreich gelöscht.");
 					}
 				});
 		this.clearFields();

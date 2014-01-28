@@ -175,7 +175,7 @@ public class StundenplanForm extends Content {
 			 * Immer abfragen, ob der Wert der ListBox ungleich 0 ist, 
 			 * da bei keiner Änderung der ListBox dieser nicht gespeichert wird. 
 			 */			
-			if (speichervariante == 0)
+			if (speichervariante == 0 && libSemverband.getSelectedIndex() != 0)
 				shownSp.setSemesterverbandId(svContainer.elementAt(
 					libSemverband.getSelectedIndex()-1).getId());
 			else

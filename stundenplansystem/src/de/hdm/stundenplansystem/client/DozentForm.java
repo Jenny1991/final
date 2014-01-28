@@ -114,21 +114,6 @@ public class DozentForm extends Content {
 		setTvm(tvm);
 	}
 
-//	public void getData() {
-//		verwaltungsSvc.getDozentById(id, new AsyncCallback<Dozent>() {
-//			@Override
-//			public void onFailure(Throwable caught) {
-//			}
-//
-//			@Override
-//			public void onSuccess(Dozent d) {
-//				if(d != null) {
-//					setSelected(d);
-//				}
-//			};
-//		});
-//	}
-
 	/**
 	 * Die Methode <code>setTvm()</code> sorgt dafür, 
 	 * dass die Klasse {@link NavTreeViewModel} auf diese Klasse zugreifen kann
@@ -227,7 +212,7 @@ public class DozentForm extends Content {
 					@Override
 					public void onSuccess(Void result) {
 						tvm.deleteDozent(shownDozent);
-						Window.alert("Erfolgreich gel�scht.");
+						Window.alert("Erfolgreich gelöscht.");
 					}
 				});
 		this.clearFields();

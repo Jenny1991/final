@@ -144,7 +144,7 @@ public interface Verwaltungsklasse extends RemoteService {
 			int studiengangId) throws IllegalArgumentException;
 
 	public Vector<Stundenplan> getStundenplaeneBySemesterverband(
-			int studiengangId) throws IllegalArgumentException;
+			int semesterverbandId) throws IllegalArgumentException;
 
 	public Stundenplaneintrag createStundenplaneintrag(int d, int l,
 			int r, int z, int sp) throws IllegalArgumentException;

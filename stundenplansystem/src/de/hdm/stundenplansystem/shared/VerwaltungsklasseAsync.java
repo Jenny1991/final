@@ -152,7 +152,7 @@ public interface VerwaltungsklasseAsync {
 	void getSemsterverbaendeByStudiengang(int studiengangId,
 			AsyncCallback<Vector<Semesterverband>> callback);
 
-	void getStundenplaeneBySemesterverband(int studiengangId,
+	void getStundenplaeneBySemesterverband(int semesterverbandId,
 			AsyncCallback<Vector<Stundenplan>> callback);
 
 	void getStudiengangBySemesterverbandId(int semesterverbandId,

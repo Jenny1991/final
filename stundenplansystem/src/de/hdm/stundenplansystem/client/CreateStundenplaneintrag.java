@@ -412,6 +412,8 @@ public class CreateStundenplaneintrag extends Content {
 						listDozent.getSelectedIndex()).getId(),
 				spContainer.elementAt(
 						listStudienhj.getSelectedIndex()).getStudienhalbjahr(),
+				spContainer.elementAt(
+						listStudienhj.getSelectedIndex()).getId(),
 				new AsyncCallback<Vector<Zeitslot>>() {
 					@Override
 					public void onFailure(Throwable caught) {

@@ -433,7 +433,7 @@ public class StundenplaneintragForm extends Content {
 
 	public void getStundenplan() {
 		verwaltungsSvc.getStundenplaeneBySemesterverband(svContainer
-				.elementAt(listSemesterverband.getSelectedIndex()-1).getId(),
+				.elementAt(listSemesterverband.getSelectedIndex()).getId(),
 				new AsyncCallback<Vector<Stundenplan>>() {
 					public void onFailure(Throwable T) {
 

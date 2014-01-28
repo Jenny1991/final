@@ -562,9 +562,9 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 */
 
 	public Vector<Zeitslot> getFreieZeitslot(int raumId,
-			int dozentId, String studienhalbjahr) {
+			int dozentId, String studienhalbjahr, int stundenplanId) {
 		return this.zeitslotMapper.findFreeZeitslots(raumId,
-				dozentId, studienhalbjahr);
+				dozentId, studienhalbjahr, stundenplanId);
 	}
 
 	/*

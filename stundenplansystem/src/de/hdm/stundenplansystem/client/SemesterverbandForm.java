@@ -134,23 +134,6 @@ public class SemesterverbandForm extends Content {
 		setTvm(tvm);
 	}
 
-//	public void getData() {
-//
-//		verwaltungsSvc.getSemesterverbandById(id,
-//				new AsyncCallback<Semesterverband>() {
-//					@Override
-//					public void onFailure(Throwable caught) {
-//					}
-//
-//					@Override
-//					public void onSuccess(Semesterverband result) {
-//						if (result != null) {
-//							setSelected(result);
-//						}
-//					}
-//				});
-//	}
-
 	/**
 	 * Durch die Methode <code>getAllStudiengaenge()</code> werden wir
 	 * die Verwaltungsklasse bitten, uns über einen Callback alle Studiengänge in einem Vector 

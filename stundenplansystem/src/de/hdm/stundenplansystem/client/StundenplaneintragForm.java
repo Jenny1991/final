@@ -80,6 +80,7 @@ public class StundenplaneintragForm extends Content {
 	Semesterverband aktSv = null;
 	Stundenplaneintrag shownSpe = null;
 	NavTreeViewModel tvm = null;
+	
 
 	  /**
 	   * Jedes Formular wird durch einen Konstruktor dargestellt. 
@@ -138,7 +139,23 @@ public class StundenplaneintragForm extends Content {
 			}
 		});
 		setTvm(tvm);
+				
+		listStudiengang.addChangeHandler(new ChangeHandler() {
 
+			@Override
+			public void onChange(ChangeEvent event) {
+				listSemesterverband.clear();
+				getSemverband();
+			}
+		});
+		
+		listRaum.addChangeHandler(new ChangeHandler() {
+			@Override
+			public void onChange(ChangeEvent event) {
+				listZeitslot.clear();
+				getZeitslots();
+			}
+		});
 		
 	}
 
@@ -380,42 +397,16 @@ public class StundenplaneintragForm extends Content {
 									sg.getBezeichnung(),
 									String.valueOf(sg.getId()));
 						}
-						getSemverband();
+//						getSemverband();
 					}
 				});
-		
-		listStudiengang.addChangeHandler(new ChangeHandler() {
-			@Override
-			public void onChange(ChangeEvent event) {
-				listSemesterverband.clear();
-				listStudienhj.clear();
-				listZeitslot.clear();
-				getSemverband();
-			}
-		});
-
-		listSemesterverband.addChangeHandler(new ChangeHandler() {
-			@Override
-			public void onChange(ChangeEvent event) {
-				listStudienhj.clear();
-				listZeitslot.clear();
-				getStundenplan();
-			}
-		});
-
-		listRaum.addChangeHandler(new ChangeHandler() {
-			@Override
-			public void onChange(ChangeEvent event) {
-				listZeitslot.clear();
-				getZeitslots();
-			}
-		});
 	}
 
 	public void getSemverband() {
+		listStudienhj.clear();
 		verwaltungsSvc.getSemsterverbaendeByStudiengang(
 				sgContainer.elementAt(
-						listStudiengang.getSelectedIndex()-1).getId(),
+						listStudiengang.getSelectedIndex()).getId(),
 				new AsyncCallback<Vector<Semesterverband>>() {
 					public void onFailure(Throwable T) {
 
@@ -432,11 +423,20 @@ public class StundenplaneintragForm extends Content {
 						getStundenplan();
 					}
 				});
+		
+		listSemesterverband.addChangeHandler(new ChangeHandler() {
+
+			@Override
+			public void onChange(ChangeEvent event) {
+				listStudienhj.clear();
+				getChangeStundenplan();
+			}
+		});
 	}
 
 	public void getStundenplan() {
 		verwaltungsSvc.getStundenplaeneBySemesterverband(svContainer
-				.elementAt(listSemesterverband.getSelectedIndex()-1).getId(),
+				.elementAt(listSemesterverband.getSelectedIndex()).getId(),
 				new AsyncCallback<Vector<Stundenplan>>() {
 					public void onFailure(Throwable T) {
 
@@ -455,6 +455,27 @@ public class StundenplaneintragForm extends Content {
 				});
 	}
 
+	public void getChangeStundenplan() {
+		listStudienhj.clear();
+		verwaltungsSvc.getStundenplaeneBySemesterverband(svContainer
+				.elementAt(listSemesterverband.getSelectedIndex()).getId(),
+				new AsyncCallback<Vector<Stundenplan>>() {
+					public void onFailure(Throwable T) {
+
+					}
+
+					public void onSuccess(
+							Vector<Stundenplan> stundenplaene) {
+						spContainer = stundenplaene;
+						for (Stundenplan sp : stundenplaene) {
+							listStudienhj.addItem(
+									sp.getStudienhalbjahr(),
+									String.valueOf(sp.getId()));
+						}
+					}
+				});
+	}
+	
 	public void getLehrveranstaltungen() {
 		verwaltungsSvc
 				.getAllLehrveranstaltungen(new AsyncCallback<Vector<Lehrveranstaltung>>() {

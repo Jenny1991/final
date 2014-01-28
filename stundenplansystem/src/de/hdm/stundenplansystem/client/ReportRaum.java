@@ -77,7 +77,7 @@ public class ReportRaum extends Content {
 		this.add(anzeigen);
 		this.add(panel);
 		setTvm(tvm);
-		
+			
 		/**
 		 * Durch die Methode <code>clear()</code> werden zunächst alle Elemente
 		 * der List Box gelöscht. 
@@ -86,21 +86,6 @@ public class ReportRaum extends Content {
 		 * zurückzuliefern. Die Räume werden durch die Methode <code>addItem()</code>
 		 * der List Box zugefügt.
 		 */
-		libRaum.clear();
-		verwaltungsSvc
-				.getAllRaeume(new AsyncCallback<Vector<Raum>>() {
-					public void onFailure(Throwable T) {
-					}
-
-					public void onSuccess(Vector<Raum> raum) {
-						rContainer = raum;
-						for (Raum r : raum) {
-							libRaum.addItem(r.getBezeichnung(),
-									String.valueOf(r.getId()));
-						}
-					}
-				});
-		
 		libStudienhalbjahr.clear();
 		verwaltungsSvc	
 				.getAllStudienhalbjahre(new AsyncCallback<Vector<Stundenplan>>() {
@@ -111,16 +96,11 @@ public class ReportRaum extends Content {
 					@Override
 					public void onSuccess(Vector<Stundenplan> studienhalbjahr) {
 						sContainer = studienhalbjahr;
-//						int i = 0;
 						for (Stundenplan s : studienhalbjahr) {
-//							sContainer.add(i, s);
-//							sContainer.set(i, s.setId(i));
-//							s.setId(i);
-//							sContainer.addElement(s);
 							libStudienhalbjahr.addItem(s.getStudienhalbjahr(),
 									String.valueOf(s.getId()));
-//							i++;
-						}						
+						}
+						getAllRaeume();
 					}
 				});
 
@@ -138,6 +118,8 @@ public class ReportRaum extends Content {
 		anzeigen.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				
+				panel.clear();	
+
 				 /**
 		         * Wir bitten den ReportGenerator durch Methode
 		         * <code>createRaumbelungsReport()</code>, einen neuen 
@@ -199,5 +181,24 @@ public class ReportRaum extends Content {
 	 */
 	public void setTvm(NavTreeViewModel tvm) {
 		this.tvm = tvm;
+	}
+	
+	public void getAllRaeume(){
+		libRaum.clear();
+		verwaltungsSvc
+				.getAllRaeume(new AsyncCallback<Vector<Raum>>() {
+					@Override
+					public void onFailure(Throwable T) {
+					}
+
+					@Override
+					public void onSuccess(Vector<Raum> raum) {
+						rContainer = raum;
+						for (Raum r : raum) {
+							libRaum.addItem(r.getBezeichnung(),
+									String.valueOf(r.getId()));
+						}
+					}
+				});
 	}
 }

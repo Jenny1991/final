@@ -89,23 +89,7 @@ public class ReportStundenplanDozent extends Content {
 		 * die Verwaltungsklasse bitten, uns über einen Callback alle Dozenten in einem Vector 
 		 * zurückzuliefern. Die Dozenten werden durch die Methode <code>addItem()</code>
 		 * der List Box zugefügt.
-		 */
-		libDozent.clear();
-		verwaltungsSvc
-				.getAllDozenten(new AsyncCallback<Vector<Dozent>>() {
-					public void onFailure(Throwable T) {
-					}
-
-					public void onSuccess(Vector<Dozent> dozent) {
-						dContainer = dozent;
-						for (Dozent d : dozent) {
-							libDozent.addItem(d.getNachname() + ", "
-									+ d.getVorname(),
-									String.valueOf(d.getId()));
-						}
-					}
-				});
-		
+		 */		
 		libStudienhalbjahr.clear();
 		verwaltungsSvc	
 				.getAllStudienhalbjahre(new AsyncCallback<Vector<Stundenplan>>() {
@@ -116,13 +100,11 @@ public class ReportStundenplanDozent extends Content {
 					@Override
 					public void onSuccess(Vector<Stundenplan> studienhalbjahr) {
 						sContainer = studienhalbjahr;
-//						int i = 0;
 						for (Stundenplan s : studienhalbjahr) {
-//							sContainer.add(i, s);
-//							i++;
 							libStudienhalbjahr.addItem(s.getStudienhalbjahr(),
 									String.valueOf(s.getId()));
-						}						
+						}	
+						getAllDozenten();
 					}
 				});
 
@@ -139,6 +121,8 @@ public class ReportStundenplanDozent extends Content {
 		 */
 		anzeigen.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
+
+				panel.clear();	
 
 				/**
 		         * Wir bitten den ReportGenerator durch Methode
@@ -200,5 +184,23 @@ public class ReportStundenplanDozent extends Content {
 	 */
 	public void setTvm(NavTreeViewModel tvm) {
 		this.tvm = tvm;
+	}
+	
+	public void getAllDozenten(){
+		libDozent.clear();
+		verwaltungsSvc
+				.getAllDozenten(new AsyncCallback<Vector<Dozent>>() {
+					public void onFailure(Throwable T) {
+					}
+
+					public void onSuccess(Vector<Dozent> dozent) {
+						dContainer = dozent;
+						for (Dozent d : dozent) {
+							libDozent.addItem(d.getNachname() + ", "
+									+ d.getVorname(),
+									String.valueOf(d.getId()));
+						}
+					}
+				});
 	}
 }

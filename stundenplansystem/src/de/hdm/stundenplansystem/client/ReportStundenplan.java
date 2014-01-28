@@ -160,7 +160,9 @@ public class ReportStundenplan extends Content {
 		 */
 		anzeigen.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-
+				
+				panel.clear();	
+			
 				 /**
 		         * Wir bitten den ReportGenerator durch Methode
 		         * <code>createStundenplanSemesterverbandReport()</code>, einen neuen 
@@ -228,15 +230,6 @@ public class ReportStundenplan extends Content {
 		this.tvm = tvm;
 	}
 
-	/**
-	 * Durch die Methode <code>clear()</code> werden zunächst alle Elemente
-	 * der List Box gelöscht. 
-	 * Anschließend werden wir durch die Methode <code>getSemsterverbaendeByStudiengang()</code>
-	 * die Verwaltungsklasse bitten, uns über einen Callback alle Semesterverbände, die zu dem
-	 * davor ausgwählten Studiengang gehören, in einem Vector 
-	 * zurückzuliefern. Die Semesterverbände werden durch die Methode <code>addItem()</code>
-	 * der List Box zugefügt.
-	 */
 	public void getSemverband() {
 		libSemverband.clear();
 		verwaltungsSvc.getSemsterverbaendeByStudiengang(
@@ -260,15 +253,6 @@ public class ReportStundenplan extends Content {
 				});
 	}
 
-	/**
-	 * Durch die Methode <code>clear()</code> werden zunächst alle Elemente
-	 * der List Box gelöscht. 
-	 * Anschließend werden wir durch die Methode <code>getStundenplaeneBySemesterverband()</code>
-	 * die Verwaltungsklasse bitten, uns über einen Callback alle Stundenpläne, die zu dem
-	 * davor ausgwählten Semesterverband gehören, in einem Vector 
-	 * zurückzuliefern. Die Stundenpläne werden durch die Methode <code>addItem()</code>
-	 * der List Box zugefügt.
-	 */
 	public void getStundenplan() {
 		libStundenplan.clear();
 		verwaltungsSvc.getStundenplaeneBySemesterverband(svContainer

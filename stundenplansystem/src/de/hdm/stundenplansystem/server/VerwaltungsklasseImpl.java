@@ -720,7 +720,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 					.getStudiengangBySemesterverbandId(
 							semesterverbandId).getBezeichnung();
 			String abkuerzung = bezeichnung.substring(0, 2)
-					+ " , "
+					+ ", "
 					+ this.getLehrveranstaltungById(l)
 							.getBezeichnung();
 			s.setAbkuerzung(abkuerzung);

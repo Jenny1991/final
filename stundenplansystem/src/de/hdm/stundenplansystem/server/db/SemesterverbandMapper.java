@@ -107,10 +107,11 @@ public class SemesterverbandMapper {
 	}
 
 	/**
-	 * Suchen eines Semesterverbandes mit vorgegebener id. Da diese eindeutig
-	 * ist, wird genau ein Objekt zurückgegeben.
+	 * Suchen eines Semesterverbandes mit vorgegebener stundenplanid. 
+	 * Da ein Stundenplan nur einem Semesterverband zugeordnet werden kann,
+	 * wird genau ein Objekt zurückgegeben.
 	 * 
-	 * @param id
+	 * @param stundenplanid
 	 *            Primärschlüsselattribut (->DB)
 	 * @return Semesterverband-Objekt, das dem übergebenen Schlüssel
 	 *         entspricht, null bei nicht vorhandenem DB-Tupel.

@@ -110,7 +110,7 @@ public class StundenplaneintragMapper {
 	}
 
 	/**
-	 * Auslesen eines Stundenplaneinträge nach einem bestimmten Dozenten,
+	 * Auslesen eines Stundenplaneintrages nach einem bestimmten Dozenten,
 	 * Zeitslot und Studienhalbjahr, sortiert nach der id. Hierfür muss
 	 * die Tabelle stundenplan gejoined werden. Es 
 	 * handelt sich um die Datenbankabfrage für die Ausgabe des
@@ -332,10 +332,11 @@ public class StundenplaneintragMapper {
 	}
 
 	/**
-	 * Auslesen aller Stundenplaneinträge.
+	 * Auslesen aller Stundenplaneinträge eines bestimmten Dozenten.
 	 * 
 	 * @return Ein Vektor mit Stundenplaneintrag-Objekten, die sämtliche
-	 *         Stundenplaneinträge repräsentieren. Bei evtl. Exceptions wird ein
+	 *         Stundenplaneinträge eines bestimmten Dozenten
+	 *         repräsentieren. Bei evtl. Exceptions wird ein
 	 *         partiell gefüllter oder ggf. auch leerer Vetor zurückgeliefert.
 	 */
 	public Vector<Stundenplaneintrag> findbyDozentId(int dozentid) {
@@ -379,10 +380,11 @@ public class StundenplaneintragMapper {
 	}
 
 	/**
-	 * Auslesen aller Stundenplaneinträge.
+	 * Auslesen aller Stundenplaneinträge, die einen bestimmten Raum zugeordnet sind.
 	 * 
 	 * @return Ein Vektor mit Stundenplaneintrag-Objekten, die sämtliche
-	 *         Stundenplaneinträge repräsentieren. Bei evtl. Exceptions wird ein
+	 *         Stundenplaneinträge repräsentieren, die einen bestimmten Raum 
+	 *         zugeordnet sind. Bei evtl. Exceptions wird ein
 	 *         partiell gefüllter oder ggf. auch leerer Vetor zurückgeliefert.
 	 */
 	public Vector<Stundenplaneintrag> findbyRaumId(int raumid) {
@@ -426,10 +428,12 @@ public class StundenplaneintragMapper {
 	}
 
 	/**
-	 * Auslesen aller Stundenplaneinträge.
+	 * Auslesen aller Stundenplaneinträge, die einer bestimmten Lehrveranstaltung
+	 * zugeordnet sind.
 	 * 
 	 * @return Ein Vektor mit Stundenplaneintrag-Objekten, die sämtliche
-	 *         Stundenplaneinträge repräsentieren. Bei evtl. Exceptions wird ein
+	 *         Stundenplaneinträge repräsentieren, die einer bestimmten Lehrveranstaltung
+	 *         zugeordnet sind. Bei evtl. Exceptions wird ein
 	 *         partiell gefüllter oder ggf. auch leerer Vetor zurückgeliefert.
 	 */
 	public Vector<Stundenplaneintrag> findbyLehrveranstaltungId(
@@ -474,10 +478,12 @@ public class StundenplaneintragMapper {
 	}
 
 	/**
-	 * Auslesen aller Stundenplaneinträge.
+	 * Auslesen aller Stundenplaneinträge, die einem bestimmten Stundenplan
+	 * zugeordnet sind.
 	 * 
 	 * @return Ein Vektor mit Stundenplaneintrag-Objekten, die sämtliche
-	 *         Stundenplaneinträge repräsentieren. Bei evtl. Exceptions wird ein
+	 *         Stundenplaneinträge repräsentieren, die einem bestimmten Stundenplan
+	 *         zugeordnet sind. Bei evtl. Exceptions wird ein
 	 *         partiell gefüllter oder ggf. auch leerer Vetor zurückgeliefert.
 	 */
 	public Vector<Stundenplaneintrag> findbyStundenplanId(

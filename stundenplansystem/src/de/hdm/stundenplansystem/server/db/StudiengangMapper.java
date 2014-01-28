@@ -103,10 +103,11 @@ public class StudiengangMapper {
 	}
 
 	/**
-	 * Suchen eines Studienganges mit vorgegebener id. Da diese eindeutig ist,
-	 * wird genau ein Objekt zurückgegeben.
+	 * Suchen eines Studienganges mit vorgegebener semesterverbandid.
+	 * Da einem Semesterverband nur ein Studiengang zuordenbar
+	 * ist, wird genau ein Objekt zurückgegeben.
 	 * 
-	 * @param id
+	 * @param semesterverbandid
 	 *            Primärschlüsselattribut (->DB)
 	 * @return Studiengang-Objekt, das dem übergebenen Schlüssel entspricht,
 	 *         null bei nicht vorhandenem DB-Tupel.

@@ -148,7 +148,7 @@ public class ZeitslotMapper {
 	 * der Tabelle Zeitslots ermittelt. Im 2. Schritt wird eine Unterabfrage
 	 * durchgeführt. Diese ermittelt aus der Tabelle Stundenplaneintrag die 
 	 * Zeitslots, welche nicht erneut belegt werden dürfen. Dies ist abhängig
-	 * von raumid, dozentid und studienhalbjahr. Das Ergebnis aus Abfrage 2 wird
+	 * von raumid, dozentid, stundenplanid und studienhalbjahr. Das Ergebnis aus Abfrage 2 wird
 	 * mit NOT EXISTS von dem Ergebnis der ersten Abfrage abgezogen.
 	 * 
 	 * @return Ein Vektor mit Zeitslot-Objekten, die sämtliche Zeitslots

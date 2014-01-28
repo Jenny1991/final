@@ -21,7 +21,6 @@ public class Stundenplaneintrag extends BusinessObjekt {
 	private int lehrveranstaltungId;
 	private int raumId;
 	private int zeitslotId;
-	private int semesterverbandId;
 	private int stundenplanId;
 	private String abkuerzung;
 
@@ -97,23 +96,6 @@ public class Stundenplaneintrag extends BusinessObjekt {
 	   */
 	public void setZeitslotId(int zeitslotId) {
 		this.zeitslotId = zeitslotId;
-	}
-
-	/**
-	   * Auslesen des Semesterverband-Fremdschlüssel zum Stundenplaneintrags
-	   * @return int
-	   */
-	public int getSemesterverbandId() {
-		return semesterverbandId;
-	}
-
-	/**
-	   * Setzen des Semesterverband-Fremdschlüssel zum Stundenplaneintrags
-	   * @param int semesterverbandId des jeweiligen Stundenplaneintrags
-	   * @return void
-	   */
-	public void setSemesterverbandId(int semesterverbandId) {
-		this.semesterverbandId = semesterverbandId;
 	}
 
 	/**

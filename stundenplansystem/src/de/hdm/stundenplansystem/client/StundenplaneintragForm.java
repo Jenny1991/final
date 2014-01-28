@@ -78,6 +78,7 @@ public class StundenplaneintragForm extends Content {
 			.create(Verwaltungsklasse.class);
 
 	Semesterverband aktSv = null;
+	Studiengang aktSg = null;
 	Stundenplaneintrag shownSpe = null;
 	NavTreeViewModel tvm = null;
 	
@@ -145,7 +146,7 @@ public class StundenplaneintragForm extends Content {
 			@Override
 			public void onChange(ChangeEvent event) {
 				listSemesterverband.clear();
-				getSemverband();
+				getSemverbandChange();
 			}
 		});
 		
@@ -165,9 +166,7 @@ public class StundenplaneintragForm extends Content {
 		 * Immer abfragen, ob der Wert der ListBox ungleich 0 ist, 
 		 * da bei keiner Änderung der ListBox dieser nicht gespeichert wird. 
 		 */
-		if (listSemesterverband.getSelectedIndex() != 0)
-		shownSpe.setSemesterverbandId(svContainer.elementAt(
-				listSemesterverband.getSelectedIndex() - 1).getId());
+		
 		if (listStudienhj.getSelectedIndex() != 0)
 		shownSpe.setStundenplanId(spContainer.elementAt(
 				listStudienhj.getSelectedIndex() - 1).getId());
@@ -293,6 +292,7 @@ public class StundenplaneintragForm extends Content {
 					public void onSuccess(Studiengang result) {
 						listStudiengang.addItem(result
 								.getBezeichnung());
+						aktSg = result;
 						getNextListLv();
 					}
 				});
@@ -397,7 +397,7 @@ public class StundenplaneintragForm extends Content {
 									sg.getBezeichnung(),
 									String.valueOf(sg.getId()));
 						}
-//						getSemverband();
+						getSemverband();
 					}
 				});
 	}
@@ -405,8 +405,7 @@ public class StundenplaneintragForm extends Content {
 	public void getSemverband() {
 		listStudienhj.clear();
 		verwaltungsSvc.getSemsterverbaendeByStudiengang(
-				sgContainer.elementAt(
-						listStudiengang.getSelectedIndex()).getId(),
+				aktSg.getId(),
 				new AsyncCallback<Vector<Semesterverband>>() {
 					public void onFailure(Throwable T) {
 
@@ -563,5 +562,28 @@ public class StundenplaneintragForm extends Content {
 					}
 				});
 	}
+	
+	public void getSemverbandChange() {
+		listStudienhj.clear();
+		verwaltungsSvc.getSemsterverbaendeByStudiengang(
+				sgContainer.elementAt(
+						listStudiengang.getSelectedIndex()-1).getId(),
+				new AsyncCallback<Vector<Semesterverband>>() {
+					public void onFailure(Throwable T) {
 
+					}
+
+					public void onSuccess(
+							Vector<Semesterverband> semesterverband) {
+						svContainer = semesterverband;
+						for (Semesterverband sv : semesterverband) {
+							listSemesterverband.addItem(sv.getKuerzel()
+									+ ", Semester: "
+									+ String.valueOf(sv.getSemester()));
+						}
+						getStundenplan();
+					}
+				});
+
+}
 }

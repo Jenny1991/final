@@ -64,8 +64,10 @@ public class StundenplanForm extends Content {
 	Vector<Studiengang> sgContainer = null;
 
 	Semesterverband aktSv = null;
+	Studiengang aktSg = null;
 	Stundenplan shownSp = null;
 	NavTreeViewModel tvm = null;
+	int speichervariante = 0;
 
 	  /**
 	   * Jedes Formular wird durch einen Konstruktor dargestellt. 
@@ -150,8 +152,9 @@ public class StundenplanForm extends Content {
 
 		@Override
 		public void onChange(ChangeEvent event) {
+			speichervariante = 1;
 			libSemverband.clear();
-				getSemverband();
+				getSemverbandChange();
 				}
 			});
 	}
@@ -172,9 +175,13 @@ public class StundenplanForm extends Content {
 			 * Immer abfragen, ob der Wert der ListBox ungleich 0 ist, 
 			 * da bei keiner Änderung der ListBox dieser nicht gespeichert wird. 
 			 */			
-			if (libSemverband.getSelectedIndex() != 0)
-			shownSp.setSemesterverbandId(svContainer.elementAt(
-					libSemverband.getSelectedIndex() - 1).getId());
+//			if (libSemverband.getSelectedIndex() != 0)
+			if (speichervariante == 0)
+				shownSp.setSemesterverbandId(svContainer.elementAt(
+					libSemverband.getSelectedIndex()-1).getId());
+			else
+				shownSp.setSemesterverbandId(svContainer.elementAt(
+						libSemverband.getSelectedIndex()).getId());
 
 			verwaltungsSvc.changeStundenplan(shownSp,
 					new AsyncCallback<Void>() {
@@ -263,11 +270,11 @@ public class StundenplanForm extends Content {
 								+ String.valueOf(result.getSemester()));
 						aktSv = result;
 					getNextListSg();
+					
 				}
 			});
 	}
-
-
+	
 	public void getNextListSg() {
 		verwaltungsSvc.getStudiengangBySemesterverbandId(
 				aktSv.getId(),
@@ -281,6 +288,7 @@ public class StundenplanForm extends Content {
 					public void onSuccess(Studiengang result) {
 						libStudiengang.addItem(result
 								.getBezeichnung());
+						aktSg = result;
 						getStudiengaenge();
 					}
 				});
@@ -301,13 +309,16 @@ public class StundenplanForm extends Content {
 									sg.getBezeichnung(),
 									String.valueOf(sg.getId()));
 						}
+					getSemverband();
 			}
 		});	
 	}
 
+	
+	
 	public void getSemverband() {
 		verwaltungsSvc.getSemsterverbaendeByStudiengang(
-				sgContainer.elementAt(libStudiengang.getSelectedIndex()).getId(),
+				aktSg.getId(),
 				new AsyncCallback<Vector<Semesterverband>>() {
 					public void onFailure(Throwable T) {
 
@@ -324,6 +335,30 @@ public class StundenplanForm extends Content {
 					}
 				});
 	}
+
+	public void getSemverbandChange() {
+		verwaltungsSvc.getSemsterverbaendeByStudiengang(
+				sgContainer.elementAt(libStudiengang.getSelectedIndex()-1).getId(),
+				new AsyncCallback<Vector<Semesterverband>>() {
+					public void onFailure(Throwable T) {
+
+					}
+
+					public void onSuccess(
+							Vector<Semesterverband> semesterverband) {
+						svContainer = semesterverband;
+						for (Semesterverband sv : semesterverband) {
+							libSemverband.addItem(sv.getKuerzel()
+									+ ", Semester: "
+									+ String.valueOf(sv.getSemester()));
+						}
+					}
+				});
+	}
+
+
+
+	
 	
 	/**
 	 * Hier löschen wir den Inhalt der Widgets

@@ -18,7 +18,6 @@ import de.hdm.stundenplansystem.shared.VerwaltungsklasseAsync;
 import de.hdm.stundenplansystem.shared.bo.Dozent;
 import de.hdm.stundenplansystem.shared.bo.Stundenplan;
 import de.hdm.stundenplansystem.shared.report.HTMLReportWriter;
-import de.hdm.stundenplansystem.shared.report.RaumbelegungsReport;
 import de.hdm.stundenplansystem.shared.report.StundenplanDozentReport;
 
 /**

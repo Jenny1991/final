@@ -33,7 +33,7 @@ import de.hdm.stundenplansystem.shared.Verwaltungsklasse;
  * unter GWT entsprechend anordnen.
  * 
  * @see StundenplanForm
- * @author Thies, Espich
+ * @author Thies, Espich, Schmieder, V. Hofmann
  * @version 1.0
  */
 public class StundenplaneintragForm extends Content {
@@ -165,8 +165,7 @@ public class StundenplaneintragForm extends Content {
 		/**
 		 * Immer abfragen, ob der Wert der ListBox ungleich 0 ist, 
 		 * da bei keiner Änderung der ListBox dieser nicht gespeichert wird. 
-		 */
-		
+		 */		
 		if (listStudienhj.getSelectedIndex() != 0)
 		shownSpe.setStundenplanId(spContainer.elementAt(
 				listStudienhj.getSelectedIndex() - 1).getId());
@@ -203,10 +202,13 @@ public class StundenplaneintragForm extends Content {
 	public void deleteSelectedSpe() {
 		verwaltungsSvc.deleteStundenplaneintrag(shownSpe,
 				new AsyncCallback<Void>() {
+					
+					@Override
 					public void onFailure(Throwable caught) {
 						Window.alert("Der Stundenplaneintrag konnte nicht gelöscht werden!");
 					}
 
+					@Override
 					public void onSuccess(Void result) {
 						tvm.deleteSpe(shownSpe);
 						Window.alert("Erfolgreich gelöscht.");
@@ -407,10 +409,11 @@ public class StundenplaneintragForm extends Content {
 		verwaltungsSvc.getSemsterverbaendeByStudiengang(
 				aktSg.getId(),
 				new AsyncCallback<Vector<Semesterverband>>() {
+					@Override
 					public void onFailure(Throwable T) {
-
 					}
 
+					@Override
 					public void onSuccess(
 							Vector<Semesterverband> semesterverband) {
 						svContainer = semesterverband;
@@ -437,10 +440,11 @@ public class StundenplaneintragForm extends Content {
 		verwaltungsSvc.getStundenplaeneBySemesterverband(svContainer
 				.elementAt(listSemesterverband.getSelectedIndex()).getId(),
 				new AsyncCallback<Vector<Stundenplan>>() {
+					@Override
 					public void onFailure(Throwable T) {
-
 					}
 
+					@Override
 					public void onSuccess(
 							Vector<Stundenplan> stundenplaene) {
 						spContainer = stundenplaene;
@@ -459,10 +463,11 @@ public class StundenplaneintragForm extends Content {
 		verwaltungsSvc.getStundenplaeneBySemesterverband(svContainer
 				.elementAt(listSemesterverband.getSelectedIndex()).getId(),
 				new AsyncCallback<Vector<Stundenplan>>() {
+					@Override
 					public void onFailure(Throwable T) {
-
 					}
 
+					@Override
 					public void onSuccess(
 							Vector<Stundenplan> stundenplaene) {
 						spContainer = stundenplaene;
@@ -562,17 +567,20 @@ public class StundenplaneintragForm extends Content {
 					}
 				});
 	}
-	
+	/**
+	 * Diese Methode wird nur aufgerufen, wenn der ChangeHandler aktiviert wird
+	 */
 	public void getSemverbandChange() {
 		listStudienhj.clear();
 		verwaltungsSvc.getSemsterverbaendeByStudiengang(
 				sgContainer.elementAt(
 						listStudiengang.getSelectedIndex()-1).getId(),
 				new AsyncCallback<Vector<Semesterverband>>() {
+					@Override
 					public void onFailure(Throwable T) {
-
 					}
-
+					
+					@Override
 					public void onSuccess(
 							Vector<Semesterverband> semesterverband) {
 						svContainer = semesterverband;

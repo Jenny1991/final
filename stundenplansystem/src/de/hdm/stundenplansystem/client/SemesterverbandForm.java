@@ -24,7 +24,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
  * Diese Klasse erbt von der Klasse Content und lässt sich somit 
  * unter GWT entsprechend anordnen.
  * 
- * @see CreateDozent
+ * @see DozentForm
  * @author Thies, Espich
  * @version 1.0
  */

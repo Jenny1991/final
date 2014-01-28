@@ -20,7 +20,7 @@ import de.hdm.stundenplansystem.client.NavTreeViewModel;
  * Diese Klasse erbt von der Klasse Content und lässt sich somit 
  * unter GWT entsprechend anordnen.
  * 
- * @see CreateDozent
+ * @see DozentForm
  * @author Thies, Espich
  * @version 1.0
  */
@@ -113,21 +113,6 @@ public class RaumForm extends Content {
 		});
 		setTvm(tvm);
 	}
-
-//	public void getData() {
-//		verwaltungsSvc.getRaumById(id, new AsyncCallback<Raum>() {
-//			@Override
-//			public void onFailure(Throwable caught) {
-//			}
-//
-//			@Override
-//			public void onSuccess(Raum r) {
-//				if (r != null) {
-//					setSelected(r);
-//				}
-//			}
-//		});
-//	}
 
 	/**
 	 * Die Methode <code>setTvm()</code> sorgt dafür, 

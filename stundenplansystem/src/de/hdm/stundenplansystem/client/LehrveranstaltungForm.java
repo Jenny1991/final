@@ -120,22 +120,6 @@ public class LehrveranstaltungForm extends Content {
 		setTvm(tvm);
 	}
 
-//	public void getData() {
-//		verwaltungsSvc.getLehrveranstaltungById(id,
-//				new AsyncCallback<Lehrveranstaltung>() {
-//					@Override
-//					public void onFailure(Throwable caught) {
-//					}
-//
-//					@Override
-//					public void onSuccess(Lehrveranstaltung result) {
-//						if (result != null) {
-//							setSelected(result);
-//						}
-//					}
-//				});
-//	}
-
 	public void changeSelectedLv() {
 
 		boolean allFilled = true;

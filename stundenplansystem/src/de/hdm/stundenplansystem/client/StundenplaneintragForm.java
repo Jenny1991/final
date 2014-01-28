@@ -81,6 +81,8 @@ public class StundenplaneintragForm extends Content {
 	Studiengang aktSg = null;
 	Stundenplaneintrag shownSpe = null;
 	NavTreeViewModel tvm = null;
+	int aktraumid;
+	int aktdozentid;
 
 	  /**
 	   * Jedes Formular wird durch einen Konstruktor dargestellt. 
@@ -163,7 +165,7 @@ public class StundenplaneintragForm extends Content {
 			@Override
 			public void onChange(ChangeEvent event) {
 				listZeitslot.clear();
-				test();
+				getZeitslots();
 			}
 		});
 		
@@ -544,17 +546,27 @@ public class StundenplaneintragForm extends Content {
 						for (Raum r : raum) {
 							listRaum.addItem(r.getBezeichnung());
 						}
-						neuerTest();
+						getZeitslots();
 					}
 				});
 	}
 
 	public void getZeitslots() {
+		
+		if(listRaum.getSelectedIndex() != 0)
+		aktraumid = raumContainer.elementAt(listRaum.getSelectedIndex()-1).getId();
+		else
+		aktraumid = raumContainer.elementAt(listRaum.getSelectedIndex()).getId();
+		
+		if(listDozent.getSelectedIndex() != 0)
+		aktdozentid = dozentContainer.elementAt(listDozent.getSelectedIndex()-1).getId();
+		else
+		aktdozentid = dozentContainer.elementAt(listDozent.getSelectedIndex()).getId();
+		
+		
 		verwaltungsSvc
-				.getFreieZeitslot(raumContainer.elementAt(listRaum.getSelectedIndex())
-						.getId(),
-				dozentContainer.elementAt(
-						listDozent.getSelectedIndex()-1).getId(),
+				.getFreieZeitslot(aktraumid,
+				aktdozentid,
 				spContainer.elementAt(
 						listStudienhj.getSelectedIndex()).getStudienhalbjahr(), 
 				spContainer.elementAt(
@@ -577,61 +589,7 @@ public class StundenplaneintragForm extends Content {
 				});
 	}
 	
-	public void test() {
-		verwaltungsSvc
-				.getFreieZeitslot(raumContainer.elementAt(listRaum.getSelectedIndex()-1)
-						.getId(),
-				dozentContainer.elementAt(
-								listDozent.getSelectedIndex()-1).getId(),
-				spContainer.elementAt(
-						listStudienhj.getSelectedIndex()).getStudienhalbjahr(), 
-				spContainer.elementAt(
-						listStudienhj.getSelectedIndex()).getId(), 
-						new AsyncCallback<Vector<Zeitslot>>() {
-					@Override
-					public void onFailure(Throwable caught) {
-						caught.getMessage();
-					}
-
-					@Override
-					public void onSuccess(Vector<Zeitslot> zeitslot) {
-						zsContainer = zeitslot;
-						for (Zeitslot z : zeitslot) {
-							listZeitslot.addItem(z.getWochentag()
-									+ ", " + z.getAnfangszeit()
-									+ ", " + z.getEndzeit());
-						}
-					}
-				});
-	}
 	
-	public void neuerTest() {
-		verwaltungsSvc
-				.getFreieZeitslot(raumContainer.elementAt(listRaum.getSelectedIndex()-1)
-						.getId(),
-				dozentContainer.elementAt(
-								listDozent.getSelectedIndex()).getId(),
-				spContainer.elementAt(
-						listStudienhj.getSelectedIndex()).getStudienhalbjahr(), 
-				spContainer.elementAt(
-						listStudienhj.getSelectedIndex()).getId(), 
-						new AsyncCallback<Vector<Zeitslot>>() {
-					@Override
-					public void onFailure(Throwable caught) {
-						caught.getMessage();
-					}
-
-					@Override
-					public void onSuccess(Vector<Zeitslot> zeitslot) {
-						zsContainer = zeitslot;
-						for (Zeitslot z : zeitslot) {
-							listZeitslot.addItem(z.getWochentag()
-									+ ", " + z.getAnfangszeit()
-									+ ", " + z.getEndzeit());
-						}
-					}
-				});
-	}
 	
 	/**
 	 * Diese Methode wird nur aufgerufen, wenn der ChangeHandler aktiviert wird
@@ -655,9 +613,34 @@ public class StundenplaneintragForm extends Content {
 									+ ", Semester: "
 									+ String.valueOf(sv.getSemester()));
 						}
-						getStundenplan();
+						getStundenplanChange();
 					}
 				});
+		
+		}
+	
+	public void getStundenplanChange() {
+		verwaltungsSvc.getStundenplaeneBySemesterverband(svContainer
+				.elementAt(listSemesterverband.getSelectedIndex()).getId(),
+				new AsyncCallback<Vector<Stundenplan>>() {
+					@Override
+					public void onFailure(Throwable T) {
+					}
 
-}
+					@Override
+					public void onSuccess(
+							Vector<Stundenplan> stundenplaene) {
+						spContainer = stundenplaene;
+						for (Stundenplan sp : stundenplaene) {
+							listStudienhj.addItem(
+									sp.getStudienhalbjahr(),
+									String.valueOf(sp.getId()));
+						}
+						
+					}
+				});
+	}
+	
+	
+	
 }

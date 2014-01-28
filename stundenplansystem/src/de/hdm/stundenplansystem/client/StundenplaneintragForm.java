@@ -32,7 +32,7 @@ import de.hdm.stundenplansystem.shared.Verwaltungsklasse;
  * Diese Klasse erbt von der Klasse Content und lässt sich somit 
  * unter GWT entsprechend anordnen.
  * 
- * @see CreateDozent
+ * @see StundenplanForm
  * @author Thies, Espich
  * @version 1.0
  */
@@ -47,7 +47,7 @@ public class StundenplaneintragForm extends Content {
 	
 	/**
 	 * Unter der Überschrift wählt der User die Daten des
-	 * zu bearbeitenden Stundenplaneintrags mit Hilfe von List Boxen.
+	 * zu bearbeitenden Stundenplaneintrags mit Hilfe von ListBoxen.
 	 */
 	final ListBox listDozent = new ListBox();
 	final ListBox listZeitslot = new ListBox();
@@ -142,9 +142,9 @@ public class StundenplaneintragForm extends Content {
 		listStudiengang.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
-//				listSemesterverband.clear();
-//				listStudienhj.clear();
-//				listZeitslot.clear();
+				listSemesterverband.clear();
+				listStudienhj.clear();
+				listZeitslot.clear();
 				getSemverband();
 			}
 		});
@@ -152,8 +152,8 @@ public class StundenplaneintragForm extends Content {
 		listSemesterverband.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
-//				listStudienhj.clear();
-//				listZeitslot.clear();
+				listStudienhj.clear();
+				listZeitslot.clear();
 				getStundenplan();
 			}
 		});
@@ -161,7 +161,7 @@ public class StundenplaneintragForm extends Content {
 		listRaum.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
-//				listZeitslot.clear();
+				listZeitslot.clear();
 				getZeitslots();
 			}
 		});
@@ -224,6 +224,12 @@ public class StundenplaneintragForm extends Content {
 		this.clearFields();
 	}
 
+	/**
+	 * Die Methode <code>setTvm()</code> sorgt dafür, 
+	 * dass die Klasse {@link NavTreeViewModel} auf diese Klasse zugreifen kann
+	 * 
+	 * @param tvm Instanz der Klasse {@link NavTreeViewModel}
+	 */
 	public void setTvm(NavTreeViewModel tvm) {
 		this.tvm = tvm;
 	}
@@ -237,6 +243,13 @@ public class StundenplaneintragForm extends Content {
 		}
 	}
 
+	/**
+	 * Ab hier befüllen wir die Widgets mit den Daten des gewählten Stundenplans
+	 * Zunächst wird die ListBox des Semesterverbands befüllt.
+	 * Anschließend holen wir uns den Studiengang der zu diesem Semesterverband 
+	 * gehört. Danach werden beide ListBoxen wieder mit allen Elementen des Semesterverbandes
+	 * sowie des Studiengangs befüllt
+	 */
 	public void setFields() {
 		this.clearFields();
 		verwaltungsSvc.getStundenplanById(
@@ -362,6 +375,9 @@ public class StundenplaneintragForm extends Content {
 				});
 	}
 
+	/**
+	 * Hier löschen wir den Inhalt der Widgets
+	 */
 	public void clearFields() {
 		listZeitslot.clear();
 		listDozent.clear();
@@ -383,7 +399,6 @@ public class StundenplaneintragForm extends Content {
 					@Override
 					public void onSuccess(
 							Vector<Studiengang> studiengang) {
-//						sgContainer.clear();
 						sgContainer = studiengang;
 						for (Studiengang sg : studiengang) {
 							listStudiengang.addItem(
@@ -398,7 +413,7 @@ public class StundenplaneintragForm extends Content {
 	public void getSemverband() {
 		verwaltungsSvc.getSemsterverbaendeByStudiengang(
 				sgContainer.elementAt(
-						listStudiengang.getSelectedIndex()).getId(),
+						listStudiengang.getSelectedIndex()-1).getId(),
 				new AsyncCallback<Vector<Semesterverband>>() {
 					public void onFailure(Throwable T) {
 
@@ -412,15 +427,13 @@ public class StundenplaneintragForm extends Content {
 									+ ", Semester: "
 									+ String.valueOf(sv.getSemester()));
 						}
-						getStundenplan();
 					}
 				});
 	}
 
 	public void getStundenplan() {
-//		svContainer.clear();
 		verwaltungsSvc.getStundenplaeneBySemesterverband(svContainer
-				.elementAt(listSemesterverband.getSelectedIndex()).getId(),
+				.elementAt(listSemesterverband.getSelectedIndex()-1).getId(),
 				new AsyncCallback<Vector<Stundenplan>>() {
 					public void onFailure(Throwable T) {
 
@@ -440,7 +453,6 @@ public class StundenplaneintragForm extends Content {
 	}
 
 	public void getLehrveranstaltungen() {
-//		lvContainer.clear();
 		verwaltungsSvc
 				.getAllLehrveranstaltungen(new AsyncCallback<Vector<Lehrveranstaltung>>() {
 					@Override
@@ -462,7 +474,6 @@ public class StundenplaneintragForm extends Content {
 	}
 
 	public void getDozenten() {
-//		dozentContainer.clear();
 		verwaltungsSvc
 				.getAllDozenten(new AsyncCallback<Vector<Dozent>>() {
 					@Override
@@ -476,14 +487,13 @@ public class StundenplaneintragForm extends Content {
 						for (Dozent d : dozent) {
 							listDozent.addItem(d.getNachname() + ", "
 									+ d.getVorname());
-						}
+							}
 						getRaeume();
 					}
 				});
 	}
 
 	public void getRaeume() {
-//		raumContainer.clear();
 		verwaltungsSvc
 				.getAllRaeume(new AsyncCallback<Vector<Raum>>() {
 					@Override
@@ -509,7 +519,9 @@ public class StundenplaneintragForm extends Content {
 				dozentContainer.elementAt(
 						listDozent.getSelectedIndex()).getId(),
 				spContainer.elementAt(
-						listStudienhj.getSelectedIndex()).getStudienhalbjahr(), new AsyncCallback<Vector<Zeitslot>>() {
+						listStudienhj.getSelectedIndex()).getStudienhalbjahr(), 
+				spContainer.elementAt(
+						listStudienhj.getSelectedIndex()).getId(), new AsyncCallback<Vector<Zeitslot>>() {
 					@Override
 					public void onFailure(Throwable caught) {
 						caught.getMessage();

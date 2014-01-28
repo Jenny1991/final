@@ -227,7 +227,7 @@ public class DozentForm extends Content {
 					@Override
 					public void onSuccess(Void result) {
 						tvm.deleteDozent(shownDozent);
-						Window.alert("Erfolgreich gel�scht.");
+						Window.alert("Erfolgreich gelöscht.");
 					}
 				});
 		this.clearFields();

@@ -32,7 +32,7 @@ public class DozentCell extends AbstractCell<Dozent> {
 
 		sb.appendHtmlConstant("<div>");
 		sb.appendEscaped(value.getVorname());
-		sb.appendHtmlConstant(", ");
+		sb.appendHtmlConstant(" ");
 		sb.appendEscaped(value.getNachname());
 		sb.appendHtmlConstant("</div>");
 	}

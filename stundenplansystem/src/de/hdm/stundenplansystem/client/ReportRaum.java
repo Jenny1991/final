@@ -9,6 +9,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.ScrollPanel;
 
@@ -38,6 +39,8 @@ public class ReportRaum extends Content {
 	/** 
 	 * Hier werden die GWT Widgets instantiiert
 	 */
+	final Label lbStundenplan = new Label("Studienhalbjahr:");
+	final Label lbRaum = new Label("Raum:");
 	final ListBox libRaum = new ListBox();
 	final ListBox libStudienhalbjahr = new ListBox();
 	final Button anzeigen = new Button("Raumbelegungen anzeigen");
@@ -72,7 +75,9 @@ public class ReportRaum extends Content {
 		
 		panel.clear();
 		this.add(ueberschrift);
+		this.add(lbStundenplan);
 		this.add(libStudienhalbjahr);
+		this.add(lbRaum);
 		this.add(libRaum);
 		this.add(anzeigen);
 		this.add(panel);

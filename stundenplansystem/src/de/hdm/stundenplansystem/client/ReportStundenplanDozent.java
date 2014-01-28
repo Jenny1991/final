@@ -8,6 +8,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.ScrollPanel;
 
@@ -41,6 +42,8 @@ public class ReportStundenplanDozent extends Content {
 	/** 
 	 * Hier werden die GWT Widgets instantiiert
 	 */
+	final Label lbStundenplan = new Label("Studienhalbjahr:");
+	final Label lbDozent = new Label("Dozent:");
 	final ListBox libDozent = new ListBox();
 	final ListBox libStudienhalbjahr = new ListBox();
 	final Button anzeigen = new Button("Stundenplan anzeigen");
@@ -75,6 +78,8 @@ public class ReportStundenplanDozent extends Content {
 		
 		panel.clear();
 		this.add(ueberschrift);
+		this.add(lbStundenplan);
+		this.add(lbDozent);
 		this.add(libStudienhalbjahr);
 		this.add(libDozent);
 		this.add(anzeigen);

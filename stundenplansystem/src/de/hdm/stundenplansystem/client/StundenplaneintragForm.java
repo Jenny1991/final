@@ -150,6 +150,16 @@ public class StundenplaneintragForm extends Content {
 			}
 		});
 		
+		listDozent.addChangeHandler(new ChangeHandler() {
+			
+			@Override
+			public void onChange(ChangeEvent event) {
+				listZeitslot.clear();
+				getZeitslots();
+				
+			}
+		});
+		
 		listRaum.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
@@ -166,9 +176,9 @@ public class StundenplaneintragForm extends Content {
 		 * Immer abfragen, ob der Wert der ListBox ungleich 0 ist, 
 		 * da bei keiner Änderung der ListBox dieser nicht gespeichert wird. 
 		 */		
-		if (listStudienhj.getSelectedIndex() != 0)
+//		if (listStudienhj.getSelectedIndex() != 0)
 		shownSpe.setStundenplanId(spContainer.elementAt(
-				listStudienhj.getSelectedIndex() - 1).getId());
+				listStudienhj.getSelectedIndex()).getId());
 		if (listLehrveranstaltung.getSelectedIndex() != 0)
 		shownSpe.setLehrveranstaltungId(lvContainer.elementAt(
 				listLehrveranstaltung.getSelectedIndex() - 1).getId());
@@ -545,7 +555,7 @@ public class StundenplaneintragForm extends Content {
 				.getFreieZeitslot(raumContainer.elementAt(listRaum.getSelectedIndex())
 						.getId(),
 				dozentContainer.elementAt(
-						listDozent.getSelectedIndex()).getId(),
+						listDozent.getSelectedIndex()-1).getId(),
 				spContainer.elementAt(
 						listStudienhj.getSelectedIndex()).getStudienhalbjahr(), 
 				spContainer.elementAt(
@@ -567,6 +577,9 @@ public class StundenplaneintragForm extends Content {
 					}
 				});
 	}
+	
+	
+	
 	/**
 	 * Diese Methode wird nur aufgerufen, wenn der ChangeHandler aktiviert wird
 	 */

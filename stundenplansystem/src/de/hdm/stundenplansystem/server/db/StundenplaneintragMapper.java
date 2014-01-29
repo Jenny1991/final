@@ -13,8 +13,8 @@ import de.hdm.stundenplansystem.shared.bo.*;
  * Objekte können in DB-Strukturen und DB-Strukturen in Objekte umgewandelt
  * werden.
  * 
- * @see DozentMapper, LehrveranstaltungMapper, RaumMapper,
- *      SemesterverbandMapper, StundenplanMapper, ZeitslotMapper
+ * { @link DozentMapper, LehrveranstaltungMapper, RaumMapper,
+ *      SemesterverbandMapper, StundenplanMapper, ZeitslotMapper}
  * @author Schmieder, Thies
  */
 public class StundenplaneintragMapper {
@@ -50,7 +50,7 @@ public class StundenplaneintragMapper {
 	 * statischen Methode.
 	 * 
 	 * @return DAS <code>StundenplaneintragMapper</code>-Objekt.
-	 * @see stundenplaneintragMapper
+	 * { @link stundenplaneintragMapper}
 	 */
 	public static StundenplaneintragMapper stundenplaneintragMapper() {
 		if (stundenplaneintragMapper == null) {

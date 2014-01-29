@@ -31,8 +31,7 @@ public class Studiengang extends BusinessObjekt {
 
 	/**
 	   * Setzen der Bezeichung
-	   * @param String bezeichnung des jeweiligen Studiengangs
-	   * @return void
+	   * @param bezeichnung des jeweiligen Studiengangs
 	   */
 	public void setBezeichnung(String bezeichnung) {
 		this.bezeichnung = bezeichnung;

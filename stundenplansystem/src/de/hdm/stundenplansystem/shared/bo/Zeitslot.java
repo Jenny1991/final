@@ -42,8 +42,7 @@ public class Zeitslot extends BusinessObjekt {
 
 	/**
 	   * Setzen des Wochentags des Zeitslots
-	   * @param String wochentag des jeweiligen Zeitslots
-	   * @return void
+	   * @param wochentag des jeweiligen Zeitslots
 	   */
 	public void setWochentag(String wochentag) {
 		this.wochentag = wochentag;
@@ -67,8 +66,7 @@ public class Zeitslot extends BusinessObjekt {
 
 	/**
 	   * Setzen der Anfangszeit des Zeitslots
-	   * @param Time anfangszeit des jeweiligen Zeitslots
-	   * @return void
+	   * @param anfangszeit des jeweiligen Zeitslots
 	   */
 	public void setAnfangszeit(Time anfangszeit) {
 		this.anfangszeit = anfangszeit;
@@ -76,8 +74,7 @@ public class Zeitslot extends BusinessObjekt {
 
 	/**
 	   * Setzen der Endzeit des Zeitslots
-	   * @param Time endzeit des jeweiligen Zeitslots
-	   * @return void
+	   * @param endzeit des jeweiligen Zeitslots
 	   */
 	public void setEndzeit(Time endzeit) {
 		this.endzeit = endzeit;

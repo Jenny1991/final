@@ -36,8 +36,7 @@ public class Raum extends BusinessObjekt {
 
 	/**
 	   * Setzen der Bezeichung
-	   * @param String bezeichnung des jeweiligen Raumes
-	   * @return void
+	   * @param name des jeweiligen Raumes
 	   */
 	public void setBezeichnung(String name) {
 		this.bezeichung = name;
@@ -53,8 +52,7 @@ public class Raum extends BusinessObjekt {
 
 	/**
 	   * Setzen der Kapazität
-	   * @param int kapazität des jeweiligen Raumes
-	   * @return void
+	   * @param kapazitaet des jeweiligen Raumes
 	   */
 	public void setKapazitaet(int kapazitaet) {
 		this.kapazitaet = kapazitaet;

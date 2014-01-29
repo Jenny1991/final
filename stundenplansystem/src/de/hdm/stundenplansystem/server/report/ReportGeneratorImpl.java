@@ -100,8 +100,9 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
 	/**
 	 * Erstellen von <code>StundenplanDozentReport</code>-Objekten.
 	 * 
-	 * @param d das Dozentenobjekt bzgl. dessen der Report erstellt 
-	 * werden soll.
+	 * @param dozentId das Dozentenobjekt bzgl. dessen der Report erstellt 
+	 * 			werden soll.
+	 * @param studienhalbjahr
 	 * @return der fertige Report
 	 */
 	public StundenplanDozentReport createStundenplanDozentReport(
@@ -244,8 +245,8 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
 	/**
 	 * Erstellen von <code>RaumbelegungsReport</code>-Objekten.
 	 * 
-	 * @param r
-	 *            das Raumobjekt bzgl. dessen der Report erstellt werden soll.
+	 * @param raumId das Raumobjekt bzgl. dessen der Report erstellt werden soll.
+	 * @param studienhalbjahr
 	 * @return der fertige Report
 	 */
 	public RaumbelegungsReport createRaumbelungsReport(int raumId, String studienhalbjahr)
@@ -389,8 +390,9 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
 	/**
 	 * Erstellen von <code>StundenplanSemesterverbandReport</code>-Objekten.
 	 * 
-	 * @param sv das Semesterverbandobjekt bzgl. dessen der Report erstellt
+	 * @param semesterverbandId das Semesterverbandobjekt bzgl. dessen der Report erstellt
 	 *        werden soll.
+	 * @param stundenplanId
 	 * @return der fertige Report
 	 */
 

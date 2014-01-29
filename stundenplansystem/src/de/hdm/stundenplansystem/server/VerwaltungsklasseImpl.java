@@ -18,7 +18,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 /**
  * <p>
  * Implementierungsklasse des Interface <code>Verwaltungsklasse</code>. Diese
- * Klasse ist <em>die</em> Klasse, die neben {@link ReportGeneratorImpl}
+ * Klasse ist <em>die</em> Klasse, die neben { @link ReportGeneratorImpl}
  * sämtliche Applikationslogik (oder engl. Business Logic) aggregiert. Sie ist
  * wie eine Spinne, die sämtliche Zusammenhänge in ihrem Netz (in unserem Fall
  * die Daten der Applikation) Überblickt und für einen geordneten Ablauf und
@@ -38,10 +38,10 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * Diese Klasse steht mit einer Reihe weiterer Datentypen in Verbindung. Dies
  * sind:
  * <ol>
- * <li>{@link Verwaltungsklasse}: Dies ist das <em>lokale</em> - also
+ * <li>{ @link Verwaltungsklasse}: Dies ist das <em>lokale</em> - also
  * Server-seitige - Interface, das die im System zur Verfügung gestellten
  * Funktionen deklariert.</li>
- * <li>{@link VerwaltungsklasseAsync}: <code>VerwaltungsklasseImpl</code> und
+ * <li>{ @link VerwaltungsklasseAsync}: <code>VerwaltungsklasseImpl</code> und
  * <code>Verwaltunsklasse</code> bilden nur die Server-seitige Sicht der
  * Applikationslogik ab. Diese basiert vollständig auf synchronen
  * Funktionsaufrufen. Wir müssen jedoch in der Lage sein, Client-seitige
@@ -50,8 +50,8 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * zusätzlichen Suffix "Async". Es steht nur mittelbar mit dieser Klasse in
  * Verbindung. Die Erstellung und Pflege der Async Interfaces wird durch das
  * Google Plugin semiautomatisch unterstützt. Weitere Informationen unter
- * {@link VerwaltungsklasseAsync}.</li>
- * <li> {@link RemoteServiceServlet}: Jede Server-seitig instantiierbare und
+ * { @link VerwaltungsklasseAsync}.</li>
+ * <li> { @link RemoteServiceServlet}: Jede Server-seitig instantiierbare und
  * Client-seitig über GWT RPC nutzbare Klasse muss die Klasse
  * <code>RemoteServiceServlet</code> implementieren. Sie legt die funktionale
  * Basis für die Anbindung von <code>VerwaltungsklasseImpl</code> an die Runtime
@@ -68,14 +68,14 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * Beachten Sie, dass sämtliche Methoden, die mittels GWT RPC aufgerufen werden
  * können ein <code>throws IllegalArgumentException</code> in der
  * Methodendeklaration aufweisen. Diese Methoden dürfen also Instanzen von
- * {@link IllegalArgumentException} auswerfen. Mit diesen Exceptions können z.B.
+ * { @link IllegalArgumentException} auswerfen. Mit diesen Exceptions können z.B.
  * Probleme auf der Server-Seite in einfacher Weise auf die Client-Seite
  * transportiert und dort systematisch in einem Catch-Block abgearbeitet werden.
  * </p>
  * 
- * @see Verwaltungsklasse
- * @see VerwaltungsklasseAsync
- * @see RemoteServiceServlet
+ * { @link  Verwaltungsklasse}
+ * { @link  VerwaltungsklasseAsync}
+ * { @link  RemoteServiceServlet}
  * @author thies & l.hofmann & holz
  */
 
@@ -154,11 +154,11 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 
 	/**
 	 * Initialsierungsmethode. Siehe dazu Anmerkungen zum
-	 * No-Argument-Konstruktor {@link #ReportGeneratorImpl()}. Diese Methode
+	 * No-Argument-Konstruktor { @link ReportGeneratorImpl()}. Diese Methode
 	 * muss für jede Instanz von <code>VerwaltungsklasseImpl</code> aufgerufen
 	 * werden.
 	 * 
-	 * @see #ReportGeneratorImpl()
+	 * { @link ReportGeneratorImpl()}
 	 */
 	public void init() throws IllegalArgumentException {
 		/*
@@ -237,8 +237,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	/**
 	 * Setzen des BusinessObjekt-Objekts
 	 * 
-	 * @param Referenz des jeweiligen BusinessObjekts
-	 * @return void
+	 * @param stundenplaneintrag Referenz des jeweiligen BusinessObjekts
 	 * @throws IllegalArgumentException
 	 */
 
@@ -348,14 +347,14 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 * ******************************
 	 */
 
+
 	/**
 	 * Auslesen der Stundenplaneinträge der jeweiligen BusinessObjekts
 	 * 
-	 * @param id des jeweiligen BusinessObjekts
+	 * @param dozentId des jeweiligen BusinessObjekts
 	 * @return Vector aller Stundenplaneintrag-Instanzen des BusniessObjekts
 	 * @throws IllegalArgumentException
 	 */
-
 	public Vector<Stundenplaneintrag> getAllStundenplaneintraegeByDozent(
 			int dozentId) throws IllegalArgumentException {
 		return this.stundenplaneintragMapper.findbyDozentId(dozentId);
@@ -445,11 +444,12 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 * Raumes und Zeitslot. Ermittlung ob ein Raum zur gegebenen Zeit besetzt
 	 * ist.
 	 * 
-	 * @param id des jeweiligen Raumes und Zeitslot
+	 * @param raumId
+	 * @param zeitslotId
+	 * @param studienhalbjahr
 	 * @return das jeweilige Stundenplaneintrag-Objekten
 	 * @throws IllegalArgumentException
 	 */
-
 	public Stundenplaneintrag getStundenplaneintragByRaumAndZeitslot(
 			int raumId, int zeitslotId, String studienhalbjahr) {
 		return this.stundenplaneintragMapper.findByRaumZeitslotAndStudienhalbjahr(
@@ -461,7 +461,9 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 * Semesterverbands, Zeitslot und Stundenplanes Ermittlung ob ein
 	 * Semesterverband zur gegebenen Zeit besetzt ist.
 	 * 
-	 * @param id des jeweiligen Semesterverbands, Zeitslot und Stundenplanes
+	 * @param semesterverbandId
+	 * @param zeitslotId
+	 * @param stundenplanId
 	 * @return das jeweilige Stundenplaneintrag-Objekten
 	 * @throws IllegalArgumentException
 	 */
@@ -478,7 +480,9 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 * Dozenten und Zeitslots Ermittlung ob ein Dozent zur gegebenen Zeit
 	 * besetzt ist.
 	 * 
-	 * @param id des jeweiligen Dozenten und Zeitslots
+	 * @param dozentId des jeweiligen Dozenten und Zeitslots
+	 * @param zeitslotId
+	 * @param studienhalbjahr
 	 * @return das jeweilige Stundenplaneintrag-Objekten
 	 * @throws IllegalArgumentException
 	 */
@@ -509,7 +513,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 * Auslesen eines Vectors aus Semesterverband-Objekten über die ID des
 	 * zugehörigen Studienganges
 	 * 
-	 * @param id des jeweiligen Studienganges
+	 * @param studiengangId des jeweiligen Studienganges
 	 * @return Vector aus den Semesterverbands-Objekten
 	 * @throws IllegalArgumentException
 	 */
@@ -524,7 +528,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 * Auslesen eines Vectors aus Stundenplan-Objekten über die ID des
 	 * zugehörigen Semesterverbands
 	 * 
-	 * @param id des jeweiligen Semesterverbands
+	 * @param semesterverbandId des jeweiligen Semesterverbands
 	 * @return Vector aus den Stundenplan-Objekten
 	 * @throws IllegalArgumentException
 	 */
@@ -539,7 +543,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 * Auslesen eines Stundiengang-Objekts über die ID des zugehörigen
 	 * Semesterverbands
 	 * 
-	 * @param id des jeweiligen Semesterverbands
+	 * @param semesterverbandId des jeweiligen Semesterverbands
 	 * @return Das je weiligeStundenplaneintrag-Objekt
 	 * @throws IllegalArgumentException
 	 */
@@ -554,9 +558,10 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 * Auslesen freier Zeitslot-Objekts für einen Stundenplaneintrag 
 	 * im Bezug zur RaumID , DozentID und StundenplanID
 	 * 
-	 * @param id des jeweiligen Raumes
-	 * @param id des jeweiligen Dozenten
-	 * @param id des jeweiligen Semesterverbandes
+	 * @param raumId des jeweiligen Raumes
+	 * @param dozentId des jeweiligen Dozenten
+	 * @param studienhalbjahr des jeweiligen Semesterverbandes
+	 * @param stundenplanId
 	 * @return Vector aus den Zeitslot-Objekten
 	 * @throws IllegalArgumentException
 	 */
@@ -577,7 +582,8 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 * create-Methoden zum Anlegen eines Dozenten 
 	 * Anschliessende Überprüfung auf ungültige Eingabe
 	 * 
-	 * @param Vorname und Nachname des jeweiligen Dozenten
+	 * @param vorname Vorname und Nachname des jeweiligen 
+	 * @param nachname Nachname des Dozenten
 	 * @return Das jeweilige Dozenten-Objekt
 	 * @throws IllegalArgumentException
 	 */
@@ -605,8 +611,9 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	/**
 	 * create-Methoden zum Anlegen einer Lehrveranstaltung
 	 * 
-	 * @param Bezeichnung
-	 *            , Semester und Umfang der Lehrveranstaltung
+	 * @param bezeichnung
+	 * @param semester
+	 * @param umfang Semester und Umfang der Lehrveranstaltung
 	 * @return Das jeweilige Lehrveranstaltungs-Objekt
 	 * @throws IllegalArgumentException
 	 */
@@ -628,7 +635,8 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	/**
 	 * create-Methoden zum Anlegen eines Raumes
 	 * 
-	 * @param Bezeichnung und Kapazität des Raumes
+	 * @param bezeichnung
+	 * @param kapazitaet Bezeichnung und Kapazität des Raumes
 	 * @return Das jeweilige Raum-Objekt
 	 * @throws IllegalArgumentException
 	 */
@@ -650,8 +658,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 * create-Methoden zum Anlegen eines Studienganges 
 	 * Anschliessende Prüfung auf gültige Eingabe
 	 * 
-	 * @param Bezeichnung
-	 *            des Studienganges
+	 * @param bezeichnung Bezeichnung des Studienganges
 	 * @return Das jeweilige Raum-Objekt
 	 * @throws IllegalArgumentException
 	 */
@@ -680,7 +687,11 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 * in der Datenbank vorhanden sind und somit verwendet werden 
 	 * können.
 	 * 
-	 * @param die jeweiligen Fremdschlüssel der BusniessObjekts
+	 * @param d die jeweiligen Fremdschlüssel der BusniessObjekts
+	 * @param l
+	 * @param r
+	 * @param z
+	 * @param sp
 	 * @return Das jeweilige Stundenplaneintrag-Objekt
 	 * @throws IllegalArgumentException
 	 */
@@ -736,8 +747,10 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 * Anschliessende Prüfung auf gültige Eingabe 
 	 * (Entweder: SS 2014 Oder: WS 2014/2015)
 	 * 
-	 * @param Semester, Jahrgang und StudierendenAnzahl 
-	 * und der Fremdschlüssel des Studienganges
+	 * @param studiengangId 
+	 * @param semester
+	 * @param studierendenAnzahl 
+	 * @param jahrgang und der Fremdschlüssel des Studienganges
 	 * @return Das jeweilige Semesterverband-Objekt
 	 * @throws IllegalArgumentException
 	 */
@@ -778,8 +791,8 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 * Anschliessende Prüfung auf gültige Eingabe 
 	 * (Entweder: SS 2014 Oder: WS 2014/2015)
 	 * 
-	 * @param Studienhalbjahr
-	 *            und der Fremdschlüssel des Semesterverbands
+	 * @param studienhalbjahr
+	 * @param semesterverbandId der Fremdschlüssel des Semesterverbands
 	 * @return Das jeweilige Stundenplan-Objekt
 	 * @throws IllegalArgumentException
 	 */
@@ -819,11 +832,9 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 * Anschliessende Prüfung, ob für den jeweiligen 
 	 * BO's noch Stundenplaneinträge vorhanden sind
 	 * 
-	 * @param das jeweilige BusniessObjekt-Objekt
-	 * @return void
+	 * @param d das jeweilige BusniessObjekt-Objekt
 	 * @throws IllegalArgumentException
 	 */
-
 	public void deleteDozent(Dozent d)
 			throws IllegalArgumentException {
 
@@ -958,9 +969,7 @@ public class VerwaltungsklasseImpl extends RemoteServiceServlet
 	 * change-Methoden zum ändern eines BusniessObjekts 
 	 * Anschliessende Prüfung auf gültige Eingabe
 	 * 
-	 * @param das
-	 *            jeweilige BusniessObjekt-Objekt
-	 * @return void
+	 * @param d jeweilige BusniessObjekt-Objekt
 	 * @throws IllegalArgumentException
 	 */
 	public void changeDozent(Dozent d)

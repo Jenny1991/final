@@ -57,8 +57,7 @@ public class Semesterverband extends BusinessObjekt {
 
 	/**
 	   * Setzen des Semesters
-	   * @param int semester des jeweiligen Semesterverbandes
-	   * @return void
+	   * @param semester des jeweiligen Semesterverbandes
 	   */
 	public void setSemester(int semester) {
 		this.semester = semester;
@@ -74,8 +73,7 @@ public class Semesterverband extends BusinessObjekt {
 
 	/**
 	   * Setzen der Anzahl der Studierenden
-	   * @param int studierendenAnzahl des jeweiligen Semesterverbandes
-	   * @return void
+	   * @param studierendenAnzahl des jeweiligen Semesterverbandes
 	   */
 	public void setStudierendenAnzahl(int studierendenAnzahl) {
 		this.studierendenAnzahl = studierendenAnzahl;
@@ -91,8 +89,7 @@ public class Semesterverband extends BusinessObjekt {
 
 	/**
 	   * Setzen des Jahrgangs
-	   * @param String Jahrgang des jeweiligen Semesterverbandes
-	   * @return void
+	   * @param jahrgang des jeweiligen Semesterverbandes
 	   */
 	public void setJahrgang(String jahrgang) {
 		this.jahrgang = jahrgang;
@@ -108,8 +105,7 @@ public class Semesterverband extends BusinessObjekt {
 
 	/**
 	   * Setzen des Fremdschlüssel zum Studiengang
-	   * @param int studiengangId des jeweiligen Semesterverbandes
-	   * @return void
+	   * @param studiengangId des jeweiligen Semesterverbandes
 	   */
 	public void setStudiengangId(int studiengangId) {
 		this.StudiengangId = studiengangId;
@@ -125,8 +121,7 @@ public class Semesterverband extends BusinessObjekt {
 
 	/**
 	   * Setzen des Kürzels
-	   * @param String kuerzel des jeweiligen Semesterverbandes
-	   * @return void
+	   * @param kuerzel des jeweiligen Semesterverbandes
 	   */
 	public void setKuerzel(String kuerzel) {
 		this.kuerzel = kuerzel;

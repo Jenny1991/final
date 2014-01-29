@@ -12,8 +12,8 @@ import de.hdm.stundenplansystem.shared.bo.*;
  * gelöscht werden können. Das Mapping ist bidirektional. D.h., Objekte können
  * in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
  * 
- * @see DozentMapper, LehrveranstaltungMapper, RaumMapper,
- *      SemesterverbandMapper, StundenplaneintragMapper, StundenplanMapper
+ * { @link  DozentMapper, LehrveranstaltungMapper, RaumMapper,
+ *      SemesterverbandMapper, StundenplaneintragMapper, StundenplanMapper}
  * @author Schmieder, Thies
  */
 public class ZeitslotMapper {
@@ -49,7 +49,7 @@ public class ZeitslotMapper {
 	 * Methode.
 	 * 
 	 * @return DAS <code>ZeitslotMapper</code>-Objekt.
-	 * @see zeitslotMapper
+	 * { @link zeitslotMapper}
 	 */
 	public static ZeitslotMapper zeitslotMapper() {
 		if (zeitslotMapper == null) {

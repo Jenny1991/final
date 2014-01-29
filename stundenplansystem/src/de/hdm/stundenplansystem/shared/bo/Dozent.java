@@ -38,8 +38,7 @@ public class Dozent extends BusinessObjekt {
 
 	/**
 	   * Setzen des Vornamens
-	   * @param String vorname des jeweiligen Dozenten
-	   * @return void
+	   * @param vorname Vorname des jeweiligen Dozenten als String
 	   */
 	public void setVorname(String vorname) {
 		this.vorname = vorname;
@@ -55,8 +54,7 @@ public class Dozent extends BusinessObjekt {
 	
 	/**
 	   * Setzen des Nachnamens
-	   * @param String nachname des jeweiligen Dozenten
-	   * @return void
+	   * @param nachname Nachname des jeweiligen Dozenten als String
 	   */
 	public void setNachname(String nachname) {
 		this.nachname = nachname;

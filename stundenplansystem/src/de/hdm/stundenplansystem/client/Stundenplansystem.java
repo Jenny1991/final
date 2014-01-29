@@ -160,8 +160,6 @@ public class Stundenplansystem implements EntryPoint {
 	 * sowie die Formulare für das ausgwählte Objekt zu.
 	 * Die Methode <code>clear()</code> löscht zuvor den Inhalt des gesamten
 	 * Panels damit neue Klassen angezeigt werden.
-	 * 
-	 * @param cd Klasse {@link CreateDozent} wird dem Panel hinzugefügt
 	 */
 	public void createDozentForm() {
 		detailsPanel.clear();

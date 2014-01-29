@@ -74,7 +74,7 @@ public class DBConnection {
 	 *
 	 * 
 	 * @return DAS <code>DBConncetion</code>-Objekt.
-	 * @see con
+	 * { @link con}
 	 */
 	public static Connection connection() {
 		// Wenn es bisher keine Conncetion zur DB gab, ...

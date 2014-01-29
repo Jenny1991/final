@@ -12,9 +12,9 @@ import de.hdm.stundenplansystem.shared.bo.*;
  * können. Das Mapping ist bidirektional. D.h., Objekte können in
  * DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
  * 
- * @see DozentMapper, LehrveranstaltungMapper, SemesterverbandMapper,
+ * { @link DozentMapper, LehrveranstaltungMapper, SemesterverbandMapper,
  *      StudiengangMapper, StundenplaneintragMapper, StundenplanMapper,
- *      ZeitslotMapper
+ *      ZeitslotMapper}
  * @author Schmieder, Thies
  */
 public class RaumMapper {
@@ -50,7 +50,7 @@ public class RaumMapper {
 	 * Methode.
 	 * 
 	 * @return DAS <code>RaumMapper</code>-Objekt.
-	 * @see raumMapper
+	 * { @link raumMapper}
 	 */
 	public static RaumMapper raumMapper() {
 		if (raumMapper == null) {

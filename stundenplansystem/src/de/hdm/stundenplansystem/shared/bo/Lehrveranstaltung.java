@@ -34,8 +34,7 @@ public class Lehrveranstaltung extends BusinessObjekt {
 	
 	/**
 	   * Setzen der Bezeichung
-	   * @param String bezeichnung der jeweiligen Lehrveranstaltung
-	   * @return void
+	   * @param bezeichnung der jeweiligen Lehrveranstaltung
 	   */
 	public void setBezeichnung(String bezeichnung) {
 		this.bezeichnung = bezeichnung;
@@ -59,8 +58,7 @@ public class Lehrveranstaltung extends BusinessObjekt {
 	
 	/**
 	   * Setzen des Semesters
-	   * @param int semester der jeweiligen Lehrveranstaltung
-	   * @return void
+	   * @param semester Semester der jeweiligen Lehrveranstaltung
 	   */
 	public void setSemester(int semester) {
 		this.semester = semester;
@@ -76,8 +74,7 @@ public class Lehrveranstaltung extends BusinessObjekt {
 
 	/**
 	   * Setzen des Umfangs
-	   * @param int umfang der jeweiligen Lehrveranstaltung
-	   * @return void
+	   * @param umfang der jeweiligen Lehrveranstaltung
 	   */
 	public void setUmfang(int umfang) {
 		this.umfang = umfang;

@@ -40,8 +40,7 @@ public class Stundenplaneintrag extends BusinessObjekt {
 
 	/**
 	   * Setzen des Dozenten-Fremdschlüssel zum Stundenplaneintrags
-	   * @param int dozentId des jeweiligen Stundenplaneintrags
-	   * @return void
+	   * @param dozentId des jeweiligen Stundenplaneintrags
 	   */
 	public void setDozentId(int dozentId) {
 		this.dozentId = dozentId;
@@ -57,8 +56,7 @@ public class Stundenplaneintrag extends BusinessObjekt {
 
 	/**
 	   * Setzen des Lehrveranstaltung-Fremdschlüssel zum Stundenplaneintrags
-	   * @param int lehrveranstaltungId des jeweiligen Stundenplaneintrags
-	   * @return void
+	   * @param lehrveranstaltungId des jeweiligen Stundenplaneintrags
 	   */
 	public void setLehrveranstaltungId(int lehrveranstaltungId) {
 		this.lehrveranstaltungId = lehrveranstaltungId;
@@ -74,8 +72,7 @@ public class Stundenplaneintrag extends BusinessObjekt {
 
 	/**
 	   * Setzen des Raum-Fremdschlüssel zum Stundenplaneintrags
-	   * @param int raumId des jeweiligen Stundenplaneintrags
-	   * @return void
+	   * @param raumId des jeweiligen Stundenplaneintrags
 	   */
 	public void setRaumId(int raumId) {
 		this.raumId = raumId;
@@ -91,8 +88,7 @@ public class Stundenplaneintrag extends BusinessObjekt {
 
 	/**
 	   * Setzen des Zeitslot-Fremdschlüssel zum Stundenplaneintrags
-	   * @param int zeitslotId des jeweiligen Stundenplaneintrags
-	   * @return void
+	   * @param zeitslotId des jeweiligen Stundenplaneintrags
 	   */
 	public void setZeitslotId(int zeitslotId) {
 		this.zeitslotId = zeitslotId;
@@ -108,8 +104,7 @@ public class Stundenplaneintrag extends BusinessObjekt {
 
 	/**
 	   * Setzen des Stundenplan-Fremdschlüssel zum Stundenplaneintrags
-	   * @param int stundenplanId des jeweiligen Stundenplaneintrags
-	   * @return void
+	   * @param stundenplanId des jeweiligen Stundenplaneintrags
 	   */
 	public void setStundenplanId(int stundenplanId) {
 		this.stundenplanId = stundenplanId;
@@ -125,8 +120,7 @@ public class Stundenplaneintrag extends BusinessObjekt {
 
 	/**
 	   * Setzen der Abkürzung des Stundenplaneintrags
-	   * @param String abkuerzung des jeweiligen Stundenplaneintrags
-	   * @return void
+	   * @param abkuerzung des jeweiligen Stundenplaneintrags
 	   */
 	public void setAbkuerzung(String abkuerzung) {
 		this.abkuerzung = abkuerzung;

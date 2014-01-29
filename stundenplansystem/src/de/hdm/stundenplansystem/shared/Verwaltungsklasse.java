@@ -26,7 +26,7 @@ public interface Verwaltungsklasse extends RemoteService {
 	/**
 	 * Initialisierung des Objekts. Diese Methode ist vor dem Hintergrund von
 	 * GWT RPC zusätzlich zum No Argument Constructor der implementierenden
-	 * Klasse {@link VerwaltungsklasseImpl} notwendig. Bitte diese Methode
+	 * Klasse { @link VerwaltungsklasseImpl} notwendig. Bitte diese Methode
 	 * direkt nach der Instantiierung aufrufen.
 	 * 
 	 * @throws IllegalArgumentException

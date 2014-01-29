@@ -38,8 +38,7 @@ public class Stundenplan extends BusinessObjekt {
 
 	/**
 	   * Setzen des Studienhalbjahres
-	   * @param String studienhalbjahr des jeweiligen Stundenplans
-	   * @return void
+	   * @param studienhalbjahr des jeweiligen Stundenplans
 	   */
 	public void setStudienhalbjahr(String studienhalbjahr) {
 		this.studienhalbjahr = studienhalbjahr;
@@ -55,8 +54,7 @@ public class Stundenplan extends BusinessObjekt {
 
 	/**
 	   * Setzen des Fremdschlüssel zum Semesterverband
-	   * @param int semesterverbandId des jeweiligen Stundenplans
-	   * @return void
+	   * @param semesterverbandId des jeweiligen Stundenplans
 	   */
 	public void setSemesterverbandId(int semesterverbandId) {
 		this.semesterverbandId = semesterverbandId;
